@@ -1,0 +1,22 @@
+Standards
+---------
+Ease of use is more important than mnemonics
+
+Use 'double tap'-style commands
+
+c - create
+d - delete
+n - next
+p - previous
+x - delete
+
+<c-f> - up
+<c-p> - down
+
+Organise object keys alphabetically
+
+! # $ % & () * , . / : ; < = > ? @ [ \ ] ^ ` { } ~
+a b c d e f g h i j k l m n o p q r s t u v w x y z
+
+- neo-tree: preview scroll mappings
+- Autocommand to strip trailing whitespace (%s/\s\+$//e)
