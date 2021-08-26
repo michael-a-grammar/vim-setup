@@ -1,7 +1,14 @@
 function Main {
-    $path = Get-Item -Path .\.vimrc | Select-Object -Expand FullName
+    $target = Get-Item -Path ./.vimrc -Force | Select-Object -Expand FullName
 
-    New-Item -ItemType SymbolicLink -Path "$env:LOCALAPPDATA\nvim\init.vim" -Target $path
+    $path =
+        if ($IsWindows) {
+            "$env:LOCALAPPDATA/nvim/init.vim"
+        } elseif ($IsMacOS) {
+            "~/.config/nvim/init.vim"
+        }
+
+    New-Item -ItemType SymbolicLink -Target $target -Path $path
 }
 
 . Main
