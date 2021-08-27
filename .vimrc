@@ -6,18 +6,18 @@ let g:is_unix   = has('unix')
 
 if !g:is_nvim
   set nocompatible
+  set background=dark
+
+  if !exists("g:syntax_on")
+    syntax enable
+  endif
+
+  filetype on
+  filetype plugin on
+  filetype indent on
 endif
 
-set background=dark
 set guioptions+=M
-
-if !exists("g:syntax_on")
-endif
-syntax enable
-
-filetype on
-filetype plugin on
-filetype indent on
 
 set clipboard+=unnamed
 
@@ -136,7 +136,7 @@ inoremap jj <esc>
 nnoremap <leader>/t :nohlsearch<cr>
 
 nnoremap <leader>ze :edit $MYVIMRC<cr>
-nnoremap <leader>zr :source $MYVIMRC<cr>
+nnoremap <leader>zz :source $MYVIMRC<cr>
 
 noremap 0 g0
 noremap ^ g^
@@ -153,10 +153,14 @@ nnoremap <c-j> <c-w>j
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 
-nnoremap <up>    <c-w>k
-nnoremap <down>  <c-w>j
-nnoremap <left>  <c-w>h
-nnoremap <right> <c-w>l
+let g:use_arrow_keys_to_navigate_windows = 0
+
+if g:use_arrow_keys_to_navigate_windows
+  nnoremap <up>    <c-w>k
+  nnoremap <down>  <c-w>j
+  nnoremap <left>  <c-w>h
+  nnoremap <right> <c-w>l
+endif
 
 function! GetCurrentWord() abort
   return expand("<cword>")
@@ -231,3 +235,4 @@ let g:airline_skip_empty_sections = 1
 if filereadable(expand('~/.vimrc.local'))
   source ~/.vimrc.local
 endif
+
