@@ -1,9 +1,11 @@
 let g:is_nvim   = has('nvim')
+let g:is_ide    = has('ide')
 let g:is_win32  = has('win32')
 let g:is_mac    = has('mac')
 let g:is_macvim = has('gui_macvim')
 let g:is_unix   = has('unix')
 
+let g:has_gui  = has('gui_running') || empty($TERM)
 let g:has_pwsh = executable('pwsh')
 
 if !g:is_nvim
@@ -94,6 +96,8 @@ set undoreload=1000
 set undolevels=1000
 set undofile
 
+set shadafile=~/.vim/main.shada
+
 set conceallevel=1
 set concealcursor=nvic
 
@@ -102,6 +106,8 @@ set t_vb=
 
 runtime macros/matchit.vim
 
+set guifont=Hasklug\ Nerd\ Font\ Mono:h18
+
 if has('gui_running')
   if g:is_macvim
     set macthinstrokes
@@ -109,8 +115,6 @@ if has('gui_running')
     set antialias
     set fullscreen
   endif
-
-  set guifont=Hasklug\ Nerd\ Font\ Mono:h24
 
   set guioptions+=c
 
@@ -127,6 +131,7 @@ else
   set termguicolors
 endif
 
+let g:netrw_home    ="~/.vim/"
 let g:netrw_keepdir = 0
 
 let g:mapleader = "<space>"
@@ -136,7 +141,7 @@ map <space> <leader>
 inoremap jj <esc>
 
 nnoremap <leader>/t :nohlsearch<cr>
-
+nnoremap <leader>/i :noincsearch<cr>
 
 nnoremap <leader>vv <c-v>
 
@@ -245,11 +250,19 @@ Plug 'sickill/vim-pasta'
 
 Plug 'Wolfy87/vim-syntax-expand'
 
+Plug 'ionide/Ionide-vim', {
+      \ 'do':  'make fsautocomplete',
+      \}
+
 call plug#end()
 
-colorscheme dracula
-
-let g:airline_theme = 'dracula'
+if g:has_gui
+  colorscheme jellybeans
+  let g:airline_theme = 'jellybeans'
+else
+  colorscheme dracula
+  let g:airline_theme = 'dracula'
+endif
 
 let g:airline#extensions#tabline#enabled = 0
 
