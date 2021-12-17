@@ -1,3 +1,5 @@
+let g:vim_directory = '~/.vim'
+
 let g:is_nvim   = has('nvim')
 let g:is_ide    = has('ide')
 let g:is_win32  = has('win32')
@@ -7,6 +9,9 @@ let g:is_unix   = has('unix')
 
 let g:has_gui  = has('gui_running') || empty($TERM)
 let g:has_pwsh = executable('pwsh')
+
+let g:use_arrow_keys_to_navigate_windows = 0
+let g:auto_add_cwd_to_ctrlp_bookmarkdir  = exists(':CtrlP') && 1
 
 if !g:is_nvim
   set nocompatible
@@ -56,7 +61,7 @@ set smartcase
 
 set autochdir
 set path+=**
-set wildignore+=*/.meteor/*,*/node_modules/*
+set wildignore+=*/.git/*,*/.idea/*,*/.meteor/*,*/node_modules/*
 
 set autoindent
 set breakindent
@@ -106,15 +111,15 @@ set t_vb=
 
 runtime macros/matchit.vim
 
-set guifont=Hasklug\ Nerd\ Font\ Mono:h18
-
-if has('gui_running')
+if g:has_gui
   if g:is_macvim
     set macthinstrokes
     set macligatures
     set antialias
     set fullscreen
   endif
+
+  set guifont=Hasklug\ Nerd\ Font\ Mono:h18
 
   set guioptions+=c
 
@@ -127,11 +132,14 @@ if has('gui_running')
   set guioptions-=T
 
   set guicursor+=a:blinkon0
+
+  let g:neovide_fullscreen         = v:true
+  let g:neovide_remember_window_size = v:true
 else
   set termguicolors
 endif
 
-let g:netrw_home    ="~/.vim/"
+let g:netrw_home    = g:vim_directory
 let g:netrw_keepdir = 0
 
 let g:mapleader = "<space>"
@@ -143,6 +151,25 @@ inoremap jj <esc>
 nnoremap <leader>/t :nohlsearch<cr>
 nnoremap <leader>/i :noincsearch<cr>
 
+noremap 0 g0
+noremap ^ g^
+noremap $ g$
+
+nnoremap <leader>ee :CtrlPQuickfix<cr>
+nnoremap <leader>fl :CtrlPLine<cr>
+nnoremap <leader>fr :CtrlPMRU<cr>
+nnoremap <leader>gc :CtrlPChange<cr>
+
+noremap H g^
+noremap L g$
+
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+nnoremap <leader>tm :CtrlPBookmarkDir<cr>
+nnoremap <leader>tt :CtrlPBuffer<cr>
+nnoremap <leader>tM :CtrlPBookmarkDirAdd
+
 nnoremap <leader>vv <c-v>
 
 nnoremap <leader>wi <c-w>k
@@ -153,22 +180,10 @@ nnoremap <leader>wo <c-w>l
 nnoremap <leader>ze :edit $MYVIMRC<cr>
 nnoremap <leader>zz :source $MYVIMRC<cr>
 
-noremap 0 g0
-noremap ^ g^
-noremap $ g$
-
-noremap H g^
-noremap L g$
-
-nnoremap n nzzzv
-nnoremap N Nzzzv
-
 nnoremap <c-k> <c-w>k
 nnoremap <c-j> <c-w>j
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
-
-let g:use_arrow_keys_to_navigate_windows = 0
 
 if g:use_arrow_keys_to_navigate_windows
   nnoremap <up>    <c-w>k
@@ -183,7 +198,7 @@ endfunction
 
 function! LookupInHelp() abort
   let current_word = GetCurrentWord()
-  execute 'help ' . current_word
+  execute 'vertical botright help ' . current_word
 endfunction
 
 function! SetPowerShellAsShell() abort
@@ -194,16 +209,30 @@ function! SetPowerShellAsShell() abort
   endif
 endfunction
 
+function! AutoAddCwdToCtrlPBookmarkDir() abort
+  if g:auto_add_cwd_to_ctrlp_bookmarkdir
+    if &modifiable
+      execute 'silent CtrlPBookmarkDirAdd! %:p:h'
+    endif
+  endif
+endfunction
+
 augroup vim_filetype_functions
   autocmd!
   autocmd FileType vim
-    \ nnoremap <buffer> <leader>hh :call LookupInHelp()<cr>
+        \ nnoremap <buffer> <leader>hh :call LookupInHelp()<cr>
 augroup end
 
 augroup powershell_filetype_functions
   autocmd!
   autocmd FileType ps1
-    \ call SetPowerShellAsShell()
+        \ call SetPowerShellAsShell()
+augroup end
+
+augroup all_filetype_functions
+  autocmd!
+  autocmd FileType *
+        \ call AutoAddCwdToCtrlPBookmarkDir()
 augroup end
 
 call plug#begin('~/.vim/plugged')
@@ -228,6 +257,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
 Plug 'easymotion/vim-easymotion'
+
+Plug 'machakann/vim-highlightedyank'
 
 Plug 'sjl/gundo.vim'
 
@@ -264,10 +295,35 @@ else
   let g:airline_theme = 'dracula'
 endif
 
+let g:airline_left_sep  = ''
+let g:airline_right_sep = ''
+
 let g:airline#extensions#tabline#enabled = 0
 
 let g:airline_powerline_fonts     = 1
 let g:airline_skip_empty_sections = 1
+
+let g:ctrlp_map                 = '<leader>f'
+let g:ctrlp_regexp              = 0
+let g:ctrlp_match_window        = 'bottom,order:ttb,min:1,max:10,results:10'
+let g:ctrlp_root_markers        = ['.sln']
+let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_cache_dir           = '~/.vim/ctrlp'
+let g:ctrlp_show_hidden         = 1
+let g:ctrlp_open_new_file       = 'r'
+let g:ctrlp_follow_symlinks     = 1
+let g:ctrlp_line_prefix         = ' '
+
+let g:ctrlp_extensions = ['quickfix', 'dir', 'rtscript', 'undo', 'line',
+                          \ 'changes', 'mixed', 'bookmarkdir', 'autoignore']
+
+map <Enter> <Plug>(easymotion-prefix)
+
+" Default: asdghklqwertyuiopzxcvbnmfj;
+let g:EasyMotion_keys             = 'ARSTGQWFPMIOLUYNE;'
+let g:EasyMotion_smartcase        = 1
+let g:EasyMotion_use_smartsign_us = 1
+let g:EasyMotion_use_upper        = 1
 
 if filereadable(expand('~/.vimrc.local'))
   source ~/.vimrc.local
