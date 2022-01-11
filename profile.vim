@@ -1,4 +1,4 @@
-" Initialisation "{{{
+"Initialisation "{{{
 let g:vim_directory = '~/.vim'
 
 let g:is_nvim   = has('nvim')
@@ -61,7 +61,7 @@ set hidden
 set lazyredraw
 "}}}
 
-" Settings -  Splits "{{{
+" Settings - Splits "{{{
 set splitbelow
 "}}}
 
@@ -233,6 +233,10 @@ nnoremap <leader>fr :CtrlPMRU<cr>
 nnoremap <leader>gc :CtrlPChange<cr>
 "}}}
 
+" Bindings - Leader key + l "{{{
+nnoremap <leader>l :NERDTreeFind<cr>
+"}}}
+
 " Bindings - Leader key + t "{{{
 nnoremap <leader>tm :CtrlPBookmarkDir<cr>
 nnoremap <leader>tt :CtrlPBuffer<cr>
@@ -272,13 +276,60 @@ endif
 "}}}
 
 " Functions "{{{
+function! OptionExists(option) abort
+  return exists('&' . a:option)
+endfunction
+
+function! ToggleOption(option) abort
+  if OptionExists(a:option)
+    execute 'set ' . a:option . '!'
+  endif
+endfunction
+
+function! GetBufferContents() abort
+  return getline(1, '$')
+endfunction
+
+function! SearchBufferContents(expr) abort
+  let l:buffer_contents = GetBufferContents()
+
+  if empty(l:buffer_contents)
+    return []
+  endif
+
+  function! MapBufferLine(idx, val) closure
+    let l:matchstr = matchstr(a:val, a:expr)
+
+    if empty(l:matchstr)
+      return {}
+    endif
+
+    let result = {
+          \ 'line_number': a:idx + 1,
+          \ 'text': l:matchstr
+          \ }
+
+    return result
+  endfunction
+
+  let l:mapped_buffer_contents =
+        \ map(copy(l:buffer_contents), function('MapBufferLine'))
+
+  let l:filtered_buffer_contents =
+        \ filter(
+          \ copy(l:mapped_buffer_contents),
+          \ { _, val -> !empty(val) })
+
+  return l:filtered_buffer_contents
+endfunction
+
 function! GetCurrentWord() abort
   return expand("<cword>")
 endfunction
 
-function! LookupInHelp() abort
-  let current_word = GetCurrentWord()
-  execute 'vertical botright help ' . current_word
+function! LookupCurrentWordInHelp() abort
+  let l:current_word = GetCurrentWord()
+  execute 'vertical botright help ' . l:current_word
 endfunction
 
 function! SetPowerShellAsShell() abort
@@ -290,19 +341,24 @@ function! SetPowerShellAsShell() abort
 endfunction
 
 function! AutoAddCwdToCtrlPBookmarkDir() abort
-  if g:auto_add_cwd_to_ctrlp_bookmarkdir
-    if &modifiable
-      execute 'silent CtrlPBookmarkDirAdd! %:p:h'
-    endif
+  if g:auto_add_cwd_to_ctrlp_bookmarkdir && &modifiable
+    execute 'CtrlPBookmarkDirAdd! %:p:h'
   endif
 endfunction
+"}}}
+
+" Commands "{{{
+command! ToggleRelativeLineNumbers :call ToggleOption('relativenumber')
 "}}}
 
 " Autocommand groups "{{{
 augroup vim_filetype_functions
   autocmd!
   autocmd FileType vim
-        \ nnoremap <buffer> <leader>hh :call LookupInHelp()<cr>
+        \ nnoremap <buffer> <leader>hh :call LookupCurrentWordInHelp()<cr>
+
+  autocmd FileType vim
+        \ command! LookupCurrentWordInHelp :call LookupCurrentWordInHelp()
 augroup end
 
 augroup powershell_filetype_functions
@@ -331,6 +387,12 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+Plug 'dense-analysis/ale'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'sirver/ultisnips'
 
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -365,9 +427,12 @@ Plug 'sickill/vim-pasta'
 
 Plug 'Wolfy87/vim-syntax-expand'
 
+Plug 'OmniSharp/omnisharp-vim'
+Plug 'nickspoons/vim-sharpenup'
+
 Plug 'ionide/Ionide-vim', {
       \ 'do':  'make fsautocomplete',
-      \}
+      \ }
 
 " Always load last
 Plug 'ryanoasis/vim-devicons'
@@ -416,6 +481,24 @@ let g:ctrlp_line_prefix         = ' '
 let g:ctrlp_extensions = ['quickfix', 'dir', 'rtscript', 'undo', 'line',
                           \ 'changes', 'mixed', 'bookmarkdir', 'autoignore']
 "}}}
+
+" Plugins - FZF "{{{
+function! GetFolds() abort
+  return SearchBufferContents('^"\s*\zs.*\ze "\%u007B\{3}')
+endfunction
+
+let g:folds = GetFolds()
+
+function! FZFFoldSink(val)
+endfunction
+
+let g:fzf_folds = {
+      \ 'source': map(g:folds, { _, val -> val.text }),
+      \ 'sink': function('FZFFoldSink')
+      \ }
+"}}}
+
+nnoremap <leader>aa :call fzf#run(g:fzf_folds)<cr>
 
 " Plugins - EasyMotion "{{{
 map <Enter> <Plug>(easymotion-prefix)
