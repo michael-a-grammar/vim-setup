@@ -196,7 +196,7 @@ let g:netrw_keepdir = 0
 
 " Bindings - Leader key "{{{
 let g:mapleader = "<space>"
-map <space> <leader>
+" map <space> <leader>
 "}}}
 
 " Bindings - Insert mode escape "{{{
@@ -348,6 +348,7 @@ endfunction
 "}}}
 
 " Commands "{{{
+command! ToggleWhiteSpaceVisibility :call ToggleOption('list')
 command! ToggleRelativeLineNumbers :call ToggleOption('relativenumber')
 "}}}
 
@@ -442,9 +443,9 @@ call plug#end()
 
 " Colours "{{{
 if g:has_gui
-  colorscheme jellybeans
+  colorscheme kolor
 else
-  let g:airline_theme = 'dracula'
+  colorscheme dracula
 endif
 "}}}
 
@@ -460,7 +461,7 @@ let g:airline_skip_empty_sections = 1
 
 " Plugins - Airline Themes "{{{
 if g:has_gui
-  let g:airline_theme = 'jellybeans'
+  let g:airline_theme = 'kolor'
 else
   let g:airline_theme = 'dracula'
 endif
@@ -487,18 +488,33 @@ function! GetFolds() abort
   return SearchBufferContents('^"\s*\zs.*\ze "\%u007B\{3}')
 endfunction
 
-let g:folds = GetFolds()
+function! FZFFold() abort
+  let g:folds = GetFolds()
 
-function! FZFFoldSink(val)
+  let l:fzf_folds = {
+        \ 'source': map(copy(g:folds), { _, val -> val.text }),
+        \ 'sink': function('FZFFoldSink')
+        \ }
+
+  let l:fzf_folds_wrapped = fzf#wrap('Folds', l:fzf_folds, 0)
+
+  call fzf#run(l:fzf_folds_wrapped)
 endfunction
 
-let g:fzf_folds = {
-      \ 'source': map(g:folds, { _, val -> val.text }),
-      \ 'sink': function('FZFFoldSink')
-      \ }
-"}}}
+function! FZFFoldSink(val) abort
+  let l:fold =
+        \ filter(
+          \ copy(g:folds),
+          \ { _, val -> val.text ==# a:val })[0]
 
-nnoremap <leader>aa :call fzf#run(g:fzf_folds)<cr>
+  if !empty(l:fold)
+    let l:line_number = l:fold.line_number
+    execute l:line_number
+    execute 'foldopen'
+    call feedkeys('zz')
+  endif
+endfunction
+"}}}
 
 " Plugins - EasyMotion "{{{
 map <Enter> <Plug>(easymotion-prefix)
