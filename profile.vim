@@ -11,6 +11,19 @@ let g:is_unix   = has('unix')
 let g:has_gui  = has('gui_running') || empty($TERM)
 let g:has_pwsh = executable('pwsh')
 
+let g:gui_theme      = 'kolor'
+let g:terminal_theme = 'dracula'
+
+function! GetHostTheme() abort
+  if g:has_gui
+    return g:gui_theme
+  else
+    return g:terminal_theme
+  endif
+endfunction
+
+let g:host_theme = GetHostTheme()
+
 let g:use_arrow_keys_to_navigate_windows = 0
 let g:auto_add_cwd_to_ctrlp_bookmarkdir  = exists(':CtrlP') && 1
 
@@ -196,12 +209,14 @@ let g:netrw_keepdir = 0
 
 " Bindings - Leader key "{{{
 let g:mapleader = "<space>"
-" map <space> <leader>
+map <space> <leader>
 "}}}
 
 " Bindings - Insert mode escape "{{{
 inoremap jj <esc>
 "}}}
+
+nnoremap <leader><leader> <esc>
 
 " Bindings - Search toggles "{{{
 nnoremap <leader>/t :nohlsearch<cr>
@@ -284,6 +299,10 @@ function! ToggleOption(option) abort
   if OptionExists(a:option)
     execute 'set ' . a:option . '!'
   endif
+endfunction
+
+function! SetColorScheme(colorScheme) abort
+  execute 'colorscheme ' . a:colorScheme
 endfunction
 
 function! GetBufferContents() abort
@@ -376,7 +395,7 @@ augroup end
 "}}}
 
 " Plugins - Plug "{{{
-call plug#begin('~/.vim/plugged')
+call plug#begin(g:vim_directory . '/plugged')
 
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'nanotech/jellybeans.vim'
@@ -442,11 +461,7 @@ call plug#end()
 "}}}
 
 " Colours "{{{
-if g:has_gui
-  colorscheme kolor
-else
-  colorscheme dracula
-endif
+call SetColorScheme(g:host_theme)
 "}}}
 
 " Plugins - Airline "{{{
@@ -460,11 +475,7 @@ let g:airline_skip_empty_sections = 1
 "}}}
 
 " Plugins - Airline Themes "{{{
-if g:has_gui
-  let g:airline_theme = 'kolor'
-else
-  let g:airline_theme = 'dracula'
-endif
+let g:airline_theme = g:host_theme
 "}}}
 
 " Plugins - CtrlP "{{{
@@ -488,7 +499,7 @@ function! GetFolds() abort
   return SearchBufferContents('^"\s*\zs.*\ze "\%u007B\{3}')
 endfunction
 
-function! FZFFold() abort
+function! FZFFolds() abort
   let g:folds = GetFolds()
 
   let l:fzf_folds = {
@@ -514,6 +525,9 @@ function! FZFFoldSink(val) abort
     call feedkeys('zz')
   endif
 endfunction
+
+" g/\<function\>\zs.*/p
+
 "}}}
 
 " Plugins - EasyMotion "{{{
