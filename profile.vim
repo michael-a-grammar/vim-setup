@@ -181,7 +181,7 @@ if g:has_gui
     set fullscreen
   endif
 
-  set guifont=Hasklug\ Nerd\ Font\ Mono:h18
+  set guifont=Hasklug\ Nerd\ Font\ Mono:h16
 
   set guioptions+=c
 
@@ -215,8 +215,6 @@ map <space> <leader>
 " Bindings - Insert mode escape "{{{
 inoremap jj <esc>
 "}}}
-
-nnoremap <leader><leader> <esc>
 
 " Bindings - Search toggles "{{{
 nnoremap <leader>/t :nohlsearch<cr>
@@ -291,6 +289,42 @@ endif
 "}}}
 
 " Functions "{{{
+let s:string_type  = type('')
+let s:list_type    = type([])
+let s:map_type     = type({})
+let s:funcref_type = type(function('tr'))
+let s:lambda_type  = type({ -> 0 })
+
+function! IsString(val) abort
+  return CompareTypes(a:val, s:string_type)
+endfunction
+
+function! IsList(val) abort
+  return CompareTypes(a:val, s:list_type)
+endfunction
+
+function! IsMap(val) abort
+  return CompareTypes(a:val, s:map_type)
+endfunction
+
+function! IsFuncref(val) abort
+  return CompareTypes(a:val, s:funcref_type)
+endfunction
+
+function! IsLambda(val) abort
+  return CompareTypes(a:val, s:lambda_type)
+endfunction
+
+function! CompareTypes(val, type_to_compare) abort
+  return type(a:val) ==# a:type_to_compare
+endfunction
+
+function! Invoke(val) abort
+  if IsFuncref(a:val) || IsLambda(a:val)
+    call a:val()
+  endif
+endfunction
+
 function! OptionExists(option) abort
   return exists('&' . a:option)
 endfunction
@@ -316,7 +350,7 @@ function! SearchBufferContents(expr) abort
     return []
   endif
 
-  function! MapBufferLine(idx, val) closure
+  function! MapBufferLine(idx, val) abort closure
     let l:matchstr = matchstr(a:val, a:expr)
 
     if empty(l:matchstr)
@@ -496,38 +530,51 @@ let g:ctrlp_extensions = ['quickfix', 'dir', 'rtscript', 'undo', 'line',
 
 " Plugins - FZF "{{{
 function! GetFolds() abort
-  return SearchBufferContents('^"\s*\zs.*\ze "\%u007B\{3}')
+  return SearchBufferContents('\m\C^"\s*\zs.*\ze\s*"\%u007B\{3}')
+endfunction
+
+function! GetFunctions() abort
+  return SearchBufferContents('\m\C^\<function\>!*\zs.*\ze(.*')
 endfunction
 
 function! FZFFolds() abort
-  let g:folds = GetFolds()
+  call CreateFZFContentJump(function('GetFolds'), 'Folds', { -> execute('foldopen') })
+endfunction
 
-  let l:fzf_folds = {
-        \ 'source': map(copy(g:folds), { _, val -> val.text }),
-        \ 'sink': function('FZFFoldSink')
+function! FZFFunctions() abort
+  call CreateFZFContentJump(function('GetFunctions'), 'Functions')
+endfunction
+
+function! CreateFZFContentJump(get_content, name, after_jump = 0) abort
+  let l:content = a:get_content()
+
+  let l:fzf_config = {
+        \ 'source': map(copy(l:content), { _, val -> val.text }),
+        \ 'sink': CreateFZFContentJumpSink(l:content, a:after_jump)
         \ }
 
-  let l:fzf_folds_wrapped = fzf#wrap('Folds', l:fzf_folds, 0)
+  let l:fzf_config_wrapped = fzf#wrap(a:name, l:fzf_config, 0)
 
-  call fzf#run(l:fzf_folds_wrapped)
+  call fzf#run(l:fzf_config_wrapped)
 endfunction
 
-function! FZFFoldSink(val) abort
-  let l:fold =
-        \ filter(
-          \ copy(g:folds),
-          \ { _, val -> val.text ==# a:val })[0]
+function! CreateFZFContentJumpSink(dict, after_jump) abort
+  function! FZFContentJumpSink(val) abort closure
+    let l:content =
+          \ filter(
+            \ copy(a:dict),
+            \ { _, val -> val.text ==# a:val })[0]
 
-  if !empty(l:fold)
-    let l:line_number = l:fold.line_number
-    execute l:line_number
-    execute 'foldopen'
-    call feedkeys('zz')
-  endif
+    if !empty(l:content)
+      let l:line_number = l:content.line_number
+      execute l:line_number
+      call Invoke(a:after_jump)
+      call feedkeys('zz')
+    endif
+  endfunction
+
+  return function('FZFContentJumpSink')
 endfunction
-
-" g/\<function\>\zs.*/p
-
 "}}}
 
 " Plugins - EasyMotion "{{{
