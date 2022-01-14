@@ -345,18 +345,26 @@ function! SetColorScheme(colorScheme) abort
   execute 'colorscheme ' . a:colorScheme
 endfunction
 
-function! GetBufferContents() abort
+function GetCurrentLine() abort
+  return getline('.')
+endfunction
+
+function GetCurrentColumn() abort
+  return col('.')
+endfunction
+
+function! GetAllLines() abort
   return getline(1, '$')
 endfunction
 
-function! SearchBufferContents(expr) abort
-  let l:buffer_contents = GetBufferContents()
+function! SearchAllLines(expr) abort
+  let l:all_lines = GetAllLines()
 
-  if empty(l:buffer_contents)
+  if empty(l:all_lines)
     return []
   endif
 
-  function! MapBufferLine(idx, val) abort closure
+  function! MapLine(idx, val) abort closure
     let l:matchstr = matchstr(a:val, a:expr)
 
     if empty(l:matchstr)
@@ -371,19 +379,19 @@ function! SearchBufferContents(expr) abort
     return result
   endfunction
 
-  let l:mapped_buffer_contents =
-        \ map(copy(l:buffer_contents), function('MapBufferLine'))
+  let l:mapped_lines =
+        \ map(copy(l:all_lines), function('MapLine'))
 
-  let l:filtered_buffer_contents =
+  let l:filtered_lines =
         \ filter(
-          \ copy(l:mapped_buffer_contents),
+          \ copy(l:mapped_lines),
           \ { _, val -> !empty(val) })
 
-  return l:filtered_buffer_contents
+  return l:filtered_lines
 endfunction
 
 function! GetCurrentWord() abort
-  return expand("<cword>")
+  return expand('<cword>')
 endfunction
 
 function! LookupCurrentWordInHelp() abort
@@ -539,35 +547,35 @@ let g:ctrlp_extensions = ['quickfix', 'dir', 'rtscript', 'undo', 'line',
 
 " Plugins - FZF "{{{
 function! GetFolds() abort
-  return SearchBufferContents('\m\C^"\s*\zs.*\ze\s*"\%u007B\{3}')
+  return SearchAllLines('\m\C^"\s*\zs.*\ze\s*"\%u007B\{3}')
 endfunction
 
 function! GetFunctions() abort
-  return SearchBufferContents('\m\C^\<function\>!*\zs.*\ze(.*')
+  return SearchAllLines('\m\C^\s*\<function\>!*\zs.*\ze(.*')
 endfunction
 
 function! GetOptions() abort
-  return SearchBufferContents('\m\C^\s*\<set\>\s*\zs\w*\ze[=\-+]*')
+  return SearchAllLines('\m\C^\s*\<set\>\s*\zs\w*\ze[=\-+]*')
 endfunction
 
 function! FZFFolds() abort
-  call CreateFZFContentJump(function('GetFolds'), 'Folds', { -> execute('foldopen') })
+  call CreateFZFLineJump(function('GetFolds'), 'Folds', { -> execute('foldopen') })
 endfunction
 
 function! FZFFunctions() abort
-  call CreateFZFContentJump(function('GetFunctions'), 'Functions')
+  call CreateFZFLineJump(function('GetFunctions'), 'Functions')
 endfunction
 
 function! FZFOptions() abort
-  call CreateFZFContentJump(function('GetOptions'), 'Options')
+  call CreateFZFLineJump(function('GetOptions'), 'Options')
 endfunction
 
-function! CreateFZFContentJump(get_content, name, after_jump = 0) abort
-  let l:content = a:get_content()
+function! CreateFZFLineJump(get_lines, name, after_jump = 0) abort
+  let l:lines = a:get_lines()
 
   let l:fzf_config = {
-        \ 'source': map(copy(l:content), { _, val -> val.text }),
-        \ 'sink': CreateFZFContentJumpSink(l:content, a:after_jump)
+        \ 'source': map(copy(l:lines), { _, val -> val.text }),
+        \ 'sink': CreateFZFLineJumpSink(l:lines, a:after_jump)
         \ }
 
   let l:fzf_config_wrapped = fzf#wrap(a:name, l:fzf_config, 0)
@@ -575,22 +583,22 @@ function! CreateFZFContentJump(get_content, name, after_jump = 0) abort
   call fzf#run(l:fzf_config_wrapped)
 endfunction
 
-function! CreateFZFContentJumpSink(dict, after_jump) abort
-  function! FZFContentJumpSink(val) abort closure
-    let l:content =
+function! CreateFZFLineJumpSink(dict, after_jump) abort
+  function! FZFLineJumpSink(val) abort closure
+    let l:line =
           \ filter(
             \ copy(a:dict),
             \ { _, val -> val.text ==# a:val })[0]
 
-    if !empty(l:content)
-      let l:line_number = l:content.line_number
+    if !empty(l:line)
+      let l:line_number = l:line.line_number
       execute l:line_number
       call Invoke(a:after_jump)
       call feedkeys('zz')
     endif
   endfunction
 
-  return function('FZFContentJumpSink')
+  return function('FZFLineJumpSink')
 endfunction
 "}}}
 
@@ -603,14 +611,15 @@ let g:asyncomplete_auto_popup = 1
 
 function! s:check_back_space() abort
     let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
+    return !col || getline('.')[col - 1]  =~# "\s"
 endfunction
 
-inoremap <silent><expr> <TAB>
-  \ pumvisible() ? "\<C-n>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
-  \ asyncomplete#force_refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <silent><expr> <tab>
+      \ pumvisible() ? "\<c-n>" :
+      \ <sid>check_back_space() ? "\<tab>" :
+      \ asyncomplete#force_refresh()
+
+inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<c-h>"
 
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
