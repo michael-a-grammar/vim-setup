@@ -181,6 +181,11 @@ if g:has_gui
     set fullscreen
   endif
 
+  if g:is_nvim
+    let g:neovide_fullscreen           = v:true
+    let g:neovide_remember_window_size = v:true
+  endif
+
   set guifont=Hasklug\ Nerd\ Font\ Mono:h16
 
   set guioptions+=c
@@ -194,12 +199,13 @@ if g:has_gui
   set guioptions-=T
 
   set guicursor+=a:blinkon0
-
-  let g:neovide_fullscreen           = v:true
-  let g:neovide_remember_window_size = v:true
 else
   set termguicolors
 endif
+"}}}
+
+" Settings - Neovim "{{{
+set mouse=a
 "}}}
 
 " Settings - netrw "{{{
@@ -208,8 +214,8 @@ let g:netrw_keepdir = 0
 "}}}
 
 " Bindings - Leader key "{{{
-let g:mapleader = "<space>"
-map <space> <leader>
+nnoremap <space> <nop>
+let g:mapleader = "\<space>"
 "}}}
 
 " Bindings - Insert mode escape "{{{
@@ -537,12 +543,20 @@ function! GetFunctions() abort
   return SearchBufferContents('\m\C^\<function\>!*\zs.*\ze(.*')
 endfunction
 
+function! GetOptions() abort
+  return SearchBufferContents('\m\C^\s*\<set\>\s*\zs\w*\ze[=\-+]*')
+endfunction
+
 function! FZFFolds() abort
   call CreateFZFContentJump(function('GetFolds'), 'Folds', { -> execute('foldopen') })
 endfunction
 
 function! FZFFunctions() abort
   call CreateFZFContentJump(function('GetFunctions'), 'Functions')
+endfunction
+
+function! FZFOptions() abort
+  call CreateFZFContentJump(function('GetOptions'), 'Options')
 endfunction
 
 function! CreateFZFContentJump(get_content, name, after_jump = 0) abort
