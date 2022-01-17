@@ -154,10 +154,6 @@ set undolevels=1000
 set undofile
 "}}}
 
-" Settings - viminfo "{{{
-set shadafile=~/.vim/main.shada
-"}}}
-
 " Settings - Conceal syntax "{{{
 set conceallevel=1
 set concealcursor=nvic
@@ -353,6 +349,10 @@ function GetCurrentColumn() abort
   return col('.')
 endfunction
 
+function GetPreviousColumn() abort
+  return GetCurrentColumn() - 1
+endfunction
+
 function! GetAllLines() abort
   return getline(1, '$')
 endfunction
@@ -416,7 +416,7 @@ endfunction
 
 " Commands "{{{
 command! ToggleWhiteSpaceVisibility :call ToggleOption('list')
-command! ToggleRelativeLineNumbers :call ToggleOption('relativenumber')
+command! ToggleRelativeLineNumbers  :call ToggleOption('relativenumber')
 "}}}
 
 " Autocommand groups "{{{
