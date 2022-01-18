@@ -353,6 +353,10 @@ function GetPreviousColumn() abort
   return GetCurrentColumn() - 1
 endfunction
 
+function GetPreviousCharacter() abort
+  return GetCurrentLine()[GetPreviousColumn() - 1]
+endfunction
+
 function! GetAllLines() abort
   return getline(1, '$')
 endfunction
@@ -459,7 +463,9 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 Plug 'dense-analysis/ale'
+
 Plug 'sirver/ultisnips'
+Plug 'honza/vim-snippets'
 
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'Shougo/neco-vim'
@@ -602,32 +608,44 @@ function! CreateFZFLineJumpSink(dict, after_jump) abort
 endfunction
 "}}}
 
+" Plugins - UtilSnips "{{{
+let g:UltiSnipsExpandTrigger='<c-c>'
+let g:UltiSnipsJumpForwardTrigger='<c-n>'
+let g:UltiSnipsJumpBackwardTrigger='<c-p>'
+"}}}
+
 " Plugins - asyncomplete.vim "{{{
-inoremap <expr> <tab>   pumvisible() ? "\<c-n>" : "\<tab>"
-inoremap <expr> <s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
-inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+let g:asyncomplete_auto_popup = 0
 
-let g:asyncomplete_auto_popup = 1
+function! PreviousCharacterIsEmptyOrWhitespace() abort
+  let l:previous_character = GetPreviousCharacter()
 
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# "\s"
+  let l:result = empty(l:previous_character) || l:previous_character =~# '\s'
+
+  return l:result
 endfunction
 
-inoremap <silent><expr> <tab>
-      \ pumvisible() ? "\<c-n>" :
-      \ <sid>check_back_space() ? "\<tab>" :
-      \ asyncomplete#force_refresh()
+inoremap <silent><expr><tab>
+      \ pumvisible() ?
+        \ "\<c-n>" :
+        \ PreviousCharacterIsEmptyOrWhitespace() ?
+          \ "\<tab>" :
+          \ asyncomplete#force_refresh()
 
-inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<c-h>"
+inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
+inoremap <expr><cr> pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+
+let g:asyncomplete_auto_completeopt = 1
+
+set completeopt=menuone,noinsert,noselect,preview
 
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
-    \ 'name': 'necovim',
-    \ 'allowlist': ['vim'],
-    \ 'completor': function('asyncomplete#sources#necovim#completor'),
-    \ }))
+      \ 'name': 'necovim',
+      \ 'allowlist': ['vim'],
+      \ 'completor': function('asyncomplete#sources#necovim#completor'),
+      \ }))
 "}}}
 
 " Plugins - EasyMotion "{{{
