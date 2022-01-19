@@ -8,13 +8,23 @@ let g:is_mac    = has('mac')
 let g:is_macvim = has('gui_macvim')
 let g:is_unix   = has('unix')
 
-let g:has_gui  = has('gui_running') || empty($TERM)
-let g:has_pwsh = executable('pwsh')
+let g:has_gui     = has('gui_running') || empty($TERM)
+let g:has_pwsh    = executable('pwsh')
+let g:has_python3 = has('python3')
 
-let g:gui_theme      = 'kolor'
+let g:gui_theme      = 'dracula'
 let g:terminal_theme = 'dracula'
+let g:override_theme = 'dracula'
+
+let g:use_utilsnips  = v:false
+let g:use_fzf        = v:false
+let g:use_easymotion = v:false
 
 function! GetHostTheme() abort
+  if !empty(g:override_theme)
+    return g:override_theme
+  endif
+
   if g:has_gui
     return g:gui_theme
   else
@@ -22,7 +32,8 @@ function! GetHostTheme() abort
   endif
 endfunction
 
-let g:host_theme = GetHostTheme()
+let g:host_theme            = GetHostTheme()
+let g:host_theme_is_dracula = g:host_theme ==# 'dracula'
 
 let g:use_arrow_keys_to_navigate_windows = 0
 let g:auto_add_cwd_to_ctrlp_bookmarkdir  = exists(':CtrlP') && 1
@@ -459,8 +470,12 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 Plug 'ctrlpvim/ctrlp.vim'
+
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 
 Plug 'dense-analysis/ale'
 
@@ -470,6 +485,7 @@ Plug 'honza/vim-snippets'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'Shougo/neco-vim'
 Plug 'prabirshrestha/asyncomplete-necovim.vim'
+Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
 
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -606,6 +622,23 @@ function! CreateFZFLineJumpSink(dict, after_jump) abort
 
   return function('FZFLineJumpSink')
 endfunction
+
+if g:host_theme_is_dracula
+  let g:fzf_colors = {
+        \ 'fg':      ['fg', 'DraculaFg'],
+        \ 'bg':      ['bg', 'DraculaSubtle'],
+        \ 'hl':      ['fg', 'DraculaOrange'],
+        \ 'fg+':     ['fg', 'DraculaGreen'],
+        \ 'bg+':     ['bg', 'DraculaSubtle'],
+        \ 'hl+':     ['fg', 'DraculaOrange'],
+        \ 'info':    ['fg', 'DraculaPurple'],
+        \ 'border':  ['fg', 'DraculaGreen'],
+        \ 'prompt':  ['fg', 'DraculaGreen'],
+        \ 'pointer': ['fg', 'DraculaPink'],
+        \ 'marker':  ['fg', 'Keyword'],
+        \ 'spinner': ['fg', 'Label'],
+        \ 'header':  ['fg', 'Comment'] }
+endif
 "}}}
 
 " Plugins - UtilSnips "{{{
@@ -615,37 +648,45 @@ let g:UltiSnipsJumpBackwardTrigger='<c-p>'
 "}}}
 
 " Plugins - asyncomplete.vim "{{{
-let g:asyncomplete_auto_popup = 0
+if g:has_python3
+  let g:asyncomplete_auto_popup = 0
 
-function! PreviousCharacterIsEmptyOrWhitespace() abort
-  let l:previous_character = GetPreviousCharacter()
+  function! PreviousCharacterIsEmptyOrWhitespace() abort
+    let l:previous_character = GetPreviousCharacter()
 
-  let l:result = empty(l:previous_character) || l:previous_character =~# '\s'
+    let l:result = empty(l:previous_character) || l:previous_character =~# '\s'
 
-  return l:result
-endfunction
+    return l:result
+  endfunction
 
-inoremap <silent><expr><tab>
-      \ pumvisible() ?
-        \ "\<c-n>" :
-        \ PreviousCharacterIsEmptyOrWhitespace() ?
-          \ "\<tab>" :
-          \ asyncomplete#force_refresh()
+  inoremap <silent><expr><tab>
+        \ pumvisible() ?
+          \ "\<c-n>" :
+          \ PreviousCharacterIsEmptyOrWhitespace() ?
+            \ "\<tab>" :
+            \ asyncomplete#force_refresh()
 
-inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
-inoremap <expr><cr> pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+  inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
+  inoremap <expr><cr> pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 
-let g:asyncomplete_auto_completeopt = 1
+  let g:asyncomplete_auto_completeopt = 1
 
-set completeopt=menuone,noinsert,noselect,preview
+  set completeopt=menuone,noinsert,noselect,preview
 
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+  autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
-au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
-      \ 'name': 'necovim',
-      \ 'allowlist': ['vim'],
-      \ 'completor': function('asyncomplete#sources#necovim#completor'),
-      \ }))
+  autocmd User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
+        \ 'name': 'necovim',
+        \ 'allowlist': ['vim'],
+        \ 'completor': function('asyncomplete#sources#necovim#completor'),
+        \ }))
+
+  autocmd User asynccomplete_setup call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
+        \ 'name': 'ultisnips',
+        \ 'allowlist': ['*'],
+        \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
+        \ }))
+endif
 "}}}
 
 " Plugins - EasyMotion "{{{
