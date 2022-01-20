@@ -1,6 +1,10 @@
 "Initialisation "{{{
 let g:vim_directory = '~/.vim'
 
+function! GetChildVimDirectory(child_directory) abort
+  return g:vim_directory . a:child_directory
+endif
+
 let g:is_nvim   = has('nvim')
 let g:is_ide    = has('ide')
 let g:is_win32  = has('win32')
@@ -14,11 +18,13 @@ let g:has_python3 = has('python3')
 
 let g:gui_theme      = 'dracula'
 let g:terminal_theme = 'dracula'
-let g:override_theme = 'dracula'
+let g:override_theme = 'jellybeans'
 
-let g:use_utilsnips  = v:false
-let g:use_fzf        = v:false
-let g:use_easymotion = v:false
+let g:use_ctrlp        = v:false
+let g:use_fzf          = v:false
+let g:use_utilsnips    = v:false
+let g:use_asyncomplete = g:has_python3 && v:false
+let g:use_easymotion   = v:false
 
 function! GetHostTheme() abort
   if !empty(g:override_theme)
@@ -36,20 +42,6 @@ let g:host_theme            = GetHostTheme()
 let g:host_theme_is_dracula = g:host_theme ==# 'dracula'
 
 let g:use_arrow_keys_to_navigate_windows = 0
-let g:auto_add_cwd_to_ctrlp_bookmarkdir  = exists(':CtrlP') && 1
-
-if !g:is_nvim
-  set nocompatible
-  set background=dark
-
-  if !exists("g:syntax_on")
-    syntax enable
-  endif
-
-  filetype on
-  filetype plugin on
-  filetype indent on
-endif
 "}}}
 
 " Settings - Before anything else! "{{{
@@ -114,6 +106,10 @@ set breakindent
 " Settings - Lines "{{{
 set nostartofline
 set wrap
+"}}}
+
+" Settings - Autocompletion "{{{
+set completeopt=menuone,noinsert,noselect,preview
 "}}}
 
 " Settings - Command-line "{{{
@@ -223,82 +219,6 @@ let g:netrw_keepdir = 0
 " Bindings - Leader key "{{{
 nnoremap <space> <nop>
 let g:mapleader = "\<space>"
-"}}}
-
-" Bindings - Insert mode escape "{{{
-inoremap jj <esc>
-"}}}
-
-" Bindings - Search toggles "{{{
-nnoremap <leader>/t :nohlsearch<cr>
-nnoremap <leader>/i :noincsearch<cr>
-"}}}
-
-" Bindings - Remaps "{{{
-noremap 0 g0
-noremap ^ g^
-noremap $ g$
-
-noremap H g^
-noremap L g$
-
-nnoremap n nzzzv
-nnoremap N Nzzzv
-"}}}
-
-" Bindings - Leader key + e "{{{
-nnoremap <leader>ee :CtrlPQuickfix<cr>
-"}}}
-
-" Bindings - Leader key + f "{{{
-nnoremap <leader>fl :CtrlPLine<cr>
-nnoremap <leader>fr :CtrlPMRU<cr>
-"}}}
-
-" Bindings - Leader key + g "{{{
-nnoremap <leader>gc :CtrlPChange<cr>
-"}}}
-
-" Bindings - Leader key + l "{{{
-nnoremap <leader>l :NERDTreeFind<cr>
-"}}}
-
-" Bindings - Leader key + t "{{{
-nnoremap <leader>tm :CtrlPBookmarkDir<cr>
-nnoremap <leader>tt :CtrlPBuffer<cr>
-nnoremap <leader>tM :CtrlPBookmarkDirAdd
-"}}}
-
-" Bindings - Leader key + v "{{{
-nnoremap <leader>vv <c-v>
-"}}}
-
-" Bindings - Leader key + w "{{{
-nnoremap <leader>wi <c-w>k
-nnoremap <leader>we <c-w>j
-nnoremap <leader>wn <c-w>h
-nnoremap <leader>wo <c-w>l
-"}}}
-
-" Bindings - Leader key + z "{{{
-nnoremap <leader>ze :edit $MYVIMRC<cr>
-nnoremap <leader>zz :source $MYVIMRC<cr>
-"}}}
-
-" Bindings - Control modifier "{{{
-nnoremap <c-k> <c-w>k
-nnoremap <c-j> <c-w>j
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
-"}}}
-
-" Bindings - Arrow keys "{{{
-if g:use_arrow_keys_to_navigate_windows
-  nnoremap <up>    <c-w>k
-  nnoremap <down>  <c-w>j
-  nnoremap <left>  <c-w>h
-  nnoremap <right> <c-w>l
-endif
 "}}}
 
 " Functions "{{{
@@ -421,12 +341,6 @@ function! SetPowerShellAsShell() abort
     set shellxquote="- "
   endif
 endfunction
-
-function! AutoAddCwdToCtrlPBookmarkDir() abort
-  if g:auto_add_cwd_to_ctrlp_bookmarkdir && &modifiable
-    execute 'CtrlPBookmarkDirAdd! %:p:h'
-  endif
-endfunction
 "}}}
 
 " Commands "{{{
@@ -450,11 +364,6 @@ augroup powershell_filetype_functions
         \ call SetPowerShellAsShell()
 augroup end
 
-augroup all_filetype_functions
-  autocmd!
-  autocmd FileType *
-        \ call AutoAddCwdToCtrlPBookmarkDir()
-augroup end
 "}}}
 
 " Plugins - Plug "{{{
@@ -552,104 +461,126 @@ let g:airline_theme = g:host_theme
 "}}}
 
 " Plugins - CtrlP "{{{
-let g:ctrlp_map                 = '<leader>f'
-let g:ctrlp_regexp              = 0
-let g:ctrlp_match_window        = 'bottom,order:ttb,min:1,max:10,results:10'
-let g:ctrlp_root_markers        = ['.sln']
-let g:ctrlp_clear_cache_on_exit = 0
-let g:ctrlp_cache_dir           = '~/.vim/ctrlp'
-let g:ctrlp_show_hidden         = 1
-let g:ctrlp_open_new_file       = 'r'
-let g:ctrlp_follow_symlinks     = 1
-let g:ctrlp_line_prefix         = ' '
+if g:use_ctrlp
+  let g:auto_add_cwd_to_ctrlp_bookmarkdir = 1
 
-let g:ctrlp_extensions = ['quickfix', 'dir', 'rtscript', 'undo', 'line',
-                          \ 'changes', 'mixed', 'bookmarkdir', 'autoignore']
-"}}}
+  let g:ctrlp_map                 = '<leader>f'
+  let g:ctrlp_regexp              = 0
+  let g:ctrlp_match_window        = 'bottom,order:ttb,min:1,max:10,results:10'
+  let g:ctrlp_root_markers        = ['.sln']
+  let g:ctrlp_clear_cache_on_exit = 0
+  let g:ctrlp_cache_dir           = '~/.vim/ctrlp'
+  let g:ctrlp_show_hidden         = 1
+  let g:ctrlp_open_new_file       = 'r'
+  let g:ctrlp_follow_symlinks     = 1
+  let g:ctrlp_line_prefix         = ' '
 
-" Plugins - FZF "{{{
-function! GetFolds() abort
-  return SearchAllLines('\m\C^"\s*\zs.*\ze\s*"\%u007B\{3}')
-endfunction
+  let g:ctrlp_extensions =
+        \ ['quickfix', 'dir', 'rtscript', 'undo', 'line',
+        \ 'changes', 'mixed', 'bookmarkdir', 'autoignore']
 
-function! GetFunctions() abort
-  return SearchAllLines('\m\C^\s*\<function\>!*\zs.*\ze(.*')
-endfunction
-
-function! GetOptions() abort
-  return SearchAllLines('\m\C^\s*\<set\>\s*\zs\w*\ze[=\-+]*')
-endfunction
-
-function! FZFFolds() abort
-  call CreateFZFLineJump(function('GetFolds'), 'Folds', { -> execute('foldopen') })
-endfunction
-
-function! FZFFunctions() abort
-  call CreateFZFLineJump(function('GetFunctions'), 'Functions')
-endfunction
-
-function! FZFOptions() abort
-  call CreateFZFLineJump(function('GetOptions'), 'Options')
-endfunction
-
-function! CreateFZFLineJump(get_lines, name, after_jump = 0) abort
-  let l:lines = a:get_lines()
-
-  let l:fzf_config = {
-        \ 'source': map(copy(l:lines), { _, val -> val.text }),
-        \ 'sink': CreateFZFLineJumpSink(l:lines, a:after_jump)
-        \ }
-
-  let l:fzf_config_wrapped = fzf#wrap(a:name, l:fzf_config, 0)
-
-  call fzf#run(l:fzf_config_wrapped)
-endfunction
-
-function! CreateFZFLineJumpSink(dict, after_jump) abort
-  function! FZFLineJumpSink(val) abort closure
-    let l:line =
-          \ filter(
-            \ copy(a:dict),
-            \ { _, val -> val.text ==# a:val })[0]
-
-    if !empty(l:line)
-      let l:line_number = l:line.line_number
-      execute l:line_number
-      call Invoke(a:after_jump)
-      call feedkeys('zz')
+  function! AutoAddCwdToCtrlPBookmarkDir() abort
+    if g:auto_add_cwd_to_ctrlp_bookmarkdir && &modifiable
+      execute 'CtrlPBookmarkDirAdd! %:p:h'
     endif
   endfunction
 
-  return function('FZFLineJumpSink')
-endfunction
+  augroup all_filetype_functions
+    autocmd!
+    autocmd FileType *
+          \ call AutoAddCwdToCtrlPBookmarkDir()
+  augroup end
+endif
+"}}}
 
-if g:host_theme_is_dracula
-  let g:fzf_colors = {
-        \ 'fg':      ['fg', 'DraculaFg'],
-        \ 'bg':      ['bg', 'DraculaSubtle'],
-        \ 'hl':      ['fg', 'DraculaOrange'],
-        \ 'fg+':     ['fg', 'DraculaGreen'],
-        \ 'bg+':     ['bg', 'DraculaSubtle'],
-        \ 'hl+':     ['fg', 'DraculaOrange'],
-        \ 'info':    ['fg', 'DraculaPurple'],
-        \ 'border':  ['fg', 'DraculaGreen'],
-        \ 'prompt':  ['fg', 'DraculaGreen'],
-        \ 'pointer': ['fg', 'DraculaPink'],
-        \ 'marker':  ['fg', 'Keyword'],
-        \ 'spinner': ['fg', 'Label'],
-        \ 'header':  ['fg', 'Comment'] }
+" Plugins - FZF "{{{
+if g:use_fzf
+  if g:host_theme_is_dracula
+    let g:fzf_colors = {
+          \ 'fg':      ['fg', 'DraculaFg'],
+          \ 'bg':      ['bg', 'DraculaSubtle'],
+          \ 'hl':      ['fg', 'DraculaOrange'],
+          \ 'fg+':     ['fg', 'DraculaGreen'],
+          \ 'bg+':     ['bg', 'DraculaSubtle'],
+          \ 'hl+':     ['fg', 'DraculaOrange'],
+          \ 'info':    ['fg', 'DraculaPurple'],
+          \ 'border':  ['fg', 'DraculaGreen'],
+          \ 'prompt':  ['fg', 'DraculaGreen'],
+          \ 'pointer': ['fg', 'DraculaPink'],
+          \ 'marker':  ['fg', 'Keyword'],
+          \ 'spinner': ['fg', 'Label'],
+          \ 'header':  ['fg', 'Comment'] }
+  endif
+
+  function! GetFolds() abort
+    return SearchAllLines('\m\C^"\s*\zs.*\ze\s*"\%u007B\{3}')
+  endfunction
+
+  function! GetFunctions() abort
+    return SearchAllLines('\m\C^\s*\<function\>!*\zs.*\ze(.*')
+  endfunction
+
+  function! GetOptions() abort
+    return SearchAllLines('\m\C^\s*\<set\>\s*\zs\w*\ze[=\-+]*')
+  endfunction
+
+  function! FZFFolds() abort
+    call CreateFZFLineJump(function('GetFolds'), 'Folds', { -> execute('foldopen') })
+  endfunction
+
+  function! FZFFunctions() abort
+    call CreateFZFLineJump(function('GetFunctions'), 'Functions')
+  endfunction
+
+  function! FZFOptions() abort
+    call CreateFZFLineJump(function('GetOptions'), 'Options')
+  endfunction
+
+  function! CreateFZFLineJump(get_lines, name, after_jump = 0) abort
+    let l:lines = a:get_lines()
+
+    let l:fzf_config = {
+          \ 'source': map(copy(l:lines), { _, val -> val.text }),
+          \ 'sink': CreateFZFLineJumpSink(l:lines, a:after_jump)
+          \ }
+
+    let l:fzf_config_wrapped = fzf#wrap(a:name, l:fzf_config, 0)
+
+    call fzf#run(l:fzf_config_wrapped)
+  endfunction
+
+  function! CreateFZFLineJumpSink(dict, after_jump) abort
+    function! FZFLineJumpSink(val) abort closure
+      let l:line =
+            \ filter(
+              \ copy(a:dict),
+              \ { _, val -> val.text ==# a:val })[0]
+
+      if !empty(l:line)
+        let l:line_number = l:line.line_number
+        execute l:line_number
+        call Invoke(a:after_jump)
+        call feedkeys('zz')
+      endif
+    endfunction
+
+    return function('FZFLineJumpSink')
+  endfunction
 endif
 "}}}
 
 " Plugins - UtilSnips "{{{
-let g:UltiSnipsExpandTrigger='<c-c>'
-let g:UltiSnipsJumpForwardTrigger='<c-n>'
-let g:UltiSnipsJumpBackwardTrigger='<c-p>'
+if g:use_utilsnips
+  let g:UltiSnipsExpandTrigger='<c-c>'
+  let g:UltiSnipsJumpForwardTrigger='<c-n>'
+  let g:UltiSnipsJumpBackwardTrigger='<c-p>'
+endif
 "}}}
 
 " Plugins - asyncomplete.vim "{{{
-if g:has_python3
-  let g:asyncomplete_auto_popup = 0
+if g:use_asyncomplete
+  let g:asyncomplete_auto_popup       = 1
+  let g:asyncomplete_auto_completeopt = 1
 
   function! PreviousCharacterIsEmptyOrWhitespace() abort
     let l:previous_character = GetPreviousCharacter()
@@ -669,19 +600,15 @@ if g:has_python3
   inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
   inoremap <expr><cr> pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 
-  let g:asyncomplete_auto_completeopt = 1
-
-  set completeopt=menuone,noinsert,noselect,preview
-
   autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
-  autocmd User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
+  autocmd! User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
         \ 'name': 'necovim',
         \ 'allowlist': ['vim'],
         \ 'completor': function('asyncomplete#sources#necovim#completor'),
         \ }))
 
-  autocmd User asynccomplete_setup call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
+  autocmd! User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
         \ 'name': 'ultisnips',
         \ 'allowlist': ['*'],
         \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
@@ -690,13 +617,92 @@ endif
 "}}}
 
 " Plugins - EasyMotion "{{{
-map <Enter> <Plug>(easymotion-prefix)
+if g:use_easymotion
+  " Default - asdghklqwertyuiopzxcvbnmfj;
+  let g:EasyMotion_keys             = 'ARSTGQWFPMIOLUYNE;'
+  let g:EasyMotion_smartcase        = 1
+  let g:EasyMotion_use_smartsign_us = 1
+  let g:EasyMotion_use_upper        = 1
 
-" Default - asdghklqwertyuiopzxcvbnmfj;
-let g:EasyMotion_keys             = 'ARSTGQWFPMIOLUYNE;'
-let g:EasyMotion_smartcase        = 1
-let g:EasyMotion_use_smartsign_us = 1
-let g:EasyMotion_use_upper        = 1
+  map <Enter> <Plug>(easymotion-prefix)
+endif
+"}}}
+
+" Bindings - Insert mode "{{{
+inoremap <c-bs> <c-w>
+inoremap jj <esc>
+"}}}
+
+" Bindings - Search toggles "{{{
+nnoremap <leader>/t :nohlsearch<cr>
+nnoremap <leader>/i :noincsearch<cr>
+"}}}
+
+" Bindings - Remaps "{{{
+noremap 0 g0
+noremap ^ g^
+noremap $ g$
+
+noremap H g^
+noremap L g$
+
+nnoremap n nzzzv
+nnoremap N Nzzzv
+"}}}
+
+" Bindings - Leader key + e "{{{
+nnoremap <leader>ee :CtrlPQuickfix<cr>
+"}}}
+
+" Bindings - Leader key + f "{{{
+nnoremap <leader>fl :CtrlPLine<cr>
+nnoremap <leader>fr :CtrlPMRU<cr>
+"}}}
+
+" Bindings - Leader key + g "{{{
+nnoremap <leader>gc :CtrlPChange<cr>
+"}}}
+
+" Bindings - Leader key + l "{{{
+nnoremap <leader>l :NERDTreeFind<cr>
+"}}}
+
+" Bindings - Leader key + t "{{{
+nnoremap <leader>tm :CtrlPBookmarkDir<cr>
+nnoremap <leader>tt :CtrlPBuffer<cr>
+nnoremap <leader>tM :CtrlPBookmarkDirAdd
+"}}}
+
+" Bindings - Leader key + v "{{{
+nnoremap <leader>vv <c-v>
+"}}}
+
+" Bindings - Leader key + w "{{{
+nnoremap <leader>wi <c-w>k
+nnoremap <leader>we <c-w>j
+nnoremap <leader>wn <c-w>h
+nnoremap <leader>wo <c-w>l
+"}}}
+
+" Bindings - Leader key + z "{{{
+nnoremap <leader>ze :edit $MYVIMRC<cr>
+nnoremap <leader>zz :source $MYVIMRC<cr>
+"}}}
+
+" Bindings - Control modifier "{{{
+nnoremap <c-k> <c-w>k
+nnoremap <c-j> <c-w>j
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+"}}}
+
+" Bindings - Arrow keys "{{{
+if g:use_arrow_keys_to_navigate_windows
+  nnoremap <up>    <c-w>k
+  nnoremap <down>  <c-w>j
+  nnoremap <left>  <c-w>h
+  nnoremap <right> <c-w>l
+endif
 "}}}
 
 " Auto-source local vim profile "{{{
