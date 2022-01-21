@@ -3,7 +3,7 @@ let g:vim_directory = '~/.vim'
 
 function! GetChildVimDirectory(child_directory) abort
   return g:vim_directory . a:child_directory
-endif
+endfunction
 
 let g:is_nvim   = has('nvim')
 let g:is_ide    = has('ide')
@@ -390,6 +390,8 @@ Plug 'dense-analysis/ale'
 
 Plug 'sirver/ultisnips'
 Plug 'honza/vim-snippets'
+
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'Shougo/neco-vim'
