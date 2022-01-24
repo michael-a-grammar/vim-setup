@@ -12,19 +12,23 @@ let g:is_mac    = has('mac')
 let g:is_macvim = has('gui_macvim')
 let g:is_unix   = has('unix')
 
-let g:has_gui     = has('gui_running') || empty($TERM)
-let g:has_pwsh    = executable('pwsh')
-let g:has_python3 = has('python3')
+let g:has_gui      = has('gui_running') || empty($TERM)
+let g:has_terminal = !g:has_gui
+let g:has_pwsh     = executable('pwsh')
+let g:has_python3  = has('python3')
 
 let g:gui_theme      = 'dracula'
 let g:terminal_theme = 'dracula'
-let g:override_theme = 'jellybeans'
+let g:override_theme = 'tender'
 
+let g:use_telescope    = v:true
 let g:use_ctrlp        = v:false
 let g:use_fzf          = v:false
+let g:use_ale          = v:false
 let g:use_utilsnips    = v:false
+let g:use_coc          = v:true
 let g:use_asyncomplete = g:has_python3 && v:false
-let g:use_easymotion   = v:false
+let g:use_easymotion   = v:true
 
 function! GetHostTheme() abort
   if !empty(g:override_theme)
@@ -40,6 +44,7 @@ endfunction
 
 let g:host_theme            = GetHostTheme()
 let g:host_theme_is_dracula = g:host_theme ==# 'dracula'
+let g:host_theme_is_tender  = g:host_theme ==# 'tender'
 
 let g:use_arrow_keys_to_navigate_windows = 0
 "}}}
@@ -150,7 +155,7 @@ set directory=~/.vim/swap/
 " Settings - Backup "{{{
 set writebackup
 set backupcopy=yes
-set updatetime=750
+set updatetime=300
 set backupdir=~/.vim/backup/
 "}}}
 
@@ -189,7 +194,7 @@ if g:has_gui
     let g:neovide_remember_window_size = v:true
   endif
 
-  set guifont=Hasklug\ Nerd\ Font\ Mono:h16
+  set guifont=Hasklug\ Nerd\ Font\ Mono:h24
 
   set guioptions+=c
 
@@ -334,6 +339,14 @@ function! LookupCurrentWordInHelp() abort
   execute 'vertical botright help ' . l:current_word
 endfunction
 
+function! PreviousCharacterIsEmptyOrWhitespace() abort
+  let l:previous_character = GetPreviousCharacter()
+
+  let l:result = empty(l:previous_character) || l:previous_character =~# '\s'
+
+  return l:result
+endfunction
+
 function! SetPowerShellAsShell() abort
   if g:has_pwsh
     set shell=pwsh
@@ -363,7 +376,6 @@ augroup powershell_filetype_functions
   autocmd FileType ps1
         \ call SetPowerShellAsShell()
 augroup end
-
 "}}}
 
 " Plugins - Plug "{{{
@@ -372,31 +384,50 @@ call plug#begin(g:vim_directory . '/plugged')
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'nanotech/jellybeans.vim'
 Plug 'zeis/vim-kolor'
+Plug 'jacoborus/tender.vim'
 
 Plug 'mhinz/vim-startify'
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-Plug 'ctrlpvim/ctrlp.vim'
+if g:use_telescope
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim'
 
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+  if g:use_coc
+      Plug 'fannheyward/telescope-coc.nvim'
+  endif
+endif
 
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
+if g:use_ctrlp
+  Plug 'ctrlpvim/ctrlp.vim'
+endif
 
-Plug 'dense-analysis/ale'
+if g:use_fzf
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plug 'junegunn/fzf.vim'
+endif
 
-Plug 'sirver/ultisnips'
-Plug 'honza/vim-snippets'
+if g:use_ale
+  Plug 'dense-analysis/ale'
+endif
 
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+if g:use_utilsnips
+  Plug 'sirver/ultisnips'
+  Plug 'honza/vim-snippets'
+endif
 
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'Shougo/neco-vim'
-Plug 'prabirshrestha/asyncomplete-necovim.vim'
-Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
+if g:use_coc
+  Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+endif
+
+if g:use_asyncomplete
+  Plug 'prabirshrestha/asyncomplete.vim'
+  Plug 'Shougo/neco-vim'
+  Plug 'prabirshrestha/asyncomplete-necovim.vim'
+  Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
+endif
 
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -406,7 +437,9 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
-Plug 'easymotion/vim-easymotion'
+if g:use_easymotion
+  Plug 'easymotion/vim-easymotion'
+endif
 
 Plug 'machakann/vim-highlightedyank'
 
@@ -431,8 +464,10 @@ Plug 'sickill/vim-pasta'
 
 Plug 'Wolfy87/vim-syntax-expand'
 
-Plug 'OmniSharp/omnisharp-vim'
-Plug 'nickspoons/vim-sharpenup'
+Plug 'sheerun/vim-polyglot'
+
+" Plug 'OmniSharp/omnisharp-vim'
+" Plug 'nickspoons/vim-sharpenup'
 
 Plug 'ionide/Ionide-vim', {
       \ 'do':  'make fsautocomplete',
@@ -446,6 +481,16 @@ call plug#end()
 
 " Colours "{{{
 call SetColorScheme(g:host_theme)
+"}}}
+
+" Plugins - Tender "{{{
+if g:host_theme_is_tender
+  let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+
+  if g:is_macvim
+    let g:macvim_skip_colorscheme = 1
+  endif
+endif
 "}}}
 
 " Plugins - Airline "{{{
@@ -477,9 +522,17 @@ if g:use_ctrlp
   let g:ctrlp_follow_symlinks     = 1
   let g:ctrlp_line_prefix         = ' '
 
-  let g:ctrlp_extensions =
-        \ ['quickfix', 'dir', 'rtscript', 'undo', 'line',
-        \ 'changes', 'mixed', 'bookmarkdir', 'autoignore']
+  let g:ctrlp_extensions = [
+        \  'quickfix',
+        \  'dir',
+        \  'rtscript',
+        \  'undo',
+        \  'line',
+        \  'changes',
+        \  'mixed',
+        \  'bookmarkdir',
+        \  'autoignore'
+        \ ]
 
   function! AutoAddCwdToCtrlPBookmarkDir() abort
     if g:auto_add_cwd_to_ctrlp_bookmarkdir && &modifiable
@@ -553,10 +606,7 @@ if g:use_fzf
 
   function! CreateFZFLineJumpSink(dict, after_jump) abort
     function! FZFLineJumpSink(val) abort closure
-      let l:line =
-            \ filter(
-              \ copy(a:dict),
-              \ { _, val -> val.text ==# a:val })[0]
+      let l:line = filter(copy(a:dict), { _, val -> val.text ==# a:val })[0]
 
       if !empty(l:line)
         let l:line_number = l:line.line_number
@@ -579,28 +629,61 @@ if g:use_utilsnips
 endif
 "}}}
 
+" Plugins - coc.vim "{{{
+if g:use_coc
+  let g:coc_global_extensions = [
+        \  'coc-snippets',
+        \  'coc-lightbulb',
+        \  'coc-vimlsp',
+        \  'coc-omnisharp',
+        \  'coc-fsharp',
+        \  'coc-powershell',
+        \  '/coc-tsserver',
+        \  'coc-json',
+        \  'coc-prettier',
+        \  'coc-sumneko-lua',
+        \  'coc-stylua'
+        \ ]
+
+  inoremap <silent><expr> <c-space> coc#refresh()
+
+  if g:has_terminal
+    inoremap <silent><expr> <nul> coc#refresh()
+  endif
+
+  inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<c-g>u\<cr>"
+
+  inoremap <silent><expr> <tab>
+        \ pumvisible() ?
+          \ "\<c-n>" :
+          \ PreviousCharacterIsEmptyOrWhitespace() ?
+            \ "\<tab>" :
+            \ coc#refresh()
+
+  inoremap <expr> <s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
+endif
+"}}}
+
 " Plugins - asyncomplete.vim "{{{
 if g:use_asyncomplete
   let g:asyncomplete_auto_popup       = 1
   let g:asyncomplete_auto_completeopt = 1
 
-  function! PreviousCharacterIsEmptyOrWhitespace() abort
-    let l:previous_character = GetPreviousCharacter()
+  inoremap <silent><expr> <c-space> asyncomplete#force_refresh()
 
-    let l:result = empty(l:previous_character) || l:previous_character =~# '\s'
+  if g:has_terminal
+    inoremap <silent><expr> <nul> asyncomplete#force_refresh()
+  endif
 
-    return l:result
-  endfunction
-
-  inoremap <silent><expr><tab>
+  inoremap <silent><expr> <tab>
         \ pumvisible() ?
           \ "\<c-n>" :
           \ PreviousCharacterIsEmptyOrWhitespace() ?
             \ "\<tab>" :
             \ asyncomplete#force_refresh()
 
-  inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
-  inoremap <expr><cr> pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+  inoremap <expr> <s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
+  inoremap <expr> <cr> pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 
   autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
