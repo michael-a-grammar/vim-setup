@@ -21,14 +21,26 @@ let g:gui_theme      = 'dracula'
 let g:terminal_theme = 'dracula'
 let g:override_theme = 'tender'
 
-let g:use_telescope    = v:true
+let g:use_telescope    = v:false
 let g:use_ctrlp        = v:false
 let g:use_fzf          = v:false
 let g:use_ale          = v:false
 let g:use_utilsnips    = v:false
-let g:use_coc          = v:true
+let g:use_coc          = v:false
 let g:use_asyncomplete = g:has_python3 && v:false
-let g:use_easymotion   = v:true
+let g:use_easymotion   = v:false
+
+let g:use_neo_plugins = v:true
+
+if g:use_neo_plugins
+  let g:use_telescope = v:true
+  let g:use_coc       = v:true
+else
+  let g:use_fzf          = v:true
+  let g:use_ale          = v:true
+  let g:use_utilsnips    = v:true
+  let g:use_asyncomplete = v:true
+endif
 
 function! GetHostTheme() abort
   if !empty(g:override_theme)
@@ -115,6 +127,7 @@ set wrap
 
 " Settings - Autocompletion "{{{
 set completeopt=menuone,noinsert,noselect,preview
+" set completepopup=highlight:Pmenu,border:off
 "}}}
 
 " Settings - Command-line "{{{
@@ -194,7 +207,7 @@ if g:has_gui
     let g:neovide_remember_window_size = v:true
   endif
 
-  set guifont=Hasklug\ Nerd\ Font\ Mono:h24
+  set guifont=Hasklug\ Nerd\ Font\ Mono:h16
 
   set guioptions+=c
 
@@ -466,11 +479,13 @@ Plug 'Wolfy87/vim-syntax-expand'
 
 Plug 'sheerun/vim-polyglot'
 
-" Plug 'OmniSharp/omnisharp-vim'
-" Plug 'nickspoons/vim-sharpenup'
+Plug 'OmniSharp/omnisharp-vim'
+Plug 'nickspoons/vim-sharpenup'
+
+let ionide_do = g:is_win32 ? 'powershell -ExecutionPolicy Unrestricted .\install.ps1' : 'make fsautocomplete'
 
 Plug 'ionide/Ionide-vim', {
-      \ 'do':  'make fsautocomplete',
+      \ 'do': ionide_do,
       \ }
 
 " Always load last
@@ -621,29 +636,42 @@ if g:use_fzf
 endif
 "}}}
 
-" Plugins - UtilSnips "{{{
-if g:use_utilsnips
-  let g:UltiSnipsExpandTrigger='<c-c>'
-  let g:UltiSnipsJumpForwardTrigger='<c-n>'
-  let g:UltiSnipsJumpBackwardTrigger='<c-p>'
+" Plugins - ALE "{{{
+if g:use_ale
+  let g:ale_linters = { 'cs': ['OmniSharp'] }
+
+  let g:ale_sign_error         = '•'
+  let g:ale_sign_warning       = '•'
+  let g:ale_sign_info          = '·'
+  let g:ale_sign_style_error   = '·'
+  let g:ale_sign_style_warning = '·'
 endif
 "}}}
 
-" Plugins - coc.vim "{{{
+" Plugins - UtilSnips "{{{
+if g:use_utilsnips
+  let g:UltiSnipsExpandTrigger       ='<c-c>'
+  let g:UltiSnipsJumpForwardTrigger  ='<c-n>'
+  let g:UltiSnipsJumpBackwardTrigger ='<c-p>'
+endif
+"}}}
+
+" Plugins - Coc "{{{
 if g:use_coc
   let g:coc_global_extensions = [
         \  'coc-snippets',
         \  'coc-lightbulb',
         \  'coc-vimlsp',
         \  'coc-omnisharp',
-        \  'coc-fsharp',
         \  'coc-powershell',
-        \  '/coc-tsserver',
+        \  'coc-tsserver',
         \  'coc-json',
-        \  'coc-prettier',
-        \  'coc-sumneko-lua',
-        \  'coc-stylua'
+        \  'coc-prettier'
         \ ]
+
+        "\ 'coc-fsharp',
+        "\  'coc-sumneko-lua',
+        "\  'coc-stylua'
 
   inoremap <silent><expr> <c-space> coc#refresh()
 
@@ -664,7 +692,7 @@ if g:use_coc
 endif
 "}}}
 
-" Plugins - asyncomplete.vim "{{{
+" Plugins - asyncomplete "{{{
 if g:use_asyncomplete
   let g:asyncomplete_auto_popup       = 1
   let g:asyncomplete_auto_completeopt = 1
@@ -688,15 +716,15 @@ if g:use_asyncomplete
   autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
   autocmd! User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
-        \ 'name': 'necovim',
-        \ 'allowlist': ['vim'],
-        \ 'completor': function('asyncomplete#sources#necovim#completor'),
+        \  'name': 'necovim',
+        \  'allowlist': ['vim'],
+        \  'completor': function('asyncomplete#sources#necovim#completor'),
         \ }))
 
   autocmd! User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
-        \ 'name': 'ultisnips',
-        \ 'allowlist': ['*'],
-        \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
+        \  'name': 'ultisnips',
+        \  'allowlist': ['*'],
+        \  'completor': function('asyncomplete#sources#ultisnips#completor'),
         \ }))
 endif
 "}}}
@@ -709,8 +737,84 @@ if g:use_easymotion
   let g:EasyMotion_use_smartsign_us = 1
   let g:EasyMotion_use_upper        = 1
 
-  map <Enter> <Plug>(easymotion-prefix)
+  map <leader><enter> <plug>(easymotion-prefix)
 endif
+"}}}
+
+" Plugins - OmniSharp "{{{
+if g:is_nvim
+  " let g:OmniSharp_server_use_net6      = 1
+  let g:OmniSharp_selector_ui          = 'fzf'
+  let g:OmniSharp_selector_findusages  = 'fzf'
+  let g:OmniSharp_selector_findmembers = 'fzf'
+
+  let g:OmniSharp_fzf_options = { 'window': { 'width': 0.9, 'height': 0.6 } }
+
+  let g:OmniSharp_popup_options = {
+        \  'winhl': 'Normal:NormalFloat'
+        \ }
+else
+  let g:OmniSharp_popup_options = {
+        \  'padding':   [0, 0, 0, 0],
+        \  'border':    [1]
+        \ }
+endif
+
+let g:OmniSharp_popup_mappings = {
+        \  'sigNext':  '<c-n>',
+        \  'sigPrev':  '<c-p>',
+        \  'pageDown': ['<c-f>', '<pagedown>'],
+        \  'pageUp':   ['<c-b>', '<pageup>']
+        \ }
+
+let g:OmniSharp_open_quickfix = 0
+let g:OmniSharp_typeLookupInPreview = 0
+
+if g:use_utilsnips
+  let g:OmniSharp_want_snippet = 1
+endif
+
+let g:OmniSharp_highlight_groups = {
+      \  'ExcludedCode': 'NonText'
+      \ }
+
+augroup omnisharp_commands
+  autocmd!
+
+  autocmd CursorHold *.cs OmniSharpTypeLookup
+
+  autocmd FileType cs nmap <silent><buffer> [[ <plug>(omnisharp_navigate_up)
+  autocmd FileType cs nmap <silent><buffer> ]] <plug>(omnisharp_navigate_down)
+
+  autocmd FileType cs nmap <silent><buffer> gd <plug>(omnisharp_go_to_definition)
+  autocmd FileType cs nmap <silent><buffer> gD <plug>(omnisharp_preview_definition)
+
+  autocmd FileType cs nmap <silent><buffer> <leader>. <Plug>(omnisharp_code_action_repeat)
+  autocmd FileType cs nmap <silent><buffer> <leader>= <plug>(omnisharp_code_format)
+
+  autocmd FileType cs nmap <silent><buffer> <leader>na <plug>(omnisharp_code_actions)
+  autocmd FileType cs nmap <silent><buffer> <leader>nc <plug>(omnisharp_global_code_check)
+  autocmd FileType cs nmap <silent><buffer> <leader>nd <plug>(omnisharp_documentation)
+  autocmd FileType cs nmap <silent><buffer> <leader>nh <plug>(omnisharp_signature_help)
+  autocmd FileType cs nmap <silent><buffer> <leader>nu <plug>(omnisharp_find_usages)
+  autocmd FileType cs nmap <silent><buffer> <leader>ni <plug>(omnisharp_find_implementations)
+  autocmd FileType cs nmap <silent><buffer> <leader>nI <plug>(omnisharp_preview_implementations)
+  autocmd FileType cs nmap <silent><buffer> <leader>nl <plug>(omnisharp_type_lookup)
+  autocmd FileType cs nmap <silent><buffer> <leader>nr <plug>(omnisharp_rename)
+  autocmd FileType cs nmap <silent><buffer> <leader>ns <plug>(omnisharp_find_symbol)
+  autocmd FileType cs nmap <silent><buffer> <leader>nu <plug>(omnisharp_fix_usings)
+
+  autocmd FileType cs imap <silent><buffer> <c-/> <plug>(omnisharp_signature_help)
+
+  autocmd FileType cs xmap <silent><buffer> <leader>. <plug>(omnisharp_code_action_repeat)
+
+  autocmd FileType cs xmap <silent><buffer> <leader>na <plug>(omnisharp_code_actions)
+augroup END
+"}}}
+
+" Plugins - Sharpenup "{{{
+let g:sharpenup_statusline_opts = '•'
+let g:sharpenup_create_mappings = 0
 "}}}
 
 " Bindings - Insert mode "{{{
