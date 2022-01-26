@@ -22,13 +22,16 @@ let g:terminal_theme = 'dracula'
 let g:override_theme = 'tender'
 
 let g:use_telescope    = v:false
+let g:use_coc          = v:false
 let g:use_ctrlp        = v:false
 let g:use_fzf          = v:false
 let g:use_ale          = v:false
 let g:use_utilsnips    = v:false
-let g:use_coc          = v:false
-let g:use_asyncomplete = g:has_python3 && v:false
+let g:use_asyncomplete = v:false
 let g:use_easymotion   = v:false
+
+let g:use_omnisharp = v:false
+let g:use_sharpenup = v:false
 
 let g:use_neo_plugins = v:true
 
@@ -36,10 +39,13 @@ if g:use_neo_plugins
   let g:use_telescope = v:true
   let g:use_coc       = v:true
 else
+  let g:use_ctrlp        = v:true
   let g:use_fzf          = v:true
   let g:use_ale          = v:true
   let g:use_utilsnips    = v:true
-  let g:use_asyncomplete = v:true
+  let g:use_asyncomplete = g:has_python3 && v:true
+  let g:use_omnisharp    = v:true
+  let g:use_sharpenup    = v:true
 endif
 
 function! GetHostTheme() abort
@@ -146,6 +152,7 @@ set ruler
 " Settings - Line numbers "{{{
 set number
 set relativenumber
+set signcolumn=yes
 "}}}
 
 " Settings - Editor guides "{{{
@@ -407,10 +414,15 @@ Plug 'vim-airline/vim-airline-themes'
 if g:use_telescope
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim'
+  Plug '/nvim-treesitter/nvim-treesitter'
 
   if g:use_coc
       Plug 'fannheyward/telescope-coc.nvim'
   endif
+endif
+
+if g:use_coc
+  Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 endif
 
 if g:use_ctrlp
@@ -429,10 +441,6 @@ endif
 if g:use_utilsnips
   Plug 'sirver/ultisnips'
   Plug 'honza/vim-snippets'
-endif
-
-if g:use_coc
-  Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 endif
 
 if g:use_asyncomplete
@@ -479,8 +487,13 @@ Plug 'Wolfy87/vim-syntax-expand'
 
 Plug 'sheerun/vim-polyglot'
 
-Plug 'OmniSharp/omnisharp-vim'
-Plug 'nickspoons/vim-sharpenup'
+if g:use_omnisharp
+  Plug 'OmniSharp/omnisharp-vim'
+endif
+
+if g:use_sharpenup
+  Plug 'nickspoons/vim-sharpenup'
+endif
 
 let ionide_do = g:is_win32 ? 'powershell -ExecutionPolicy Unrestricted .\install.ps1' : 'make fsautocomplete'
 
@@ -520,6 +533,60 @@ let g:airline_skip_empty_sections = 1
 
 " Plugins - Airline Themes "{{{
 let g:airline_theme = g:host_theme
+"}}}
+
+" Plugins - Treesitter {{{
+if g:use_telescope
+  function! g:InstallTreesitterModules() abort
+    let g:treesitter_modules = [
+          \ 'c_sharp',
+          \ 'fish',
+          \ 'javascript',
+          \ 'markdown',
+          \ 'typescript',
+          \ 'vim']
+
+    for treesitter_module in g:treesitter_modules
+      execute 'TSInstall ' . treesitter_module
+    endfor
+  endfunction
+endif
+" }}}
+
+" Plugins - CoC "{{{
+if g:use_coc
+  let g:coc_global_extensions = [
+        \  'coc-snippets',
+        \  'coc-lightbulb',
+        \  'coc-vimlsp',
+        \  'coc-omnisharp',
+        \  'coc-powershell',
+        \  'coc-tsserver',
+        \  'coc-json',
+        \  'coc-prettier'
+        \ ]
+
+        " \ 'coc-fsharp',
+        " \ 'coc-sumneko-lua',
+        " \ 'coc-stylua'
+
+  inoremap <silent><expr> <c-space> coc#refresh()
+
+  if g:has_terminal
+    inoremap <silent><expr> <nul> coc#refresh()
+  endif
+
+  inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<c-g>u\<cr>"
+
+  inoremap <silent><expr> <tab>
+        \ pumvisible() ?
+          \ "\<c-n>" :
+          \ PreviousCharacterIsEmptyOrWhitespace() ?
+            \ "\<tab>" :
+            \ coc#refresh()
+
+  inoremap <expr> <s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
+endif
 "}}}
 
 " Plugins - CtrlP "{{{
@@ -656,42 +723,6 @@ if g:use_utilsnips
 endif
 "}}}
 
-" Plugins - Coc "{{{
-if g:use_coc
-  let g:coc_global_extensions = [
-        \  'coc-snippets',
-        \  'coc-lightbulb',
-        \  'coc-vimlsp',
-        \  'coc-omnisharp',
-        \  'coc-powershell',
-        \  'coc-tsserver',
-        \  'coc-json',
-        \  'coc-prettier'
-        \ ]
-
-        "\ 'coc-fsharp',
-        "\  'coc-sumneko-lua',
-        "\  'coc-stylua'
-
-  inoremap <silent><expr> <c-space> coc#refresh()
-
-  if g:has_terminal
-    inoremap <silent><expr> <nul> coc#refresh()
-  endif
-
-  inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<c-g>u\<cr>"
-
-  inoremap <silent><expr> <tab>
-        \ pumvisible() ?
-          \ "\<c-n>" :
-          \ PreviousCharacterIsEmptyOrWhitespace() ?
-            \ "\<tab>" :
-            \ coc#refresh()
-
-  inoremap <expr> <s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
-endif
-"}}}
-
 " Plugins - asyncomplete "{{{
 if g:use_asyncomplete
   let g:asyncomplete_auto_popup       = 1
@@ -742,79 +773,83 @@ endif
 "}}}
 
 " Plugins - OmniSharp "{{{
-if g:is_nvim
-  " let g:OmniSharp_server_use_net6      = 1
-  let g:OmniSharp_selector_ui          = 'fzf'
-  let g:OmniSharp_selector_findusages  = 'fzf'
-  let g:OmniSharp_selector_findmembers = 'fzf'
+if g:use_omnisharp
+  if g:is_nvim
+    " let g:OmniSharp_server_use_net6      = 1
+    let g:OmniSharp_selector_ui          = 'fzf'
+    let g:OmniSharp_selector_findusages  = 'fzf'
+    let g:OmniSharp_selector_findmembers = 'fzf'
 
-  let g:OmniSharp_fzf_options = { 'window': { 'width': 0.9, 'height': 0.6 } }
+    let g:OmniSharp_fzf_options = { 'window': { 'width': 0.9, 'height': 0.6 } }
 
-  let g:OmniSharp_popup_options = {
-        \  'winhl': 'Normal:NormalFloat'
+    let g:OmniSharp_popup_options = {
+          \  'winhl': 'Normal:NormalFloat'
+          \ }
+  else
+    let g:OmniSharp_popup_options = {
+          \  'padding':   [0, 0, 0, 0],
+          \  'border':    [1]
+          \ }
+  endif
+
+  let g:OmniSharp_popup_mappings = {
+          \  'sigNext':  '<c-n>',
+          \  'sigPrev':  '<c-p>',
+          \  'pageDown': ['<c-f>', '<pagedown>'],
+          \  'pageUp':   ['<c-b>', '<pageup>']
+          \ }
+
+  let g:OmniSharp_open_quickfix       = 0
+  let g:OmniSharp_typeLookupInPreview = 0
+
+  if g:use_utilsnips
+    let g:OmniSharp_want_snippet = 1
+  endif
+
+  let g:OmniSharp_highlight_groups = {
+        \  'ExcludedCode': 'NonText'
         \ }
-else
-  let g:OmniSharp_popup_options = {
-        \  'padding':   [0, 0, 0, 0],
-        \  'border':    [1]
-        \ }
+
+  augroup omnisharp_commands
+    autocmd!
+
+    autocmd CursorHold *.cs OmniSharpTypeLookup
+
+    autocmd FileType cs nmap <silent><buffer> [[ <plug>(omnisharp_navigate_up)
+    autocmd FileType cs nmap <silent><buffer> ]] <plug>(omnisharp_navigate_down)
+
+    autocmd FileType cs nmap <silent><buffer> gd <plug>(omnisharp_go_to_definition)
+    autocmd FileType cs nmap <silent><buffer> gD <plug>(omnisharp_preview_definition)
+
+    autocmd FileType cs nmap <silent><buffer> <leader>. <Plug>(omnisharp_code_action_repeat)
+    autocmd FileType cs nmap <silent><buffer> <leader>= <plug>(omnisharp_code_format)
+
+    autocmd FileType cs nmap <silent><buffer> <leader>na <plug>(omnisharp_code_actions)
+    autocmd FileType cs nmap <silent><buffer> <leader>nc <plug>(omnisharp_global_code_check)
+    autocmd FileType cs nmap <silent><buffer> <leader>nd <plug>(omnisharp_documentation)
+    autocmd FileType cs nmap <silent><buffer> <leader>nh <plug>(omnisharp_signature_help)
+    autocmd FileType cs nmap <silent><buffer> <leader>nu <plug>(omnisharp_find_usages)
+    autocmd FileType cs nmap <silent><buffer> <leader>ni <plug>(omnisharp_find_implementations)
+    autocmd FileType cs nmap <silent><buffer> <leader>nI <plug>(omnisharp_preview_implementations)
+    autocmd FileType cs nmap <silent><buffer> <leader>nl <plug>(omnisharp_type_lookup)
+    autocmd FileType cs nmap <silent><buffer> <leader>nr <plug>(omnisharp_rename)
+    autocmd FileType cs nmap <silent><buffer> <leader>ns <plug>(omnisharp_find_symbol)
+    autocmd FileType cs nmap <silent><buffer> <leader>nu <plug>(omnisharp_fix_usings)
+
+    autocmd FileType cs imap <silent><buffer> <c-/> <plug>(omnisharp_signature_help)
+
+    autocmd FileType cs xmap <silent><buffer> <leader>. <plug>(omnisharp_code_action_repeat)
+
+    autocmd FileType cs xmap <silent><buffer> <leader>na <plug>(omnisharp_code_actions)
+  augroup END
 endif
-
-let g:OmniSharp_popup_mappings = {
-        \  'sigNext':  '<c-n>',
-        \  'sigPrev':  '<c-p>',
-        \  'pageDown': ['<c-f>', '<pagedown>'],
-        \  'pageUp':   ['<c-b>', '<pageup>']
-        \ }
-
-let g:OmniSharp_open_quickfix = 0
-let g:OmniSharp_typeLookupInPreview = 0
-
-if g:use_utilsnips
-  let g:OmniSharp_want_snippet = 1
-endif
-
-let g:OmniSharp_highlight_groups = {
-      \  'ExcludedCode': 'NonText'
-      \ }
-
-augroup omnisharp_commands
-  autocmd!
-
-  autocmd CursorHold *.cs OmniSharpTypeLookup
-
-  autocmd FileType cs nmap <silent><buffer> [[ <plug>(omnisharp_navigate_up)
-  autocmd FileType cs nmap <silent><buffer> ]] <plug>(omnisharp_navigate_down)
-
-  autocmd FileType cs nmap <silent><buffer> gd <plug>(omnisharp_go_to_definition)
-  autocmd FileType cs nmap <silent><buffer> gD <plug>(omnisharp_preview_definition)
-
-  autocmd FileType cs nmap <silent><buffer> <leader>. <Plug>(omnisharp_code_action_repeat)
-  autocmd FileType cs nmap <silent><buffer> <leader>= <plug>(omnisharp_code_format)
-
-  autocmd FileType cs nmap <silent><buffer> <leader>na <plug>(omnisharp_code_actions)
-  autocmd FileType cs nmap <silent><buffer> <leader>nc <plug>(omnisharp_global_code_check)
-  autocmd FileType cs nmap <silent><buffer> <leader>nd <plug>(omnisharp_documentation)
-  autocmd FileType cs nmap <silent><buffer> <leader>nh <plug>(omnisharp_signature_help)
-  autocmd FileType cs nmap <silent><buffer> <leader>nu <plug>(omnisharp_find_usages)
-  autocmd FileType cs nmap <silent><buffer> <leader>ni <plug>(omnisharp_find_implementations)
-  autocmd FileType cs nmap <silent><buffer> <leader>nI <plug>(omnisharp_preview_implementations)
-  autocmd FileType cs nmap <silent><buffer> <leader>nl <plug>(omnisharp_type_lookup)
-  autocmd FileType cs nmap <silent><buffer> <leader>nr <plug>(omnisharp_rename)
-  autocmd FileType cs nmap <silent><buffer> <leader>ns <plug>(omnisharp_find_symbol)
-  autocmd FileType cs nmap <silent><buffer> <leader>nu <plug>(omnisharp_fix_usings)
-
-  autocmd FileType cs imap <silent><buffer> <c-/> <plug>(omnisharp_signature_help)
-
-  autocmd FileType cs xmap <silent><buffer> <leader>. <plug>(omnisharp_code_action_repeat)
-
-  autocmd FileType cs xmap <silent><buffer> <leader>na <plug>(omnisharp_code_actions)
-augroup END
 "}}}
 
 " Plugins - Sharpenup "{{{
-let g:sharpenup_statusline_opts = '•'
-let g:sharpenup_create_mappings = 0
+if g:use_sharpenup
+  let g:sharpenup_statusline_opts = '•'
+  let g:sharpenup_create_mappings = 0
+endif
 "}}}
 
 " Bindings - Insert mode "{{{
@@ -822,15 +857,11 @@ inoremap <c-bs> <c-w>
 inoremap jj <esc>
 "}}}
 
-" Bindings - Search toggles "{{{
-nnoremap <leader>/t :nohlsearch<cr>
-nnoremap <leader>/i :noincsearch<cr>
-"}}}
-
 " Bindings - Remaps "{{{
-noremap 0 g0
-noremap ^ g^
 noremap $ g$
+noremap ^ g^
+
+noremap 0 g0
 
 noremap H g^
 noremap L g$
@@ -839,27 +870,72 @@ nnoremap n nzzzv
 nnoremap N Nzzzv
 "}}}
 
+" Bindings - Search "{{{
+if g:use_telescope
+  nnoremap <leader>/h <cmd>Telescope search_history<cr>
+endif
+
+nnoremap <leader>/i <cmd>noincsearch<cr>
+nnoremap <leader>/t <cmd>nohlsearch<cr>
+"}}}
+
+" Bindings - Commands "{{{
+nnoremap <leader>: <cmd>Telescope command_history<cr>
+"}}}
+
 " Bindings - Leader key + e "{{{
-nnoremap <leader>ee :CtrlPQuickfix<cr>
+if g:use_ctrlp
+  nnoremap <leader>ee <cmd>CtrlPQuickfix<cr>
+endif
 "}}}
 
 " Bindings - Leader key + f "{{{
-nnoremap <leader>fl :CtrlPLine<cr>
-nnoremap <leader>fr :CtrlPMRU<cr>
+if g:use_telescope
+  nnoremap <leader>fm <cmd>Telescope treesitter<cr>
+  nnoremap <leader>fr <cmd>Telescope oldfiles<cr>
+endif
+
+if g:use_ctrlp
+  nnoremap <leader>fl <cmd>CtrlPLine<cr>
+  nnoremap <leader>fr <cmd>CtrlPMRU<cr>
+endif
 "}}}
 
 " Bindings - Leader key + g "{{{
-nnoremap <leader>gc :CtrlPChange<cr>
+if g:use_telescope
+  nnoremap <leader>gb <cmd>Telescope git_branches<cr>
+  nnoremap <leader>gc <cmd>Telescope git_bcommits<cr>
+  nnoremap <leader>gC <cmd>Telescope git_commits<cr>
+  nnoremap <leader>gf <cmd>Telescope git_files<cr>
+  nnoremap <leader>gs <cmd>Telescope git_status<cr>
+endif
+
+if g:use_ctrlp
+  nnoremap <leader>gc <cmd>CtrlPChange<cr>
+endif
 "}}}
 
 " Bindings - Leader key + l "{{{
-nnoremap <leader>l :NERDTreeFind<cr>
+nnoremap <leader>l <cmd>NERDTreeFind<cr>
 "}}}
 
 " Bindings - Leader key + t "{{{
-nnoremap <leader>tm :CtrlPBookmarkDir<cr>
-nnoremap <leader>tt :CtrlPBuffer<cr>
-nnoremap <leader>tM :CtrlPBookmarkDirAdd
+if g:use_telescope
+  nnoremap <leader>tf <cmd>Telescope find_files<cr>
+  nnoremap <leader>tg <cmd>Telescope live_grep<cr>
+  nnoremap <leader>th <cmd>Telescope help_tags<cr>
+  nnoremap <leader>tl <cmd>Telescope loclist<cr>
+  nnoremap <leader>tm <cmd>Telescope marks<cr>
+  nnoremap <leader>tp <cmd>Telescope jumplist<cr>
+  nnoremap <leader>ts <cmd>Telescope grep_string<cr>
+  nnoremap <leader>tt <cmd>Telescope buffers<cr>
+endif
+
+if g:use_ctrlp
+  nnoremap <leader>tb <cmd>CtrlPBookmarkDir<cr>
+  nnoremap <leader>tB <cmd>CtrlPBookmarkDirAdd<cr>
+  nnoremap <leader>tt <cmd>CtrlPBuffer<cr>
+endif
 "}}}
 
 " Bindings - Leader key + v "{{{
@@ -874,8 +950,8 @@ nnoremap <leader>wo <c-w>l
 "}}}
 
 " Bindings - Leader key + z "{{{
-nnoremap <leader>ze :edit $MYVIMRC<cr>
-nnoremap <leader>zz :source $MYVIMRC<cr>
+nnoremap <leader>ze <cmd>edit $MYVIMRC<cr>
+nnoremap <leader>zz <cmd>source $MYVIMRC<cr>
 "}}}
 
 " Bindings - Control modifier "{{{
