@@ -593,7 +593,7 @@ endif
 if g:use_ctrlp
   let g:auto_add_cwd_to_ctrlp_bookmarkdir = 1
 
-  let g:ctrlp_map                 = '<leader>f'
+  let g:ctrlp_map                 = '<ctrl>p'
   let g:ctrlp_regexp              = 0
   let g:ctrlp_match_window        = 'bottom,order:ttb,min:1,max:10,results:10'
   let g:ctrlp_root_markers        = ['.sln']
