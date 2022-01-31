@@ -133,7 +133,6 @@ set wrap
 
 " Settings - Autocompletion "{{{
 set completeopt=menuone,noinsert,noselect,preview
-" set completepopup=highlight:Pmenu,border:off
 "}}}
 
 " Settings - Command-line "{{{
@@ -147,12 +146,13 @@ set cmdheight=1
 set showcmd
 set noshowmode
 set ruler
+set shortmess+=c
 "}}}
 
 " Settings - Line numbers "{{{
 set number
 set relativenumber
-set signcolumn=yes
+set signcolumn=number
 "}}}
 
 " Settings - Editor guides "{{{
@@ -414,7 +414,7 @@ Plug 'vim-airline/vim-airline-themes'
 if g:use_telescope
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim'
-  Plug '/nvim-treesitter/nvim-treesitter'
+  Plug 'nvim-treesitter/nvim-treesitter'
 
   if g:use_coc
       Plug 'fannheyward/telescope-coc.nvim'
@@ -466,7 +466,7 @@ Plug 'machakann/vim-highlightedyank'
 
 Plug 'sjl/gundo.vim'
 
-Plug 'maxbrunsfeld/vim-yankstack'
+Plug 'bfredl/nvim-miniyank'
 
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-repeat'
@@ -556,19 +556,21 @@ endif
 " Plugins - CoC "{{{
 if g:use_coc
   let g:coc_global_extensions = [
+        \  'coc-yank',
         \  'coc-snippets',
         \  'coc-lightbulb',
         \  'coc-vimlsp',
+        \  'coc-solargraph',
         \  'coc-omnisharp',
         \  'coc-powershell',
+        \  'coc-fsharp',
         \  'coc-tsserver',
         \  'coc-json',
-        \  'coc-prettier'
+        \  'coc-prettier',
+        \  'coc-sumneko-lua',
+        \  'coc-stylua',
+        \  'coc-html'
         \ ]
-
-        " \ 'coc-fsharp',
-        " \ 'coc-sumneko-lua',
-        " \ 'coc-stylua'
 
   inoremap <silent><expr> <c-space> coc#refresh()
 
