@@ -1,9 +1,17 @@
 require('telescope').load_extension('coc')
 
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained",
+  ensure_installed = {
+    'c_sharp',
+    'fish',
+    'javascript',
+    --'markdown',
+    'ruby',
+    'typescript',
+    'vim'
+  },
+
   sync_install = false,
-  ignore_install = { "javascript" },
 
   highlight = {
     enable = true,

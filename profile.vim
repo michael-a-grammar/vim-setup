@@ -1,52 +1,27 @@
-"Initialisation "{{{
+" Initialisation "{{{
 let g:vim_directory = '~/.vim'
 
 function! GetChildVimDirectory(child_directory) abort
   return g:vim_directory . a:child_directory
 endfunction
 
-let g:is_nvim   = has('nvim')
 let g:is_ide    = has('ide')
 let g:is_win32  = has('win32')
-let g:is_mac    = has('mac')
-let g:is_macvim = has('gui_macvim')
 let g:is_unix   = has('unix')
 
 let g:has_gui      = has('gui_running') || empty($TERM)
 let g:has_terminal = !g:has_gui
 let g:has_pwsh     = executable('pwsh')
-let g:has_python3  = has('python3')
 
-let g:gui_theme      = 'dracula'
+let g:gui_theme      = 'tender'
 let g:terminal_theme = 'dracula'
-let g:override_theme = 'tender'
+let g:override_theme = 'dracula'
 
-let g:use_telescope    = v:false
-let g:use_coc          = v:false
-let g:use_ctrlp        = v:false
-let g:use_fzf          = v:false
-let g:use_ale          = v:false
-let g:use_utilsnips    = v:false
-let g:use_asyncomplete = v:false
-let g:use_easymotion   = v:false
+let g:use_easymotion = v:false
 
+let g:use_polyglot  = v:false
 let g:use_omnisharp = v:false
 let g:use_sharpenup = v:false
-
-let g:use_neo_plugins = v:true
-
-if g:use_neo_plugins
-  let g:use_telescope = v:true
-  let g:use_coc       = v:true
-else
-  let g:use_ctrlp        = v:true
-  let g:use_fzf          = v:true
-  let g:use_ale          = v:true
-  let g:use_utilsnips    = v:true
-  let g:use_asyncomplete = g:has_python3 && v:true
-  let g:use_omnisharp    = v:true
-  let g:use_sharpenup    = v:true
-endif
 
 function! GetHostTheme() abort
   if !empty(g:override_theme)
@@ -61,7 +36,6 @@ function! GetHostTheme() abort
 endfunction
 
 let g:host_theme            = GetHostTheme()
-let g:host_theme_is_dracula = g:host_theme ==# 'dracula'
 let g:host_theme_is_tender  = g:host_theme ==# 'tender'
 
 let g:use_arrow_keys_to_navigate_windows = 0
@@ -118,7 +92,7 @@ set smartcase
 " Settings - Working directory and paths "{{{
 set autochdir
 set path+=**
-set wildignore+=*/.git/*,*/.idea/*,*/.meteor/*,*/node_modules/*
+set wildignore+=*/.git/*,*/.idea/*,*/bin/*,*/obj/*,*/.meteor/*,*/node_modules/*
 "}}}
 
 " Settings - Indents "{{{
@@ -202,18 +176,6 @@ runtime macros/matchit.vim
 
 " Settings - GUI "{{{
 if g:has_gui
-  if g:is_macvim
-    set macthinstrokes
-    set macligatures
-    set antialias
-    set fullscreen
-  endif
-
-  if g:is_nvim
-    let g:neovide_fullscreen           = v:true
-    let g:neovide_remember_window_size = v:true
-  endif
-
   set guifont=Hasklug\ Nerd\ Font\ Mono:h16
 
   set guioptions+=c
@@ -367,6 +329,18 @@ function! PreviousCharacterIsEmptyOrWhitespace() abort
   return l:result
 endfunction
 
+function! GetFolds() abort
+  return SearchAllLines('\m\C^"\s*\zs.*\ze\s*"\%u007B\{3}')
+endfunction
+
+function! GetFunctions() abort
+  return SearchAllLines('\m\C^\s*\<function\>!*\zs.*\ze(.*')
+endfunction
+
+function! GetOptions() abort
+  return SearchAllLines('\m\C^\s*\<set\>\s*\zs\w*\ze[=\-+]*')
+endfunction
+
 function! SetPowerShellAsShell() abort
   if g:has_pwsh
     set shell=pwsh
@@ -411,44 +385,13 @@ Plug 'mhinz/vim-startify'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-if g:use_telescope
-  Plug 'nvim-lua/plenary.nvim'
-  Plug 'nvim-telescope/telescope.nvim'
-  Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-treesitter/nvim-treesitter'
 
-  if g:use_coc
-      Plug 'fannheyward/telescope-coc.nvim'
-  endif
-endif
+Plug 'fannheyward/telescope-coc.nvim'
 
-if g:use_coc
-  Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-endif
-
-if g:use_ctrlp
-  Plug 'ctrlpvim/ctrlp.vim'
-endif
-
-if g:use_fzf
-  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-  Plug 'junegunn/fzf.vim'
-endif
-
-if g:use_ale
-  Plug 'dense-analysis/ale'
-endif
-
-if g:use_utilsnips
-  Plug 'sirver/ultisnips'
-  Plug 'honza/vim-snippets'
-endif
-
-if g:use_asyncomplete
-  Plug 'prabirshrestha/asyncomplete.vim'
-  Plug 'Shougo/neco-vim'
-  Plug 'prabirshrestha/asyncomplete-necovim.vim'
-  Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
-endif
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -485,7 +428,9 @@ Plug 'sickill/vim-pasta'
 
 Plug 'Wolfy87/vim-syntax-expand'
 
-Plug 'sheerun/vim-polyglot'
+if g:use_polyglot
+  Plug 'sheerun/vim-polyglot'
+endif
 
 if g:use_omnisharp
   Plug 'OmniSharp/omnisharp-vim'
@@ -514,10 +459,6 @@ call SetColorScheme(g:host_theme)
 " Plugins - Tender "{{{
 if g:host_theme_is_tender
   let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
-
-  if g:is_macvim
-    let g:macvim_skip_colorscheme = 1
-  endif
 endif
 "}}}
 
@@ -536,230 +477,44 @@ let g:airline_theme = g:host_theme
 "}}}
 
 " Plugins - Treesitter {{{
-if g:use_telescope
-  function! g:InstallTreesitterModules() abort
-    let g:treesitter_modules = [
-          \ 'c_sharp',
-          \ 'fish',
-          \ 'javascript',
-          \ 'markdown',
-          \ 'typescript',
-          \ 'vim']
-
-    for treesitter_module in g:treesitter_modules
-      execute 'TSInstall ' . treesitter_module
-    endfor
-  endfunction
-endif
 " }}}
 
 " Plugins - CoC "{{{
-if g:use_coc
-  let g:coc_global_extensions = [
-        \  'coc-yank',
-        \  'coc-snippets',
-        \  'coc-lightbulb',
-        \  'coc-vimlsp',
-        \  'coc-solargraph',
-        \  'coc-omnisharp',
-        \  'coc-powershell',
-        \  'coc-fsharp',
-        \  'coc-tsserver',
-        \  'coc-json',
-        \  'coc-prettier',
-        \  'coc-sumneko-lua',
-        \  'coc-stylua',
-        \  'coc-html'
-        \ ]
+let g:coc_global_extensions = [
+      \  'coc-fsharp',
+      \  'coc-html',
+      \  'coc-json',
+      \  'coc-markdown-preview-enhanced',
+      \  'coc-markdownlint',
+      \  'coc-omnisharp',
+      \  'coc-powershell',
+      \  'coc-prettier',
+      \  'coc-snippets',
+      \  'coc-solargraph',
+      \  'coc-spell-checker',
+      \  'coc-stylua',
+      \  'coc-sumneko-lua',
+      \  'coc-tsserver',
+      \  'coc-vimlsp',
+      \  'coc-webview',
+      \  'coc-yank']
 
-  inoremap <silent><expr> <c-space> coc#refresh()
+inoremap <silent><expr> <c-space> coc#refresh()
 
-  if g:has_terminal
-    inoremap <silent><expr> <nul> coc#refresh()
-  endif
-
-  inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<c-g>u\<cr>"
-
-  inoremap <silent><expr> <tab>
-        \ pumvisible() ?
-          \ "\<c-n>" :
-          \ PreviousCharacterIsEmptyOrWhitespace() ?
-            \ "\<tab>" :
-            \ coc#refresh()
-
-  inoremap <expr> <s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
+if g:has_terminal
+  inoremap <silent><expr> <nul> coc#refresh()
 endif
-"}}}
 
-" Plugins - CtrlP "{{{
-if g:use_ctrlp
-  let g:auto_add_cwd_to_ctrlp_bookmarkdir = 1
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<c-g>u\<cr>"
 
-  let g:ctrlp_map                 = '<ctrl>p'
-  let g:ctrlp_regexp              = 0
-  let g:ctrlp_match_window        = 'bottom,order:ttb,min:1,max:10,results:10'
-  let g:ctrlp_root_markers        = ['.sln']
-  let g:ctrlp_clear_cache_on_exit = 0
-  let g:ctrlp_cache_dir           = '~/.vim/ctrlp'
-  let g:ctrlp_show_hidden         = 1
-  let g:ctrlp_open_new_file       = 'r'
-  let g:ctrlp_follow_symlinks     = 1
-  let g:ctrlp_line_prefix         = ' '
+inoremap <silent><expr> <tab>
+      \ pumvisible() ?
+        \ "\<c-n>" :
+        \ PreviousCharacterIsEmptyOrWhitespace() ?
+          \ "\<tab>" :
+          \ coc#refresh()
 
-  let g:ctrlp_extensions = [
-        \  'quickfix',
-        \  'dir',
-        \  'rtscript',
-        \  'undo',
-        \  'line',
-        \  'changes',
-        \  'mixed',
-        \  'bookmarkdir',
-        \  'autoignore'
-        \ ]
-
-  function! AutoAddCwdToCtrlPBookmarkDir() abort
-    if g:auto_add_cwd_to_ctrlp_bookmarkdir && &modifiable
-      execute 'CtrlPBookmarkDirAdd! %:p:h'
-    endif
-  endfunction
-
-  augroup all_filetype_functions
-    autocmd!
-    autocmd FileType *
-          \ call AutoAddCwdToCtrlPBookmarkDir()
-  augroup end
-endif
-"}}}
-
-" Plugins - FZF "{{{
-if g:use_fzf
-  if g:host_theme_is_dracula
-    let g:fzf_colors = {
-          \ 'fg':      ['fg', 'DraculaFg'],
-          \ 'bg':      ['bg', 'DraculaSubtle'],
-          \ 'hl':      ['fg', 'DraculaOrange'],
-          \ 'fg+':     ['fg', 'DraculaGreen'],
-          \ 'bg+':     ['bg', 'DraculaSubtle'],
-          \ 'hl+':     ['fg', 'DraculaOrange'],
-          \ 'info':    ['fg', 'DraculaPurple'],
-          \ 'border':  ['fg', 'DraculaGreen'],
-          \ 'prompt':  ['fg', 'DraculaGreen'],
-          \ 'pointer': ['fg', 'DraculaPink'],
-          \ 'marker':  ['fg', 'Keyword'],
-          \ 'spinner': ['fg', 'Label'],
-          \ 'header':  ['fg', 'Comment'] }
-  endif
-
-  function! GetFolds() abort
-    return SearchAllLines('\m\C^"\s*\zs.*\ze\s*"\%u007B\{3}')
-  endfunction
-
-  function! GetFunctions() abort
-    return SearchAllLines('\m\C^\s*\<function\>!*\zs.*\ze(.*')
-  endfunction
-
-  function! GetOptions() abort
-    return SearchAllLines('\m\C^\s*\<set\>\s*\zs\w*\ze[=\-+]*')
-  endfunction
-
-  function! FZFFolds() abort
-    call CreateFZFLineJump(function('GetFolds'), 'Folds', { -> execute('foldopen') })
-  endfunction
-
-  function! FZFFunctions() abort
-    call CreateFZFLineJump(function('GetFunctions'), 'Functions')
-  endfunction
-
-  function! FZFOptions() abort
-    call CreateFZFLineJump(function('GetOptions'), 'Options')
-  endfunction
-
-  function! CreateFZFLineJump(get_lines, name, after_jump = 0) abort
-    let l:lines = a:get_lines()
-
-    let l:fzf_config = {
-          \ 'source': map(copy(l:lines), { _, val -> val.text }),
-          \ 'sink': CreateFZFLineJumpSink(l:lines, a:after_jump)
-          \ }
-
-    let l:fzf_config_wrapped = fzf#wrap(a:name, l:fzf_config, 0)
-
-    call fzf#run(l:fzf_config_wrapped)
-  endfunction
-
-  function! CreateFZFLineJumpSink(dict, after_jump) abort
-    function! FZFLineJumpSink(val) abort closure
-      let l:line = filter(copy(a:dict), { _, val -> val.text ==# a:val })[0]
-
-      if !empty(l:line)
-        let l:line_number = l:line.line_number
-        execute l:line_number
-        call Invoke(a:after_jump)
-        call feedkeys('zz')
-      endif
-    endfunction
-
-    return function('FZFLineJumpSink')
-  endfunction
-endif
-"}}}
-
-" Plugins - ALE "{{{
-if g:use_ale
-  let g:ale_linters = { 'cs': ['OmniSharp'] }
-
-  let g:ale_sign_error         = '•'
-  let g:ale_sign_warning       = '•'
-  let g:ale_sign_info          = '·'
-  let g:ale_sign_style_error   = '·'
-  let g:ale_sign_style_warning = '·'
-endif
-"}}}
-
-" Plugins - UtilSnips "{{{
-if g:use_utilsnips
-  let g:UltiSnipsExpandTrigger       ='<c-c>'
-  let g:UltiSnipsJumpForwardTrigger  ='<c-n>'
-  let g:UltiSnipsJumpBackwardTrigger ='<c-p>'
-endif
-"}}}
-
-" Plugins - asyncomplete "{{{
-if g:use_asyncomplete
-  let g:asyncomplete_auto_popup       = 1
-  let g:asyncomplete_auto_completeopt = 1
-
-  inoremap <silent><expr> <c-space> asyncomplete#force_refresh()
-
-  if g:has_terminal
-    inoremap <silent><expr> <nul> asyncomplete#force_refresh()
-  endif
-
-  inoremap <silent><expr> <tab>
-        \ pumvisible() ?
-          \ "\<c-n>" :
-          \ PreviousCharacterIsEmptyOrWhitespace() ?
-            \ "\<tab>" :
-            \ asyncomplete#force_refresh()
-
-  inoremap <expr> <s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
-  inoremap <expr> <cr> pumvisible() ? asyncomplete#close_popup() : "\<cr>"
-
-  autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-
-  autocmd! User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
-        \  'name': 'necovim',
-        \  'allowlist': ['vim'],
-        \  'completor': function('asyncomplete#sources#necovim#completor'),
-        \ }))
-
-  autocmd! User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
-        \  'name': 'ultisnips',
-        \  'allowlist': ['*'],
-        \  'completor': function('asyncomplete#sources#ultisnips#completor'),
-        \ }))
-endif
+inoremap <expr> <s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 "}}}
 
 " Plugins - EasyMotion "{{{
@@ -774,96 +529,16 @@ if g:use_easymotion
 endif
 "}}}
 
-" Plugins - OmniSharp "{{{
-if g:use_omnisharp
-  if g:is_nvim
-    " let g:OmniSharp_server_use_net6      = 1
-    let g:OmniSharp_selector_ui          = 'fzf'
-    let g:OmniSharp_selector_findusages  = 'fzf'
-    let g:OmniSharp_selector_findmembers = 'fzf'
-
-    let g:OmniSharp_fzf_options = { 'window': { 'width': 0.9, 'height': 0.6 } }
-
-    let g:OmniSharp_popup_options = {
-          \  'winhl': 'Normal:NormalFloat'
-          \ }
-  else
-    let g:OmniSharp_popup_options = {
-          \  'padding':   [0, 0, 0, 0],
-          \  'border':    [1]
-          \ }
-  endif
-
-  let g:OmniSharp_popup_mappings = {
-          \  'sigNext':  '<c-n>',
-          \  'sigPrev':  '<c-p>',
-          \  'pageDown': ['<c-f>', '<pagedown>'],
-          \  'pageUp':   ['<c-b>', '<pageup>']
-          \ }
-
-  let g:OmniSharp_open_quickfix       = 0
-  let g:OmniSharp_typeLookupInPreview = 0
-
-  if g:use_utilsnips
-    let g:OmniSharp_want_snippet = 1
-  endif
-
-  let g:OmniSharp_highlight_groups = {
-        \  'ExcludedCode': 'NonText'
-        \ }
-
-  augroup omnisharp_commands
-    autocmd!
-
-    autocmd CursorHold *.cs OmniSharpTypeLookup
-
-    autocmd FileType cs nmap <silent><buffer> [[ <plug>(omnisharp_navigate_up)
-    autocmd FileType cs nmap <silent><buffer> ]] <plug>(omnisharp_navigate_down)
-
-    autocmd FileType cs nmap <silent><buffer> gd <plug>(omnisharp_go_to_definition)
-    autocmd FileType cs nmap <silent><buffer> gD <plug>(omnisharp_preview_definition)
-
-    autocmd FileType cs nmap <silent><buffer> <leader>. <Plug>(omnisharp_code_action_repeat)
-    autocmd FileType cs nmap <silent><buffer> <leader>= <plug>(omnisharp_code_format)
-
-    autocmd FileType cs nmap <silent><buffer> <leader>na <plug>(omnisharp_code_actions)
-    autocmd FileType cs nmap <silent><buffer> <leader>nc <plug>(omnisharp_global_code_check)
-    autocmd FileType cs nmap <silent><buffer> <leader>nd <plug>(omnisharp_documentation)
-    autocmd FileType cs nmap <silent><buffer> <leader>nh <plug>(omnisharp_signature_help)
-    autocmd FileType cs nmap <silent><buffer> <leader>nu <plug>(omnisharp_find_usages)
-    autocmd FileType cs nmap <silent><buffer> <leader>ni <plug>(omnisharp_find_implementations)
-    autocmd FileType cs nmap <silent><buffer> <leader>nI <plug>(omnisharp_preview_implementations)
-    autocmd FileType cs nmap <silent><buffer> <leader>nl <plug>(omnisharp_type_lookup)
-    autocmd FileType cs nmap <silent><buffer> <leader>nr <plug>(omnisharp_rename)
-    autocmd FileType cs nmap <silent><buffer> <leader>ns <plug>(omnisharp_find_symbol)
-    autocmd FileType cs nmap <silent><buffer> <leader>nu <plug>(omnisharp_fix_usings)
-
-    autocmd FileType cs imap <silent><buffer> <c-/> <plug>(omnisharp_signature_help)
-
-    autocmd FileType cs xmap <silent><buffer> <leader>. <plug>(omnisharp_code_action_repeat)
-
-    autocmd FileType cs xmap <silent><buffer> <leader>na <plug>(omnisharp_code_actions)
-  augroup END
-endif
-"}}}
-
-" Plugins - Sharpenup "{{{
-if g:use_sharpenup
-  let g:sharpenup_statusline_opts = '•'
-  let g:sharpenup_create_mappings = 0
-endif
-"}}}
-
 " Bindings - Insert mode "{{{
 inoremap <c-bs> <c-w>
 inoremap jj <esc>
 "}}}
 
 " Bindings - Remaps "{{{
-noremap $ g$
-noremap ^ g^
+" noremap $ g$
+" noremap ^ g^
 
-noremap 0 g0
+" noremap 0 g0
 
 noremap H g^
 noremap L g$
@@ -873,71 +548,76 @@ nnoremap N Nzzzv
 "}}}
 
 " Bindings - Search "{{{
-if g:use_telescope
-  nnoremap <leader>/h <cmd>Telescope search_history<cr>
-endif
+nnoremap <leader>/h <cmd>Telescope search_history<cr>
 
 nnoremap <leader>/i <cmd>noincsearch<cr>
 nnoremap <leader>/t <cmd>nohlsearch<cr>
 "}}}
 
 " Bindings - Commands "{{{
+nnoremap <leader>; <cmd>Telescope commands<cr>
 nnoremap <leader>: <cmd>Telescope command_history<cr>
 "}}}
 
+" Bindings - Leader key + b "{{{
+nnoremap <leader>bd <cmd>bdelete<cr>
+"}}}
+
+" Bindings - Leader key + c "{{{
+nnoremap <leader>c <cmd>Telescope coc line_code_actions<cr>
+nnoremap <leader>C <cmd>Telescope coc file_code_actions<cr>
+"}}}
+
 " Bindings - Leader key + e "{{{
-if g:use_ctrlp
-  nnoremap <leader>ee <cmd>CtrlPQuickfix<cr>
-endif
+nnoremap <leader>ee <cmd>Telescope coc workspace_diagnostics<cr>
+nnoremap <leader>eE <cmd>Telescope coc diagnostics<cr>
+nmap     <leader>en <plug>(coc-diagnostic-next-error)
+nmap     <leader>eN <plug>(coc-diagnostic-next)
+nmap     <leader>ep <plug>(coc-diagnostic-prev-error)
+nmap     <leader>eP <plug>(coc-diagnostic-prev)
 "}}}
 
 " Bindings - Leader key + f "{{{
-if g:use_telescope
-  nnoremap <leader>fm <cmd>Telescope treesitter<cr>
-  nnoremap <leader>fr <cmd>Telescope oldfiles<cr>
-endif
-
-if g:use_ctrlp
-  nnoremap <leader>fl <cmd>CtrlPLine<cr>
-  nnoremap <leader>fr <cmd>CtrlPMRU<cr>
-endif
+nnoremap <leader>ff <cmd>Telescope grep_string<cr>
+nnoremap <leader>fs <cmd>Telescope coc document_symbols<cr>
+nnoremap <leader>fw <cmd>Telescope treesitter<cr>
 "}}}
 
 " Bindings - Leader key + g "{{{
-if g:use_telescope
-  nnoremap <leader>gb <cmd>Telescope git_branches<cr>
-  nnoremap <leader>gc <cmd>Telescope git_bcommits<cr>
-  nnoremap <leader>gC <cmd>Telescope git_commits<cr>
-  nnoremap <leader>gf <cmd>Telescope git_files<cr>
-  nnoremap <leader>gs <cmd>Telescope git_status<cr>
-endif
-
-if g:use_ctrlp
-  nnoremap <leader>gc <cmd>CtrlPChange<cr>
-endif
+nnoremap <leader>gb <cmd>Telescope git_branches<cr>
+nnoremap <leader>gc <cmd>Telescope git_bcommits<cr>
+nnoremap <leader>gC <cmd>Telescope git_commits<cr>
+nnoremap <leader>gf <cmd>Telescope git_files<cr>
+nnoremap <leader>gs <cmd>Telescope git_status<cr>
 "}}}
 
 " Bindings - Leader key + l "{{{
 nnoremap <leader>l <cmd>NERDTreeFind<cr>
 "}}}
 
-" Bindings - Leader key + t "{{{
-if g:use_telescope
-  nnoremap <leader>tf <cmd>Telescope find_files<cr>
-  nnoremap <leader>tg <cmd>Telescope live_grep<cr>
-  nnoremap <leader>th <cmd>Telescope help_tags<cr>
-  nnoremap <leader>tl <cmd>Telescope loclist<cr>
-  nnoremap <leader>tm <cmd>Telescope marks<cr>
-  nnoremap <leader>tp <cmd>Telescope jumplist<cr>
-  nnoremap <leader>ts <cmd>Telescope grep_string<cr>
-  nnoremap <leader>tt <cmd>Telescope buffers<cr>
-endif
+" Bindings - Leader key + n "{{{
+nnoremap <leader>nd <cmd>Telescope coc definitions<cr>
+nnoremap <leader>ni <cmd>Telescope coc implementations<cr>
+nnoremap <leader>no <cmd>CocList outline<cr>
+nnoremap <leader>nu <cmd>Telescope coc references<cr>
+"}}}
 
-if g:use_ctrlp
-  nnoremap <leader>tb <cmd>CtrlPBookmarkDir<cr>
-  nnoremap <leader>tB <cmd>CtrlPBookmarkDirAdd<cr>
-  nnoremap <leader>tt <cmd>CtrlPBuffer<cr>
-endif
+" Bindings - Leader key + r "{{{
+nmap <leader>rf <plug>(coc-format)
+nmap <leader>rn <plug>(coc-rename)
+nmap <leader>rr <plug>(coc-refactor)
+"}}}
+
+" Bindings - Leader key + t "{{{
+nnoremap <leader>tf <cmd>Telescope find_files<cr>
+nnoremap <leader>tg <cmd>Telescope live_grep<cr>
+nnoremap <leader>th <cmd>Telescope help_tags<cr>
+nnoremap <leader>tl <cmd>Telescope loclist<cr>
+nnoremap <leader>tm <cmd>Telescope marks<cr>
+nnoremap <leader>tp <cmd>Telescope jumplist<cr>
+nnoremap <leader>tr <cmd>Telescope oldfiles<cr>
+nnoremap <leader>ts <cmd>Telescope coc workspace_symbols<cr>
+nnoremap <leader>tt <cmd>Telescope buffers<cr>
 "}}}
 
 " Bindings - Leader key + v "{{{
@@ -945,6 +625,8 @@ nnoremap <leader>vv <c-v>
 "}}}
 
 " Bindings - Leader key + w "{{{
+nnoremap <leader>wc <cmd>close<cr>
+nnoremap <leader>wh <cmd>only<cr>
 nnoremap <leader>wi <c-w>k
 nnoremap <leader>we <c-w>j
 nnoremap <leader>wn <c-w>h
@@ -970,6 +652,10 @@ if g:use_arrow_keys_to_navigate_windows
   nnoremap <left>  <c-w>h
   nnoremap <right> <c-w>l
 endif
+"}}}
+
+" Lua "{{{
+lua require('profile')
 "}}}
 
 " Auto-source local vim profile "{{{
