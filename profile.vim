@@ -22,6 +22,7 @@ let g:use_easymotion = v:false
 let g:use_polyglot  = v:false
 let g:use_omnisharp = v:false
 let g:use_sharpenup = v:false
+let g:use_ionide    = v:false
 
 function! GetHostTheme() abort
   if !empty(g:override_theme)
@@ -38,7 +39,8 @@ endfunction
 let g:host_theme            = GetHostTheme()
 let g:host_theme_is_tender  = g:host_theme ==# 'tender'
 
-let g:use_arrow_keys_to_navigate_windows = 0
+let g:override_vbol_veol_mappings        = v:false
+let g:use_arrow_keys_to_navigate_windows = v:false
 "}}}
 
 " Settings - Before anything else! "{{{
@@ -206,7 +208,7 @@ let s:string_type  = type('')
 let s:list_type    = type([])
 let s:map_type     = type({})
 let s:funcref_type = type(function('tr'))
-let s:lambda_type  = type({ -> 0 })
+let s:lambda_type  = type({ -> v:false })
 
 function! IsString(val) abort
   return CompareTypes(a:val, s:string_type)
@@ -433,11 +435,13 @@ if g:use_sharpenup
   Plug 'nickspoons/vim-sharpenup'
 endif
 
-let ionide_do = g:is_win32 ? 'powershell -ExecutionPolicy Unrestricted .\install.ps1' : 'make fsautocomplete'
+if g:use_ionide
+  let ionide_do = g:is_win32 ? 'powershell -ExecutionPolicy Unrestricted .\install.ps1' : 'make fsautocomplete'
 
-Plug 'ionide/Ionide-vim', {
-      \ 'do': ionide_do,
-      \ }
+  Plug 'ionide/Ionide-vim', {
+        \ 'do': ionide_do,
+        \ }
+endif
 
 " Always load last
 Plug 'ryanoasis/vim-devicons'
@@ -528,10 +532,11 @@ inoremap jj <esc>
 "}}}
 
 " Bindings - Remaps "{{{
-" noremap $ g$
-" noremap ^ g^
-
-" noremap 0 g0
+if g:override_vbol_veol_mappings
+  noremap $ g$
+  noremap ^ g^
+  noremap 0 g0
+endif
 
 noremap H g^
 noremap L g$
