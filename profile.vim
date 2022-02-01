@@ -142,19 +142,13 @@ set ttimeoutlen=50
 set notimeout
 "}}}
 
-" Settings - Swap "{{{
-set directory=~/.vim/swap/
-"}}}
-
 " Settings - Backup "{{{
 set writebackup
 set backupcopy=yes
 set updatetime=300
-set backupdir=~/.vim/backup/
 "}}}
 
 " Settings - Undo "{{{
-set undodir=~/.vim/undo/
 set undoreload=1000
 set undolevels=1000
 set undofile
@@ -199,7 +193,6 @@ set mouse=a
 "}}}
 
 " Settings - netrw "{{{
-let g:netrw_home    = g:vim_directory
 let g:netrw_keepdir = 0
 "}}}
 
