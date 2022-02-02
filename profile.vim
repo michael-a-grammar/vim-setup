@@ -128,7 +128,7 @@ set shortmess+=c
 " Settings - Line numbers "{{{
 set number
 set relativenumber
-set signcolumn=number
+set signcolumn=yes:1
 "}}}
 
 " Settings - Editor guides "{{{
