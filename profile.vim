@@ -11,7 +11,7 @@ let g:gui_theme      = 'tender'
 let g:terminal_theme = 'dracula'
 let g:override_theme = 'dracula'
 
-let g:use_easymotion = v:false
+let g:use_easymotion = v:true
 
 let g:use_polyglot  = v:false
 let g:use_omnisharp = v:false
@@ -524,20 +524,32 @@ if g:use_easymotion
   let g:EasyMotion_smartcase        = 1
   let g:EasyMotion_use_smartsign_us = 1
   let g:EasyMotion_use_upper        = 1
+  let g:EasyMotion_enter_jump_first = 1
+  let g:EasyMotion_space_jump_first = 1
+  let g:EasyMotion_verbose          = 1
 
-  map <leader><enter> <plug>(easymotion-prefix)
+  hi link EasyMotionTarget DraculaPink
+  hi link EasyMotionShade  Comment
+
+  hi link EasyMotionTarget2First DraculaGreen
+  hi link EasyMotionTarget2Second DraculaGreen
+
+  hi link EasyMotionMoveHL Search
+  hi link EasyMotionIncSearch Search
+
+  map s <plug>(easymotion-prefix)
 endif
 "}}}
 
 " Plugins - Gundo "{{{
-let g:gundo_preview_bottom   = v:true
-let g:gundo_right            = v:true
-let g:gundo_help             = v:false
+let g:gundo_preview_bottom   = 1
+let g:gundo_right            = 1
+let g:gundo_help             = 0
 let g:gundo_map_move_older   = 'n'
 let g:gundo_map_move_newer   = 'e'
-let g:gundo_return_on_revert = v:true
-let g:gundo_prefer_python3   = v:true
-"
+let g:gundo_return_on_revert = 1
+let g:gundo_prefer_python3   = 1
+"}}}
 
 " Bindings - Insert mode "{{{
 inoremap <c-bs> <c-w>
@@ -577,12 +589,14 @@ nnoremap <leader>bd <cmd>bdelete<cr>
 "}}}
 
 " Bindings - Leader key + e "{{{
-nnoremap <leader>ee <cmd>Telescope coc workspace_diagnostics<cr>
-nnoremap <leader>eE <cmd>Telescope coc diagnostics<cr>
+nmap     <leader>ed <plug>(coc-diagnostic-info)
+nnoremap <leader>ee <cmd>Telescope coc diagnostics<cr>
+nnoremap <leader>eE <cmd>Telescope coc workspace_diagnostics<cr>
 nmap     <leader>en <plug>(coc-diagnostic-next-error)
 nmap     <leader>eN <plug>(coc-diagnostic-next)
 nmap     <leader>ep <plug>(coc-diagnostic-prev-error)
 nmap     <leader>eP <plug>(coc-diagnostic-prev)
+nnoremap <leader>er <cmd>call CocActionAsync('diagnosticRefresh')<cr>
 "}}}
 
 " Bindings - Leader key + f "{{{
