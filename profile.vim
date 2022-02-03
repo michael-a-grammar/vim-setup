@@ -1,10 +1,4 @@
 " Initialisation "{{{
-let g:vim_directory = '~/.vim'
-
-function! GetChildVimDirectory(child_directory) abort
-  return g:vim_directory . a:child_directory
-endfunction
-
 let g:is_ide    = has('ide')
 let g:is_win32  = has('win32')
 let g:is_unix   = has('unix')
@@ -354,7 +348,7 @@ command! ToggleRelativeLineNumbers  :call ToggleOption('relativenumber')
 augroup vim_filetype_functions
   autocmd!
   autocmd FileType vim
-        \ nnoremap <buffer> <leader>hh :call LookupCurrentWordInHelp()<cr>
+        \ nnoremap <buffer> <leader>hh <cmd>call LookupCurrentWordInHelp()<cr>
 
   autocmd FileType vim
         \ command! LookupCurrentWordInHelp :call LookupCurrentWordInHelp()
@@ -365,10 +359,15 @@ augroup powershell_filetype_functions
   autocmd FileType ps1
         \ call SetPowerShellAsShell()
 augroup end
+
+augroup events
+  autocmd!
+  autocmd TextYankPost * silent! lua vim.highlight.on_yank()
+augroup end
 "}}}
 
 " Plugins - Plug "{{{
-call plug#begin(g:vim_directory . '/plugged')
+call plug#begin()
 
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'nanotech/jellybeans.vim'
@@ -394,13 +393,11 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'scrooloose/nerdcommenter'
 
 Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
+Plug 'lewis6991/gitsigns.nvim'
 
 if g:use_easymotion
   Plug 'easymotion/vim-easymotion'
 endif
-
-Plug 'machakann/vim-highlightedyank'
 
 Plug 'sjl/gundo.vim'
 
@@ -423,9 +420,13 @@ Plug 'sickill/vim-pasta'
 
 Plug 'Wolfy87/vim-syntax-expand'
 
+Plug 'kana/vim-textobj-user'
+
 if g:use_polyglot
   Plug 'sheerun/vim-polyglot'
 endif
+
+Plug 'rhysd/vim-textobj-ruby'
 
 if g:use_omnisharp
   Plug 'OmniSharp/omnisharp-vim'
@@ -489,8 +490,6 @@ let g:coc_global_extensions = [
       \  'coc-snippets',
       \  'coc-solargraph',
       \  'coc-spell-checker',
-      \  'coc-stylua',
-      \  'coc-sumneko-lua',
       \  'coc-tsserver',
       \  'coc-vimlsp',
       \  'coc-webview',
@@ -514,6 +513,10 @@ inoremap <silent><expr> <tab>
 inoremap <expr> <s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 "}}}
 
+" Plugins - NERDCommenter "{{{
+let g:NERDCreateDefaultMappings = 1
+"}}}
+
 " Plugins - EasyMotion "{{{
 if g:use_easymotion
   " Default - asdghklqwertyuiopzxcvbnmfj;
@@ -526,9 +529,21 @@ if g:use_easymotion
 endif
 "}}}
 
+" Plugins - Gundo "{{{
+let g:gundo_preview_bottom   = v:true
+let g:gundo_right            = v:true
+let g:gundo_help             = v:false
+let g:gundo_map_move_older   = 'n'
+let g:gundo_map_move_newer   = 'e'
+let g:gundo_return_on_revert = v:true
+let g:gundo_prefer_python3   = v:true
+"
+
 " Bindings - Insert mode "{{{
 inoremap <c-bs> <c-w>
 inoremap jj <esc>
+
+imap <c-c> <plug>NERDCommenterInsert
 "}}}
 
 " Bindings - Remaps "{{{
@@ -559,11 +574,6 @@ nnoremap <leader>: <cmd>Telescope command_history<cr>
 
 " Bindings - Leader key + b "{{{
 nnoremap <leader>bd <cmd>bdelete<cr>
-"}}}
-
-" Bindings - Leader key + c "{{{
-nnoremap <leader>c <cmd>Telescope coc line_code_actions<cr>
-nnoremap <leader>C <cmd>Telescope coc file_code_actions<cr>
 "}}}
 
 " Bindings - Leader key + e "{{{
@@ -600,10 +610,19 @@ nnoremap <leader>no <cmd>CocList outline<cr>
 nnoremap <leader>nu <cmd>Telescope coc references<cr>
 "}}}
 
+" Bindings - Leader key + p "{{{
+map <leader>pn <plug>(miniyank-cycle)
+map <leader>pN <plug>(miniyank-cycleback)
+map <leader>pp <plug>(miniyank-startput)
+map <leader>pP <plug>(miniyank-startPut)
+"}}}
+
 " Bindings - Leader key + r "{{{
-nmap <leader>rf <plug>(coc-format)
-nmap <leader>rn <plug>(coc-rename)
-nmap <leader>rr <plug>(coc-refactor)
+nnoremap <leader>ra <cmd>Telescope coc line_code_actions<cr>
+nnoremap <leader>rA <cmd>Telescope coc file_code_actions<cr>
+nmap     <leader>rf <plug>(coc-format)
+nmap     <leader>rn <plug>(coc-rename)
+nmap     <leader>rr <plug>(coc-refactor)
 "}}}
 
 " Bindings - Leader key + t "{{{
@@ -616,6 +635,10 @@ nnoremap <leader>tp <cmd>Telescope jumplist<cr>
 nnoremap <leader>tr <cmd>Telescope oldfiles<cr>
 nnoremap <leader>ts <cmd>Telescope coc workspace_symbols<cr>
 nnoremap <leader>tt <cmd>Telescope buffers<cr>
+"}}}
+
+" Bindings - Leader key + u "{{{
+nnoremap <leader>u <cmd>GundoToggle<cr>
 "}}}
 
 " Bindings - Leader key + v "{{{

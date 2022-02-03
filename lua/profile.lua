@@ -5,7 +5,7 @@ require'nvim-treesitter.configs'.setup {
     'c_sharp',
     'fish',
     'javascript',
-    --'markdown',
+    'markdown',
     'ruby',
     'typescript',
     'vim'
@@ -19,3 +19,5 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = false,
   },
 }
+
+require('gitsigns').setup()
