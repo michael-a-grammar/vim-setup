@@ -521,6 +521,7 @@ let g:NERDCreateDefaultMappings = 1
 if g:use_easymotion
   " Default - asdghklqwertyuiopzxcvbnmfj;
   let g:EasyMotion_keys             = 'ARSTGQWFPMIOLUYNE;'
+  let g:EasyMotion_do_mapping       = 0
   let g:EasyMotion_smartcase        = 1
   let g:EasyMotion_use_smartsign_us = 1
   let g:EasyMotion_use_upper        = 1
