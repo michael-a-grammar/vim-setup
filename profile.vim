@@ -9,7 +9,7 @@ let g:has_pwsh     = executable('pwsh')
 
 let g:gui_theme      = 'tender'
 let g:terminal_theme = 'dracula'
-let g:override_theme = 'dracula'
+let g:override_theme = ''
 
 let g:use_easymotion = v:true
 
@@ -30,8 +30,10 @@ function! GetHostTheme() abort
   endif
 endfunction
 
-let g:host_theme            = GetHostTheme()
-let g:host_theme_is_tender  = g:host_theme ==# 'tender'
+let g:host_theme               = GetHostTheme()
+let g:host_theme_is_dracula    = g:host_theme ==# 'dracula'
+let g:host_theme_is_jellybeans = g:host_theme ==# 'jellybeans'
+let g:host_theme_is_tender     = g:host_theme ==# 'tender'
 
 let g:override_vbol_veol_mappings        = v:false
 let g:use_arrow_keys_to_navigate_windows = v:false
@@ -527,18 +529,60 @@ if g:use_easymotion
   let g:EasyMotion_use_upper        = 1
   let g:EasyMotion_enter_jump_first = 1
   let g:EasyMotion_space_jump_first = 1
+  let g:EasyMotion_inc_highlight    = 1
+  let g:EasyMotion_move_highlight   = 1
   let g:EasyMotion_verbose          = 1
 
-  hi link EasyMotionTarget DraculaPink
-  hi link EasyMotionShade  Comment
+  if g:host_theme_is_dracula
+    hi link EasyMotionTarget DraculaOrange
+    hi link EasyMotionTarget2First DraculaGreen
+    hi link EasyMotionTarget2Second DraculaGreen
+  elseif g:host_theme_is_tender
+    hi link EasyMotionTarget Operator
+    hi link EasyMotionTarget2First Character
+    hi link EasyMotionTarget2Second Character
+  else
+    hi link EasyMotionTarget Type
+    hi link EasyMotionTarget2First Title
+    hi link EasyMotionTarget2Second Title
+  endif
 
-  hi link EasyMotionTarget2First DraculaGreen
-  hi link EasyMotionTarget2Second DraculaGreen
+  hi link EasyMotionShade  Comment
 
   hi link EasyMotionMoveHL Search
   hi link EasyMotionIncSearch Search
 
-  map s <plug>(easymotion-prefix)
+  map f <plug>(easymotion-bd-fl)
+  map F <plug>(easymotion-bd-f)
+  map t <plug>(easymotion-bd-tl)
+  map T <plug>(easymotion-bd-t)
+
+  map ke <plug>(easymotion-iskeyword-bd-e)
+  map kw <plug>(easymotion-iskeyword-bd-w)
+
+  map s/  <plug>(easymotion-sn)
+  map sa <plug>(easymotion-lineanywhere)
+  map sA  <plug>(easymotion-jumptoanywhere)
+  map se  <plug>(easymotion-bd-el)
+  map sE  <plug>(easymotion-bd-e)
+  map sf  <plug>(easymotion-bd-f2)
+  map st  <plug>(easymotion-bd-t2)
+  map sw  <plug>(easymotion-bd-wl)
+  map sW  <plug>(easymotion-bd-w)
+  map sn  <plug>(easymotion-next)
+  map sN  <plug>(easymotion-prev)
+  map ss  <plug>(easymotion-s2)
+  map sS  <plug>(easymotion-s)
+
+  map s<up>    <plug>(easymotion-k)
+  map s<down>  <plug>(easymotion-j)
+  map s<left>  <plug>(easymotion-lineforward)
+  map s<right> <plug>(easymotion-linebackward)
+
+  map Sf <plug>(easymotion-overwin-f)
+  map SF <plug>(easymotion-overwin-f2)
+  map Sl <plug>(easymotion-overwin-line)
+  map Sw <plug>(easymotion-overwin-w)
 endif
 "}}}
 
