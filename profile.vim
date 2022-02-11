@@ -307,9 +307,36 @@ function! GetCurrentWord() abort
   return expand('<cword>')
 endfunction
 
+function! GetCurrentWORD() abort
+  return expand('<cWORD>')
+endfunction
+
+function! LookupWordInHelp(arg) abort
+  execute 'vertical botright help ' . a:arg
+endfunction
+
 function! LookupCurrentWordInHelp() abort
   let l:current_word = GetCurrentWord()
-  execute 'vertical botright help ' . l:current_word
+  call LookupWordInHelp(l:current_word)
+endfunction
+
+function! LookupCurrentWORDInHelp() abort
+  let l:current_word = GetCurrentWORD()
+  call LookupWordInHelp(l:current_word)
+endfunction
+
+function! ReplaceWord(arg) abort
+  call feedkeys(':%s/' . a:arg . '//g' . "\<left>\<left>")
+endfunction
+
+function! ReplaceCurrentWord() abort
+  let l:current_word = GetCurrentWord()
+  call ReplaceWord(l:current_word)
+endfunction
+
+function! ReplaceCurrentWORD() abort
+  let l:current_word = GetCurrentWORD()
+  call ReplaceWord(l:current_word)
 endfunction
 
 function! PreviousCharacterIsEmptyOrWhitespace() abort
@@ -347,13 +374,19 @@ command! ToggleRelativeLineNumbers  :call ToggleOption('relativenumber')
 "}}}
 
 " Autocommand groups "{{{
-augroup vim_filetype_functions
+augroup vim_filetype_commands
   autocmd!
   autocmd FileType vim
-        \ nnoremap <buffer> <leader>hh <cmd>call LookupCurrentWordInHelp()<cr>
+        \ nnoremap <buffer> <leader>hw <cmd>call LookupCurrentWordInHelp()<cr>
+
+  autocmd FileType vim
+        \ nnoremap <buffer> <leader>hW <cmd>call LookupCurrentWORDInHelp()<cr>
 
   autocmd FileType vim
         \ command! LookupCurrentWordInHelp :call LookupCurrentWordInHelp()
+
+  autocmd FileType vim
+        \ command! LookupCurrentWORDInHelp :call LookupCurrentWORDInHelp()
 augroup end
 
 augroup powershell_filetype_functions
@@ -560,19 +593,19 @@ if g:use_easymotion
   map ke <plug>(easymotion-iskeyword-bd-e)
   map kw <plug>(easymotion-iskeyword-bd-w)
 
-  map s/  <plug>(easymotion-sn)
+  map s/ <plug>(easymotion-sn)
   map sa <plug>(easymotion-lineanywhere)
-  map sA  <plug>(easymotion-jumptoanywhere)
-  map se  <plug>(easymotion-bd-el)
-  map sE  <plug>(easymotion-bd-e)
-  map sf  <plug>(easymotion-bd-f2)
-  map st  <plug>(easymotion-bd-t2)
-  map sw  <plug>(easymotion-bd-wl)
-  map sW  <plug>(easymotion-bd-w)
-  map sn  <plug>(easymotion-next)
-  map sN  <plug>(easymotion-prev)
-  map ss  <plug>(easymotion-s2)
-  map sS  <plug>(easymotion-s)
+  map sA <plug>(easymotion-jumptoanywhere)
+  map se <plug>(easymotion-bd-el)
+  map sE <plug>(easymotion-bd-e)
+  map sf <plug>(easymotion-bd-f2)
+  map st <plug>(easymotion-bd-t2)
+  map sw <plug>(easymotion-bd-wl)
+  map sW <plug>(easymotion-bd-w)
+  map sn <plug>(easymotion-next)
+  map sN <plug>(easymotion-prev)
+  map ss <plug>(easymotion-s2)
+  map sS <plug>(easymotion-s)
 
   map s<up>    <plug>(easymotion-k)
   map s<down>  <plug>(easymotion-j)
@@ -596,14 +629,24 @@ let g:gundo_return_on_revert = 1
 let g:gundo_prefer_python3   = 1
 "}}}
 
+" Bindings - Command Line mode "{{{
+cnoremap <c-bs> <c-w>
+cnoremap      <c-w>
+"}}}
+
 " Bindings - Insert mode "{{{
 inoremap <c-bs> <c-w>
-inoremap jj <esc>
+inoremap      <c-w>
+inoremap jj     <esc>
 
 imap <c-c> <plug>NERDCommenterInsert
 "}}}
 
-" Bindings - Remaps "{{{
+" Bindings - Visual mode "{{{
+xmap <leader>xa <plug>(EasyAlign)
+"}}}
+
+" Bindings - Normal mode - Remaps "{{{
 if g:override_vbol_veol_mappings
   noremap $ g$
   noremap ^ g^
@@ -617,23 +660,22 @@ nnoremap n nzzzv
 nnoremap N Nzzzv
 "}}}
 
-" Bindings - Search "{{{
+" Bindings - Normal mode - Search "{{{
+nnoremap <leader>// <cmd>%s/
 nnoremap <leader>/h <cmd>Telescope search_history<cr>
-
 nnoremap <leader>/i <cmd>noincsearch<cr>
+nnoremap <leader>/r <cmd>call ReplaceCurrentWord()<cr>
+nnoremap <leader>/R <cmd>call ReplaceCurrentWORD()<cr>
+nnoremap <leader>/s <cmd>s/
 nnoremap <leader>/t <cmd>nohlsearch<cr>
 "}}}
 
-" Bindings - Commands "{{{
+" Bindings - Normal mode - Commands "{{{
 nnoremap <leader>; <cmd>Telescope commands<cr>
 nnoremap <leader>: <cmd>Telescope command_history<cr>
 "}}}
 
-" Bindings - Leader key + b "{{{
-nnoremap <leader>bd <cmd>bdelete<cr>
-"}}}
-
-" Bindings - Leader key + e "{{{
+" Bindings - Normal mode - Leader key + e "{{{
 nmap     <leader>ed <plug>(coc-diagnostic-info)
 nnoremap <leader>ee <cmd>Telescope coc diagnostics<cr>
 nnoremap <leader>eE <cmd>Telescope coc workspace_diagnostics<cr>
@@ -644,13 +686,13 @@ nmap     <leader>eP <plug>(coc-diagnostic-prev)
 nnoremap <leader>er <cmd>call CocActionAsync('diagnosticRefresh')<cr>
 "}}}
 
-" Bindings - Leader key + f "{{{
+" Bindings - Normal mode - Leader key + f "{{{
 nnoremap <leader>ff <cmd>Telescope grep_string<cr>
 nnoremap <leader>fs <cmd>Telescope coc document_symbols<cr>
 nnoremap <leader>fw <cmd>Telescope treesitter<cr>
 "}}}
 
-" Bindings - Leader key + g "{{{
+" Bindings - Normal mode - Leader key + g "{{{
 nnoremap <leader>gb <cmd>Telescope git_branches<cr>
 nnoremap <leader>gc <cmd>Telescope git_bcommits<cr>
 nnoremap <leader>gC <cmd>Telescope git_commits<cr>
@@ -658,25 +700,29 @@ nnoremap <leader>gf <cmd>Telescope git_files<cr>
 nnoremap <leader>gs <cmd>Telescope git_status<cr>
 "}}}
 
-" Bindings - Leader key + l "{{{
+" Bindings - Normal mode - Leader key + h "{{{
+nnoremap <leader>h <cmd>Telescope help_tags<cr>
+"}}}
+
+" Bindings - Normal mode - Leader key + l "{{{
 nnoremap <leader>l <cmd>NERDTreeFind<cr>
 "}}}
 
-" Bindings - Leader key + n "{{{
+" Bindings - Normal mode - Leader key + n "{{{
 nnoremap <leader>nd <cmd>Telescope coc definitions<cr>
 nnoremap <leader>ni <cmd>Telescope coc implementations<cr>
 nnoremap <leader>no <cmd>CocList outline<cr>
 nnoremap <leader>nu <cmd>Telescope coc references<cr>
 "}}}
 
-" Bindings - Leader key + p "{{{
+" Bindings - Normal mode - Leader key + p "{{{
 map <leader>pn <plug>(miniyank-cycle)
 map <leader>pN <plug>(miniyank-cycleback)
 map <leader>pp <plug>(miniyank-startput)
 map <leader>pP <plug>(miniyank-startPut)
 "}}}
 
-" Bindings - Leader key + r "{{{
+" Bindings - Normal mode - Leader key + r "{{{
 nnoremap <leader>ra <cmd>Telescope coc line_code_actions<cr>
 nnoremap <leader>rA <cmd>Telescope coc file_code_actions<cr>
 nmap     <leader>rf <plug>(coc-format)
@@ -684,27 +730,30 @@ nmap     <leader>rn <plug>(coc-rename)
 nmap     <leader>rr <plug>(coc-refactor)
 "}}}
 
-" Bindings - Leader key + t "{{{
-nnoremap <leader>tf <cmd>Telescope find_files<cr>
-nnoremap <leader>tg <cmd>Telescope live_grep<cr>
-nnoremap <leader>th <cmd>Telescope help_tags<cr>
-nnoremap <leader>tl <cmd>Telescope loclist<cr>
-nnoremap <leader>tm <cmd>Telescope marks<cr>
-nnoremap <leader>tp <cmd>Telescope jumplist<cr>
-nnoremap <leader>tr <cmd>Telescope oldfiles<cr>
-nnoremap <leader>ts <cmd>Telescope coc workspace_symbols<cr>
-nnoremap <leader>tt <cmd>Telescope buffers<cr>
+" Bindings - Normal mode - Leader key + t "{{{
+nnoremap <leader>td <cmd>bdelete<cr>
 "}}}
 
-" Bindings - Leader key + u "{{{
+" Bindings - Normal mode - Leader key + s "{{{
+nnoremap <leader>sf <cmd>Telescope find_files<cr>
+nnoremap <leader>sg <cmd>Telescope live_grep<cr>
+nnoremap <leader>sl <cmd>Telescope loclist<cr>
+nnoremap <leader>sm <cmd>Telescope marks<cr>
+nnoremap <leader>sp <cmd>Telescope jumplist<cr>
+nnoremap <leader>sr <cmd>Telescope oldfiles<cr>
+nnoremap <leader>ss <cmd>Telescope coc workspace_symbols<cr>
+nnoremap <leader>st <cmd>Telescope buffers<cr>
+"}}}
+
+" Bindings - Normal mode - Leader key + u "{{{
 nnoremap <leader>u <cmd>GundoToggle<cr>
 "}}}
 
-" Bindings - Leader key + v "{{{
+" Bindings - Normal mode - Leader key + v "{{{
 nnoremap <leader>vv <c-v>
 "}}}
 
-" Bindings - Leader key + w "{{{
+" Bindings - Normal mode - Leader key + w "{{{
 nnoremap <leader>wc <cmd>close<cr>
 nnoremap <leader>wh <cmd>only<cr>
 nnoremap <leader>wi <c-w>k
@@ -713,19 +762,25 @@ nnoremap <leader>wn <c-w>h
 nnoremap <leader>wo <c-w>l
 "}}}
 
-" Bindings - Leader key + z "{{{
+" Bindings - Normal mode - Leader key + x "{{{
+nmap     <leader>xa <plug>(EasyAlign)
+nnoremap <leader>xm <c-a>
+nnoremap <leader>xM <c-x>
+"}}}
+
+" Bindings - Normal mode - Leader key + z "{{{
 nnoremap <leader>ze <cmd>edit $MYVIMRC<cr>
 nnoremap <leader>zz <cmd>source $MYVIMRC<cr>
 "}}}
 
-" Bindings - Control modifier "{{{
+" Bindings - Normal mode - Control modifier "{{{
 nnoremap <c-k> <c-w>k
 nnoremap <c-j> <c-w>j
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 "}}}
 
-" Bindings - Arrow keys "{{{
+" Bindings - Normal mode - Arrow keys "{{{
 if g:use_arrow_keys_to_navigate_windows
   nnoremap <up>    <c-w>k
   nnoremap <down>  <c-w>j
