@@ -421,6 +421,7 @@ Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'fannheyward/telescope-coc.nvim'
 
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'folke/lua-dev.nvim'
 
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -525,6 +526,7 @@ let g:coc_global_extensions = [
       \  'coc-snippets',
       \  'coc-solargraph',
       \  'coc-spell-checker',
+      \  'coc-sumneko-lua',
       \  'coc-tsserver',
       \  'coc-vimlsp',
       \  'coc-webview',
@@ -732,6 +734,7 @@ nmap     <leader>rr <plug>(coc-refactor)
 
 " Bindings - Normal mode - Leader key + t "{{{
 nnoremap <leader>td <cmd>bdelete<cr>
+nnoremap <leader>tt <cmd>Telescope buffers<cr>
 "}}}
 
 " Bindings - Normal mode - Leader key + s "{{{
@@ -742,7 +745,6 @@ nnoremap <leader>sm <cmd>Telescope marks<cr>
 nnoremap <leader>sp <cmd>Telescope jumplist<cr>
 nnoremap <leader>sr <cmd>Telescope oldfiles<cr>
 nnoremap <leader>ss <cmd>Telescope coc workspace_symbols<cr>
-nnoremap <leader>st <cmd>Telescope buffers<cr>
 "}}}
 
 " Bindings - Normal mode - Leader key + u "{{{

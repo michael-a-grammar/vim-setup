@@ -1,10 +1,16 @@
 class Vim
-  def install_plugins
+  vim = 'nvim -n'
+
+  def self.install_plugins
   end
 
-  def clean_plugins
+  def self.clean_plugins
   end
 
-  def update_plugins
+  def self.update_plugins
+  end
+
+  def self.call
   end
 end
+

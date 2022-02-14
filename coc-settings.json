@@ -1,34 +1,6 @@
 {
-  "vimlsp.diagnostic.enable": false,
-  "cSpell.enabled": false,
-  "languageserver": {
-    "fsharp": {
-      "command": "fsautocomplete",
-      "args": ["--background-service-enabled"],
-      "filetypes": ["fsharp"],
-      "trace.server": "verbose",
-      "initalizationOptions": {
-        "AutomaticWorkspaceInit": true
-      },
-      "settings": {
-        "FSharp.keywordsAutocomplete": true,
-        "FSharp.ExternalAutocomplete": false,
-        "FSharp.Linter": true,
-        "FSharp.UnionCaseStubGeneration": true,
-        "FSharp.UnionCaseStubGenerationBody": "failwith \"Not Implemented\"",
-        "FSharp.RecordStubGeneration": true,
-        "FSharp.RecordStubGenerationBody": "failwith \"Not Implemented\"",
-        "FSharp.InterfaceStubGeneration": true,
-        "FSharp.InterfaceStubGenerationObjectIdentifier": "this",
-        "FSharp.InterfaceStubGenerationMethodBody": "failwith \"Not Implemented\"",
-        "FSharp.UnusedOpensAnalyzer": true,
-        "FSharp.UnusedDeclarationsAnalyzer": true,
-        "FSharp.UseSdkScripts": true,
-        "FSharp.SimplifyNameAnalyzer": false,
-        "FSharp.ResolveNamespaces": true,
-        "FSharp.EnableReferenceCodeLens": true
-      }
-    }
-  },
-  "powershell.integratedConsole.showOnStartup": false
+  "cSpell.enabled": true,
+  "powershell.integratedConsole.showOnStartup": true,
+  "sumneko-lua.enableNvimLuaDev": true,
+  "vimlsp.diagnostic.enable": true
 }
