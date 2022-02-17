@@ -1,8 +1,11 @@
+require './vim'
+
 desc 'Install Plug plugins'
 
 namespace :vim do
   task :install_plugins do
-    sh "nvim -n -c 'PlugInstall | qa'"
+    commands = Vim.plug_install.call
+
+    sh commands
   end
 end
-
