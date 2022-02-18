@@ -1,5 +1,10 @@
+require 'rake'
+
 class Vim
-  @vim      = 'nvim -n'
+  include Rake::FileUtilsExt
+
+  @vim      = 'nvim'
+  @flags    = ['n']
   @commands = []
 
   def self.add_command(command)
@@ -10,20 +15,27 @@ class Vim
     self
   end
 
-  def self.call
+  def self.build
     add_command :qa
 
-    @commands.map! { |command| "-c #{command}" }
-
-    commands = @commands.join ' '
+    flags    = @flags.map { |flag| "-#{flag}" }
+    commands = @commands.map { |command| "-c #{command}" }
 
     @commands.clear
 
-    "#{@vim} #{commands}"
+    options = flags.concat commands
+
+    [@vim, options]
+  end
+
+  def self.run
+    vim, options = *build
+
+    sh vim, *options
   end
 end
 
-%i[install clean update].each do |e|
+%i[install clean update upgrade].each do |e|
   Vim.define_singleton_method("plug_#{e}") do
     add_command("Plug#{e.capitalize}")
   end
