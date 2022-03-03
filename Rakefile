@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require './vim'
 
 namespace :vim do
