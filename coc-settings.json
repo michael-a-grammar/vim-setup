@@ -1,6 +1,8 @@
 {
   "cSpell.enabled": true,
-  "powershell.integratedConsole.showOnStartup": true,
+  "powershell.integratedConsole.showOnStartup": false,
   "sumneko-lua.enableNvimLuaDev": true,
-  "vimlsp.diagnostic.enable": true
+  "vimlsp.diagnostic.enable": true,
+  "Lua.telemetry.enable": true,
+  "elixir.pathToElixirLS": "~/.elixir-ls/release/language_server.sh"
 }
