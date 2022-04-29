@@ -1,11 +1,6 @@
 " Initialisation "{{{
-let g:is_ide    = has('ide')
-let g:is_win32  = has('win32')
-let g:is_unix   = has('unix')
-
 let g:has_gui      = has('gui_running') || empty($TERM)
 let g:has_terminal = !g:has_gui
-let g:has_pwsh     = executable('pwsh')
 
 let g:gui_theme      = 'tender'
 let g:terminal_theme = 'tender'
@@ -14,9 +9,6 @@ let g:override_theme = ''
 let g:use_easymotion = v:true
 
 let g:use_polyglot  = v:true
-let g:use_omnisharp = v:false
-let g:use_sharpenup = v:false
-let g:use_ionide    = v:false
 
 function! GetHostTheme() abort
   if !empty(g:override_theme)
@@ -359,14 +351,6 @@ endfunction
 function! GetOptions() abort
   return SearchAllLines('\m\C^\s*\<set\>\s*\zs\w*\ze[=\-+]*')
 endfunction
-
-function! SetPowerShellAsShell() abort
-  if g:has_pwsh
-    set shell=pwsh
-    set shellcmdflag=-NoLogo\ -NonInteractive\ -NoProfile\ -Command
-    set shellxquote="- "
-  endif
-endfunction
 "}}}
 
 " Commands "{{{
@@ -388,12 +372,6 @@ augroup vim_filetype_commands
 
   autocmd FileType vim
         \ command! LookupCurrentWORDInHelp :call LookupCurrentWORDInHelp()
-augroup end
-
-augroup powershell_filetype_functions
-  autocmd!
-  autocmd FileType ps1
-        \ call SetPowerShellAsShell()
 augroup end
 
 augroup events
@@ -471,22 +449,6 @@ Plug 'mhinz/vim-mix-format'
 Plug 'andyl/vim-textobj-elixir'
 Plug 'rhysd/vim-textobj-ruby'
 
-if g:use_omnisharp
-  Plug 'OmniSharp/omnisharp-vim'
-endif
-
-if g:use_sharpenup
-  Plug 'nickspoons/vim-sharpenup'
-endif
-
-if g:use_ionide
-  let ionide_do = g:is_win32 ? 'powershell -ExecutionPolicy Unrestricted .\install.ps1' : 'make fsautocomplete'
-
-  Plug 'ionide/Ionide-vim', {
-        \ 'do': ionide_do,
-        \ }
-endif
-
 " Always load last
 Plug 'ryanoasis/vim-devicons'
 
@@ -522,20 +484,16 @@ let g:airline_theme = g:host_theme
 
 " Plugins - CoC "{{{
 let g:coc_global_extensions = [
-      \  'coc-fsharp',
       \  'coc-elixir',
       \  'coc-html',
       \  'coc-json',
       \  'coc-markdown-preview-enhanced',
       \  'coc-markdownlint',
-      \  'coc-omnisharp',
-      \  'coc-powershell',
       \  'coc-prettier',
       \  'coc-snippets',
       \  'coc-solargraph',
       \  'coc-spell-checker',
       \  'coc-sumneko-lua',
-      \  'coc-tsserver',
       \  'coc-vimlsp',
       \  'coc-webview',
       \  'coc-yank']
