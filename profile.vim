@@ -8,12 +8,12 @@ let g:has_terminal = !g:has_gui
 let g:has_pwsh     = executable('pwsh')
 
 let g:gui_theme      = 'tender'
-let g:terminal_theme = 'dracula'
+let g:terminal_theme = 'tender'
 let g:override_theme = ''
 
 let g:use_easymotion = v:true
 
-let g:use_polyglot  = v:false
+let g:use_polyglot  = v:true
 let g:use_omnisharp = v:false
 let g:use_sharpenup = v:false
 let g:use_ionide    = v:false
@@ -197,6 +197,7 @@ let g:netrw_keepdir = 0
 " Bindings - Leader key "{{{
 nnoremap <space> <nop>
 let g:mapleader = "\<space>"
+let maplocalleader = "\\"
 "}}}
 
 " Functions "{{{
@@ -377,10 +378,10 @@ command! ToggleRelativeLineNumbers  :call ToggleOption('relativenumber')
 augroup vim_filetype_commands
   autocmd!
   autocmd FileType vim
-        \ nnoremap <buffer> <leader>hw <cmd>call LookupCurrentWordInHelp()<cr>
+        \ nnoremap <buffer> <localleader>hw <cmd>call LookupCurrentWordInHelp()<cr>
 
   autocmd FileType vim
-        \ nnoremap <buffer> <leader>hW <cmd>call LookupCurrentWORDInHelp()<cr>
+        \ nnoremap <buffer> <localleader>hW <cmd>call LookupCurrentWORDInHelp()<cr>
 
   autocmd FileType vim
         \ command! LookupCurrentWordInHelp :call LookupCurrentWordInHelp()
@@ -428,6 +429,8 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 
 Plug 'scrooloose/nerdcommenter'
 
+Plug 'honza/vim-snippets'
+
 Plug 'tpope/vim-fugitive'
 Plug 'lewis6991/gitsigns.nvim'
 
@@ -462,6 +465,10 @@ if g:use_polyglot
   Plug 'sheerun/vim-polyglot'
 endif
 
+Plug 'elixir-editors/vim-elixir'
+Plug 'mhinz/vim-mix-format'
+
+Plug 'andyl/vim-textobj-elixir'
 Plug 'rhysd/vim-textobj-ruby'
 
 if g:use_omnisharp
@@ -516,6 +523,7 @@ let g:airline_theme = g:host_theme
 " Plugins - CoC "{{{
 let g:coc_global_extensions = [
       \  'coc-fsharp',
+      \  'coc-elixir',
       \  'coc-html',
       \  'coc-json',
       \  'coc-markdown-preview-enhanced',
@@ -532,11 +540,15 @@ let g:coc_global_extensions = [
       \  'coc-webview',
       \  'coc-yank']
 
+" autocmd CursorHold * silent call CocActionAsync('definitionHover')
+
 inoremap <silent><expr> <c-space> coc#refresh()
 
 if g:has_terminal
   inoremap <silent><expr> <nul> coc#refresh()
 endif
+
+"inoremap <silent><expr> <esc> pumvisible() ? coc#float#close_all(1) : "\<esc>"
 
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<c-g>u\<cr>"
 
@@ -587,37 +599,39 @@ if g:use_easymotion
   hi link EasyMotionMoveHL Search
   hi link EasyMotionIncSearch Search
 
-  map f <plug>(easymotion-bd-fl)
-  map F <plug>(easymotion-bd-f)
-  map t <plug>(easymotion-bd-tl)
-  map T <plug>(easymotion-bd-t)
+  nnoremap ,, ,
 
-  map ke <plug>(easymotion-iskeyword-bd-e)
-  map kw <plug>(easymotion-iskeyword-bd-w)
+  map ,f <plug>(easymotion-bd-fl)
+  map ,F <plug>(easymotion-bd-f)
+  map ,t <plug>(easymotion-bd-tl)
+  map ,T <plug>(easymotion-bd-t)
 
-  map s/ <plug>(easymotion-sn)
-  map sa <plug>(easymotion-lineanywhere)
-  map sA <plug>(easymotion-jumptoanywhere)
-  map se <plug>(easymotion-bd-el)
-  map sE <plug>(easymotion-bd-e)
-  map sf <plug>(easymotion-bd-f2)
-  map st <plug>(easymotion-bd-t2)
-  map sw <plug>(easymotion-bd-wl)
-  map sW <plug>(easymotion-bd-w)
-  map sn <plug>(easymotion-next)
-  map sN <plug>(easymotion-prev)
-  map ss <plug>(easymotion-s2)
-  map sS <plug>(easymotion-s)
+  map ,ke <plug>(easymotion-iskeyword-bd-e)
+  map ,kw <plug>(easymotion-iskeyword-bd-w)
 
-  map s<up>    <plug>(easymotion-k)
-  map s<down>  <plug>(easymotion-j)
-  map s<left>  <plug>(easymotion-lineforward)
-  map s<right> <plug>(easymotion-linebackward)
+  map ,s/ <plug>(easymotion-sn)
+  map ,sa <plug>(easymotion-lineanywhere)
+  map ,sA <plug>(easymotion-jumptoanywhere)
+  map ,se <plug>(easymotion-bd-el)
+  map ,sE <plug>(easymotion-bd-e)
+  map ,sf <plug>(easymotion-bd-f2)
+  map ,st <plug>(easymotion-bd-t2)
+  map ,sw <plug>(easymotion-bd-wl)
+  map ,sW <plug>(easymotion-bd-w)
+  map ,sn <plug>(easymotion-next)
+  map ,sN <plug>(easymotion-prev)
+  map ,ss <plug>(easymotion-s2)
+  map ,sS <plug>(easymotion-s)
 
-  map Sf <plug>(easymotion-overwin-f)
-  map SF <plug>(easymotion-overwin-f2)
-  map Sl <plug>(easymotion-overwin-line)
-  map Sw <plug>(easymotion-overwin-w)
+  map ,s<up>    <plug>(easymotion-k)
+  map ,s<down>  <plug>(easymotion-j)
+  map ,s<left>  <plug>(easymotion-lineforward)
+  map ,s<right> <plug>(easymotion-linebackward)
+
+  map ,Sf <plug>(easymotion-overwin-f)
+  map ,SF <plug>(easymotion-overwin-f2)
+  map ,Sl <plug>(easymotion-overwin-line)
+  map ,Sw <plug>(easymotion-overwin-w)
 endif
 "}}}
 
@@ -675,6 +689,11 @@ nnoremap <leader>/t <cmd>nohlsearch<cr>
 " Bindings - Normal mode - Commands "{{{
 nnoremap <leader>; <cmd>Telescope commands<cr>
 nnoremap <leader>: <cmd>Telescope command_history<cr>
+"}}}
+
+" Bindings - Normal mode - Leader key + d "{{{
+nnoremap <leader>dh <cmd>call CocActionAsync('definitionHover')<cr>
+nnoremap <leader>ds <cmd>call CocActionAsync('showSignatureHelp')<cr>
 "}}}
 
 " Bindings - Normal mode - Leader key + e "{{{
@@ -759,9 +778,13 @@ nnoremap <leader>vv <c-v>
 nnoremap <leader>wc <cmd>close<cr>
 nnoremap <leader>wh <cmd>only<cr>
 nnoremap <leader>wi <c-w>k
+nnoremap <leader>wI <c-w>K
 nnoremap <leader>we <c-w>j
+nnoremap <leader>wE <c-w>J
 nnoremap <leader>wn <c-w>h
+nnoremap <leader>wN <c-w>H
 nnoremap <leader>wo <c-w>l
+nnoremap <leader>wO <c-w>L
 "}}}
 
 " Bindings - Normal mode - Leader key + x "{{{
