@@ -7,7 +7,6 @@ let g:terminal_theme = 'tender'
 let g:override_theme = ''
 
 let g:use_easymotion = v:true
-
 let g:use_polyglot  = v:true
 
 function! GetHostTheme() abort
