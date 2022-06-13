@@ -1,13 +1,19 @@
 " Initialisation "{{{
+let g:is_nvim      = has('nvim')
+let g:is_macvim    = has('gui_macvim')
 let g:has_gui      = has('gui_running') || empty($TERM)
 let g:has_terminal = !g:has_gui
 
 let g:gui_theme      = 'tender'
-let g:terminal_theme = 'tender'
+let g:terminal_theme = 'dracula'
 let g:override_theme = ''
 
 let g:use_easymotion = v:true
-let g:use_polyglot  = v:true
+let g:use_polyglot   = v:true
+
+if !g:is_nvim
+  set nocompatible
+endif
 
 function! GetHostTheme() abort
   if !empty(g:override_theme)
@@ -79,7 +85,7 @@ set smartcase
 "}}}
 
 " Settings - Working directory and paths "{{{
-set autochdir
+set noautochdir
 set path+=**
 set wildignore+=*/.git/*,*/.idea/*,*/bin/*,*/obj/*,*/.meteor/*,*/node_modules/*
 "}}}
@@ -159,6 +165,13 @@ runtime macros/matchit.vim
 
 " Settings - GUI "{{{
 if g:has_gui
+  if g:is_macvim
+    set antialias
+    set fullscreen
+    set macligatures
+    set macthinstrokes
+  endif
+
   set guifont=Hasklug\ Nerd\ Font\ Mono:h16
 
   set guioptions+=c
@@ -353,6 +366,7 @@ endfunction
 "}}}
 
 " Commands "{{{
+command! ToggleAutoChangeDirectory  :call ToggleOption('autochdir')
 command! ToggleWhiteSpaceVisibility :call ToggleOption('list')
 command! ToggleRelativeLineNumbers  :call ToggleOption('relativenumber')
 "}}}
@@ -410,6 +424,8 @@ Plug 'honza/vim-snippets'
 
 Plug 'tpope/vim-fugitive'
 Plug 'lewis6991/gitsigns.nvim'
+
+Plug 'jpalardy/vim-slime'
 
 if g:use_easymotion
   Plug 'easymotion/vim-easymotion'
@@ -523,6 +539,11 @@ inoremap <expr> <s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 let g:NERDCreateDefaultMappings = 1
 "}}}
 
+" Plugins - vim-slime "{{{
+let g:slime_target = "tmux"
+let g:slime_no_mappings = 1
+"}}}
+
 " Plugins - EasyMotion "{{{
 if g:use_easymotion
   " Default - asdghklqwertyuiopzxcvbnmfj;
@@ -634,12 +655,12 @@ nnoremap N Nzzzv
 "}}}
 
 " Bindings - Normal mode - Search "{{{
-nnoremap <leader>// <cmd>%s/
+nnoremap <leader>// :%s/
 nnoremap <leader>/h <cmd>Telescope search_history<cr>
 nnoremap <leader>/i <cmd>noincsearch<cr>
 nnoremap <leader>/r <cmd>call ReplaceCurrentWord()<cr>
 nnoremap <leader>/R <cmd>call ReplaceCurrentWORD()<cr>
-nnoremap <leader>/s <cmd>s/
+nnoremap <leader>/s :s/
 nnoremap <leader>/t <cmd>nohlsearch<cr>
 "}}}
 
@@ -665,9 +686,10 @@ nnoremap <leader>er <cmd>call CocActionAsync('diagnosticRefresh')<cr>
 "}}}
 
 " Bindings - Normal mode - Leader key + f "{{{
-nnoremap <leader>ff <cmd>Telescope grep_string<cr>
+nnoremap <leader>ff <cmd>Telescope current_buffer_fuzzy_find<cr>
+nnoremap <leader>fo <cmd>CocList outline<cr>
 nnoremap <leader>fs <cmd>Telescope coc document_symbols<cr>
-nnoremap <leader>fw <cmd>Telescope treesitter<cr>
+nnoremap <leader>ft <cmd>Telescope treesitter<cr>
 "}}}
 
 " Bindings - Normal mode - Leader key + g "{{{
@@ -686,10 +708,61 @@ nnoremap <leader>h <cmd>Telescope help_tags<cr>
 nnoremap <leader>l <cmd>NERDTreeFind<cr>
 "}}}
 
+" Bindings - Normal mode - Leader key + i "{{{
+function! g:IExSlimeBuffer(file_type, focus_on_slime_window)
+  let g:slime_buffer_name = 'iex_slime.exs'
+
+  let l:focus_on_slime_window = a:focus_on_slime_window
+  let l:vim_height            = &lines
+  let l:current_window_number = winnr()
+  let l:slime_buffer_exists   = bufexists(g:slime_buffer_name)
+
+  if l:slime_buffer_exists == 0
+    let l:slime_buffer_number = bufadd(g:slime_buffer_name)
+    call setbufvar(l:slime_buffer_number, '&filetype', a:file_type)
+    call setbufvar(l:slime_buffer_number, '&bufhidden', 'hide')
+    call setbufvar(l:slime_buffer_number, '&swapfile', 0)
+    call setbufvar(l:slime_buffer_number, '&buflisted', 0)
+    call setbufvar(l:slime_buffer_number, '&number', 0)
+    call setbufvar(l:slime_buffer_number, '&relativenumber', 0)
+    call setbufvar(l:slime_buffer_number, '&list', 0)
+  else
+    let l:focus_on_slime_window = v:true
+    let l:slime_buffer_number   = bufnr(g:slime_buffer_name)
+  endif
+
+  let l:slime_window_number = bufwinnr(l:slime_buffer_number)
+
+  if l:slime_window_number == -1
+    let l:slime_window_height = l:vim_height / 4
+
+    let l:split_command  = 'split' . '+buffer' . l:slime_buffer_number
+    let l:resize_command = 'resize' . l:slime_window_height
+
+    execute l:split_command
+    execute l:resize_command
+
+    let l:slime_window_number = bufwinnr(l:slime_buffer_number)
+  endif
+
+  let l:focus_window_number =
+        \ l:focus_on_slime_window ?
+        \ l:slime_window_number   :
+        \ l:current_window_number
+
+  execute l:focus_window_number . 'wincmd w'
+endfunction
+
+let g:slime_default_config = {"socket_name": get(split($TMUX, ","), 0), "target_pane": ":0.{last}"}
+
+xmap <leader>ii <Plug>SlimeRegionSend
+nmap <leader>ii <Plug>SlimeParagraphSend
+nmap <leader>iv <Plug>SlimeConfig
+"}}}
+
 " Bindings - Normal mode - Leader key + n "{{{
 nnoremap <leader>nd <cmd>Telescope coc definitions<cr>
 nnoremap <leader>ni <cmd>Telescope coc implementations<cr>
-nnoremap <leader>no <cmd>CocList outline<cr>
 nnoremap <leader>nu <cmd>Telescope coc references<cr>
 "}}}
 
@@ -711,6 +784,7 @@ nmap     <leader>rr <plug>(coc-refactor)
 " Bindings - Normal mode - Leader key + t "{{{
 nnoremap <leader>td <cmd>bdelete<cr>
 nnoremap <leader>tt <cmd>Telescope buffers<cr>
+nnoremap <Leader>T :lua require'telescope.builtin'.resume()<cr>
 "}}}
 
 " Bindings - Normal mode - Leader key + s "{{{
@@ -720,7 +794,9 @@ nnoremap <leader>sl <cmd>Telescope loclist<cr>
 nnoremap <leader>sm <cmd>Telescope marks<cr>
 nnoremap <leader>sp <cmd>Telescope jumplist<cr>
 nnoremap <leader>sr <cmd>Telescope oldfiles<cr>
-nnoremap <leader>ss <cmd>Telescope coc workspace_symbols<cr>
+nnoremap <leader>ss :lua require'telescope'.extensions.coc.workspace_symbols({file_ignore_patterns = {'.asdf/', 'deps/'}})<cr>
+nnoremap <leader>sS <cmd>Telescope coc workspace_symbols<cr>
+nnoremap <leader>sw <cmd>Telescope grep_string<cr>
 "}}}
 
 " Bindings - Normal mode - Leader key + u "{{{
@@ -772,7 +848,9 @@ endif
 "}}}
 
 " Lua "{{{
-lua require('profile')
+if g:is_nvim
+  lua require('profile')
+endif
 "}}}
 
 " Auto-source local vim profile "{{{
