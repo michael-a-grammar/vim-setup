@@ -207,7 +207,7 @@ let maplocalleader = "\\"
 " Functions "{{{
 let s:string_type  = type('')
 let s:list_type    = type([])
-let s:map_type     = type({})
+let s:dict_type    = type({})
 let s:funcref_type = type(function('tr'))
 let s:lambda_type  = type({ -> v:false })
 
@@ -219,8 +219,8 @@ function! IsList(val) abort
   return CompareTypes(a:val, s:list_type)
 endfunction
 
-function! IsMap(val) abort
-  return CompareTypes(a:val, s:map_type)
+function! IsDict(val) abort
+  return CompareTypes(a:val, s:dict_type)
 endfunction
 
 function! IsFuncref(val) abort
@@ -253,6 +253,18 @@ endfunction
 
 function! SetColorScheme(colorScheme) abort
   execute 'colorscheme ' . a:colorScheme
+endfunction
+
+function! GetCurrentWindowNumber() abort
+  return winnr()
+endfunction
+
+function! GetCurrentBufferName() abort
+  return bufname('')
+endfunction
+
+function! BufferExists(buffer_name) abort
+  return bufexists(a:buffer_name)
 endfunction
 
 function GetCurrentLine() abort
@@ -363,12 +375,23 @@ endfunction
 function! GetOptions() abort
   return SearchAllLines('\m\C^\s*\<set\>\s*\zs\w*\ze[=\-+]*')
 endfunction
+
+function! Leader(suffix)
+  let l:leader = get(g:, 'mapleader', '\\')
+
+  if l:leader == ' '
+    let l:leader = '1' . l:leader
+  endif
+
+  execute 'normal ' . l:leader . a:suffix
+endfunction
 "}}}
 
 " Commands "{{{
 command! ToggleAutoChangeDirectory  :call ToggleOption('autochdir')
 command! ToggleWhiteSpaceVisibility :call ToggleOption('list')
 command! ToggleRelativeLineNumbers  :call ToggleOption('relativenumber')
+command! -nargs=1 Leader :call Leader(<f-args>)
 "}}}
 
 " Autocommand groups "{{{
@@ -540,8 +563,108 @@ let g:NERDCreateDefaultMappings = 1
 "}}}
 
 " Plugins - vim-slime "{{{
-let g:slime_target = "tmux"
-let g:slime_no_mappings = 1
+let g:slime_target         = "tmux"
+let g:slime_no_mappings    = 1
+let g:slime_default_config = {"socket_name": get(split($TMUX, ","), 0), "target_pane": ":0.{last}"}
+
+function! GetSlimeBufferName(buffer_prefix, file_type) abort
+  return a:buffer_prefix . '_slime.' . a:file_type
+endfunction
+
+function! GetSlimeState(buffer_prefix, file_type) abort
+  let l:state        = {}
+  let l:state.mode   = {}
+  let l:current_mode = mode()
+
+  let l:current_buffer_name   = GetCurrentBufferName()
+  let l:current_window_number = GetCurrentWindowNumber()
+
+  let l:slime_buffer_name   = GetSlimeBufferName(a:buffer_prefix, a:file_type)
+  let l:slime_buffer_number = bufnr(l:slime_buffer_name)
+  let l:slime_window_number = bufwinnr(l:slime_buffer_number)
+
+  if l:slime_buffer_name !=# l:current_buffer_name
+    if l:slime_buffer_number ==# -1
+      let l:state.slime_buffer_does_not_exist = v:true
+    else
+      let l:state.slime_buffer_number = l:slime_buffer_number
+    endif
+  else
+    let l:state.slime_buffer_is_selected = v:true
+  endif
+
+  if l:slime_window_number !=# l:current_window_number
+    if l:slime_window_number ==# -1
+      let l:state.slime_window_does_not_exist = v:true
+    else
+      let l:state.slime_window_exists = v:true
+      let l:state.slime_window_number = l:slime_window_number
+    endif
+  endif
+
+  if l:current_mode ==# 'n'
+    let l:state.mode.normal = v:true
+  elseif l:current_mode ==? 'v' || l:current_mode ==# 'CTRL-V'
+    let l:state.mode.visual = v:true
+  endif
+
+  let l:state.file_type         = a:file_type
+  let l:state.slime_buffer_name = l:slime_buffer_name
+
+  return l:state
+endfunction
+
+function! CreateSlimeWindow(state) abort
+  let l:vim_height          = &lines
+  let l:slime_window_height = l:vim_height / 4
+
+  let l:split_command  = 'split' . '+buffer' . a:state.slime_buffer_number
+  let l:resize_command = 'resize' . l:slime_window_height
+
+  execute l:split_command
+  execute l:resize_command
+endfunction
+
+function! SelectSlimeWindow(state) abort
+  execute a:state.slime_window_number . 'wincmd w'
+endfunction
+
+function! CreateSlimeBuffer(state) abort
+  let l:state               = a:state
+  let l:slime_buffer_number = bufadd(l:state.slime_buffer_name)
+
+  call setbufvar(l:slime_buffer_number, '&filetype', l:state.file_type)
+  call setbufvar(l:slime_buffer_number, '&bufhidden', 'hide')
+  call setbufvar(l:slime_buffer_number, '&swapfile', 0)
+  call setbufvar(l:slime_buffer_number, '&buflisted', 0)
+  call setbufvar(l:slime_buffer_number, '&number', 0)
+  call setbufvar(l:slime_buffer_number, '&relativenumber', 0)
+  call setbufvar(l:slime_buffer_number, '&list', 0)
+
+  let l:state.slime_buffer_number = l:slime_buffer_number
+
+  return l:state
+endfunction
+
+function! Slime(buffer_prefix, file_type) abort
+  let l:state = GetSlimeState(a:buffer_prefix, a:file_type)
+
+  if has_key(l:state, 'slime_buffer_is_selected')
+    call Leader('ii')
+  endif
+
+  if has_key(l:state, 'slime_window_exists')
+    call SelectSlimeWindow(l:state)
+  endif
+
+  if has_key(l:state, 'slime_buffer_does_not_exist')
+    call CreateSlimeBuffer(l:state)
+  endif
+
+  if has_key(l:state, 'slime_window_does_not_exist')
+    call CreateSlimeWindow(l:state)
+  endif
+endfunction
 "}}}
 
 " Plugins - EasyMotion "{{{
@@ -709,55 +832,14 @@ nnoremap <leader>l <cmd>NERDTreeFind<cr>
 "}}}
 
 " Bindings - Normal mode - Leader key + i "{{{
-function! g:IExSlimeBuffer(file_type, focus_on_slime_window)
-  let g:slime_buffer_name = 'iex_slime.exs'
-
-  let l:focus_on_slime_window = a:focus_on_slime_window
-  let l:vim_height            = &lines
-  let l:current_window_number = winnr()
-  let l:slime_buffer_exists   = bufexists(g:slime_buffer_name)
-
-  if l:slime_buffer_exists == 0
-    let l:slime_buffer_number = bufadd(g:slime_buffer_name)
-    call setbufvar(l:slime_buffer_number, '&filetype', a:file_type)
-    call setbufvar(l:slime_buffer_number, '&bufhidden', 'hide')
-    call setbufvar(l:slime_buffer_number, '&swapfile', 0)
-    call setbufvar(l:slime_buffer_number, '&buflisted', 0)
-    call setbufvar(l:slime_buffer_number, '&number', 0)
-    call setbufvar(l:slime_buffer_number, '&relativenumber', 0)
-    call setbufvar(l:slime_buffer_number, '&list', 0)
-  else
-    let l:focus_on_slime_window = v:true
-    let l:slime_buffer_number   = bufnr(g:slime_buffer_name)
-  endif
-
-  let l:slime_window_number = bufwinnr(l:slime_buffer_number)
-
-  if l:slime_window_number == -1
-    let l:slime_window_height = l:vim_height / 4
-
-    let l:split_command  = 'split' . '+buffer' . l:slime_buffer_number
-    let l:resize_command = 'resize' . l:slime_window_height
-
-    execute l:split_command
-    execute l:resize_command
-
-    let l:slime_window_number = bufwinnr(l:slime_buffer_number)
-  endif
-
-  let l:focus_window_number =
-        \ l:focus_on_slime_window ?
-        \ l:slime_window_number   :
-        \ l:current_window_number
-
-  execute l:focus_window_number . 'wincmd w'
-endfunction
-
-let g:slime_default_config = {"socket_name": get(split($TMUX, ","), 0), "target_pane": ":0.{last}"}
-
-xmap <leader>ii <Plug>SlimeRegionSend
-nmap <leader>ii <Plug>SlimeParagraphSend
-nmap <leader>iv <Plug>SlimeConfig
+xmap <leader>ii <plug>SlimeRegionSend
+nmap <leader>ii <plug>SlimeParagraphSend
+nmap <leader>iv <plug>SlimeConfig
+"}}}
+"
+" Bindings - Normal mode - Leader key + m "{{{
+xmap <leader>mm <cmd>call Slime('iex', 'exs')<cr>
+nmap <leader>mm <cmd>call Slime('iex', 'exs')<cr>
 "}}}
 
 " Bindings - Normal mode - Leader key + n "{{{
