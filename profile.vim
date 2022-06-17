@@ -8,8 +8,9 @@ let g:gui_theme      = 'tender'
 let g:terminal_theme = 'dracula'
 let g:override_theme = ''
 
+let g:use_lsp        = v:true
+let g:use_coc        = v:false
 let g:use_easymotion = v:true
-let g:use_polyglot   = v:true
 
 if !g:is_nvim
   set nocompatible
@@ -232,7 +233,11 @@ function! IsLambda(val) abort
 endfunction
 
 function! CompareTypes(val, type_to_compare) abort
-  return type(a:val) ==# a:type_to_compare
+  if type(a:val) ==# a:type_to_compare
+    return v:true
+  else
+    return v:false
+  endif
 endfunction
 
 function! Invoke(val) abort
@@ -328,6 +333,10 @@ function! GetCurrentWORD() abort
   return expand('<cWORD>')
 endfunction
 
+function! GetCurrentlyEditedFileDirectory() abort
+  return expand('%:h')
+endfunction
+
 function! LookupWordInHelp(arg) abort
   execute 'vertical botright help ' . a:arg
 endfunction
@@ -385,6 +394,21 @@ function! Leader(suffix)
 
   execute 'normal ' . l:leader . a:suffix
 endfunction
+
+function! GetCurrentBasicMode() abort
+  let l:current_mode = mode()
+
+  if l:current_mode ==# 'n'
+    return { 'normal': v:true }
+  elseif l:current_mode ==? 'v' || l:current_mode ==# 'CTRL-V'
+    return { 'visual': v:true }
+  endif
+endfunction
+
+function! SetWorkingDirectoryToCurrentlyEditedFileDirectory() abort
+  let l:currently_edited_file_directory = GetCurrentlyEditedFileDirectory()
+  cd l:currently_edited_file_directory
+endfunction
 "}}}
 
 " Commands "{{{
@@ -431,11 +455,19 @@ Plug 'vim-airline/vim-airline-themes'
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'nvim-telescope/telescope-github.nvim'
+Plug 'nvim-telescope/telescope-z.nvim'
+
 Plug 'nvim-treesitter/nvim-treesitter'
 
-Plug 'fannheyward/telescope-coc.nvim'
+if g:use_coc
+  Plug 'fannheyward/telescope-coc.nvim'
+  Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+endif
 
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'kyazdani42/nvim-web-devicons'
+
 Plug 'folke/lua-dev.nvim'
 
 Plug 'scrooloose/nerdtree'
@@ -477,10 +509,6 @@ Plug 'Wolfy87/vim-syntax-expand'
 
 Plug 'kana/vim-textobj-user'
 
-if g:use_polyglot
-  Plug 'sheerun/vim-polyglot'
-endif
-
 Plug 'elixir-editors/vim-elixir'
 Plug 'mhinz/vim-mix-format'
 
@@ -507,7 +535,7 @@ endif
 let g:airline_left_sep  = ''
 let g:airline_right_sep = ''
 
-let g:airline#extensions#tabline#enabled = 0
+let g:airline#extensions#tabline#enabled = 1
 
 let g:airline_powerline_fonts     = 1
 let g:airline_skip_empty_sections = 1
@@ -517,45 +545,44 @@ let g:airline_skip_empty_sections = 1
 let g:airline_theme = g:host_theme
 "}}}
 
-" Plugins - Treesitter {{{
-" }}}
-
 " Plugins - CoC "{{{
-let g:coc_global_extensions = [
-      \  'coc-elixir',
-      \  'coc-html',
-      \  'coc-json',
-      \  'coc-markdown-preview-enhanced',
-      \  'coc-markdownlint',
-      \  'coc-prettier',
-      \  'coc-snippets',
-      \  'coc-solargraph',
-      \  'coc-spell-checker',
-      \  'coc-sumneko-lua',
-      \  'coc-vimlsp',
-      \  'coc-webview',
-      \  'coc-yank']
+if g:use_coc
+  let g:coc_global_extensions = [
+        \  'coc-elixir',
+        \  'coc-html',
+        \  'coc-json',
+        \  'coc-markdown-preview-enhanced',
+        \  'coc-markdownlint',
+        \  'coc-prettier',
+        \  'coc-snippets',
+        \  'coc-solargraph',
+        \  'coc-spell-checker',
+        \  'coc-sumneko-lua',
+        \  'coc-vimlsp',
+        \  'coc-webview',
+        \  'coc-yank']
 
-" autocmd CursorHold * silent call CocActionAsync('definitionHover')
+  " autocmd CursorHold * silent call CocActionAsync('definitionHover')
 
-inoremap <silent><expr> <c-space> coc#refresh()
+  inoremap <silent><expr> <c-space> coc#refresh()
 
-if g:has_terminal
-  inoremap <silent><expr> <nul> coc#refresh()
+  if g:has_terminal
+    inoremap <silent><expr> <nul> coc#refresh()
+  endif
+
+  " inoremap <silent><expr> <esc> pumvisible() ? coc#float#close_all(1) : "\<esc>"
+
+  inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<c-g>u\<cr>"
+
+  inoremap <silent><expr> <tab>
+        \ pumvisible() ?
+          \ "\<c-n>" :
+          \ PreviousCharacterIsEmptyOrWhitespace() ?
+            \ "\<tab>" :
+            \ coc#refresh()
+
+  inoremap <expr> <s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 endif
-
-"inoremap <silent><expr> <esc> pumvisible() ? coc#float#close_all(1) : "\<esc>"
-
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<c-g>u\<cr>"
-
-inoremap <silent><expr> <tab>
-      \ pumvisible() ?
-        \ "\<c-n>" :
-        \ PreviousCharacterIsEmptyOrWhitespace() ?
-          \ "\<tab>" :
-          \ coc#refresh()
-
-inoremap <expr> <s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 "}}}
 
 " Plugins - NERDCommenter "{{{
@@ -573,8 +600,6 @@ endfunction
 
 function! GetSlimeState(buffer_prefix, file_type) abort
   let l:state        = {}
-  let l:state.mode   = {}
-  let l:current_mode = mode()
 
   let l:current_buffer_name   = GetCurrentBufferName()
   let l:current_window_number = GetCurrentWindowNumber()
@@ -600,12 +625,6 @@ function! GetSlimeState(buffer_prefix, file_type) abort
       let l:state.slime_window_exists = v:true
       let l:state.slime_window_number = l:slime_window_number
     endif
-  endif
-
-  if l:current_mode ==# 'n'
-    let l:state.mode.normal = v:true
-  elseif l:current_mode ==? 'v' || l:current_mode ==# 'CTRL-V'
-    let l:state.mode.visual = v:true
   endif
 
   let l:state.file_type         = a:file_type
@@ -695,44 +714,44 @@ if g:use_easymotion
     hi link EasyMotionTarget2Second Title
   endif
 
-  hi link EasyMotionShade  Comment
+  hi link EasyMotionShade Comment
 
   hi link EasyMotionMoveHL Search
   hi link EasyMotionIncSearch Search
 
   nnoremap ,, ,
 
-  map ,f <plug>(easymotion-bd-fl)
-  map ,F <plug>(easymotion-bd-f)
-  map ,t <plug>(easymotion-bd-tl)
-  map ,T <plug>(easymotion-bd-t)
+  noremap ,f <plug>(easymotion-bd-fl)
+  noremap ,F <plug>(easymotion-bd-f)
+  noremap ,t <plug>(easymotion-bd-tl)
+  noremap ,T <plug>(easymotion-bd-t)
 
-  map ,ke <plug>(easymotion-iskeyword-bd-e)
-  map ,kw <plug>(easymotion-iskeyword-bd-w)
+  noremap ,ke <plug>(easymotion-iskeyword-bd-e)
+  noremap ,kw <plug>(easymotion-iskeyword-bd-w)
 
-  map ,s/ <plug>(easymotion-sn)
-  map ,sa <plug>(easymotion-lineanywhere)
-  map ,sA <plug>(easymotion-jumptoanywhere)
-  map ,se <plug>(easymotion-bd-el)
-  map ,sE <plug>(easymotion-bd-e)
-  map ,sf <plug>(easymotion-bd-f2)
-  map ,st <plug>(easymotion-bd-t2)
-  map ,sw <plug>(easymotion-bd-wl)
-  map ,sW <plug>(easymotion-bd-w)
-  map ,sn <plug>(easymotion-next)
-  map ,sN <plug>(easymotion-prev)
-  map ,ss <plug>(easymotion-s2)
-  map ,sS <plug>(easymotion-s)
+  noremap ,s/ <plug>(easymotion-sn)
+  noremap ,sa <plug>(easymotion-lineanywhere)
+  noremap ,sA <plug>(easymotion-jumptoanywhere)
+  noremap ,se <plug>(easymotion-bd-el)
+  noremap ,sE <plug>(easymotion-bd-e)
+  noremap ,sf <plug>(easymotion-bd-f2)
+  noremap ,st <plug>(easymotion-bd-t2)
+  noremap ,sw <plug>(easymotion-bd-wl)
+  noremap ,sW <plug>(easymotion-bd-w)
+  noremap ,sn <plug>(easymotion-next)
+  noremap ,sN <plug>(easymotion-prev)
+  noremap ,ss <plug>(easymotion-s2)
+  noremap ,sS <plug>(easymotion-s)
 
-  map ,s<up>    <plug>(easymotion-k)
-  map ,s<down>  <plug>(easymotion-j)
-  map ,s<left>  <plug>(easymotion-lineforward)
-  map ,s<right> <plug>(easymotion-linebackward)
+  noremap ,s<up>    <plug>(easymotion-k)
+  noremap ,s<down>  <plug>(easymotion-j)
+  noremap ,s<left>  <plug>(easymotion-lineforward)
+  noremap ,s<right> <plug>(easymotion-linebackward)
 
-  map ,Sf <plug>(easymotion-overwin-f)
-  map ,SF <plug>(easymotion-overwin-f2)
-  map ,Sl <plug>(easymotion-overwin-line)
-  map ,Sw <plug>(easymotion-overwin-w)
+  noremap ,Sf <plug>(easymotion-overwin-f)
+  noremap ,SF <plug>(easymotion-overwin-f2)
+  noremap ,Sl <plug>(easymotion-overwin-line)
+  noremap ,Sw <plug>(easymotion-overwin-w)
 endif
 "}}}
 
@@ -747,23 +766,23 @@ let g:gundo_prefer_python3   = 1
 "}}}
 
 " Bindings - Command Line mode "{{{
-cnoremap <c-bs> <c-w>
+cnoremap <m-bs> <c-w>
 cnoremap      <c-w>
 "}}}
 
+" Bindings - Operator pending mode "{{{
+onoremap silent fp :<c-u>normal! f(vi(<cr>
+"}}}
+
 " Bindings - Insert mode "{{{
-inoremap <c-bs> <c-w>
+inoremap <m-bs> <c-w>
 inoremap      <c-w>
 inoremap jj     <esc>
 
-imap <c-c> <plug>NERDCommenterInsert
+inoremap <c-c> <plug>NERDCommenterInsert
 "}}}
 
-" Bindings - Visual mode "{{{
-xmap <leader>xa <plug>(EasyAlign)
-"}}}
-
-" Bindings - Normal mode - Remaps "{{{
+" Bindings - Mixed modes - Remaps "{{{
 if g:override_vbol_veol_mappings
   noremap $ g$
   noremap ^ g^
@@ -773,12 +792,33 @@ endif
 noremap H g^
 noremap L g$
 
-nnoremap n nzzzv
-nnoremap N Nzzzv
+noremap n nzzzv
+noremap N Nzzzv
+"}}}
+
+" Bindings - Mixed modes - Control modifier "{{{
+noremap <c-k> <c-w>k
+noremap <c-j> <c-w>j
+noremap <c-h> <c-w>h
+noremap <c-l> <c-w>l
+"}}}
+
+" Bindings - Mixed modes - Arrow keys "{{{
+if g:use_arrow_keys_to_navigate_windows
+  noremap <up>    <c-w>k
+  noremap <down>  <c-w>j
+  noremap <left>  <c-w>h
+  noremap <right> <c-w>l
+endif
+"}}}
+
+" Bindings - Normal mode - Symbols "{{{
+nnoremap - ddp
+nnoremap _ dd<up>P
 "}}}
 
 " Bindings - Normal mode - Search "{{{
-nnoremap <leader>// :%s/
+nnoremap <leader>// %s/
 nnoremap <leader>/h <cmd>Telescope search_history<cr>
 nnoremap <leader>/i <cmd>noincsearch<cr>
 nnoremap <leader>/r <cmd>call ReplaceCurrentWord()<cr>
@@ -793,25 +833,37 @@ nnoremap <leader>: <cmd>Telescope command_history<cr>
 "}}}
 
 " Bindings - Normal mode - Leader key + d "{{{
-nnoremap <leader>dh <cmd>call CocActionAsync('definitionHover')<cr>
-nnoremap <leader>ds <cmd>call CocActionAsync('showSignatureHelp')<cr>
+if g:use_coc
+  nnoremap <leader>dh <cmd>call CocActionAsync('definitionHover')<cr>
+  nnoremap <leader>ds <cmd>call CocActionAsync('showSignatureHelp')<cr>
+endif
 "}}}
 
 " Bindings - Normal mode - Leader key + e "{{{
-nmap     <leader>ed <plug>(coc-diagnostic-info)
-nnoremap <leader>ee <cmd>Telescope coc diagnostics<cr>
-nnoremap <leader>eE <cmd>Telescope coc workspace_diagnostics<cr>
-nmap     <leader>en <plug>(coc-diagnostic-next-error)
-nmap     <leader>eN <plug>(coc-diagnostic-next)
-nmap     <leader>ep <plug>(coc-diagnostic-prev-error)
-nmap     <leader>eP <plug>(coc-diagnostic-prev)
-nnoremap <leader>er <cmd>call CocActionAsync('diagnosticRefresh')<cr>
+if g:use_coc
+  nnoremap <leader>ed <plug>(coc-diagnostic-info)
+  nnoremap <leader>ee <cmd>Telescope coc diagnostics<cr>
+  nnoremap <leader>eE <cmd>Telescope coc workspace_diagnostics<cr>
+  nnoremap <leader>en <plug>(coc-diagnostic-next-error)
+  nnoremap <leader>eN <plug>(coc-diagnostic-next)
+  nnoremap <leader>ep <plug>(coc-diagnostic-prev-error)
+  nnoremap <leader>eP <plug>(coc-diagnostic-prev)
+  nnoremap <leader>er <cmd>call CocActionAsync('diagnosticRefresh')<cr>
+endif
 "}}}
 
 " Bindings - Normal mode - Leader key + f "{{{
 nnoremap <leader>ff <cmd>Telescope current_buffer_fuzzy_find<cr>
-nnoremap <leader>fo <cmd>CocList outline<cr>
-nnoremap <leader>fs <cmd>Telescope coc document_symbols<cr>
+
+if g:use_coc
+  nnoremap <leader>fo <cmd>CocList outline<cr>
+  nnoremap <leader>fs <cmd>Telescope coc document_symbols<cr>
+endif
+
+if g:use_lsp
+  nnoremap <leader>fs <cmd>Telescope lsp_document_symbols<cr>
+endif
+
 nnoremap <leader>ft <cmd>Telescope treesitter<cr>
 "}}}
 
@@ -832,41 +884,57 @@ nnoremap <leader>l <cmd>NERDTreeFind<cr>
 "}}}
 
 " Bindings - Normal mode - Leader key + i "{{{
-xmap <leader>ii <plug>SlimeRegionSend
-nmap <leader>ii <plug>SlimeParagraphSend
-nmap <leader>iv <plug>SlimeConfig
+nnoremap <leader>ii <plug>SlimeParagraphSend
+nnoremap <leader>iv <plug>SlimeConfig
 "}}}
-"
+
+" Bindings - Visual mode - Leader key + i "{{{
+xnoremap <leader>ii <plug>SlimeRegionSend
+"}}}
+
 " Bindings - Normal mode - Leader key + m "{{{
-xmap <leader>mm <cmd>call Slime('iex', 'exs')<cr>
-nmap <leader>mm <cmd>call Slime('iex', 'exs')<cr>
+nnoremap <leader>mm <cmd>call Slime('iex', 'exs')<cr>
+"}}}
+
+" Bindings - Visual mode - Leader key + m "{{{
+xnoremap <leader>mm <cmd>call Slime('iex', 'exs')<cr>
 "}}}
 
 " Bindings - Normal mode - Leader key + n "{{{
-nnoremap <leader>nd <cmd>Telescope coc definitions<cr>
-nnoremap <leader>ni <cmd>Telescope coc implementations<cr>
-nnoremap <leader>nu <cmd>Telescope coc references<cr>
+if g:use_coc
+  nnoremap <leader>nd <cmd>Telescope coc definitions<cr>
+  nnoremap <leader>ni <cmd>Telescope coc implementations<cr>
+  nnoremap <leader>nu <cmd>Telescope coc references<cr>
+endif
+
+if g:use_lsp
+  nnoremap <leader>nd <cmd>Telescope lsp_definitions<cr>
+  nnoremap <leader>ni <cmd>Telescope lsp_implementations<cr>
+  nnoremap <leader>nu <cmd>Telescope lsp_references<cr>
+endif
 "}}}
 
 " Bindings - Normal mode - Leader key + p "{{{
-map <leader>pn <plug>(miniyank-cycle)
-map <leader>pN <plug>(miniyank-cycleback)
-map <leader>pp <plug>(miniyank-startput)
-map <leader>pP <plug>(miniyank-startPut)
+noremap <leader>pn <plug>(miniyank-cycle)
+noremap <leader>pN <plug>(miniyank-cycleback)
+noremap <leader>pp <plug>(miniyank-startput)
+noremap <leader>pP <plug>(miniyank-startPut)
 "}}}
 
 " Bindings - Normal mode - Leader key + r "{{{
-nnoremap <leader>ra <cmd>Telescope coc line_code_actions<cr>
-nnoremap <leader>rA <cmd>Telescope coc file_code_actions<cr>
-nmap     <leader>rf <plug>(coc-format)
-nmap     <leader>rn <plug>(coc-rename)
-nmap     <leader>rr <plug>(coc-refactor)
+if g:use_coc
+  nnoremap <leader>ra <cmd>Telescope coc line_code_actions<cr>
+  nnoremap <leader>rA <cmd>Telescope coc file_code_actions<cr>
+  nnoremap <leader>rf <plug>(coc-format)
+  nnoremap <leader>rn <plug>(coc-rename)
+  nnoremap <leader>rr <plug>(coc-refactor)
+endif
 "}}}
 
 " Bindings - Normal mode - Leader key + t "{{{
 nnoremap <leader>td <cmd>bdelete<cr>
 nnoremap <leader>tt <cmd>Telescope buffers<cr>
-nnoremap <Leader>T :lua require'telescope.builtin'.resume()<cr>
+nnoremap <Leader>T :lua require('telescope.builtin').resume()<cr>
 "}}}
 
 " Bindings - Normal mode - Leader key + s "{{{
@@ -876,8 +944,17 @@ nnoremap <leader>sl <cmd>Telescope loclist<cr>
 nnoremap <leader>sm <cmd>Telescope marks<cr>
 nnoremap <leader>sp <cmd>Telescope jumplist<cr>
 nnoremap <leader>sr <cmd>Telescope oldfiles<cr>
-nnoremap <leader>ss :lua require'telescope'.extensions.coc.workspace_symbols({file_ignore_patterns = {'.asdf/', 'deps/'}})<cr>
-nnoremap <leader>sS <cmd>Telescope coc workspace_symbols<cr>
+
+if g:use_coc
+  nnoremap <leader>ss :lua require('telescope').extensions.coc.workspace_symbols({file_ignore_patterns = {'.asdf/', 'deps/'}})<cr>
+  nnoremap <leader>sS <cmd>Telescope coc workspace_symbols<cr>
+endif
+
+if g:use_lsp
+  nnoremap <leader>ss <cmd>Telescope lsp_workspace_symbols<cr>
+  nnoremap <leader>sS <cmd>Telescope lsp_dynamic_workspace_symbols<cr>
+end
+
 nnoremap <leader>sw <cmd>Telescope grep_string<cr>
 "}}}
 
@@ -903,30 +980,18 @@ nnoremap <leader>wO <c-w>L
 "}}}
 
 " Bindings - Normal mode - Leader key + x "{{{
-nmap     <leader>xa <plug>(EasyAlign)
+nnoremap <leader>xa <plug>(EasyAlign)
 nnoremap <leader>xm <c-a>
 nnoremap <leader>xM <c-x>
+"}}}
+
+" Bindings - Visual mode - Leader key + x "{{{
+xnoremap <leader>xa <plug>(EasyAlign)
 "}}}
 
 " Bindings - Normal mode - Leader key + z "{{{
 nnoremap <leader>ze <cmd>edit $MYVIMRC<cr>
 nnoremap <leader>zz <cmd>source $MYVIMRC<cr>
-"}}}
-
-" Bindings - Normal mode - Control modifier "{{{
-nnoremap <c-k> <c-w>k
-nnoremap <c-j> <c-w>j
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
-"}}}
-
-" Bindings - Normal mode - Arrow keys "{{{
-if g:use_arrow_keys_to_navigate_windows
-  nnoremap <up>    <c-w>k
-  nnoremap <down>  <c-w>j
-  nnoremap <left>  <c-w>h
-  nnoremap <right> <c-w>l
-endif
 "}}}
 
 " Lua "{{{
