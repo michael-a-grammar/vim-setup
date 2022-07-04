@@ -1,11 +1,8 @@
-local neon = require'neon'
-
+local fn     = vim.fn
+local opt    = vim.opt
+local neon   = require'neon'
+local cmd    = neon.cmd
 local sludge = {}
-
-local cmd = neon.cmd
-
-local fn  = vim.fn
-local opt = vim.opt
 
 local function get_slime_bufname(buf_prefix, ft)
   return buf_prefix .. '_slime.' .. ft
@@ -67,12 +64,12 @@ local function create_slime_buf(slime_bufname, ft)
   return slime_bufnr
 end
 
-function sludge.Sludge(buf_prefix, ft)
+function sludge.start(buf_prefix, ft, slime_key)
   local state       = get_slime_state(buf_prefix, ft)
   local slime_bufnr = state.slime_bufnr
 
   if state.slime_selected then
-    print('slime buf selected')
+    neon.leader(slime_key)
   end
 
   if not state.has_slime_buf then

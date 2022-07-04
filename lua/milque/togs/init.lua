@@ -1,5 +1,4 @@
-local api = vim.api
-
+local api  = vim.api
 local togs = {}
 
 local function tg_opt(name)

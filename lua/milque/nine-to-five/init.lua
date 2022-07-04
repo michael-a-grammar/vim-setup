@@ -1,19 +1,17 @@
-local neon = require'neon'
-
+local fn           = vim.fn
+local split        = vim.split
+local neon         = require'neon'
+local cmd          = neon.cmd
+local exe          = neon.exe
 local nine_to_five = {}
-
-local fn    = vim.fn
-local split = vim.split
-local cmd   = neon.cmd
-local exe   = neon.exe
 
 local function get_bufdir()
   return fn.expand('%:h')
 end
 
 local function set_wd(scope, dir)
-  cmd(scope .. [[cd ]] .. dir)
-  return exe([[verbose pwd]])
+  cmd(scope .. 'cd ' .. dir)
+  return exe('verbose pwd')
 end
 
 local function set_wd_bufdir(scope)
@@ -30,7 +28,7 @@ function nine_to_five.get_all_wds()
   local dirs      = {}
 
   local pwds =
-    split(exe([[tabdo windo verbose pwd]]), '\n')
+    split(exe('tabdo windo verbose pwd'), '\n')
 
   for _, pwd in ipairs(pwds) do
     local wd    = split(pwd, ' ')
@@ -42,8 +40,8 @@ function nine_to_five.get_all_wds()
     })
   end
 
-  cmd([[tabnext]] .. tabpagenr)
-  cmd(winnr .. [[wincmd w]])
+  cmd('tabnext' .. tabpagenr)
+  cmd(winnr .. 'wincmd w')
 
   return dirs
 end

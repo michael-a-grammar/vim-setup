@@ -1,24 +1,38 @@
+local api  = vim.api
+local g    = vim.g
 local neon = {}
 
-local v         = vim
-local api       = v.api
-local nvim_exec = api.nvim_exec
+neon.keymaps = {}
 
 function neon.cmd(src)
-  nvim_exec(src, false)
-  return true
+  api.nvim_exec(src, false)
+  return neon
 end
 
 function neon.exe(src)
-  return nvim_exec(src, true)
+  return api.nvim_exec(src, true)
 end
 
 function neon.i(val)
-  print(v.inspect(val))
+  print(vim.inspect(val))
+  return neon
 end
 
 function neon.t(str)
   return api.nvim_replace_termcodes(str, true, true, true)
+end
+
+function neon:leader(suffix)
+  local leader = g.mapleader
+
+  if leader == ' ' then
+    leader = '1' .. leader
+  end
+
+  return self.cmd('normal ' .. leader .. suffix)
+end
+
+function neon.keymaps.__index()
 end
 
 return neon

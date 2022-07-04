@@ -1,6 +1,4 @@
-local cmd = require 'neon'.cmd
-
-local plugins = {}
+local cmd = require'neon'.cmd
 
 local function pack()
   cmd('packadd cfilter')
@@ -130,9 +128,7 @@ local function packer(opts)
   end)
 end
 
-function plugins.all(opts)
+return function(opts)
   pack()
   packer(opts)
 end
-
-return plugins

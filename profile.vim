@@ -155,51 +155,13 @@ function! GetOptions() abort
   return SearchAllLines('\m\C^\s*\<set\>\s*\zs\w*\ze[=\-+]*')
 endfunction
 
-function! Leader(suffix)
-  let l:leader = get(g:, 'mapleader', '\\')
-
-  if l:leader == ' '
-    let l:leader = '1' . l:leader
-  endif
-
-  execute 'normal ' . l:leader . a:suffix
-endfunction
-
-function! GetCurrentBasicMode() abort
-  let l:current_mode = mode()
-
-  if l:current_mode ==# 'n'
-    return { 'normal': v:true }
-  elseif l:current_mode ==? 'v' || l:current_mode ==# 'CTRL-V'
-    return { 'visual': v:true }
-  endif
-endfunction
-
-" Commands "{{{
-command! -nargs=1 Leader :call Leader(<f-args>)
 "}}}
 "
-" Colours "{{{
-"}}}
 
 " Plugins - Tender "{{{
 if g:host_theme_is_tender
   let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 endif
-"}}}
-
-" Plugins - Airline "{{{
-let g:airline_left_sep  = ''
-let g:airline_right_sep = ''
-
-let g:airline#extensions#tabline#enabled = 1
-
-let g:airline_powerline_fonts     = 1
-let g:airline_skip_empty_sections = 1
-"}}}
-
-" Plugins - Airline Themes "{{{
-let g:airline_theme = g:host_theme
 "}}}
 
 " Plugins - CoC "{{{
@@ -238,12 +200,6 @@ endif
 
 " Plugins - NERDCommenter "{{{
 let g:NERDCreateDefaultMappings = 1
-"}}}
-
-" Plugins - vim-slime "{{{
-let g:slime_target         = "tmux"
-let g:slime_no_mappings    = 1
-let g:slime_default_config = {"socket_name": get(split($TMUX, ","), 0), "target_pane": ":0.{last}"}
 "}}}
 
 " Plugins - EasyMotion "{{{

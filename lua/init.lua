@@ -1,9 +1,8 @@
-local neon = require'neon'
-
-local api    = vim.api
+﻿local api    = vim.api
 local g      = vim.g
 local keymap = vim.keymap
 local opt    = vim.opt
+local neon   = require'neon'
 local cmd    = neon.cmd
 local t      = neon.t
 
@@ -18,6 +17,16 @@ local opts = {
   cs_override = '',
   migration_point = true
 }
+
+function opts:get_cs(opts)
+  if self.use.dracula then
+    return 'dracula'
+  elseif self.use.tender then
+    return 'tender'
+  else
+    return self.cs_override
+  end
+end
 
 opt.clipboard:append('unnamed')
 
@@ -117,35 +126,34 @@ opt.conceallevel  = 1
 opt.visualbell = true
 api.nvim_set_option('t_vb', '')
 
-cmd([[runtime macros/matchit.vim]])
+cmd('runtime macros/matchit.vim')
 
 opt.mouse         = 'a'
 opt.termguicolors = true
 
 keymap.set('n', '<space>', '<nop>')
-g.mapleader      = t'<space>'
-g.maplocalleader = t'\\'
+g.mapleader = t'<space>'
 
-require'plugins'.all(opts)
+keymap.set('n', '..', '.')
+g.maplocalleader = '.'
 
-local function get_cs(opts)
-  if opts.use.dracula then
-    return 'dracula'
-  elseif opts.use.tender then
-    return 'tender'
-  else
-    return opts.cs_override
-  end
-end
-
-cmd('colorscheme ' .. get_cs(opts))
+require'plugins'(opts)
+require'plugin-settings'(opts)
 
 local nine_to_five = require'milque.nine-to-five'
 local sludge       = require'milque.sludge'
 local togs         = require'milque.togs'
 
-api.nvim_create_user_command('GetAllWds', nine_to_five.get_all_wds, {})
+cmd('colorscheme ' .. opts:get_cs())
 
+api.nvim_create_user_command('Leader',
+  function(opts)
+    neon:leader(opts.fargs[1])
+  end, {
+    nargs = 1
+  })
+
+api.nvim_create_user_command('GetAllWds', nine_to_five.get_all_wds, {})
 api.nvim_create_user_command('TgACD', togs.tg_autochdir, {})
 api.nvim_create_user_command('TgList', togs.tg_list, {})
 api.nvim_create_user_command('TgNU', togs.tg_number, {})
@@ -154,9 +162,11 @@ api.nvim_create_user_command('TgRNU', togs.tg_relativenumber, {})
 local events_augroup = api.nvim_create_augroup('events', {})
 
 api.nvim_create_autocmd('TextYankPost', {
-  callback = vim.highlight.on_yank,
-  group = events_augroup,
-  pattern = '*'
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+  group    = events_augroup,
+  pattern  = '*'
 })
 
 if opts.migration_point then
