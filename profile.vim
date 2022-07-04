@@ -1,250 +1,12 @@
-"Initialisation "{{{
-let g:is_nvim      = has('nvim')
-let g:is_macvim    = has('gui_macvim')
-let g:has_gui      = has('gui_running') || empty($TERM)
-let g:has_terminal = !g:has_gui
-
-let g:gui_theme      = 'tender'
-let g:terminal_theme = 'dracula'
-let g:override_theme = ''
+let g:host_theme_is_dracula = v:true
+let g:host_theme_is_tender  = v:false
+let g:host_theme = 'dracula'
 
 let g:use_lsp        = v:true
 let g:use_coc        = v:false
 let g:use_easymotion = v:true
 
-if !g:is_nvim
-  set nocompatible
-endif
-
-function! GetHostTheme() abort
-  if !empty(g:override_theme)
-    return g:override_theme
-  endif
-
-  if g:has_gui
-    return g:gui_theme
-  else
-    return g:terminal_theme
-  endif
-endfunction
-
-let g:host_theme               = GetHostTheme()
-let g:host_theme_is_dracula    = g:host_theme ==# 'dracula'
-let g:host_theme_is_jellybeans = g:host_theme ==# 'jellybeans'
-let g:host_theme_is_tender     = g:host_theme ==# 'tender'
-
-let g:override_vbol_veol_mappings = v:true
-"}}}
-
-" Settings - Before anything else! "{{{
-set guioptions+=M
-set clipboard+=unnamed
-"}}}
-
-" Settings - Spelling "{{{
-set spelllang=en_gb,en
-syntax spell toplevel
-"}}}
-
-" Settings - File encoding "{{{
-setglobal fileencoding=utf-8
-set nobomb
-"}}}
-
-" Settings - Tabs and spaces "{{{
-set expandtab
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-set backspace=indent,eol,start
-"}}}
-
-" Settings - Whitespace visibility "{{{
-set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
-set nolist
-"}}}
-
-" Settings - Buffers "{{{
-set hidden
-set lazyredraw
-set switchbuf=useopen,vsplit,uselast
-"}}}
-
-" Settings - Splits "{{{
-set splitbelow
-"}}}
-
-" Settings - Search "{{{
-set hlsearch
-set incsearch
-set wrapscan
-"}}}
-
-" Settings - Patterns "{{{
-set ignorecase
-set smartcase
-"}}}
-
-" Settings - Working directory and paths "{{{
-set noautochdir
-set path+=.,,**
-set wildignore+=*/.git/*,*/.idea/*,*/bin/*,*/obj/*,*/.meteor/*,*/node_modules/*
-"}}}
-
-" Settings - Indents "{{{
-set autoindent
-set breakindent
-"}}}
-
-" Settings - Lines "{{{
-set nostartofline
-set wrap
-"}}}
-
-" Settings - Autocompletion "{{{
-set completeopt=menuone,noinsert,noselect,preview
-"}}}
-
-" Settings - Command-line "{{{
-set wildmenu
-set history=1000
-"}}}
-
-" Settings - Modeline "{{{
-set laststatus=2
-set cmdheight=1
-set showcmd
-set noshowmode
-set ruler
-set shortmess+=c
-"}}}
-
-" Settings - Line numbers "{{{
-set number
-set relativenumber
-set signcolumn=yes:1
-"}}}
-
-" Settings - Editor guides "{{{
-set cursorline
-set colorcolumn+=80
-set showmatch
-set matchtime=2
-"}}}
-
-" Settings - Command timeouts "{{{
-set ttimeout
-set ttimeoutlen=50
-set notimeout
-"}}}
-
-" Settings - Backup "{{{
-set writebackup
-set backupcopy=yes
-set updatetime=300
-"}}}
-
-" Settings - Undo "{{{
-set undoreload=1000
-set undolevels=1000
-set undofile
-"}}}
-
-" Settings - Conceal syntax "{{{
-set conceallevel=1
-set concealcursor=nvic
-"}}}
-
-" Settings - Visual bell "{{{
-set visualbell
-set t_vb=
-"}}}
-
-" Settings - Runtime "{{{
-runtime macros/matchit.vim
-"}}}
-
-" Settings - GUI "{{{
-if g:has_gui
-  if g:is_macvim
-    set antialias
-    set fullscreen
-    set macligatures
-    set macthinstrokes
-  endif
-
-  set guifont=Hasklug\ Nerd\ Font\ Mono:h16
-
-  set guioptions+=c
-
-  set guioptions-=b
-  set guioptions-=l
-  set guioptions-=m
-  set guioptions-=r
-  set guioptions-=L
-  set guioptions-=R
-  set guioptions-=T
-
-  set guicursor+=a:blinkon0
-else
-  set termguicolors
-endif
-"}}}
-
-" Settings - Neovim "{{{
-set mouse=a
-"}}}
-
-" Settings - netrw "{{{
-let g:netrw_keepdir = 0
-"}}}
-
-" Bindings - Leader key "{{{
-nnoremap <space> <nop>
-let g:mapleader = "\<space>"
-let maplocalleader = "\\"
-"}}}
-
-" Functions "{{{
-let s:string_type  = type('')
-let s:list_type    = type([])
-let s:dict_type    = type({})
-let s:funcref_type = type(function('tr'))
-let s:lambda_type  = type({ -> v:false })
-
-function! IsString(val) abort
-  return CompareTypes(a:val, s:string_type)
-endfunction
-
-function! IsList(val) abort
-  return CompareTypes(a:val, s:list_type)
-endfunction
-
-function! IsDict(val) abort
-  return CompareTypes(a:val, s:dict_type)
-endfunction
-
-function! IsFuncref(val) abort
-  return CompareTypes(a:val, s:funcref_type)
-endfunction
-
-function! IsLambda(val) abort
-  return CompareTypes(a:val, s:lambda_type)
-endfunction
-
-function! CompareTypes(val, type_to_compare) abort
-  if type(a:val) ==# a:type_to_compare
-    return v:true
-  else
-    return v:false
-  endif
-endfunction
-
-function! Invoke(val) abort
-  if IsFuncref(a:val) || IsLambda(a:val)
-    call a:val()
-  endif
-endfunction
+lua require('init')
 
 function! OptionExists(option) abort
   return exists('&' . a:option)
@@ -413,188 +175,11 @@ function! GetCurrentBasicMode() abort
   endif
 endfunction
 
-function! GetAllWorkingDirectories() abort
-  let l:current_tab_page_number = GetCurrentTabPageNumber()
-  let l:current_window_number   = GetCurrentWindowNumber()
-
-  let l:working_directories = []
-
-  function! GetWorkingDirectory() abort closure
-    let l:working_directory = execute('verbose pwd')->split('\s')
-
-    let l:scope = substitute(l:working_directory[0], '\A', '', 'g')
-
-    let l:scope_and_working_directory = {
-          \ 'scope': l:scope,
-          \ 'working_directory': l:working_directory[1]
-          \ }
-
-    call add(l:working_directories, l:scope_and_working_directory)
-  endfunction
-
-  execute 'tabdo windo call GetWorkingDirectory()'
-
-  execute 'tabnext' . l:current_tab_page_number
-  call SelectWindow(l:current_window_number)
-
-  echo l:working_directories
-endfunction
-
-function! SetGlobalWorkingDirectoryToCurrentlyEditedFileDirectory() abort
-  call SetWorkingDirectoryToCurrentlyEditedFileDirectory('')
-endfunction
-
-function! SetTabWorkingDirectoryToCurrentlyEditedFileDirectory() abort
-  call SetWorkingDirectoryToCurrentlyEditedFileDirectory('t')
-endfunction
-
-function! SetLocalWorkingDirectoryToCurrentlyEditedFileDirectory() abort
-  call SetWorkingDirectoryToCurrentlyEditedFileDirectory('l')
-endfunction
-
-function! SetGlobalWorkingDirectoryToPreviousGlobalWorkingDirectory() abort
-  call SetWorkingDirectoryToPreviousWorkingDirectory('')
-endfunction
-
-function! SetTabWorkingDirectoryToPreviousTabWorkingDirectory() abort
-  call SetWorkingDirectoryToPreviousWorkingDirectory('t')
-endfunction
-
-function! SetLocalWorkingDirectoryToPreviousTabWorkingDirectory() abort
-  call SetWorkingDirectoryToPreviousWorkingDirectory('l')
-endfunction
-
-function SetWorkingDirectoryToCurrentlyEditedFileDirectory(scope) abort
-  let l:currently_edited_file_directory = GetCurrentlyEditedFileDirectory()
-  call SetWorkingDirectory(a:scope, l:currently_edited_file_directory)
-endfunction
-
-function! SetWorkingDirectoryToPreviousWorkingDirectory(scope) abort
-  call SetWorkingDirectory(a:scope, '-')
-endfunction
-
-function! SetWorkingDirectory(scope, directory) abort
-  execute a:scope . 'cd ' . a:directory
-  execute 'verbose pwd'
-endfunction
-"}}}
-
 " Commands "{{{
-command! ToggleAutoChangeDirectory  :call ToggleOption('autochdir')
-command! ToggleWhiteSpaceVisibility :call ToggleOption('list')
-command! ToggleRelativeLineNumbers  :call ToggleOption('relativenumber')
 command! -nargs=1 Leader :call Leader(<f-args>)
 "}}}
-
-" Autocommand groups "{{{
-augroup vim_filetype_commands
-  autocmd!
-  autocmd FileType vim
-        \ nnoremap <buffer> <localleader>hw <cmd>call LookupCurrentWordInHelp()<cr>
-
-  autocmd FileType vim
-        \ nnoremap <buffer> <localleader>hW <cmd>call LookupCurrentWORDInHelp()<cr>
-
-  autocmd FileType vim
-        \ command! LookupCurrentWordInHelp :call LookupCurrentWordInHelp()
-
-  autocmd FileType vim
-        \ command! LookupCurrentWORDInHelp :call LookupCurrentWORDInHelp()
-augroup end
-
-augroup events
-  autocmd!
-  autocmd TextYankPost * silent! lua vim.highlight.on_yank()
-augroup end
-"}}}
-
-" Plugins - Pack "{{{
-packadd cfilter
-"}}}
-
-" Plugins - Plug "{{{
-call plug#begin()
-
-Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'nanotech/jellybeans.vim'
-Plug 'zeis/vim-kolor'
-Plug 'jacoborus/tender.vim'
-
-Plug 'mhinz/vim-startify'
-
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-Plug 'nvim-telescope/telescope-github.nvim'
-Plug 'nvim-telescope/telescope-z.nvim'
-
-Plug 'nvim-treesitter/nvim-treesitter'
-Plug 'nvim-treesitter/playground'
-
-if g:use_coc
-  Plug 'fannheyward/telescope-coc.nvim'
-  Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-endif
-
-Plug 'kyazdani42/nvim-web-devicons'
-
-Plug 'folke/lua-dev.nvim'
-
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-
-Plug 'scrooloose/nerdcommenter'
-
-Plug 'honza/vim-snippets'
-
-Plug 'tpope/vim-fugitive'
-
-Plug 'TamaMcGlinn/quickfixdd'
-Plug 'jpalardy/vim-slime'
-
-if g:use_easymotion
-  Plug 'easymotion/vim-easymotion'
-endif
-
-Plug 'sjl/gundo.vim'
-
-Plug 'bfredl/nvim-miniyank'
-
-Plug 'tpope/vim-vinegar'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-characterize'
-
-Plug 'chaoren/vim-wordmotion'
-
-Plug 'junegunn/vim-easy-align'
-Plug 'FooSoft/vim-argwrap'
-
-Plug 'sickill/vim-pasta'
-
-Plug 'Wolfy87/vim-syntax-expand'
-
-Plug 'kana/vim-textobj-user'
-
-Plug 'elixir-editors/vim-elixir'
-
-Plug 'andyl/vim-textobj-elixir'
-Plug 'rhysd/vim-textobj-ruby'
-
-" Always load last
-Plug 'ryanoasis/vim-devicons'
-
-call plug#end()
-"}}}
-
+"
 " Colours "{{{
-call SetColorScheme(g:host_theme)
 "}}}
 
 " Plugins - Tender "{{{
@@ -636,9 +221,7 @@ if g:use_coc
 
   inoremap <silent><expr> <c-space> coc#refresh()
 
-  if g:has_terminal
-    inoremap <silent><expr> <nul> coc#refresh()
-  endif
+  inoremap <silent><expr> <nul> coc#refresh()
 
   inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<c-g>u\<cr>"
 
@@ -661,97 +244,6 @@ let g:NERDCreateDefaultMappings = 1
 let g:slime_target         = "tmux"
 let g:slime_no_mappings    = 1
 let g:slime_default_config = {"socket_name": get(split($TMUX, ","), 0), "target_pane": ":0.{last}"}
-
-function! GetSlimeBufferName(buffer_prefix, file_type) abort
-  return a:buffer_prefix . '_slime.' . a:file_type
-endfunction
-
-function! GetSlimeState(buffer_prefix, file_type) abort
-  let l:state = {}
-
-  let l:current_buffer_name   = GetCurrentBufferName()
-  let l:current_window_number = GetCurrentWindowNumber()
-
-  let l:slime_buffer_name   = GetSlimeBufferName(a:buffer_prefix, a:file_type)
-  let l:slime_buffer_number = bufnr(l:slime_buffer_name)
-  let l:slime_window_number = bufwinnr(l:slime_buffer_number)
-
-  if l:slime_buffer_name !=# l:current_buffer_name
-    if l:slime_buffer_number ==# -1
-      let l:state.slime_buffer_does_not_exist = v:true
-    else
-      let l:state.slime_buffer_number = l:slime_buffer_number
-    endif
-  else
-    let l:state.slime_buffer_is_selected = v:true
-  endif
-
-  if l:slime_window_number !=# l:current_window_number
-    if l:slime_window_number ==# -1
-      let l:state.slime_window_does_not_exist = v:true
-    else
-      let l:state.slime_window_exists = v:true
-      let l:state.slime_window_number = l:slime_window_number
-    endif
-  endif
-
-  let l:state.file_type         = a:file_type
-  let l:state.slime_buffer_name = l:slime_buffer_name
-
-  return l:state
-endfunction
-
-function! CreateSlimeWindow(state) abort
-  let l:vim_height          = &lines
-  let l:slime_window_height = l:vim_height / 4
-
-  let l:split_command  = 'split' . '+buffer' . a:state.slime_buffer_number
-  let l:resize_command = 'resize' . l:slime_window_height
-
-  execute l:split_command
-  execute l:resize_command
-endfunction
-
-function! SelectSlimeWindow(state) abort
-  call SelectWindow(a:state.slime_window_number)
-endfunction
-
-function! CreateSlimeBuffer(state) abort
-  let l:state               = a:state
-  let l:slime_buffer_number = bufadd(l:state.slime_buffer_name)
-
-  call setbufvar(l:slime_buffer_number, '&filetype', l:state.file_type)
-  call setbufvar(l:slime_buffer_number, '&bufhidden', 'hide')
-  call setbufvar(l:slime_buffer_number, '&swapfile', 0)
-  call setbufvar(l:slime_buffer_number, '&buflisted', 0)
-  call setbufvar(l:slime_buffer_number, '&number', 0)
-  call setbufvar(l:slime_buffer_number, '&relativenumber', 0)
-  call setbufvar(l:slime_buffer_number, '&list', 0)
-
-  let l:state.slime_buffer_number = l:slime_buffer_number
-
-  return l:state
-endfunction
-
-function! Slime(buffer_prefix, file_type) abort
-  let l:state = GetSlimeState(a:buffer_prefix, a:file_type)
-
-  if has_key(l:state, 'slime_buffer_is_selected')
-    call Leader('ii')
-  endif
-
-  if has_key(l:state, 'slime_window_exists')
-    call SelectSlimeWindow(l:state)
-  endif
-
-  if has_key(l:state, 'slime_buffer_does_not_exist')
-    call CreateSlimeBuffer(l:state)
-  endif
-
-  if has_key(l:state, 'slime_window_does_not_exist')
-    call CreateSlimeWindow(l:state)
-  endif
-endfunction
 "}}}
 
 " Plugins - EasyMotion "{{{
@@ -835,7 +327,7 @@ let g:gundo_prefer_python3   = 1
 "}}}
 
 " Bindings - Command line mode "{{{
-cnoremap <m-bs>    <c-w>
+cnoremap         <c-w>
 cnoremap <m-left>  <c-left>
 cnoremap <m-right> <c-right>
 "}}}
@@ -845,18 +337,17 @@ onoremap silent fp :<c-u>normal! f(vi(<cr>
 "}}}
 
 " Bindings - Insert mode "{{{
-inoremap <m-bs> <c-w>
-inoremap jj     <esc>
+inoremap  <c-w>
+inoremap jj <esc>
 
 inoremap <c-c> <plug>NERDCommenterInsert
 "}}}
 
 " Bindings - Mixed modes - Remaps "{{{
-if g:override_vbol_veol_mappings
+"if g:override_vbol_veol_mappings
   noremap $ g$
   noremap 0 g0
   noremap ^ g^
-endif
 
 noremap H g^
 noremap L g$
@@ -1151,9 +642,7 @@ nnoremap <leader>zz <cmd>source $MYVIMRC<cr>
 "}}}
 
 " Lua "{{{
-if g:is_nvim
-  lua require('profile')
-endif
+lua require('profile')
 "}}}
 
 " Auto-source local vim profile "{{{
