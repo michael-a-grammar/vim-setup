@@ -1,5 +1,7 @@
+local bo     = vim.bo
 local fn     = vim.fn
 local opt    = vim.opt
+local wo     = vim.wo
 local neon   = require'neon'
 local cmd    = neon.cmd
 local sludge = {}
@@ -33,7 +35,7 @@ local function create_slime_win(slime_bufnr)
   local resize_cmd   = 'resize' .. slime_height
 
   local function set_opt(name, val)
-    vim.wo[name] = val
+    wo[name] = val
   end
 
   cmd(split_cmd)
@@ -52,7 +54,7 @@ local function create_slime_buf(slime_bufname, ft)
   local slime_bufnr = fn.bufadd(slime_bufname)
 
   local function set_opt(name, val)
-    vim.bo[slime_bufnr][name] = val
+    bo[slime_bufnr][name] = val
   end
 
   set_opt('bufhidden', 'hide')
@@ -69,7 +71,7 @@ function sludge.start(buf_prefix, ft, slime_key)
   local slime_bufnr = state.slime_bufnr
 
   if state.slime_selected then
-    neon.leader(slime_key)
+    neon:leader(slime_key)
   end
 
   if not state.has_slime_buf then

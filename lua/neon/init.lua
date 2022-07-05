@@ -2,8 +2,6 @@ local api  = vim.api
 local g    = vim.g
 local neon = {}
 
-neon.keymaps = {}
-
 function neon.cmd(src)
   api.nvim_exec(src, false)
   return neon
@@ -30,9 +28,6 @@ function neon:leader(suffix)
   end
 
   return self.cmd('normal ' .. leader .. suffix)
-end
-
-function neon.keymaps.__index()
 end
 
 return neon
