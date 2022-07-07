@@ -2,7 +2,7 @@ let g:host_theme_is_dracula = v:true
 let g:host_theme_is_tender  = v:false
 let g:host_theme = 'dracula'
 
-let g:use_lsp        = v:true
+let g:use_lsp        = v:false
 let g:use_coc        = v:false
 let g:use_easymotion = v:true
 
@@ -423,15 +423,6 @@ nnoremap <leader>gs <cmd>Telescope git_status<cr>
 
 " Bindings - Normal mode - Leader key + h - Help "{{{
 nnoremap <leader>h <cmd>Telescope help_tags<cr>
-"}}}
-
-" Bindings - Normal mode - Leader key + i - Slime "{{{
-nnoremap <leader>ii <plug>SlimeParagraphSend
-nnoremap <leader>iv <plug>SlimeConfig
-"}}}
-
-" Bindings - Visual mode - Leader key + i - Slime "{{{
-xnoremap <leader>ii <plug>SlimeRegionSend
 "}}}
 
 " Bindings - Normal mode - Leader key + j "{{{

@@ -1,169 +1,172 @@
-local i = require 'neon'.i
 local classy       = require'milque.classy'
 local cartographer = {}
-cartographer.map   = {}
-cartographer.build = {}
-
-local function keymap(modes, lhs_prefix, lhs_suffix, rhs, opts)
-  vim.keymap.set(modes, lhs_prefix .. lhs_suffix, rhs, opts)
-end
-
-function cartographer.n_leader(lhs, rhs, opts)
-  return function()
-    keymap('n', '<leader>', rhs, opts)
-  end
-end
 
 local function get_modes()
-  local mode_fields = {
+  return classy:create({
+    nvo = {
+      setter_fn = ' '
+    },
     'n',
     'v',
     's',
     'x',
     'o',
+    ic = {
+      setter_fn = '!'
+    },
     'i',
     'l',
     'c',
     't'
-  }
-
-  local mode_opts = {
-    set_field_key_prefix = 'mode',
-    set_field_fn         = classy.field_fn.set_field_to_key
-  }
-
-  local modes = classy:create(mode_fields, mode_opts)
-
-  mode_opts.set_field_fn = function() return ' '  end
-  classy:create_field(modes, 'nvo', mode_opts)
-
-  mode_opts.set_field_fn = function() return '!' end
-  classy:create_field(modes, 'ic', mode_opts)
-
-  return modes
+  }, {
+    setter_prefix = 'mode',
+    setter_fn     = classy.setters.set_field_to_key,
+    values        = true,
+    no_dict       = true
+  })
 end
 
 local function get_opts()
-  local opt_fields = {
-    'desc',
+  return classy:create({
+    desc  = {
+      default   = '...',
+      setter_fn = classy.setters.set_field_to_value,
+    },
     'buffer',
     'expr',
-    'remap',
-  }
-
-  return classy:create(opt_fields, {
-    set_field_key_prefix = 'with'
+    'remap'
+  }, {
+    setter_prefix = 'with',
+    setter_fn     = classy.setters.tg_field_value,
+    no_getter     = true
   })
 end
 
 local function get_lhs()
-  local lhs_fields = {
+  return classy:create_dynamic_fields({
     'leader',
-    'ctrl'
-  }
-
-  local lhs_opts = {
-    set_field_key_prefix = 'use',
-    set_field_fn         = function(_, key)
-      return '<' .. key .. '>'
-    end
-  }
-
-  local lhs_mt_opts = {
-    set_field_fn = function(_, key)
-      return key:gsub(lhs_opts.set_field_key_prefix .. '_', '')
-    end
-  }
-
-  local lhs_mt = setmetatable({}, {
-    __index = function(tbl, key)
-      return function()
-        local _, set_field_key = classy:create_field(tbl, key, lhs_mt_opts)
-        rawget(tbl, set_field_key)()
-        return tbl
+    ctrl = {
+      setter_fn = function(_, _, _, val)
+        return '<' .. 'c-' .. val .. '>'
       end
+    },
+    alt = {
+      setter_fn = function(_, _, _, val)
+        return '<' .. 'a-' .. val .. '>'
+      end
+    },
+    'space'
+  }, {
+    setter_fn = classy.setters.set_field_to_key
+  }, {
+    setter_prefix = 'use',
+    values        = true,
+    no_dict       = true,
+    setter_fn     = function(_, field_key)
+      return '<' .. field_key .. '>'
     end
   })
-
-  local lhs = classy:create_fields(lhs_mt, lhs_fields, lhs_opts)
-
-  return lhs
 end
 
-function cartographer.build_map()
-  local modes, opts, lhs = get_modes(), get_opts(), get_lhs()
-
-  function map()
-    local sel_modes = {}
-    local sel_opts  = {}
-    local sel_lhs   = {}
-
-    for mode_name, mode_val in pairs(modes) do
-      if type(mode_val) == 'string' then
-        table.insert(sel_modes, mode_val)
+local function get_rhs()
+  return classy:create_dynamic_fields({
+    cmd = {
+      setter_fn = function(_, _, _, val)
+        return '<cmd>' .. val .. '<cr>'
       end
-    end
-
-    for opt_name, opt_val in pairs(opts) do
-      if (type(opt_val) == 'boolean' or type(opt_val) == 'string')
-          and opt_val then
-        sel_opts[opt_name] = true
+    },
+    plug = {
+      setter_fn = function(_, _, _, val)
+        return '<plug>(' .. val .. ')'
       end
+    },
+    'fn'
+  }, {
+    no_dict       = true,
+    values        = true,
+    setter_prefix = 'cmd',
+    setter_fn     = function(_, field_key)
+      return '<cmd>' .. field_key:gsub('_', ' ') .. '<cr>'
     end
+  }, {
+    setter_prefix = ''
+  })
+end
 
-    for _, lhs_val in ipairs(rawget(lhs, '__values')) do
-      if type(lhs_val) == 'string' then
-        table.insert(sel_lhs, lhs_val)
-      end
-    end
+local function build(tbls)
+  local modes = tbls.modes.__values
+  local opts  = tbls.opts.__dict
+  local lhs   = ''
+  local rhs   = tbls.rhs.get_cmd() or tbls.rhs.get_plug() or tbls.rhs.get_fn()
 
-    return {
-      modes = sel_modes,
-      opts  = sel_opts,
-      lhs   = sel_lhs
-    }
+  for _, val in ipairs(tbls.lhs.__values) do
+    lhs = lhs .. val
   end
+
+  if not rhs then
+    rhs = ''
+    for _, val in ipairs(tbls.rhs.__values) do
+      rhs = rhs .. val
+    end
+  end
+
+  return modes, opts, lhs, rhs
+end
+
+local function exe(modes, opts, lhs, rhs)
+  local i = require'neon'.i
+  i(modes)
+  i(opts)
+  i(lhs)
+  i(rhs)
+  vim.keymap.set(modes, lhs, rhs, opts)
+
+  return modes, opts, lhs, rhs
+end
+
+function cartographer.map()
+  local modes, opts, lhs, rhs
+    = get_modes(), get_opts(), get_lhs(), get_rhs()
 
   local tbls = {
     modes = modes,
     opts  = opts,
     lhs   = lhs,
-    map   = map
+    rhs   = rhs
   }
 
-  local merged = classy.merge(tbls)
-
-  return merged
-end
-
---local x = cartographer.build_map()
-
-local x =
-  cartographer
-    .build_map()
-    .modes
-      .mode_n()
-      .mode_x()
-      .mode_nvo()
-      .mode_ic()
-    .opts
-      .with_desc('hello!')
-    .lhs
-      .use_leader()
-      .use_xyz()
-      .use_a()
-      .use_b()
-    .map()
-
-local function set(sel_lhs)
-  local lhs_j = ''
-  for _, lhs in ipairs(sel_lhs) do
-    lhs_j = lhs_j .. lhs
+  function tbls:build()
+    return build(tbls)
   end
 
-  return lhs_j
+  function tbls:exe()
+    return exe(tbls.build())
+  end
+
+  return classy.conjoin(tbls)
 end
 
-i(set(x.lhs))
+
+--local w,x,y,z =
+  --cartographer
+    --.map()
+    --.modes
+      --.mode_n()
+      --.mode_v()
+    --.opts
+      --.with_buffer()
+      --.with_desc('hello!')
+    --.lhs
+      --.use_leader()
+      --.use_ctrl('x')
+      --.use_space()
+    --.rhs
+      --.cmd('help lua')
+      --.exe()
+
+--i(w)
+--i(x)
+--i(y)
+--i(z)
 
 return cartographer
