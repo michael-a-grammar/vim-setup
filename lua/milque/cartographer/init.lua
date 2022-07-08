@@ -44,7 +44,15 @@ end
 
 local function get_lhs()
   return classy:create_dynamic_fields({
+    use = {
+      setter_prefix = '',
+      setter_fn     = classy.setters.set_field_to_value
+    },
     'leader',
+    'localleader',
+    'space',
+    'nul',
+    'tab',
     ctrl = {
       setter_fn = function(_, _, _, val)
         return '<' .. 'c-' .. val .. '>'
@@ -55,7 +63,11 @@ local function get_lhs()
         return '<' .. 'a-' .. val .. '>'
       end
     },
-    'space'
+    shift = {
+      setter_fn = function(_, _, _, val)
+        return '<' .. 's-' .. val .. '>'
+      end
+    }
   }, {
     setter_fn = classy.setters.set_field_to_key
   }, {
@@ -146,27 +158,16 @@ function cartographer.map()
   return classy.conjoin(tbls)
 end
 
-
---local w,x,y,z =
-  --cartographer
-    --.map()
-    --.modes
-      --.mode_n()
-      --.mode_v()
-    --.opts
-      --.with_buffer()
-      --.with_desc('hello!')
-    --.lhs
-      --.use_leader()
-      --.use_ctrl('x')
-      --.use_space()
-    --.rhs
-      --.cmd('help lua')
-      --.exe()
-
---i(w)
---i(x)
---i(y)
---i(z)
+function cartographer.nx_leader(desc)
+  return cartographer
+    .map()
+    .modes
+      .mode_n()
+      .mode_x()
+    .opts
+      .with_desc(desc or '')
+    .lhs
+      .use_leader()
+end
 
 return cartographer

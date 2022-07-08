@@ -183,30 +183,4 @@ function classy:create(fields, opts)
   return self:create_fields({}, fields, opts)
 end
 
-local function get_lhs()
-  local lhs_fields = {
-    'leader',
-    'ctrl',
-    'space',
-    'alt'
-  }
-
-  local setter_prefix = 'use'
-
-  local field_opts = {
-    setter_fn = classy.setters.set_field_to_key
-  }
-
-  local opts = {
-    setter_prefix = setter_prefix,
-    values        = true,
-    no_dict       = true,
-    setter_fn     = function(_, field_key)
-      return '<' .. field_key .. '>'
-    end
-  }
-
-  return classy:create_dynamic_fields(lhs_fields, field_opts, opts)
-end
-
 return classy

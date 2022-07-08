@@ -1,7 +1,7 @@
 local env   = vim.env
 local g     = vim.g
 local split = vim.split
-local map   = require'milque.cartographer'.map
+local map   = require'milque.cartographer'.nx_leader
 
 return function()
   g.slime_target      = 'tmux'
@@ -14,15 +14,6 @@ return function()
     }
   end
 
-  map()
-    .modes.mode_n().mode_x()
-    .lhs.use_leader().use_ii()
-    .rhs.plug('SlimeParagraphSend')
-  .exe()
-
-  map()
-    .modes.mode_n().mode_x()
-    .lhs.use_leader().use_iv()
-    .rhs.plug('SlimeParagraphConfig')
-  .exe()
+  map().use_ii().rhs.plug('SlimeParagraphSend').exe()
+  map().use_iv().rhs.plug('SlimeParagraphConfig').exe()
 end

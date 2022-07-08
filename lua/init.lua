@@ -132,7 +132,7 @@ opt.mouse         = 'a'
 opt.termguicolors = true
 
 keymap.set('n', '<space>', '<nop>')
-g.mapleader = t'<space>'
+g.mapleader      = t'<space>'
 
 keymap.set('n', '..', '.')
 g.maplocalleader = '.'
