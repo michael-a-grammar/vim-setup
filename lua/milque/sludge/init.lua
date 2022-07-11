@@ -2,7 +2,7 @@ local bo     = vim.bo
 local fn     = vim.fn
 local opt    = vim.opt
 local wo     = vim.wo
-local neon   = require'neon'
+local neon   = require'milque.neon'
 local cmd    = neon.cmd
 local sludge = {}
 
@@ -71,7 +71,7 @@ function sludge.start(buf_prefix, ft, slime_key)
   local slime_bufnr = state.slime_bufnr
 
   if state.slime_selected then
-    neon:leader(slime_key)
+    neon.leader(slime_key)
   end
 
   if not state.has_slime_buf then

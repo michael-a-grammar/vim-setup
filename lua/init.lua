@@ -2,20 +2,22 @@
 local g      = vim.g
 local keymap = vim.keymap
 local opt    = vim.opt
-local neon   = require'neon'
+local neon   = require'milque.neon'
 local cmd    = neon.cmd
 local t      = neon.t
 
 local opts = {
   use = {
+    airline     = false,
+    cmp         = false,
     coc         = false,
-    dracula     = true,
+    dracula     = false,
     easymotion  = true,
+    elixir_nvim = false,
     lsp         = false,
     tender      = false
   },
-  cs_override = '',
-  migration_point = true
+  cs_override     = '256_noir'
 }
 
 function opts:get_cs(opts)
@@ -101,7 +103,7 @@ opt.showmode   = false
 
 opt.number         = true
 opt.relativenumber = true
-opt.signcolumn     = 'yes:1'
+opt.signcolumn     = 'no'
 
 opt.colorcolumn:append('80')
 opt.cursorline = true
@@ -132,7 +134,7 @@ opt.mouse         = 'a'
 opt.termguicolors = true
 
 keymap.set('n', '<space>', '<nop>')
-g.mapleader      = t'<space>'
+g.mapleader = t'<space>'
 
 keymap.set('n', '..', '.')
 g.maplocalleader = '.'
@@ -140,35 +142,8 @@ g.maplocalleader = '.'
 require'plugins'(opts)
 require'plugin-settings'(opts)
 
-local nine_to_five = require'milque.nine-to-five'
-local sludge       = require'milque.sludge'
-local togs         = require'milque.togs'
-
 cmd('colorscheme ' .. opts:get_cs())
 
-api.nvim_create_user_command('Leader',
-  function(opts)
-    neon:leader(opts.fargs[1])
-  end, {
-    nargs = 1
-  })
-
-api.nvim_create_user_command('GetAllWds', nine_to_five.get_all_wds, {})
-api.nvim_create_user_command('TgACD', togs.tg_autochdir, {})
-api.nvim_create_user_command('TgList', togs.tg_list, {})
-api.nvim_create_user_command('TgNU', togs.tg_number, {})
-api.nvim_create_user_command('TgRNU', togs.tg_relativenumber, {})
-
-local events_augroup = api.nvim_create_augroup('events', {})
-
-api.nvim_create_autocmd('TextYankPost', {
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-  group    = events_augroup,
-  pattern  = '*'
-})
-
-if opts.migration_point then
-  print('migration point active')
-end
+require'keymappings'(opts)
+require'auto-commands'
+require'user-commands'

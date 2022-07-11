@@ -1,6 +1,6 @@
 let g:host_theme_is_dracula = v:true
 let g:host_theme_is_tender  = v:false
-let g:host_theme = 'dracula'
+let g:host_theme = 'tender'
 
 let g:use_lsp        = v:false
 let g:use_coc        = v:false
@@ -203,73 +203,73 @@ let g:NERDCreateDefaultMappings = 1
 "}}}
 
 " Plugins - EasyMotion "{{{
-if g:use_easymotion
-  " Default - asdghklqwertyuiopzxcvbnmfj;
-  let g:EasyMotion_keys             = 'ARSTGQWFPMIOLUYNE;'
-  let g:EasyMotion_do_mapping       = 0
-  let g:EasyMotion_smartcase        = 1
-  let g:EasyMotion_use_smartsign_us = 1
-  let g:EasyMotion_use_upper        = 1
-  let g:EasyMotion_enter_jump_first = 1
-  let g:EasyMotion_space_jump_first = 1
-  let g:EasyMotion_inc_highlight    = 1
-  let g:EasyMotion_move_highlight   = 1
-  let g:EasyMotion_verbose          = 1
+"if g:use_easymotion
+  "" Default - asdghklqwertyuiopzxcvbnmfj;
+  "let g:EasyMotion_keys             = 'ARSTGQWFPMIOLUYNE;'
+  "let g:EasyMotion_do_mapping       = 0
+  "let g:EasyMotion_smartcase        = 1
+  "let g:EasyMotion_use_smartsign_us = 1
+  "let g:EasyMotion_use_upper        = 1
+  "let g:EasyMotion_enter_jump_first = 1
+  "let g:EasyMotion_space_jump_first = 1
+  "let g:EasyMotion_inc_highlight    = 1
+  "let g:EasyMotion_move_highlight   = 1
+  "let g:EasyMotion_verbose          = 1
 
-  if g:host_theme_is_dracula
-    hi link EasyMotionTarget DraculaOrange
-    hi link EasyMotionTarget2First DraculaGreen
-    hi link EasyMotionTarget2Second DraculaGreen
-  elseif g:host_theme_is_tender
-    hi link EasyMotionTarget Operator
-    hi link EasyMotionTarget2First Character
-    hi link EasyMotionTarget2Second Character
-  else
-    hi link EasyMotionTarget Type
-    hi link EasyMotionTarget2First Title
-    hi link EasyMotionTarget2Second Title
-  endif
+  "if g:host_theme_is_dracula
+    "hi link EasyMotionTarget DraculaOrange
+    "hi link EasyMotionTarget2First DraculaGreen
+    "hi link EasyMotionTarget2Second DraculaGreen
+  "elseif g:host_theme_is_tender
+    "hi link EasyMotionTarget Operator
+    "hi link EasyMotionTarget2First Character
+    "hi link EasyMotionTarget2Second Character
+  "else
+    "hi link EasyMotionTarget Type
+    "hi link EasyMotionTarget2First Title
+    "hi link EasyMotionTarget2Second Title
+  "endif
 
-  hi link EasyMotionShade Comment
+  "hi link EasyMotionShade Comment
 
-  hi link EasyMotionMoveHL Search
-  hi link EasyMotionIncSearch Search
+  "hi link EasyMotionMoveHL Search
+  "hi link EasyMotionIncSearch Search
 
-  nnoremap ,, ,
+  "nnoremap ,, ,
 
-  noremap ,F <plug>(easymotion-bd-f)
-  noremap ,SF <plug>(easymotion-overwin-f2)
-  noremap ,Sf <plug>(easymotion-overwin-f)
-  noremap ,Sl <plug>(easymotion-overwin-line)
-  noremap ,Sw <plug>(easymotion-overwin-w)
-  noremap ,T <plug>(easymotion-bd-t)
+  "noremap ,F <plug>(easymotion-bd-f)
+  "noremap ,SF <plug>(easymotion-overwin-f2)
+  "noremap ,Sf <plug>(easymotion-overwin-f)
+  "noremap ,Sl <plug>(easymotion-overwin-line)
+  "noremap ,Sw <plug>(easymotion-overwin-w)
+  "noremap ,T <plug>(easymotion-bd-t)
 
-  noremap ,f  <plug>(easymotion-bd-fl)
-  noremap ,ke <plug>(easymotion-iskeyword-bd-e)
-  noremap ,kw <plug>(easymotion-iskeyword-bd-w)
+  "noremap ,f  <plug>(easymotion-bd-fl
+  "noremap ,ke <plug>(easymotion-iskeyword-bd-e)
+  "noremap ,kw <plug>(easymotion-iskeyword-bd-w)
 
-  noremap ,s/ <plug>(easymotion-sn)
+  "noremap ,s/ <plug>(easymotion-sn)
 
-  noremap ,s<down>  <plug>(easymotion-j)
-  noremap ,s<left>  <plug>(easymotion-lineforward)
-  noremap ,s<right> <plug>(easymotion-linebackward)
-  noremap ,s<up>    <plug>(easymotion-k)
+  "noremap ,s<down>  <plug>(easymotion-j)
+  "noremap ,s<left>  <plug>(easymotion-lineforward)
+  "noremap ,s<right> <plug>(easymotion-linebackward)
+  "noremap ,s<up>    <plug>(easymotion-k)
 
-  noremap ,sA <plug>(easymotion-jumptoanywhere)
-  noremap ,sE <plug>(easymotion-bd-e)
-  noremap ,sN <plug>(easymotion-prev)
-  noremap ,sS <plug>(easymotion-s)
-  noremap ,sW <plug>(easymotion-bd-w)
+  "noremap ,sA <plug>(easymotion-jumptoanywhere)
+  "noremap ,sE <plug>(easymotion-bd-e)
+  "noremap ,sN <plug>(easymotion-prev)
+  "noremap ,sS <plug>(easymotion-s)
+  "noremap ,sW <plug>(easymotion-bd-w)
 
-  noremap ,sa <plug>(easymotion-lineanywhere)
-  noremap ,se <plug>(easymotion-bd-el)
-  noremap ,sf <plug>(easymotion-bd-f2)
-  noremap ,sn <plug>(easymotion-next)
-  noremap ,ss <plug>(easymotion-s2)
-  noremap ,st <plug>(easymotion-bd-t2)
-  noremap ,sw <plug>(easymotion-bd-wl)
-  noremap ,t <plug>(easymotion-bd-tl)
-endif
+  "noremap ,sa <plug>(easymotion-lineanywhere)
+  "noremap ,se <plug>(easymotion-bd-el)
+  "noremap ,sf <plug>(easymotion-bd-f2)
+  "noremap ,sn <plug>(easymotion-next)
+  "noremap ,ss <plug>(easymotion-s2)
+  "noremap ,st <plug>(easymotion-bd-t2)
+  "noremap ,sw <plug>(easymotion-bd-wl)
+  "noremap ,t <plug>(easymotion-bd-tl)
+"endif
 "}}}
 
 " Plugins - Gundo "{{{
@@ -575,21 +575,20 @@ xnoremap <leader>xs :sort<cr>
 "}}}
 
 " Bindings - Normal mode - Leader key + y - Tabs "{{{
-nnoremap <leader>yc <cmd>tabnew<cr>
-nnoremap <leader>yd <cmd>tabclose<cr>
-nnoremap <leader>yf <cmd>tabfirst<cr>
-nnoremap <leader>yl <cmd>tablast<cr>
-nnoremap <leader>yn <cmd>tabnext<cr>
-nnoremap <leader>yp <cmd>tabprevious<cr>
-"}}}
+"nnoremap <leader>yc <cmd>tabnew<cr>
+"nnoremap <leader>yd <cmd>tabclose<cr>
+"nnoremap <leader>yf <cmd>tabfirst<cr>
+"nnoremap <leader>yl <cmd>tablast<cr>
+"nnoremap <leader>yn <cmd>tabnext<cr>
+"nnoremap <leader>yp <cmd>tabprevious<cr>
+""}}}
 
-" Bindings - Normal mode - Leader key + z - Vim "{{{
-nnoremap <leader>ze <cmd>edit $MYVIMRC<cr>
-nnoremap <leader>zz <cmd>source $MYVIMRC<cr>
+"" Bindings - Normal mode - Leader key + z - Vim "{{{
+"nnoremap <leader>ze <cmd>edit $MYVIMRC<cr>
+"nnoremap <leader>zz <cmd>source $MYVIMRC<cr>
 "}}}
 
 " Lua "{{{
-lua require('profile')
 "}}}
 
 " Auto-source local vim profile "{{{

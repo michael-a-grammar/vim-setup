@@ -20,14 +20,14 @@ function neon.t(str)
   return api.nvim_replace_termcodes(str, true, true, true)
 end
 
-function neon:leader(suffix)
+function neon.leader(suffix)
   local leader = g.mapleader
 
   if leader == ' ' then
     leader = '1' .. leader
   end
 
-  return self.cmd('normal ' .. leader .. suffix)
+  return neon.cmd('normal ' .. leader .. suffix)
 end
 
 return neon

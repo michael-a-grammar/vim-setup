@@ -53,19 +53,23 @@ local function get_lhs()
     'space',
     'nul',
     'tab',
+    'up',
+    'right',
+    'down',
+    'left',
     ctrl = {
       setter_fn = function(_, _, _, val)
-        return '<' .. 'c-' .. val .. '>'
+        return '<c-' .. val .. '>'
       end
     },
     alt = {
       setter_fn = function(_, _, _, val)
-        return '<' .. 'a-' .. val .. '>'
+        return '<a-' .. val .. '>'
       end
     },
     shift = {
       setter_fn = function(_, _, _, val)
-        return '<' .. 's-' .. val .. '>'
+        return '<'s-' .. val .. '>'
       end
     }
   }, {
@@ -126,11 +130,6 @@ local function build(tbls)
 end
 
 local function exe(modes, opts, lhs, rhs)
-  local i = require'neon'.i
-  i(modes)
-  i(opts)
-  i(lhs)
-  i(rhs)
   vim.keymap.set(modes, lhs, rhs, opts)
 
   return modes, opts, lhs, rhs
@@ -158,16 +157,41 @@ function cartographer.map()
   return classy.conjoin(tbls)
 end
 
-function cartographer.nx_leader(desc)
-  return cartographer
-    .map()
-    .modes
-      .mode_n()
-      .mode_x()
+function cartograhper.with(modes, desc)
+  local map = cartographer.map()
+
+  for _, value in pairs(modes)
+    map.modes['mode_' .. value]()
+  end
+
+  return map
     .opts
       .with_desc(desc or '')
     .lhs
-      .use_leader()
+end
+
+function cartograhper.n(desc)
+  return cartographer.with({ 'n' }, desc)
+end
+
+function cartograhper.x(desc)
+  return cartographer.with({ 'x' }, desc)
+end
+
+function cartographer.nx(desc)
+  return cartographer.with({ 'n', 'x' }, desc)
+end
+
+function cartographer.n_leader(desc)
+  return cartographer.n(desc).with_leader()
+end
+
+function cartographer.x_leader(desc)
+  return cartographer.x(desc).with_leader()
+end
+
+function cartographer.nx_leader(desc)
+  return cartographer.nx(desc).with_leader()
 end
 
 return cartographer

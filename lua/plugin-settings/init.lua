@@ -1,4 +1,10 @@
 return function (opts)
   require'plugin-settings.airline'(opts)
-  require'plugin-settings.slime'()
+  require'plugin-settings.cmp'(opts)
+  require'plugin-settings.coc'(opts)
+  require'plugin-settings.easymotion'(opts)
+  require'plugin-settings.elixir-nvim'(opts)
+  require'plugin-settings.nvim-treesitter'(opts)
+  require'plugin-settings.slime'(opts)
+  require'plugin-settings.telescope'(opts)
 end

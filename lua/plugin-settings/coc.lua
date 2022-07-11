@@ -1,10 +1,7 @@
-local env   = vim.env
-local g     = vim.g
-local split = vim.split
-local map   = require'milque.cartographer'.nx_leader
-
 return function(opts)
   if opts.use.coc then
+    local g = vim.g
+
     g.coc_global_extensions = {
       'coc-elixir',
       'coc-html',

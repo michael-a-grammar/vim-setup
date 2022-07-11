@@ -1,6 +1,6 @@
 local fn           = vim.fn
 local split        = vim.split
-local neon         = require'neon'
+local neon         = require'milque.neon'
 local cmd          = neon.cmd
 local exe          = neon.exe
 local nine_to_five = {}

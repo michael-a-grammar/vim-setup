@@ -1,7 +1,19 @@
-local cmd = require'neon'.cmd
-
 local function pack()
-  cmd('packadd cfilter')
+  require'milque.neon'.cmd('packadd cfilter')
+end
+
+local function install_packer()
+  local fn = vim.fn
+
+  local install_path =
+    fn.stdpath('data') ..'/site/pack/packer/start/packer.nvim'
+
+  if fn.empty(fn.glob(install_path)) > 0 then
+    local repo = 'https://github.com/wbthomason/packer.nvim'
+
+    local packer_bootstrap =
+      fn.system({ 'git', 'clone', '--depth', '1', repo, install_path })
+  end
 end
 
 local function packer(opts)
@@ -16,11 +28,20 @@ local function packer(opts)
     use 'nanotech/jellybeans.vim'
     use 'zeis/vim-kolor'
     use 'jacoborus/tender.vim'
+    use 'andreasvc/vim-256noir'
+    use 'AlessandroYorba/Alduin'
 
     use 'mhinz/vim-startify'
 
-    use 'vim-airline/vim-airline'
-    use 'vim-airline/vim-airline-themes'
+    use {
+      'vim-airline/vim-airline',
+      disable = not opts.use.airline
+    }
+
+    use {
+      'vim-airline/vim-airline-themes',
+      disable = not opts.use.airline
+    }
 
     use 'nvim-lua/plenary.nvim'
     use 'nvim-telescope/telescope.nvim'
@@ -98,7 +119,6 @@ local function packer(opts)
 
     use 'ryanoasis/vim-devicons'
 
-    use 'nvim-lua/plenary.nvim'
     use 'neovim/nvim-lspconfig'
     use 'onsails/lspkind.nvim'
     use 'hrsh7th/nvim-cmp'
@@ -117,12 +137,7 @@ local function packer(opts)
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-cmdline'
 
-    use {
-      'mhanberg/elixir.nvim',
-      requires = {
-        'nvim-lua/plenary.nvim',
-        'neovim/nvim-lspconfig'
-      }}
+    use 'mhanberg/elixir.nvim'
 
     use 'bfredl/nvim-luadev'
   end)
@@ -130,5 +145,6 @@ end
 
 return function(opts)
   pack()
+  install_packer()
   packer(opts)
 end
