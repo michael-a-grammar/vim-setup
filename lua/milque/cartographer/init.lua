@@ -1,5 +1,6 @@
 local classy       = require'milque.classy'
 local cartographer = {}
+cartographer.with  = {}
 
 local function get_modes()
   return classy:create({
@@ -65,11 +66,6 @@ local function get_lhs()
     alt = {
       setter_fn = function(_, _, _, val)
         return '<a-' .. val .. '>'
-      end
-    },
-    shift = {
-      setter_fn = function(_, _, _, val)
-        return '<s-' .. val .. '>'
       end
     }
   }, {
@@ -157,41 +153,37 @@ function cartographer.map()
   return classy.conjoin(tbls)
 end
 
-function cartographer.with(modes, desc)
-  local map = cartographer.map()
+setmetatable(cartographer.with, {
+  __index = function(tbl, key)
+    return function(desc)
+      local modes_temp, lhs_prefix, lhs_suffix 
+        = unpack(vim.split(key, '_'))
 
-  for _, value in pairs(modes) do
-    map.modes['mode_' .. value]()
+      local modes = {}
+
+      modes_temp:gsub('.', function(mode)
+        table.insert(modes, mode)
+      end)
+
+      local map = cartographer.map()
+
+      for _, value in pairs(modes) do
+        map.modes['mode_' .. value]()
+      end
+
+      map.opts.with_desc(desc or '')
+
+      if lhs_preix and #lhs_prefix > 0 then
+        map.lhs['use_' .. lhs_prefix]()
+      end
+
+      if lhs_suffix and #lhs_suffix > 0 then
+        map.lhs['use_' .. lhs_suffix]()
+      end
+
+      return map.lhs
+    end
   end
-
-  return map
-    .opts
-      .with_desc(desc or '')
-    .lhs
-end
-
-function cartographer.n(desc)
-  return cartographer.with({ 'n' }, desc)
-end
-
-function cartographer.x(desc)
-  return cartographer.with({ 'x' }, desc)
-end
-
-function cartographer.nx(desc)
-  return cartographer.with({ 'n', 'x' }, desc)
-end
-
-function cartographer.n_leader(desc)
-  return cartographer.n(desc).use_leader()
-end
-
-function cartographer.x_leader(desc)
-  return cartographer.x(desc).use_leader()
-end
-
-function cartographer.nx_leader(desc)
-  return cartographer.nx(desc).use_leader()
-end
+})
 
 return cartographer

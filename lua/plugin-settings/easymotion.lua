@@ -4,7 +4,7 @@ return function(opts)
     local env   = vim.env
     local g     = vim.g
     local split = vim.split
-    local map   = require'milque.cartographer'.nx
+    local map   = require'milque.cartographer'.with.nx
 
     -- Default - asdghklqwertyuiopzxcvbnmfj;
     g.EasyMotion_keys             = 'ARSTGQWFPMIOLUYNE;'

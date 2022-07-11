@@ -30,6 +30,7 @@ local function packer(opts)
     use 'jacoborus/tender.vim'
     use 'andreasvc/vim-256noir'
     use 'AlessandroYorba/Alduin'
+    use 'ericbn/vim-solarized'
 
     use 'mhinz/vim-startify'
 

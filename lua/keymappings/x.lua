@@ -1,35 +1,31 @@
 return function()
-  local map = require'milque.cartographer'.nx_leader
+  local map = require'milque.cartographer'.with.nx_leader_x
 
-  local function x()
-    return map().use_x()
-  end
-
-  x()
+  map()
     .use_M()
     .rhs
       .fn('<c-x>')
   .exe()
 
-  x()
+  map()
     .use_a()
     .rhs
       .plug('EasyAlign')
   .exe()
 
-  x()
+  map()
     .use_m()
     .rhs
       .fn('c-a')
     .exe()
 
-  x()
+  map()
     .use_u()
     .rhs
       .cmd('GundoToggle')
   .exe()
 
-  x()
+  map()
     .use_s()
     .rhs
       .fn(':sort<cr>')

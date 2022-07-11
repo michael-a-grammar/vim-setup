@@ -67,7 +67,7 @@ function classy:get_opts(field_key, field_opts, opts)
       return field_key
     end
 
-    return (prefix and prefix .. field_separator) .. field_key
+    return prefix .. field_separator .. field_key
   end
 
   local getter_key = get_field_key(getter_prefix)

@@ -1,17 +1,13 @@
 return function()
-  local map = require'milque.cartographer'.nx_leader
+  local map = require'milque.cartographer'.with.nx_leader_z
 
-  local function z()
-    return map().use_z()
-  end
-
-  z()
+  map()
     .use_e()
     .rhs
       .cmd('edit $MYVIMRC')
   .exe()
 
-  z()
+  map()
     .use_z()
     .rhs
       .cmd('source $MYVIMRC')

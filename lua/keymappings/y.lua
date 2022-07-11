@@ -1,41 +1,37 @@
 return function()
-  local map = require'milque.cartographer'.nx_leader
+  local map = require'milque.cartographer'.with.nx_leader_y
 
-  local function y()
-    return map().use_y()
-  end
-
-  y()
+  map()
     .use_c()
     .rhs
       .cmd_tabnew()
   .exe()
 
-  y()
+  map()
     .use_d()
     .rhs
       .cmd_tabclose()
   .exe()
 
-  y()
+  map()
     .use_f()
     .rhs
       .cmd_tabfirst()
   .exe()
 
-  y()
+  map()
     .use_l()
     .rhs
       .cmd_tablast()
   .exe()
 
-  y()
+  map()
     .use_n()
     .rhs
       .cmd_tabnext()
   .exe()
 
-  y()
+  map()
     .use_p()
     .rhs
       .cmd_tabprevious()

@@ -11,13 +11,13 @@ local opts = {
     airline     = false,
     cmp         = false,
     coc         = false,
-    dracula     = true,
+    dracula     = false,
     easymotion  = true,
     elixir_nvim = false,
     lsp         = false,
     tender      = false
   },
-  cs_override = '256_noir'
+  cs_override = 'solarized'
 }
 
 function opts:get_cs(opts)
@@ -138,6 +138,8 @@ g.mapleader = t'<space>'
 
 keymap.set('n', '..', '.')
 g.maplocalleader = '.'
+
+opt.background = 'light'
 
 require'plugins'(opts)
 require'plugin-settings'(opts)
