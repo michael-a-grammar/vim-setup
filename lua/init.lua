@@ -11,13 +11,13 @@ local opts = {
     airline     = false,
     cmp         = false,
     coc         = false,
-    dracula     = false,
+    dracula     = true,
     easymotion  = true,
     elixir_nvim = false,
     lsp         = false,
     tender      = false
   },
-  cs_override     = '256_noir'
+  cs_override = '256_noir'
 }
 
 function opts:get_cs(opts)

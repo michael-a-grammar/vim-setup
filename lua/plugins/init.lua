@@ -51,6 +51,7 @@ local function packer(opts)
       run = 'make'
     }
 
+    use 'nvim-telescope/telescope-file-browser.nvim'
     use 'nvim-telescope/telescope-github.nvim'
     use 'nvim-telescope/telescope-z.nvim'
 

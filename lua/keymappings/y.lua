@@ -5,9 +5,9 @@ return function()
     return map().use_y()
   end
 
-  y() 
+  y()
     .use_c()
-    .rhs 
+    .rhs
       .cmd_tabnew()
   .exe()
 

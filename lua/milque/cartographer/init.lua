@@ -69,7 +69,7 @@ local function get_lhs()
     },
     shift = {
       setter_fn = function(_, _, _, val)
-        return '<'s-' .. val .. '>'
+        return '<s-' .. val .. '>'
       end
     }
   }, {
@@ -157,10 +157,10 @@ function cartographer.map()
   return classy.conjoin(tbls)
 end
 
-function cartograhper.with(modes, desc)
+function cartographer.with(modes, desc)
   local map = cartographer.map()
 
-  for _, value in pairs(modes)
+  for _, value in pairs(modes) do
     map.modes['mode_' .. value]()
   end
 
@@ -170,11 +170,11 @@ function cartograhper.with(modes, desc)
     .lhs
 end
 
-function cartograhper.n(desc)
+function cartographer.n(desc)
   return cartographer.with({ 'n' }, desc)
 end
 
-function cartograhper.x(desc)
+function cartographer.x(desc)
   return cartographer.with({ 'x' }, desc)
 end
 
@@ -183,15 +183,15 @@ function cartographer.nx(desc)
 end
 
 function cartographer.n_leader(desc)
-  return cartographer.n(desc).with_leader()
+  return cartographer.n(desc).use_leader()
 end
 
 function cartographer.x_leader(desc)
-  return cartographer.x(desc).with_leader()
+  return cartographer.x(desc).use_leader()
 end
 
 function cartographer.nx_leader(desc)
-  return cartographer.nx(desc).with_leader()
+  return cartographer.nx(desc).use_leader()
 end
 
 return cartographer

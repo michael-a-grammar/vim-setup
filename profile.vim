@@ -545,6 +545,7 @@ nnoremap <leader>vv <c-v>
 "}}}
 
 " Bindings - Normal mode - Leader key + w - Windows "{{{
+nnoremap <leader>w= <c-w>=
 nnoremap <leader>wE <c-w>J
 nnoremap <leader>wI <c-w>K
 nnoremap <leader>wN <c-w>H
@@ -563,15 +564,16 @@ nnoremap <leader>wt <cmd>tab split<cr>
 "}}}
 
 " Bindings - Normal mode - Leader key + x - Text "{{{
-nnoremap <leader>xM <c-x>
-nnoremap <leader>xa <plug>(EasyAlign)
-nnoremap <leader>xm <c-a>
-nnoremap <leader>xu <cmd>GundoToggle<cr>
-"}}}
+"nnoremap <leader>xM <c-x>
+"nnoremap <leader>xa <plug>(EasyAlign)
+"nnoremap <leader>xm <c-a>
+"nnoremap <leader>xu <cmd>GundoToggle<cr>
+"xnoremap <leader>xs :sort<cr>
+""}}}
 
-" Bindings - Visual mode - Leader key + x - Text "{{{
-xnoremap <leader>xa <plug>(EasyAlign)
-xnoremap <leader>xs :sort<cr>
+"" Bindings - Visual mode - Leader key + x - Text "{{{
+"xnoremap <leader>xa <plug>(EasyAlign)
+"xnoremap <leader>xs :sort<cr>
 "}}}
 
 " Bindings - Normal mode - Leader key + y - Tabs "{{{
