@@ -3,7 +3,7 @@ local cartographer = {}
 cartographer.with  = {}
 
 local function get_modes()
-  return classy:create({
+  return classy.create({
     nvo = {
       setter_fn = ' '
     },
@@ -28,7 +28,7 @@ local function get_modes()
 end
 
 local function get_opts()
-  return classy:create({
+  return classy.create({
     desc  = {
       default   = '...',
       setter_fn = classy.setters.set_field_to_value,
@@ -44,7 +44,7 @@ local function get_opts()
 end
 
 local function get_lhs()
-  return classy:create_dynamic_fields({
+  return classy.create_dynamic_fields({
     use = {
       setter_prefix = '',
       setter_fn     = classy.setters.set_field_to_value
@@ -81,7 +81,7 @@ local function get_lhs()
 end
 
 local function get_rhs()
-  return classy:create_dynamic_fields({
+  return classy.create_dynamic_fields({
     cmd = {
       setter_fn = function(_, _, _, val)
         return '<cmd>' .. val .. '<cr>'
