@@ -11,7 +11,7 @@ local opts = {
     airline     = false,
     cmp         = false,
     coc         = false,
-    dracula     = false,
+    dracula     = true,
     easymotion  = true,
     elixir_nvim = false,
     lsp         = false,
@@ -139,7 +139,7 @@ g.mapleader = t'<space>'
 keymap.set('n', '..', '.')
 g.maplocalleader = '.'
 
-opt.background = 'light'
+opt.background = 'dark'
 
 require'plugins'(opts)
 require'plugin-settings'(opts)

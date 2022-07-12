@@ -173,7 +173,7 @@ setmetatable(cartographer.with, {
 
       map.opts.with_desc(desc or '')
 
-      if lhs_preix and #lhs_prefix > 0 then
+      if lhs_prefix and #lhs_prefix > 0 then
         map.lhs['use_' .. lhs_prefix]()
       end
 

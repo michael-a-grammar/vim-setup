@@ -2,7 +2,7 @@ return function()
   local env   = vim.env
   local g     = vim.g
   local split = vim.split
-  local map   = require'milque.cartographer'.nx_leader
+  local map   = require'milque.cartographer'.with.nx_leader
 
   g.slime_target      = 'tmux'
   g.slime_no_mappings = 1

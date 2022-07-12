@@ -1,4 +1,4 @@
-let g:host_theme_is_dracula = v:true
+let ghost_theme_is_dracula = v:true
 let g:host_theme_is_tender  = v:false
 let g:host_theme = 'tender'
 
@@ -525,13 +525,13 @@ nnoremap <Leader>T <cmd>lua require('telescope.builtin').resume()<cr>
 "}}}
 
 " Bindings - Normal mode - Leader key + t - Buffers "{{{
-nnoremap <leader>tc <cmd>new<cr>
-nnoremap <leader>td <cmd>bdelete<cr>
+"nnoremap <leader>tc <cmd>new<cr>
+"nnoremap <leader>td <cmd>bdelete<cr>
 nnoremap <leader>tt <cmd>Telescope buffers<cr>
-nnoremap <leader>tn <cmd>bnext<cr>
-nnoremap <leader>tp <cmd>bprevious<cr>
-nnoremap <leader>tw <cmd>ball<cr>
-nnoremap <leader>ty <cmd>tab ball<cr>
+"nnoremap <leader>tn <cmd>bnext<cr>
+"nnoremap <leader>tp <cmd>bprevious<cr>
+"nnoremap <leader>tw <cmd>ball<cr>
+"nnoremap <leader>ty <cmd>tab ball<cr>
 "}}}
 
 " Bindings - Normal mode - Leader key + u - Find Within buffer directory "{{{
@@ -541,26 +541,26 @@ nnoremap <leader>uw <cmd>lua require('telescope.builtin').grep_string({cwd = req
 "}}}
 
 " Bindings - Normal mode - Leader key + v - Visual "{{{
-nnoremap <leader>vv <c-v>
+"nnoremap <leader>vv <c-v>
 "}}}
 
 " Bindings - Normal mode - Leader key + w - Windows "{{{
-nnoremap <leader>w= <c-w>=
-nnoremap <leader>wE <c-w>J
-nnoremap <leader>wI <c-w>K
-nnoremap <leader>wN <c-w>H
-nnoremap <leader>wO <c-w>L
-nnoremap <leader>wR <c-w>R
-nnoremap <leader>wS <cmd>split<cr>
-nnoremap <leader>wd <cmd>close<cr>
-nnoremap <leader>we <c-w>j
-nnoremap <leader>wh <cmd>only<cr>
-nnoremap <leader>wi <c-w>k
-nnoremap <leader>wn <c-w>h
-nnoremap <leader>wo <c-w>l
-nnoremap <leader>wr <c-w>r
-nnoremap <leader>ws <cmd>vsplit<cr>
-nnoremap <leader>wt <cmd>tab split<cr>
+"nnoremap <leader>w= <c-w>=
+"nnoremap <leader>wE <c-w>J
+"nnoremap <leader>wI <c-w>K
+"nnoremap <leader>wN <c-w>H
+"nnoremap <leader>wO <c-w>L
+"nnoremap <leader>wR <c-w>R
+"nnoremap <leader>wS <cmd>split<cr>
+"nnoremap <leader>wd <cmd>close<cr>
+"nnoremap <leader>we <c-w>j
+"nnoremap <leader>wh <cmd>only<cr>
+"nnoremap <leader>wi <c-w>k
+"nnoremap <leader>wn <c-w>h
+"nnoremap <leader>wo <c-w>l
+"nnoremap <leader>wr <c-w>r
+"nnoremap <leader>ws <cmd>vsplit<cr>
+"nnoremap <leader>wt <cmd>tab split<cr>
 "}}}
 
 " Bindings - Normal mode - Leader key + x - Text "{{{
