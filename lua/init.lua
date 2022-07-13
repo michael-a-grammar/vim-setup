@@ -147,5 +147,6 @@ require'plugin-settings'(opts)
 cmd('colorscheme ' .. opts:get_cs())
 
 require'keymappings'(opts)
-require'auto-commands'
-require'user-commands'
+require'plugin-keymappings'(opts)
+require'auto-commands'(opts)
+require'user-commands'(opts)

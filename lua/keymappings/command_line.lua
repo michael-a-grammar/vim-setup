@@ -1,22 +1,21 @@
-return function(opts)
+return function()
   local map = require'milque.cartographer'.with.c
 
   map()
     .use('')
     .rhs
       .fn('<c-w>')
-  .exe()
+    .exe()
 
   map()
     .use_alt('left')
     .rhs
       .fn('<c-left>')
-  .exe()
+    .exe()
 
   map()
     .use_alt('right')
     .rhs
       .fn('<c-right')
-  .exe()
+    .exe()
 end
-

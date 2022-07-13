@@ -1,0 +1,11 @@
+return function()
+  require'keymappings.normal.remaps'()
+  require'keymappings.normal.search'()
+  require'keymappings.normal.p'()
+  require'keymappings.normal.t'()
+  require'keymappings.normal.v'()
+  require'keymappings.normal.w'()
+  require'keymappings.normal.x'()
+  require'keymappings.normal.y'()
+  require'keymappings.normal.z'()
+end
