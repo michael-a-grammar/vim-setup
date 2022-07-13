@@ -1,4 +1,4 @@
-let ghost_theme_is_dracula = v:true
+let g:host_theme_is_dracula = v:true
 let g:host_theme_is_tender  = v:false
 let g:host_theme = 'tender'
 
@@ -283,13 +283,9 @@ let g:gundo_prefer_python3   = 1
 "}}}
 
 " Bindings - Command line mode "{{{
-cnoremap         <c-w>
-cnoremap <m-left>  <c-left>
-cnoremap <m-right> <c-right>
-"}}}
-
-" Bindings - Operator pending mode "{{{
-onoremap silent fp :<c-u>normal! f(vi(<cr>
+"cnoremap         <c-w>
+"cnoremap <m-left>  <c-left>
+"cnoremap <m-right> <c-right>
 "}}}
 
 " Bindings - Insert mode "{{{
@@ -598,6 +594,3 @@ if filereadable(expand('~/.vimrc.local'))
   source ~/.vimrc.local
 endif
 "}}}
-
-" vim: foldmethod=marker foldlevel=0
-

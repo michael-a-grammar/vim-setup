@@ -2,7 +2,7 @@ return function(opts)
   local map = require'milque.cartographer'.with.c
 
   map()
-    .use('')
+    .use('')
     .rhs
       .fn('<c-w>')
   .exe()

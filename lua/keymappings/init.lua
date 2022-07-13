@@ -1,4 +1,5 @@
 return function(opts)
+  require'keymappings.command_line'(opts)
   require'keymappings.t'(opts)
   require'keymappings.v'(opts)
   require'keymappings.w'(opts)
