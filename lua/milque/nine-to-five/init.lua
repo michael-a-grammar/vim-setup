@@ -46,6 +46,12 @@ function nine_to_five.get_all_wds()
   return dirs
 end
 
+local scopes = {
+  { 'g', ''  },
+  { 't', 't' },
+  { 'w', 'l' }
+}
+
 function nine_to_five.set_g_wd_bufdir()
   return set_wd_bufdir('')
 end

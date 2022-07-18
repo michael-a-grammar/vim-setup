@@ -40,13 +40,13 @@ return function()
   w()
     .use_S()
     .rhs
-      .cmd('split')
+      .cmd_split()
     .exe()
 
   w()
     .use_d()
     .rhs
-      .cmd('close')
+      .cmd_close()
     .exe()
 
   w()
@@ -58,7 +58,7 @@ return function()
   w()
     .use_h()
     .rhs
-      .cmd('only')
+      .cmd_only()
     .exe()
 
   w()

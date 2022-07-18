@@ -8,12 +8,6 @@ return function()
     .exe()
 
   x()
-    .use_a()
-    .rhs
-      .plug('EasyAlign')
-    .exe()
-
-  x()
     .use_m()
     .rhs
       .fn('c-a')

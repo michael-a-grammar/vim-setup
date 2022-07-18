@@ -273,13 +273,13 @@ let g:NERDCreateDefaultMappings = 1
 "}}}
 
 " Plugins - Gundo "{{{
-let g:gundo_preview_bottom   = 1
-let g:gundo_right            = 1
-let g:gundo_help             = 0
-let g:gundo_map_move_older   = 'p'
-let g:gundo_map_move_newer   = 'f'
-let g:gundo_return_on_revert = 1
-let g:gundo_prefer_python3   = 1
+"let g:gundo_preview_bottom   = 1
+"let g:gundo_right            = 1
+"let g:gundo_help             = 0
+"let g:gundo_map_move_older   = 'p'
+"let g:gundo_map_move_newer   = 'f'
+"let g:gundo_return_on_revert = 1
+"let g:gundo_prefer_python3   = 1
 "}}}
 
 " Bindings - Command line mode "{{{
@@ -289,56 +289,56 @@ let g:gundo_prefer_python3   = 1
 "}}}
 
 " Bindings - Insert mode "{{{
-inoremap  <c-w>
-inoremap jj <esc>
+"inoremap  <c-w>
+"inoremap jj <esc>
 
 inoremap <c-c> <plug>NERDCommenterInsert
 "}}}
 
 " Bindings - Mixed modes - Remaps "{{{
 "if g:override_vbol_veol_mappings
-  noremap $ g$
-  noremap 0 g0
-  noremap ^ g^
+  "noremap $ g$
+  "noremap 0 g0
+  "noremap ^ g^
 
-noremap H g^
-noremap L g$
+"noremap H g^
+"noremap L g$
 
-noremap N Nzzzv
-noremap n nzzzv
+"noremap N Nzzzv
+"noremap n nzzzv
 "}}}
 
 " Bindings - Normal mode - Arrow keys - Navigate within buffer "{{{
-noremap <m-left>  <c-u>
-noremap <m-right> <c-d>
+"noremap <m-left>  <c-u>
+"noremap <m-right> <c-d>
 "}}}
 
 " Bindings - Normal mode - Symbols - Move text "{{{
-nnoremap - ddp
-nnoremap _ dd<up>P
+"nnoremap - ddp
+"nnoremap _ dd<up>P
 "}}}
 
 " Bindings - Normal mode - Alphanumeric - Goto "{{{
-nnoremap gD <cmd>lua vim.lsp.buf.declaration()<cr>
-nnoremap gd <cmd>lua vim.lsp.buf.definition()<cr>
-nnoremap gi <cmd>lua vim.lsp.buf.implementation()<cr>
-nnoremap gr <cmd>lua vim.lsp.buf.references()<cr>
-nnoremap gt <cmd>lua vim.lsp.buf.type_definition()<cr>
+"nnoremap gD <cmd>lua vim.lsp.buf.declaration()<cr>
+"nnoremap gd <cmd>lua vim.lsp.buf.definition()<cr>
+"nnoremap gi <cmd>lua vim.lsp.buf.implementation()<cr>
+"nnoremap gr <cmd>lua vim.lsp.buf.references()<cr>
+"nnoremap gt <cmd>lua vim.lsp.buf.type_definition()<cr>
 "}}}
 
 " Bindings - Normal mode - Leader key + / - Search "{{{
-nnoremap <leader>// :%s/
-nnoremap <leader>/R <cmd>call ReplaceCurrentWORD()<cr>
-nnoremap <leader>/h <cmd>Telescope search_history<cr>
-nnoremap <leader>/i <cmd>noincsearch<cr>
-nnoremap <leader>/r <cmd>call ReplaceCurrentWord()<cr>
-nnoremap <leader>/s :s/
-nnoremap <leader>/t <cmd>nohlsearch<cr>
+"nnoremap <leader>// :%s/
+"nnoremap <leader>/R <cmd>call ReplaceCurrentWORD()<cr>
+"nnoremap <leader>/h <cmd>Telescope search_history<cr>
+"nnoremap <leader>/i <cmd>noincsearch<cr>
+"nnoremap <leader>/r <cmd>call ReplaceCurrentWord()<cr>
+"nnoremap <leader>/s :s/
+"nnoremap <leader>/t <cmd>nohlsearch<cr>
 "}}}
 
 " Bindings - Normal mode - Leader key + : - Commands "{{{
-nnoremap <leader>: <cmd>Telescope command_history<cr>
-nnoremap <leader>; <cmd>Telescope commands<cr>
+"nnoremap <leader>: <cmd>Telescope command_history<cr>
+"nnoremap <leader>; <cmd>Telescope commands<cr>
 "}}}
 
 " Bindings - Normal mode - Leader key + a "{{{
