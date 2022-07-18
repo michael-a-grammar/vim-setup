@@ -1,6 +1,5 @@
 return function()
-  local api = vim.api
-
+  local api            = vim.api
   local events_augroup = api.nvim_create_augroup('events', {})
 
   api.nvim_create_autocmd('TextYankPost', {

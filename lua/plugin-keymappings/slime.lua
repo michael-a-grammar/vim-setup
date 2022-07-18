@@ -1,13 +1,13 @@
 return function()
-  local map = require'milque.cartographer'.with.nx_leader_i
+  local i = require'milque.cartographer'.with.nx_leader_i
 
-  map()
+  i()
     .use_i()
     .rhs
       .plug('SlimeParagraphSend')
     .exe()
 
-  map()
+  i()
     .use_v()
     .rhs
       .plug('SlimeParagraphConfig')

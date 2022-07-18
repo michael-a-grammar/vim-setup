@@ -8,31 +8,31 @@ return function()
     .exe()
 
   map()
-    .use('R')
+    .use_R()
     .rhs
       .cmd('call ReplaceCurrentWORD()')
     .exe()
 
   map()
-    .use('i')
+    .use_i()
     .rhs
       .cmd('set noincsearch')
     .exe()
 
   map()
-    .use('r')
+    .use_r()
     .rhs
       .cmd('call ReplaceCurrentWord()')
     .exe()
 
   map()
-    .use('s')
+    .use_s()
     .rhs
       .fn(':s/')
     .exe()
 
   map()
-    .use('t')
+    .use_t()
     .rhs
       .cmd('nohlsearch')
     .exe()

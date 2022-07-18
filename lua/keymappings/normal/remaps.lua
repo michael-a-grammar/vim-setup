@@ -14,7 +14,7 @@ return function()
     .exe()
 
   map()
-    .use('0')
+    .use_0()
     .rhs
       .fn('g0')
     .exe()
@@ -26,25 +26,25 @@ return function()
     .exe()
 
   map()
-    .use('H')
+    .use_H()
     .rhs
       .fn('g^')
     .exe()
 
   map()
-    .use('L')
+    .use_L()
     .rhs
       .fn('g$')
     .exe()
 
   map()
-    .use('N')
+    .use_N()
     .rhs
       .fn('Nzzzv')
     .exe()
 
   map()
-    .use('n')
+    .use_n()
     .rhs
       .fn('nzzzv')
     .exe()
