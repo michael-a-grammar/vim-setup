@@ -1,3 +1,3 @@
 return function()
-  require'plugin-settings.telescope.commands'()
+  require'plugin-keymappings.telescope.commands'()
 end
