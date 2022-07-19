@@ -3,12 +3,12 @@ return function()
   local p = require'milque.cartographer'.with.nx_leader_P
 
   f()
-    .rhs
-      .fn('<c-i>')
-    .exe()
+  .rhs
+  .fn('<c-i>')
+  .exe()
 
   p()
-    .rhs
-      .fn('<c-o>')
-    .exe()
+  .rhs
+  .fn('<c-o>')
+  .exe()
 end

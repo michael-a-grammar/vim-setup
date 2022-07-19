@@ -72,10 +72,10 @@ opt.smartcase  = true
 opt.autochdir = false
 opt.path:append('**')
 opt.wildignore = {
- '*/.git/*',
- '*/.idea/*',
- '*/.meteor/*',
- '*/node_modules/*'
+  '*/.git/*',
+  '*/.idea/*',
+  '*/.meteor/*',
+  '*/node_modules/*'
 }
 
 opt.autoindent  = true

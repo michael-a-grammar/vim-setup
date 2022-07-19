@@ -18,10 +18,10 @@ return function(opts)
 
         local keymap_set = function(mode, mnemonic, command)
           vim.keymap.set(
-            mode,
-            mnemonic,
-            '<cmd>' .. command .. '<cr>',
-            map_opts)
+          mode,
+          mnemonic,
+          '<cmd>' .. command .. '<cr>',
+          map_opts)
         end
 
         local keymap_set_n = function(mnemonic, command)

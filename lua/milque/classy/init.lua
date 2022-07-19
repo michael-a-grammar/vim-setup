@@ -52,11 +52,9 @@ function classy.get_opts(field_key, field_opts, opts)
   end
 
   local getter_prefix   = get_opt('getter_prefix', 'get')
-  local setter_prefix   = get_opt('setter_prefix',
-                            classy.default.setter_prefix())
+  local setter_prefix   = get_opt('setter_prefix', classy.default.setter_prefix())
   local default         = get_opt('default', false)
-  local setter_fn       = get_opt('setter_fn',
-                            classy.setters.set_field_to_value)
+  local setter_fn       = get_opt('setter_fn', classy.setters.set_field_to_value)
   local no_dict         = get_opt('no_dict', false)
   local values          = get_opt('values', false)
   local no_getter       = get_opt('no_getter', false)
@@ -158,8 +156,8 @@ end
 
 function classy.create_dynamic_fields(fields, field_opts, opts)
   local setter_prefix =
-    classy.get_opt(field_opts, opts, 'setter_prefix',
-      classy.default.setter_prefix())
+  classy.get_opt(field_opts, opts, 'setter_prefix',
+  classy.default.setter_prefix())
 
   return setmetatable(classy.create(fields, opts), {
     __index = function(tbl, key)
@@ -167,7 +165,7 @@ function classy.create_dynamic_fields(fields, field_opts, opts)
         local setter = rawget(tbl, key)
         if setter == nil then
           local new_key =
-            key:gsub(setter_prefix .. classy.default.field_separator(), '')
+          key:gsub(setter_prefix .. classy.default.field_separator(), '')
 
           classy.create_field(tbl, new_key, field_opts, opts)
 

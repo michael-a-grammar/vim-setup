@@ -3,32 +3,32 @@ return function()
   local lsp = vim.lsp.buf
 
   g()
-    .use_D()
-    .rhs
-      .fn(lsp.declaration)
-    .exe()
+  .use_D()
+  .rhs
+  .fn(lsp.declaration)
+  .exe()
 
   g()
-    .use_d()
-    .rhs
-      .fn(lsp.definition)
-    .exe()
+  .use_d()
+  .rhs
+  .fn(lsp.definition)
+  .exe()
 
   g()
-    .use_i()
-    .rhs
-      .fn(lsp.implementation)
-    .exe()
+  .use_i()
+  .rhs
+  .fn(lsp.implementation)
+  .exe()
 
   g()
-    .use_r()
-    .rhs
-      .fn(lsp.references)
-    .exe()
+  .use_r()
+  .rhs
+  .fn(lsp.references)
+  .exe()
 
   g()
-    .use_t()
-    .rhs
-      .fn(lsp.type_definition)
-    .exe()
+  .use_t()
+  .rhs
+  .fn(lsp.type_definition)
+  .exe()
 end

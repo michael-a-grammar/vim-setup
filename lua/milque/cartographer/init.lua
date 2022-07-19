@@ -133,7 +133,7 @@ end
 
 function cartographer.map()
   local modes, opts, lhs, rhs
-    = get_modes(), get_opts(), get_lhs(), get_rhs()
+  = get_modes(), get_opts(), get_lhs(), get_rhs()
 
   local tbls = {
     modes = modes,
@@ -156,8 +156,7 @@ end
 setmetatable(cartographer.with, {
   __index = function(tbl, key)
     return function(desc)
-      local modes_temp, lhs_prefix, lhs_suffix 
-        = unpack(vim.split(key, '_'))
+      local modes_temp, lhs_prefix, lhs_suffix = unpack(vim.split(key, '_'))
 
       local modes = {}
 

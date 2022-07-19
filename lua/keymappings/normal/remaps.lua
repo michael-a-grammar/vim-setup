@@ -2,74 +2,74 @@ return function()
   local map = require'milque.cartographer'.with.nx
 
   map()
-    .use(',,')
-    .rhs
-      .fn(',')
-    .exe()
+  .use(',,')
+  .rhs
+  .fn(',')
+  .exe()
 
   map()
-    .use('$')
-    .rhs
-      .fn('g$')
-    .exe()
+  .use('$')
+  .rhs
+  .fn('g$')
+  .exe()
 
   map()
-    .use_0()
-    .rhs
-      .fn('g0')
-    .exe()
+  .use_0()
+  .rhs
+  .fn('g0')
+  .exe()
 
   map()
-    .use('^')
-    .rhs
-      .fn('g^')
-    .exe()
+  .use('^')
+  .rhs
+  .fn('g^')
+  .exe()
 
   map()
-    .use_H()
-    .rhs
-      .fn('g^')
-    .exe()
+  .use_H()
+  .rhs
+  .fn('g^')
+  .exe()
 
   map()
-    .use_L()
-    .rhs
-      .fn('g$')
-    .exe()
+  .use_L()
+  .rhs
+  .fn('g$')
+  .exe()
 
   map()
-    .use_N()
-    .rhs
-      .fn('Nzzzv')
-    .exe()
+  .use_N()
+  .rhs
+  .fn('Nzzzv')
+  .exe()
 
   map()
-    .use_n()
-    .rhs
-      .fn('nzzzv')
-    .exe()
+  .use_n()
+  .rhs
+  .fn('nzzzv')
+  .exe()
 
   map()
-    .use_alt('left')
-    .rhs
-      .fn('<c-u>')
-    .exe()
+  .use_alt('left')
+  .rhs
+  .fn('<c-u>')
+  .exe()
 
   map()
-    .use_alt('right')
-    .rhs
-      .fn('<c-d>')
-    .exe()
+  .use_alt('right')
+  .rhs
+  .fn('<c-d>')
+  .exe()
 
   map()
-    .use('-')
-    .rhs
-      .fn('ddp')
-    .exe()
+  .use('-')
+  .rhs
+  .fn('ddp')
+  .exe()
 
   map()
-    .use('_')
-    .rhs
-      .fn('dd<up>P')
-    .exe()
+  .use('_')
+  .rhs
+  .fn('dd<up>P')
+  .exe()
 end

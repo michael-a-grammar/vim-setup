@@ -3,14 +3,14 @@ return function()
   local telescope = require'telescope.builtin'
 
   map()
-    .use(':')
-    .rhs
-      .fn(telescope.command_history)
-    .exe()
+  .use(':')
+  .rhs
+  .fn(telescope.command_history)
+  .exe()
 
   map()
-    .use(';')
-    .rhs
-      .fn(telescope.commands)
-    .exe()
+  .use(';')
+  .rhs
+  .fn(telescope.commands)
+  .exe()
 end
