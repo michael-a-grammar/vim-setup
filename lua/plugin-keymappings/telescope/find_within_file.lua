@@ -5,8 +5,6 @@ return function(opts)
   local outline          = pp.get(opts, 'find_within_file', 'outline')
   local find_within_file = pp.get(opts, 'telescope', 'find_within_file')
 
-  pp.cartographer(map)
-
   map()
   .use_f()
   .rhs
@@ -16,13 +14,13 @@ return function(opts)
   map()
   .use_o()
   .rhs
-  .use_provider(outline.toggle)
+  .provider(outline.toggle)
   .exe()
 
   map()
   .use_s()
   .rhs
-  .use_provider(find_within_file.document_symbol)
+  .provider(find_within_file.document_symbol)
   .exe()
 
   map()

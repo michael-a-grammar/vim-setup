@@ -92,6 +92,17 @@ local function get_rhs()
         return '<plug>(' .. val .. ')'
       end
     },
+    provider = {
+      setter_fn = function(tbl, _, _, val)
+        if type(val) == 'function' then
+          return tbl.fn(val)
+        end
+
+        for key, value in pairs(val) do
+          return tbl[key](value)
+        end
+      end
+    },
     'fn'
   }, {
     no_dict       = true,
