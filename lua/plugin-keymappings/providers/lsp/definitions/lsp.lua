@@ -15,14 +15,11 @@ return function()
       prev_error = diagnostic.goto_prev,
       setloclist = diagnostic.setloclist
     },
-    find_within_file = {
-      outline = { cmd = 'CocList outline' }
-    },
     refactor = {
       codelens = lsp.codelens.run,
-      format = lsp.format,
+      format   = lsp.format,
       refactor = lsp.code_action,
-      rename = lsp.rename
+      rename   = lsp.rename
     }
   }
 end

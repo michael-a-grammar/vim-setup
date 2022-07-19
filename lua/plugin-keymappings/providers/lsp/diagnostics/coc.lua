@@ -11,6 +11,14 @@ return function()
       prev       = { plug = 'coc-diagnostic-prev'                      },
       prev_error = { plug = 'coc-diagnostic-prev-error'                },
       refresh    = { cmd  = "call CocActionAsync('diagnosticRefresh')" }
+    },
+    find_within_file = {
+      outline = { cmd = 'CocList outline' }
+    },
+    refactor = {
+      format   = { plug = 'coc-format'   },
+      rename   = { plug = 'coc-rename'   },
+      refactor = { plug = 'coc-refactor' }
     }
   }
 end

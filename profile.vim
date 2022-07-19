@@ -410,11 +410,11 @@ nnoremap <leader>ft <cmd>Telescope treesitter<cr>
 "}}}
 
 " Bindings - Normal mode - Leader key + g - Version control "{{{
-nnoremap <leader>gC <cmd>Telescope git_commits<cr>
-nnoremap <leader>gb <cmd>Telescope git_branches<cr>
-nnoremap <leader>gc <cmd>Telescope git_bcommits<cr>
-nnoremap <leader>gf <cmd>Telescope git_files<cr>
-nnoremap <leader>gs <cmd>Telescope git_status<cr>
+"nnoremap <leader>gC <cmd>Telescope git_commits<cr>
+"nnoremap <leader>gb <cmd>Telescope git_branches<cr>
+"nnoremap <leader>gc <cmd>Telescope git_bcommits<cr>
+"nnoremap <leader>gf <cmd>Telescope git_files<cr>
+"nnoremap <leader>gs <cmd>Telescope git_status<cr>
 "}}}
 
 " Bindings - Normal mode - Leader key + h - Help "{{{
