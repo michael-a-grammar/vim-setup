@@ -2,8 +2,8 @@ let g:host_theme_is_dracula = v:true
 let g:host_theme_is_tender  = v:false
 let g:host_theme = 'tender'
 
-let g:use_lsp        = v:false
-let g:use_coc        = v:false
+let g:use_lsp        = v:true
+let g:use_coc        = v:true
 let g:use_easymotion = v:true
 
 lua require('init')
@@ -166,20 +166,20 @@ endif
 
 " Plugins - CoC "{{{
 if g:use_coc
-  let g:coc_global_extensions = [
-        \  'coc-elixir',
-        \  'coc-html',
-        \  'coc-json',
-        \  'coc-markdown-preview-enhanced',
-        \  'coc-markdownlint',
-        \  'coc-prettier',
-        \  'coc-snippets',
-        \  'coc-solargraph',
-        \  'coc-spell-checker',
-        \  'coc-sumneko-lua',
-        \  'coc-vimlsp',
-        \  'coc-webview',
-        \  'coc-yank']
+  "let g:coc_global_extensions = [
+        "\  'coc-elixir',
+        "\  'coc-html',
+        "\  'coc-json',
+        "\  'coc-markdown-preview-enhanced',
+        "\  'coc-markdownlint',
+        "\  'coc-prettier',
+        "\  'coc-snippets',
+        "\  'coc-solargraph',
+        "\  'coc-spell-checker',
+        "\  'coc-sumneko-lua',
+        "\  'coc-vimlsp',
+        "\  'coc-webview',
+        "\  'coc-yank']
 
   inoremap <silent><expr> <c-space> coc#refresh()
 
@@ -358,55 +358,55 @@ nnoremap <leader>aw <cmd>call SetLocalWorkingDirectoryToCurrentlyEditedFileDirec
 "}}}
 
 " Bindings - Normal mode - Leader key + d - Definitions "{{{
-if g:use_coc
-  nnoremap <leader>dh <cmd>call CocActionAsync('definitionHover')<cr>
-  nnoremap <leader>ds <cmd>call CocActionAsync('showSignatureHelp')<cr>
-endif
+"if g:use_coc
+  "nnoremap <leader>dh <cmd>call CocActionAsync('definitionHover')<cr>
+  "nnoremap <leader>ds <cmd>call CocActionAsync('showSignatureHelp')<cr>
+"endif
 
-if g:use_lsp
-  nnoremap <leader>dh <cmd>lua vim.lsp.buf.hover()<cr>
-  nnoremap <leader>ds <cmd>lua vim.lsp.buf.signature_help()<cr>
-endif
+"if g:use_lsp
+  "nnoremap <leader>dh <cmd>lua vim.lsp.buf.hover()<cr>
+  "nnoremap <leader>ds <cmd>lua vim.lsp.buf.signature_help()<cr>
+"endif
 "}}}
 
 " Bindings - Normal mode - Leader key + e - Diagnostics "{{{
 if g:use_coc
   nnoremap <leader>eE <cmd>Telescope coc workspace_diagnostics<cr>
-  nnoremap <leader>eN <plug>(coc-diagnostic-next)
-  nnoremap <leader>eP <plug>(coc-diagnostic-prev)
-  nnoremap <leader>ed <plug>(coc-diagnostic-info)
+  "nnoremap <leader>eN <plug>(coc-diagnostic-next)
+  "nnoremap <leader>eP <plug>(coc-diagnostic-prev)
+  "nnoremap <leader>ed <plug>(coc-diagnostic-info)
   nnoremap <leader>ee <cmd>Telescope coc diagnostics<cr>
-  nnoremap <leader>en <plug>(coc-diagnostic-next-error)
-  nnoremap <leader>ep <plug>(coc-diagnostic-prev-error)
-  nnoremap <leader>er <cmd>call CocActionAsync('diagnosticRefresh')<cr>
+  "nnoremap <leader>en <plug>(coc-diagnostic-next-error)
+  "nnoremap <leader>ep <plug>(coc-diagnostic-prev-error)
+  "nnoremap <leader>er <cmd>call CocActionAsync('diagnosticRefresh')<cr>
 endif
 
 if g:use_lsp
-  nnoremap <leader>ec <cmd>lua vim.diagnostic.setloclist()<cr>
+  "nnoremap <leader>ec <cmd>lua vim.diagnostic.setloclist()<cr>
   nnoremap <leader>ee <cmd>Telescope diagnostics<cr>
-  nnoremap <leader>ei <cmd>lua vim.diagnostic.open_float()<cr>
-  nnoremap <leader>en <cmd>lua vim.diagnostic.goto_next()<cr>
-  nnoremap <leader>ep <cmd>lua vim.diagnostic.goto_prev()<cr>
+  "nnoremap <leader>ei <cmd>lua vim.diagnostic.open_float()<cr>
+  "nnoremap <leader>en <cmd>lua vim.diagnostic.goto_next()<cr>
+  "nnoremap <leader>ep <cmd>lua vim.diagnostic.goto_prev()<cr>
 endif
 "}}}
 
 " Bindings - Normal mode - Leader key + F "{{{
-nnoremap <leader>F <c-i>
+"nnoremap <leader>F <c-i>
 "}}}
 
 " Bindings - Normal mode - Leader key + f - Find within file "{{{
-nnoremap <leader>ff <cmd>Telescope current_buffer_fuzzy_find<cr>
+"nnoremap <leader>ff <cmd>Telescope current_buffer_fuzzy_find<cr>
 
-if g:use_coc
-  nnoremap <leader>fo <cmd>CocList outline<cr>
-  nnoremap <leader>fs <cmd>Telescope coc document_symbols<cr>
-endif
+"if g:use_coc
+  "nnoremap <leader>fo <cmd>CocList outline<cr>
+  "nnoremap <leader>fs <cmd>Telescope coc document_symbols<cr>
+"endif
 
-if g:use_lsp
-  nnoremap <leader>fs <cmd>Telescope lsp_document_symbols<cr>
-endif
+"if g:use_lsp
+  "nnoremap <leader>fs <cmd>Telescope lsp_document_symbols<cr>
+"endif
 
-nnoremap <leader>ft <cmd>Telescope treesitter<cr>
+"nnoremap <leader>ft <cmd>Telescope treesitter<cr>
 "}}}
 
 " Bindings - Normal mode - Leader key + g - Version control "{{{
@@ -439,32 +439,32 @@ nnoremap <leader>l <cmd>NERDTreeFind<cr>
 "}}}
 
 " Bindings - Normal mode - Leader key + n - Navigate "{{{
-if g:use_coc
-  nnoremap <leader>nd <cmd>Telescope coc definitions<cr>
-  nnoremap <leader>ni <cmd>Telescope coc implementations<cr>
-  nnoremap <leader>nu <cmd>Telescope coc references<cr>
-endif
+"if g:use_coc
+  "nnoremap <leader>nd <cmd>Telescope coc definitions<cr>
+  "nnoremap <leader>ni <cmd>Telescope coc implementations<cr>
+  "nnoremap <leader>nu <cmd>Telescope coc references<cr>
+"endif
 
-if g:use_lsp
-  nnoremap <leader>nd <cmd>Telescope lsp_definitions<cr>
-  nnoremap <leader>ni <cmd>Telescope lsp_implementations<cr>
-  nnoremap <leader>nt <cmd>Telescope lsp_type_definitions<cr>
-  nnoremap <leader>nu <cmd>Telescope lsp_references<cr>
-endif
+"if g:use_lsp
+  "nnoremap <leader>nd <cmd>Telescope lsp_definitions<cr>
+  "nnoremap <leader>ni <cmd>Telescope lsp_implementations<cr>
+  "nnoremap <leader>nt <cmd>Telescope lsp_type_definitions<cr>
+  "nnoremap <leader>nu <cmd>Telescope lsp_references<cr>
+"endif
 "}}}
 
 " Bindings - Normal mode - Leader key + o "{{{
 "}}}
 
 " Bindings - Normal mode - Leader key + P "{{{
-nnoremap <leader>P <c-o>
+"nnoremap <leader>P <c-o>
 "}}}
 
 " Bindings - Normal mode - Leader key + p - Paste "{{{
-nnoremap <leader>pN <plug>(miniyank-cycleback)
-nnoremap <leader>pP <plug>(miniyank-startPut)
-nnoremap <leader>pn <plug>(miniyank-cycle)
-nnoremap <leader>pp <plug>(miniyank-startput)
+"nnoremap <leader>pN <plug>(miniyank-cycleback)
+"nnoremap <leader>pP <plug>(miniyank-startPut)
+"nnoremap <leader>pn <plug>(miniyank-cycle)
+"nnoremap <leader>pp <plug>(miniyank-startput)
 "}}}
 
 " Bindings - Normal mode - Leader key + q "{{{
@@ -513,17 +513,17 @@ if g:use_lsp
   nnoremap <leader>ss <cmd>Telescope lsp_workspace_symbols<cr>
 endif
 
-nnoremap <leader>sw <cmd>Telescope grep_string<cr>
+"nnoremap <leader>sw <cmd>Telescope grep_string<cr>
 "}}}
 
 " Bindings - Normal mode - Leader key + T "{{{
-nnoremap <Leader>T <cmd>lua require('telescope.builtin').resume()<cr>
+"nnoremap <Leader>T <cmd>lua require('telescope.builtin').resume()<cr>
 "}}}
 
 " Bindings - Normal mode - Leader key + t - Buffers "{{{
 "nnoremap <leader>tc <cmd>new<cr>
 "nnoremap <leader>td <cmd>bdelete<cr>
-nnoremap <leader>tt <cmd>Telescope buffers<cr>
+"nnoremap <leader>tt <cmd>Telescope buffers<cr>
 "nnoremap <leader>tn <cmd>bnext<cr>
 "nnoremap <leader>tp <cmd>bprevious<cr>
 "nnoremap <leader>tw <cmd>ball<cr>

@@ -1,29 +1,22 @@
 return function(opts)
-  local map              = require'milque.cartographer'.with.nx_leader_f
+  local f                = require'milque.cartographer'.with.nx_leader_f
   local telescope        = require'telescope.builtin'
   local pp               = require'plugin-providers'
-  local outline          = pp.get(opts, 'find_within_file', 'outline')
   local find_within_file = pp.get(opts, 'telescope', 'find_within_file')
 
-  map()
+  f()
   .use_f()
   .rhs
   .fn(telescope.current_buffer_fuzzy_find)
   .exe()
 
-  map()
-  .use_o()
-  .rhs
-  .provider(outline.toggle)
-  .exe()
-
-  map()
+  f()
   .use_s()
   .rhs
-  .provider(find_within_file.document_symbol)
+  .provider(find_within_file.document_symbols)
   .exe()
 
-  map()
+  f()
   .use_t()
   .rhs
   .fn(telescope.treesitter)
