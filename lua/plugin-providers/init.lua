@@ -1,20 +1,14 @@
 local plugin_providers = {}
 
-function plugin_providers.get(opts, plugin, functionality)
-  local req         = 'plugin-providers.' .. plugin .. '.' .. functionality
-  local ok_lsp, lsp = pcall(require, req .. '.lsp')
-  local ok_coc, coc = pcall(require, req .. '.coc')
-  local map         = {}
+function plugin_providers.get(opts, name, module)
+  local provider = 'plugin-providers.' .. name .. '.' .. module
+  local map      = {}
 
-  if ok_lsp then
-    for key, value in pairs(lsp) do
-      map[key] = value
-    end
-  end
-
-  if opts.use.coc and ok_coc then
-    for key, value in pairs(coc) do
-      map[key] = value
+  for key1, val1 in pairs(provider) do
+    if opts.use[key1] then
+      for key2, value2 in pairs(val1) do
+        map[key2] = val2
+      end
     end
   end
 
