@@ -7,7 +7,6 @@ return {
     refactor = { plug = 'coc-refactor' }
   },
   lsp = {
-    codelens = lsp.codelens.run,
     format   = lsp.format,
     refactor = lsp.code_action,
     rename   = lsp.rename

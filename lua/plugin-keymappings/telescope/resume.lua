@@ -1,6 +1,6 @@
 return function()
-  local t         = require'milque.cartographer'.with.nx_leader_T
   local telescope = require'telescope.builtin'
+  local t       = require'milque.cartographer'.with.nx_leader_T
 
   t()
   .rhs

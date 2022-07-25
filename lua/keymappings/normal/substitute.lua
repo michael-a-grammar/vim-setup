@@ -2,14 +2,14 @@ return function()
   local map = require'milque.cartographer'.with['n_leader_/']
 
   map()
-  .use_i()
+  .use('S')
   .rhs
-  .cmd('set noincsearch')
+  .fn(':%s/')
   .exe()
 
   map()
-  .use_t()
+  .use_s()
   .rhs
-  .cmd('nohlsearch')
+  .fn(':s/')
   .exe()
 end

@@ -15,11 +15,13 @@ return function(opts)
   .provider(diagnostics.prev)
   .exe()
 
-  e()
-  .use_c()
-  .rhs
-  .provider(diagnostics.setloclist)
-  .exe()
+  if opts.use.lsp then
+    e()
+    .use_c()
+    .rhs
+    .fn(vim.diagnostic.setloclist)
+    .exe()
+  end
 
   e()
   .use_d()
@@ -39,9 +41,11 @@ return function(opts)
   .provider(diagnostics.prev_error)
   .exe()
 
-  e()
-  .use_r()
-  .rhs
-  .provider(diagnostics.refresh)
-  .exe()
+  if opts.use.coc then
+    e()
+    .use_r()
+    .rhs
+    .cmd("call CocActionAsync('diagnosticRefresh')")
+    .exe()
+  end
 end

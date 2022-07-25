@@ -2,9 +2,45 @@ return function()
   local w = require'milque.cartographer'.with.nx_leader_w
 
   w()
+  .use('+')
+  .rhs
+  .fn('<c-w>+')
+  .exe()
+
+  w()
+  .use(',')
+  .rhs
+  .fn('<c-w><')
+  .exe()
+
+  w()
+  .use('-')
+  .rhs
+  .fn('<c-w>-')
+  .exe()
+
+  w()
+  .use('.')
+  .rhs
+  .fn('<c-w>>')
+  .exe()
+
+  w()
   .use('=')
   .rhs
   .fn('<c-w>=')
+  .exe()
+
+  w()
+  .use('_')
+  .rhs
+  .fn('<c-w>_')
+  .exe()
+
+  w()
+  .use('|')
+  .rhs
+  .fn('<c-w>|')
   .exe()
 
   w()
