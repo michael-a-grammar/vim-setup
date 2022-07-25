@@ -371,11 +371,11 @@ nnoremap <leader>aw <cmd>call SetLocalWorkingDirectoryToCurrentlyEditedFileDirec
 
 " Bindings - Normal mode - Leader key + e - Diagnostics "{{{
 if g:use_coc
-  nnoremap <leader>eE <cmd>Telescope coc workspace_diagnostics<cr>
+  "nnoremap <leader>eE <cmd>Telescope coc workspace_diagnostics<cr>
   "nnoremap <leader>eN <plug>(coc-diagnostic-next)
   "nnoremap <leader>eP <plug>(coc-diagnostic-prev)
   "nnoremap <leader>ed <plug>(coc-diagnostic-info)
-  nnoremap <leader>ee <cmd>Telescope coc diagnostics<cr>
+  "nnoremap <leader>ee <cmd>Telescope coc diagnostics<cr>
   "nnoremap <leader>en <plug>(coc-diagnostic-next-error)
   "nnoremap <leader>ep <plug>(coc-diagnostic-prev-error)
   "nnoremap <leader>er <cmd>call CocActionAsync('diagnosticRefresh')<cr>
@@ -383,7 +383,7 @@ endif
 
 if g:use_lsp
   "nnoremap <leader>ec <cmd>lua vim.diagnostic.setloclist()<cr>
-  nnoremap <leader>ee <cmd>Telescope diagnostics<cr>
+  "nnoremap <leader>ee <cmd>Telescope diagnostics<cr>
   "nnoremap <leader>ei <cmd>lua vim.diagnostic.open_float()<cr>
   "nnoremap <leader>en <cmd>lua vim.diagnostic.goto_next()<cr>
   "nnoremap <leader>ep <cmd>lua vim.diagnostic.goto_prev()<cr>
@@ -471,47 +471,49 @@ nnoremap <leader>l <cmd>NERDTreeFind<cr>
 "}}}
 
 " Bindings - Normal mode - Leader key + r - Refactor "{{{
-if g:use_coc
-  nnoremap <leader>rA <cmd>Telescope coc file_code_actions<cr>
-  nnoremap <leader>ra <cmd>Telescope coc line_code_actions<cr>
-  nnoremap <leader>rf <plug>(coc-format)
-  nnoremap <leader>rn <plug>(coc-rename)
-  nnoremap <leader>rr <plug>(coc-refactor)
-endif
+"if g:use_coc
+  "nnoremap <leader>rA <cmd>Telescope coc file_code_actions<cr>
+  "nnoremap <leader>ra <cmd>Telescope coc line_code_actions<cr>
+  "nnoremap <leader>rf <plug>(coc-format)
+  "nnoremap <leader>rn <plug>(coc-rename)
+  "nnoremap <leader>rr <plug>(coc-refactor)
+"endif
 
-if g:use_lsp
-  nnoremap <leader>ra <cmd>lua vim.lsp.buf.code_action()<cr>
-  nnoremap <leader>rf <cmd>lua vim.lsp.buf.format()<cr>
-  nnoremap <leader>rn <cmd>lua vim.lsp.buf.rename()<cr>
-  nnoremap <leader>rr <cmd>lua vim.lsp.codelens.run()<cr>
-endif
+"if g:use_lsp
+  "nnoremap <leader>ra <cmd>lua vim.lsp.buf.code_action()<cr>
+  "nnoremap <leader>rf <cmd>lua vim.lsp.buf.format()<cr>
+  "nnoremap <leader>rn <cmd>lua vim.lsp.buf.rename()<cr>
+  "nnoremap <leader>rr <cmd>lua vim.lsp.codelens.run()<cr>
+"endif
 "}}}
 
 " Bindings - Normal mode - Leader key + s - Find within working directory "{{{
-if g:use_coc
-  nnoremap <leader>sS <cmd>Telescope coc workspace_symbols<cr>
-endif
+"if g:use_coc
+  "nnoremap <leader>sS <cmd>Telescope coc workspace_symbols<cr>
+"endif
 
-if g:use_lsp
-  nnoremap <leader>sS <cmd>Telescope lsp_dynamic_workspace_symbols<cr>
-end
+"if g:use_lsp
+  "nnoremap <leader>sS <cmd>Telescope lsp_dynamic_workspace_symbols<cr>
+"end
 
-nnoremap <leader>sC <cmd>Telescope quickfixhistory<cr>
-nnoremap <leader>sc <cmd>Telescope quickfix<cr>
-nnoremap <leader>sf <cmd>Telescope find_files<cr>
-nnoremap <leader>sg <cmd>Telescope live_grep<cr>
-nnoremap <leader>sl <cmd>Telescope loclist<cr>
-nnoremap <leader>sm <cmd>Telescope marks<cr>
-nnoremap <leader>sp <cmd>Telescope jumplist<cr>
-nnoremap <leader>sr <cmd>Telescope oldfiles<cr>
+"nnoremap <leader>sC <cmd>Telescope quickfixhistory<cr>
+"nnoremap <leader>sc <cmd>Telescope quickfix<cr>
+"nnoremap <leader>sl <cmd>Telescope loclist<cr>
+"nnoremap <leader>sm <cmd>Telescope marks<cr>
+"nnoremap <leader>sp <cmd>Telescope jumplist<cr>
+"nnoremap <leader>sr <cmd>Telescope oldfiles<cr>
 
-if g:use_coc
-  nnoremap <leader>ss <cmd>lua require('telescope').extensions.coc.workspace_symbols({file_ignore_patterns = {'.asdf/', 'deps/'}})<cr>
-endif
+"nnoremap <leader>sf <cmd>Telescope find_files<cr>
+"nnoremap <leader>sg <cmd>Telescope live_grep<cr>
 
-if g:use_lsp
-  nnoremap <leader>ss <cmd>Telescope lsp_workspace_symbols<cr>
-endif
+
+"if g:use_coc
+  "nnoremap <leader>ss <cmd>lua require('telescope').extensions.coc.workspace_symbols({file_ignore_patterns = {'.asdf/', 'deps/'}})<cr>
+"endif
+
+"if g:use_lsp
+  "nnoremap <leader>ss <cmd>Telescope lsp_workspace_symbols<cr>
+"endif
 
 "nnoremap <leader>sw <cmd>Telescope grep_string<cr>
 "}}}
@@ -531,9 +533,9 @@ endif
 "}}}
 
 " Bindings - Normal mode - Leader key + u - Find Within buffer directory "{{{
-nnoremap <leader>uf <cmd>lua require('telescope.builtin').find_files({cwd = require('telescope.utils').buffer_dir()})<cr>
-nnoremap <leader>ug <cmd>lua require('telescope.builtin').live_grep({cwd = require('telescope.utils').buffer_dir()})<cr>
-nnoremap <leader>uw <cmd>lua require('telescope.builtin').grep_string({cwd = require('telescope.utils').buffer_dir()})<cr>
+"nnoremap <leader>uf <cmd>lua require('telescope.builtin').find_files({cwd = require('telescope.utils').buffer_dir()})<cr>
+"nnoremap <leader>ug <cmd>lua require('telescope.builtin').live_grep({cwd = require('telescope.utils').buffer_dir()})<cr>
+"nnoremap <leader>uw <cmd>lua require('telescope.builtin').grep_string({cwd = require('telescope.utils').buffer_dir()})<cr>
 "}}}
 
 " Bindings - Normal mode - Leader key + v - Visual "{{{
