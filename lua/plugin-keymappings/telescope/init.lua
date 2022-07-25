@@ -5,6 +5,5 @@ return function(opts)
   require'plugin-keymappings.telescope.git'()
   require'plugin-keymappings.telescope.history'()
   require'plugin-keymappings.telescope.lsp'(opts)
-  require'plugin-keymappings.telescope.resume'()
   require'plugin-keymappings.telescope.vim'()
 end

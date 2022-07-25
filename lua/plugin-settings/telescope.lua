@@ -1,8 +1,9 @@
 return function(opts)
-  local telescope = require('telescope')
+  local telescope = require'telescope'
 
   local pickers = {
     'buffers',
+    'colorscheme',
     'command_history',
     'commands',
     'current_buffer_fuzzy_find',
@@ -14,7 +15,9 @@ return function(opts)
     'git_files',
     'git_status',
     'grep_string',
+    'help_tags',
     'jumplist',
+    'keymaps',
     'live_grep',
     'loclist',
     'lsp_definitions',
@@ -25,10 +28,14 @@ return function(opts)
     'lsp_workspace_symbols',
     'marks',
     'oldfiles',
+    'pickers',
     'quickfix',
     'quickfixhistory',
+    'registers',
     'search_history',
+    'spell_suggest',
     'treesitter',
+    'vim_options',
     'workspace_symbols'
   }
 
@@ -44,6 +51,14 @@ return function(opts)
     defaults = {
       path_display = {
         truncate = 1
+      }
+    },
+    extensions = {
+      coc = {
+        theme = "ivy"
+      },
+      file_browser = {
+        theme = "ivy"
       }
     },
     pickers = pickers_configuration

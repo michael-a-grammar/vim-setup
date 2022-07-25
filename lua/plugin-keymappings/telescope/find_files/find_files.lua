@@ -1,11 +1,18 @@
 return function()
-  local telescope = require'telescope.builtin'
-  local s         = require'milque.cartographer'.with.nx_leader_s
+  local telescope    = require'telescope.builtin'
+  local file_browser = require'telescope'.extensions.file_browser.file_browser
+  local s            = require'milque.cartographer'.with.nx_leader_s
 
   s()
   .use_c()
   .rhs
   .fn(telescope.quickfix)
+  .exe()
+
+  s()
+  .use_d()
+  .rhs
+  .fn(file_browser)
   .exe()
 
   s()
@@ -17,7 +24,7 @@ return function()
   s()
   .use_g()
   .rhs
-  .fn(telescope.live_grep)
+  .fn(telescope.git_files)
   .exe()
 
   s()
@@ -42,6 +49,12 @@ return function()
   .use_r()
   .rhs
   .fn(telescope.oldfiles)
+  .exe()
+
+  s()
+  .use_s()
+  .rhs
+  .fn(telescope.live_grep)
   .exe()
 
   s()

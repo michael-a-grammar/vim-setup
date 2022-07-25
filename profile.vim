@@ -143,17 +143,17 @@ function! PreviousCharacterIsEmptyOrWhitespace() abort
   return l:result
 endfunction
 
-function! GetFolds() abort
-  return SearchAllLines('\m\C^"\s*\zs.*\ze\s*"\%u007B\{3}')
-endfunction
+"function! GetFolds() abort
+  "return SearchAllLines('\m\C^"\s*\zs.*\ze\s*"\%u007B\{3}')
+"endfunction
 
-function! GetFunctions() abort
-  return SearchAllLines('\m\C^\s*\<function\>!*\zs.*\ze(.*')
-endfunction
+"function! GetFunctions() abort
+  "return SearchAllLines('\m\C^\s*\<function\>!*\zs.*\ze(.*')
+"endfunction
 
-function! GetOptions() abort
-  return SearchAllLines('\m\C^\s*\<set\>\s*\zs\w*\ze[=\-+]*')
-endfunction
+"function! GetOptions() abort
+  "return SearchAllLines('\m\C^\s*\<set\>\s*\zs\w*\ze[=\-+]*')
+"endfunction
 
 "}}}
 "
@@ -199,7 +199,7 @@ endif
 "}}}
 
 " Plugins - NERDCommenter "{{{
-let g:NERDCreateDefaultMappings = 1
+"let g:NERDCreateDefaultMappings = 1
 "}}}
 
 " Plugins - EasyMotion "{{{
@@ -292,7 +292,7 @@ let g:NERDCreateDefaultMappings = 1
 "inoremap  <c-w>
 "inoremap jj <esc>
 
-inoremap <c-c> <plug>NERDCommenterInsert
+"inoremap <c-c> <plug>NERDCommenterInsert
 "}}}
 
 " Bindings - Mixed modes - Remaps "{{{
@@ -370,7 +370,7 @@ nnoremap <leader>aw <cmd>call SetLocalWorkingDirectoryToCurrentlyEditedFileDirec
 "}}}
 
 " Bindings - Normal mode - Leader key + e - Diagnostics "{{{
-if g:use_coc
+"if g:use_coc
   "nnoremap <leader>eE <cmd>Telescope coc workspace_diagnostics<cr>
   "nnoremap <leader>eN <plug>(coc-diagnostic-next)
   "nnoremap <leader>eP <plug>(coc-diagnostic-prev)
@@ -379,15 +379,15 @@ if g:use_coc
   "nnoremap <leader>en <plug>(coc-diagnostic-next-error)
   "nnoremap <leader>ep <plug>(coc-diagnostic-prev-error)
   "nnoremap <leader>er <cmd>call CocActionAsync('diagnosticRefresh')<cr>
-endif
+"endif
 
-if g:use_lsp
+"if g:use_lsp
   "nnoremap <leader>ec <cmd>lua vim.diagnostic.setloclist()<cr>
   "nnoremap <leader>ee <cmd>Telescope diagnostics<cr>
   "nnoremap <leader>ei <cmd>lua vim.diagnostic.open_float()<cr>
   "nnoremap <leader>en <cmd>lua vim.diagnostic.goto_next()<cr>
   "nnoremap <leader>ep <cmd>lua vim.diagnostic.goto_prev()<cr>
-endif
+"endif
 "}}}
 
 " Bindings - Normal mode - Leader key + F "{{{
@@ -418,7 +418,7 @@ endif
 "}}}
 
 " Bindings - Normal mode - Leader key + h - Help "{{{
-nnoremap <leader>h <cmd>Telescope help_tags<cr>
+"nnoremap <leader>h <cmd>Telescope help_tags<cr>
 "}}}
 
 " Bindings - Normal mode - Leader key + j "{{{
@@ -428,11 +428,11 @@ nnoremap <leader>h <cmd>Telescope help_tags<cr>
 "}}}
 
 " Bindings - Normal mode - Leader key + L "{{{
-nnoremap <leader>L <cmd>NERDTreeClose<cr>
+"nnoremap <leader>L <cmd>NERDTreeClose<cr>
 "}}}
 
 " Bindings - Normal mode - Leader key + l - Explorer "{{{
-nnoremap <leader>l <cmd>NERDTreeFind<cr>
+"nnoremap <leader>l <cmd>NERDTreeFind<cr>
 "}}}
 
 " Bindings - Normal mode - Leader key + m "{{{

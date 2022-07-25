@@ -1,165 +1,165 @@
 return function(opts)
   if opts.use.easymotion then
-    local map = require'milque.cartographer'.with.nx
+    local map = require'milque.cartographer'.with['nx_,']
 
     map()
-    .use(',F')
+    .use('F')
     .rhs
     .plug('easymotion-bd-f')
     .exe()
 
     map()
-    .use(',SF')
+    .use('SF')
     .rhs
     .plug('easymotion-overwin-f2')
     .exe()
 
     map()
-    .use(',Sf')
+    .use('Sf')
     .rhs
     .plug('easymotion-overwin-f')
     .exe()
 
     map()
-    .use(',Sl')
+    .use('Sl')
     .rhs
     .plug('easymotion-overwin-line')
     .exe()
 
     map()
-    .use(',Sw')
+    .use('Sw')
     .rhs
     .plug('easymotion-overwin-w')
     .exe()
 
     map()
-    .use(',T')
+    .use('T')
     .rhs
     .plug('easymotion-bd-t')
     .exe()
 
     map()
-    .use(',f')
+    .use('f')
     .rhs
     .plug('easymotion-bd-fl')
     .exe()
 
     map()
-    .use(',ke')
+    .use('ke')
     .rhs
     .plug('easymotion-iskeyword-bd-e')
     .exe()
 
     map()
-    .use(',kw')
+    .use('kw')
     .rhs
     .plug('easymotion-iskeyword-bd-w')
     .exe()
 
     map()
-    .use(',s/')
+    .use('s/')
     .rhs
     .plug('easymotion-sn')
     .exe()
 
     map()
-    .use(',s<up>')
+    .use('s<up>')
     .rhs
     .plug('easymotion-k')
     .exe()
 
     map()
-    .use(',s<right>')
+    .use('s<right>')
     .rhs
     .plug('easymotion-linebackward')
     .exe()
 
     map()
-    .use(',s<down>')
+    .use('s<down>')
     .rhs
     .plug('easymotion-j')
     .exe()
 
     map()
-    .use(',s<left>')
+    .use('s<left>')
     .rhs
     .plug('easymotion-lineforward')
     .exe()
 
     map()
-    .use(',sA')
+    .use('sA')
     .rhs
     .plug('easymotion-jumptoanywhere')
     .exe()
 
     map()
-    .use(',sE')
+    .use('sE')
     .rhs
     .plug('easymotion-bd-e')
     .exe()
 
     map()
-    .use(',sN')
+    .use('sN')
     .rhs
     .plug('easymotion-prev')
     .exe()
 
     map()
-    .use(',sS')
+    .use('sS')
     .rhs
     .plug('easymotion-s')
     .exe()
 
     map()
-    .use(',sW')
+    .use('sW')
     .rhs
     .plug('easymotion-bd-w')
     .exe()
 
     map()
-    .use(',sa')
+    .use('sa')
     .rhs
     .plug('easymotion-lineanywhere')
     .exe()
 
     map()
-    .use(',se')
+    .use('se')
     .rhs
     .plug('easymotion-bd-el')
     .exe()
 
     map()
-    .use(',sf')
+    .use('sf')
     .rhs
     .plug('easymotion-bd-f2')
     .exe()
 
     map()
-    .use(',sn')
+    .use('sn')
     .rhs
     .plug('easymotion-next')
     .exe()
 
     map()
-    .use(',ss')
+    .use('ss')
     .rhs
     .plug('easymotion-s2')
     .exe()
 
     map()
-    .use(',st')
+    .use('st')
     .rhs
     .plug('easymotion-bd-t2')
     .exe()
 
     map()
-    .use(',sw')
+    .use('sw')
     .rhs
     .plug('easymotion-bd-wl')
     .exe()
 
     map()
-    .use(',t')
+    .use('t')
     .rhs
     .plug('easymotion-bd-tl')
     .exe()

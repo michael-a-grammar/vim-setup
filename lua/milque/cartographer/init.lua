@@ -1,6 +1,7 @@
 local classy       = require'milque.classy'
 local cartographer = {}
 cartographer.with  = {}
+cartographer.set   = {}
 
 local function get_modes()
   return classy.create({
@@ -121,9 +122,26 @@ local function build(tbls)
   local opts  = tbls.opts.__dict
   local lhs   = ''
   local rhs   = tbls.rhs.get_cmd() or tbls.rhs.get_plug() or tbls.rhs.get_fn()
+  local mode  = ''
+
+  for _, val in ipairs(tbls.modes.__values) do
+    mode = mode .. val
+  end
+
+  if cartographer.set[mode] == nil then
+    cartographer.set[mode] = {}
+  end
+
+  local set = cartographer.set[mode]
 
   for _, val in ipairs(tbls.lhs.__values) do
     lhs = lhs .. val
+
+    if set[val] == nil then
+      set[val] = {}
+    end
+
+    set = set[val]
   end
 
   if not rhs then
@@ -132,6 +150,9 @@ local function build(tbls)
       rhs = rhs .. val
     end
   end
+
+  set.desc = opts.desc
+  set.rhs  = rhs
 
   return modes, opts, lhs, rhs
 end
@@ -158,14 +179,14 @@ function cartographer.map()
   end
 
   function tbls:exe()
-    return exe(tbls.build())
+    return exe(tbls:build())
   end
 
   return classy.conjoin(tbls)
 end
 
 setmetatable(cartographer.with, {
-  __index = function(tbl, key)
+  __index = function(_, key)
     return function(desc)
       local modes_temp, lhs_prefix, lhs_suffix = unpack(vim.split(key, '_'))
 

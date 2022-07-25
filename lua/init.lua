@@ -20,7 +20,7 @@ local opts = {
   cs_override = 'solarized'
 }
 
-function opts:get_cs(opts)
+function opts:get_cs()
   if self.use.dracula then
     return 'dracula'
   elseif self.use.tender then
@@ -146,7 +146,8 @@ require'plugin-settings'(opts)
 
 cmd('colorscheme ' .. opts:get_cs())
 
-require'keymappings'(opts)
+require'keymappings'()
 require'plugin-keymappings'(opts)
-require'auto-commands'(opts)
-require'user-commands'(opts)
+require'auto-commands'()
+require'user-commands'()
+require'plugin-settings.which-key'()

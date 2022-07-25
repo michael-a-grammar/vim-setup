@@ -27,8 +27,14 @@ return function()
   .exe()
 
   g()
-  .use_s()
+  .use_g()
   .rhs
   .fn(telescope.git_status)
+  .exe()
+
+  g()
+  .use_s()
+  .rhs
+  .fn(telescope.git_stash)
   .exe()
 end
