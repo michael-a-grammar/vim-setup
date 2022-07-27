@@ -44,8 +44,8 @@ function classy.get_opt(field_opts, opts, opt, default)
 end
 
 function classy.get_opts(field_key, field_opts, opts)
-  local field_opts = field_opts or {}
-  local opts       = opts or {}
+  field_opts = field_opts or {}
+  opts       = opts or {}
 
   local function get_opt(opt, default)
     return classy.get_opt(field_opts, opts, opt, default)
@@ -99,8 +99,8 @@ function classy.create_stn_fields(tbl, opts)
   return dict, vals
 end
 
-function classy.create_field(tbl, field_key, field_opts, opts)
-  local opts       = classy.get_opts(field_key, field_opts, opts)
+function classy.create_field(tbl, field_key, field_opts, tbl_opts)
+  local opts       = classy.get_opts(field_key, field_opts, tbl_opts)
   local dict, vals = classy.create_stn_fields(tbl, opts)
 
   if not opts.no_dict then
@@ -147,8 +147,8 @@ end
 
 function classy.create_fields(tbl, fields, opts)
   for key, val in pairs(fields) do
-    local field_key     = (type(key) == 'number' and val) or key
-    local field_opts    = (type(val) == 'table' and val) or nil
+    local field_key  = (type(key) == 'number' and val) or key
+    local field_opts = (type(val) == 'table' and val) or nil
     classy.create_field(tbl, field_key, field_opts, opts)
   end
   return tbl
@@ -164,8 +164,8 @@ function classy.create_dynamic_fields(fields, field_opts, opts)
       return function()
         local setter = rawget(tbl, key)
         if setter == nil then
-          local new_key =
-          key:gsub(setter_prefix .. classy.default.field_separator(), '')
+          local field_separator = classy.default.field_separator()
+          local new_key         = key:gsub(setter_prefix .. field_separator, '')
 
           classy.create_field(tbl, new_key, field_opts, opts)
 
