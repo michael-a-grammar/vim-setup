@@ -1,7 +1,7 @@
-﻿nx = 'nx'
-leader = (key) -> "<leader>#{key}"
-ctrl = (key) -> "<c-#{key}"
-t = 't'
+﻿--nx = 'nx'
+--leader = (key) -> "<leader>#{key}"
+--ctrl = (key) -> "<c-#{key}"
+--t = 't'
 
 setfenv = (fn, env) ->
   i = 1
@@ -14,11 +14,18 @@ setfenv = (fn, env) ->
       break
   fn
 
+mapper =
+  keymap: (opts) ->
+    print opts
+
 cartographer = (fn) ->
-  setfenv fn, setmetable {},
+  setfenv fn, setmetatable mapper,
     __index: (self, key) ->
-      -> print 2
+      print key
+      -> key
   fn!
 
+--map = keymap nx leader ctrl t name: 'Buffers'
 
-map = keymap nx leader ctrl t name: 'Buffers'
+cartographer ->
+ keymap nx
