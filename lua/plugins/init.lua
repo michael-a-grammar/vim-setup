@@ -115,6 +115,7 @@ local function packer(opts)
     use 'kana/vim-textobj-user'
 
     use 'elixir-editors/vim-elixir'
+    use 'leafo/moonscript-vim'
 
     use 'andyl/vim-textobj-elixir'
     use 'rhysd/vim-textobj-ruby'
@@ -140,8 +141,6 @@ local function packer(opts)
     use 'hrsh7th/cmp-cmdline'
 
     use 'mhanberg/elixir.nvim'
-
-    use 'bfredl/nvim-luadev'
   end)
 end
 

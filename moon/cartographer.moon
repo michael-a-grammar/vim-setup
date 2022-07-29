@@ -14,18 +14,23 @@ setfenv = (fn, env) ->
       break
   fn
 
-mapper =
-  keymap: (opts) ->
-    print opts
+class State
+  new: =>
+    @idx = 1
+  
+  update: (key, val) =>
+   print key, val
 
 cartographer = (fn) ->
-  setfenv fn, setmetatable mapper,
+  state = State!
+  setfenv fn, setmetatable {},
     __index: (self, key) ->
-      print key
-      -> key
+      (val) ->
+        print key, val
+        state\update(key, val)
   fn!
 
 --map = keymap nx leader ctrl t name: 'Buffers'
 
 cartographer ->
- keymap nx
+  nx leader ctrl t name: 'Buffers', silent: true

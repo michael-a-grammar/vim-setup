@@ -250,4 +250,9 @@ setmetatable(cartographer.with, {
   end
 })
 
+local function set(initial)
+  return function()
+  end
+end
+
 return cartographer
