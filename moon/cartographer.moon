@@ -1,36 +1,50 @@
-﻿--nx = 'nx'
---leader = (key) -> "<leader>#{key}"
---ctrl = (key) -> "<c-#{key}"
---t = 't'
-
 setfenv = (fn, env) ->
   i = 1
-  while true do
-    name = debug.getupvalue fn, i
-    if name == '_ENV'
-      debug.upvaluejoin fn, i, (-> env), 1
-      break
-    elseif not name
-      break
+  while debug.getupvalue(fn, i) != '_ENV' do i += 1
+  debug.upvaluejoin fn, i, (-> env), 1
   fn
 
-class State
-  new: =>
-    @idx = 1
-  
-  update: (key, val) =>
-   print key, val
+opts = {}
+
+get = (key, val) ->
+  switch type(val)
+    when 'function'
+      return val()
+    when 'table'
+      opts = val
+      return key
+    when 'nil'
+      return key
+    else
+      "#{key}__#{val}"
+
+mt =
+  use: (val) ->
+    print val
+  add: (val) ->
+    print val
+
+kc = setmetatable {},
+    __index: (tbl, key) ->
+      (val) -> key
 
 cartographer = (fn) ->
-  state = State!
-  setfenv fn, setmetatable {},
-    __index: (self, key) ->
-      (val) ->
-        print key, val
-        state\update(key, val)
+  setfenv fn, setmetatable mt,
+    __index: (tbl, key) ->
+      (val) -> get key, val
   fn!
 
 --map = keymap nx leader ctrl t name: 'Buffers'
 
+--cartographer ->
+  --use nx leader ctrl t name: 'Buffers', silent: true
+
+
+--cartographer ->
+  --use nx leader kc['?'] ctrl kc['/'] name: 'Buffers', silent: true
+
+--cartographer ->
+  --use nx leader kc['#'] ctrl kc['0']
+
 cartographer ->
-  nx leader ctrl t name: 'Buffers', silent: true
+  use nx leader kc['£'] ctrl z
