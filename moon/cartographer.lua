@@ -1,3 +1,11 @@
+local vim = { }
+vim.split = function(str, on)
+  local result = { }
+  for match in (tostring(str) .. tostring(on)):gmatch("(.-)" .. tostring(on)) do
+    table.insert(result, match)
+  end
+  return result
+end
 local setfenv
 setfenv = function(fn, env)
   local i = 1
@@ -10,8 +18,8 @@ setfenv = function(fn, env)
   return fn
 end
 local opts = { }
-local get
-get = function(key, val)
+local create_segment
+create_segment = function(key, val)
   local _exp_0 = type(val)
   if 'table' == _exp_0 then
     opts = val
@@ -21,15 +29,56 @@ get = function(key, val)
   elseif 'string' == _exp_0 then
     if key == 'kc' then
       return function(agg)
-        return get(val, agg)
+        return create_segment(val, agg)
       end
     end
     return tostring(key) .. "__" .. tostring(val)
   end
 end
 local r = { }
+local cur_use = { }
+local modes
+do
+  local tbl = { }
+  local _list_0 = {
+    'n',
+    'v',
+    's',
+    'x',
+    'o',
+    'i',
+    'l',
+    'c',
+    't'
+  }
+  for _index_0 = 1, #_list_0 do
+    local key = _list_0[_index_0]
+    tbl[key] = key
+  end
+  local _list_1 = {
+    ['nvo'] = ' ',
+    ['ic'] = '!'
+  }
+  for _index_0 = 1, #_list_1 do
+    local key, val = _list_1[_index_0]
+    tbl[key] = val
+  end
+  modes = tbl
+end
+local get_modes
+get_modes = function(segment)
+  local tbl = { }
+  return segment:gsub('.', function(char)
+    if not (modes[char] == nil) then
+      return table.insert(tbl, modes[char])
+    end
+  end)
+end
 local keymap = {
   use = function(val)
+    local segments = vim.split(val)
+    modes = get_modes(segments[1])
+    print("here " .. tostring(modes))
     return table.insert(r, val)
   end,
   add = function(val) end
@@ -40,7 +89,7 @@ local mt = {
       return nil
     end
     return function(val)
-      return get(key, val)
+      return create_segment(key, val)
     end
   end
 }
@@ -95,4 +144,5 @@ tests = function()
   print(r[11] == 'nx__#__0')
   return print(r[12] == 'nx__#__0')
 end
-return print(r[14])
+print(r[14])
+return print(vim.split(r[7], '__')[5])

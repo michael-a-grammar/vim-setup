@@ -1,3 +1,10 @@
+vim = {}
+vim.split = (str, on) ->
+  result = {}
+  for match in ("#{str}#{on}")\gmatch("(.-)#{on}")
+    table.insert(result, match)
+  result
+
 setfenv = (fn, env) ->
   i = 1
   while debug.getupvalue(fn, i) != '_ENV' do i += 1
@@ -6,7 +13,7 @@ setfenv = (fn, env) ->
 
 opts = {}
 
-get = (key, val) ->
+create_segment = (key, val) ->
   switch type(val)
     when 'table'
       opts = val
@@ -15,19 +22,43 @@ get = (key, val) ->
       return key
     when 'string'
       if key == 'kc'
-        return (agg) -> get val, agg
+        return (agg) -> create_segment val, agg
       "#{key}__#{val}"
 
 r = {}
 
+cur_use = {
+  
+}
+
+modes = do
+  tbl = {}
+  for key in *{'n', 'v', 's', 'x', 'o', 'i', 'l', 'c', 't'}
+    tbl[key] = key
+  for key, val in *{'nvo': ' ', 'ic': '!'}
+    tbl[key] = val
+  tbl
+
+get_modes = (segment) ->
+  tbl = {}
+  segment\gsub '.', (char) ->
+    unless modes[char] == nil
+      table.insert tbl, modes[char]
+  tbl
+
 keymap =
-  use: (val) -> table.insert(r, val)
+  use: (val) ->
+    segments = vim.split(val, '__')
+    our_modes = get_modes(segments[1])
+    --for seg in *segments do print seg
+    for mode in *our_modes do print mode
+    table.insert(r, val)
   add: (val) ->
 
 mt =
   __index: (_, key) ->
     return nil if key == '_'
-    (val) -> get key, val
+    (val) -> create_segment key, val
 
 cartographer = (fn) ->
   setfenv fn, setmetatable keymap, mt
@@ -78,5 +109,3 @@ tests = ->
   print r[10] == 'nx__#__0'
   print r[11] == 'nx__#__0'
   print r[12] == 'nx__#__0'
-
-print r[14]
