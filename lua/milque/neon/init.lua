@@ -2,7 +2,7 @@ local api  = vim.api
 local g    = vim.g
 local neon = {}
 
- neon.cmd = function(src)
+neon.cmd = function(src)
   api.nvim_exec(src, false)
   return neon
 end
