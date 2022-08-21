@@ -1,17 +1,7 @@
-return function(opts)
-  local d           = require'milque.cartographer'.with.nx_leader_d
-  local pp          = require'plugin-providers'
-  local definitions = pp.get(opts, 'lsp', 'definitions')
+return function()
+  local set = require'keymappings.helpers'.nx_leader_with('d')
+  local lsp = vim.lsp.buf
 
-  d()
-  .use_h()
-  .rhs
-  .provider(definitions.hover)
-  .exe()
-
-  d()
-  .use_s()
-  .rhs
-  .provider(definitions.signature)
-  .exe()
+  set('h', lsp.hover, 'Hover')
+  set('s', lsp.signature_help, 'Signature')
 end

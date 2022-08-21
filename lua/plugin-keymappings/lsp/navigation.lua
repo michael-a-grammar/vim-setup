@@ -1,34 +1,10 @@
 return function()
-  local g   = require'milque.cartographer'.with.nx_g
+  local set = require'keymappings.helpers'.nx
   local lsp = vim.lsp.buf
 
-  g()
-  .use_D()
-  .rhs
-  .fn(lsp.declaration)
-  .exe()
-
-  g()
-  .use_d()
-  .rhs
-  .fn(lsp.definition)
-  .exe()
-
-  g()
-  .use_i()
-  .rhs
-  .fn(lsp.implementation)
-  .exe()
-
-  g()
-  .use_r()
-  .rhs
-  .fn(lsp.references)
-  .exe()
-
-  g()
-  .use_t()
-  .rhs
-  .fn(lsp.type_definition)
-  .exe()
+  set('gd', lsp.definition,      'Go to definition')
+  set('gD', lsp.declaration,     'Go to declaration')
+  set('gi', lsp.implementation,  'Go to implementation')
+  set('gr', lsp.references,      'Go to references')
+  set('gt', lsp.type_definition, 'Go to type_definition')
 end

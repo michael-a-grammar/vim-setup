@@ -1,15 +1,6 @@
 return function()
-  local map = require'milque.cartographer'.with.i
+  local set = require'keymappings.helpers'.i
 
-  map()
-  .use('')
-  .rhs
-  .fn('<c-w>')
-  .exe()
-
-  map()
-  .use('jj')
-  .rhs
-  .fn('<esc>')
-  .exe()
+  set('', '<c-w>', 'Delete words backwards')
+  set('jj', '<esc>', 'Return to normal mode')
 end

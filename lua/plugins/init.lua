@@ -1,22 +1,22 @@
-local function pack()
+local pack = function()
   require'milque.neon'.cmd('packadd cfilter')
 end
 
-local function install_packer()
+local install_packer = function()
   local fn = vim.fn
 
   local install_path =
-  fn.stdpath('data') ..'/site/pack/packer/start/packer.nvim'
+    fn.stdpath('data') ..'/site/pack/packer/start/packer.nvim'
 
   if fn.empty(fn.glob(install_path)) > 0 then
     local repo = 'https://github.com/wbthomason/packer.nvim'
 
     local packer_bootstrap =
-    fn.system({ 'git', 'clone', '--depth', '1', repo, install_path })
+      fn.system({ 'git', 'clone', '--depth', '1', repo, install_path })
   end
 end
 
-local function packer(opts)
+local packer = function(opts)
   require'packer'.startup(function()
     use 'wbthomason/packer.nvim'
 
@@ -44,6 +44,13 @@ local function packer(opts)
       disable = not opts.use.airline
     }
 
+    use {
+      'folke/which-key.nvim',
+      config = function()
+        require('which-key').setup({})
+      end
+    }
+
     use 'nvim-lua/plenary.nvim'
     use 'nvim-telescope/telescope.nvim'
 
@@ -58,17 +65,6 @@ local function packer(opts)
 
     use 'nvim-treesitter/nvim-treesitter'
     use 'nvim-treesitter/playground'
-
-    use {
-      'fannheyward/telescope-coc.nvim',
-      disable = not opts.use.coc
-    }
-
-    use {
-      'neoclide/coc.nvim',
-      branch = 'release',
-      disable = not opts.use.coc
-    }
 
     use 'kyazdani42/nvim-web-devicons'
 
@@ -86,10 +82,7 @@ local function packer(opts)
     use 'TamaMcGlinn/quickfixdd'
     use 'jpalardy/vim-slime'
 
-    use {
-      'easymotion/vim-easymotion',
-      disable = not opts.use.easymotion
-    }
+    use 'easymotion/vim-easymotion'
 
     use 'sjl/gundo.vim'
 

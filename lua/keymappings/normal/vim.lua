@@ -1,15 +1,6 @@
 return function()
-  local z = require'milque.cartographer'.with.nx_leader_z
+  local set = require'keymappings.helpers'.nx_leader_with('z')
 
-  z()
-  .use_e()
-  .rhs
-  .cmd('edit $MYVIMRC')
-  .exe()
-
-  z()
-  .use_z()
-  .rhs
-  .cmd('source $MYVIMRC')
-  .exe()
+  set('e', '<cmd>edit $MYVIMRC<cr>',   'Edit profile')
+  set('z', '<cmd>source $MYVIMRC<cr>', 'Source profile')
 end

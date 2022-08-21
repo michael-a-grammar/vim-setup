@@ -6,11 +6,11 @@ local neon   = require'milque.neon'
 local cmd    = neon.cmd
 local sludge = {}
 
-local function get_slime_bufname(buf_prefix, ft)
+local get_slime_bufname = function(buf_prefix, ft)
   return buf_prefix .. '_slime.' .. ft
 end
 
-local function get_slime_state(buf_prefix, ft)
+local get_slime_state = function(buf_prefix, ft)
   local state   = {}
   local bufname = fn.bufname()
 
@@ -28,13 +28,13 @@ local function get_slime_state(buf_prefix, ft)
   return state
 end
 
-local function create_slime_win(slime_bufnr)
+local create_slime_win = function(slime_bufnr)
   local height       = opt.lines:get()
   local slime_height = height / 4
   local split_cmd    = 'split' .. '+buffer' .. slime_bufnr
   local resize_cmd   = 'resize' .. slime_height
 
-  local function set_opt(name, val)
+  local set_opt = function(name, val)
     wo[name] = val
   end
 
@@ -50,10 +50,10 @@ local function select_slime_win(slime_winnr)
   cmd(slime_winnr .. 'wincmd w')
 end
 
-local function create_slime_buf(slime_bufname, ft)
+local create_slime_buf = function(slime_bufname, ft)
   local slime_bufnr = fn.bufadd(slime_bufname)
 
-  local function set_opt(name, val)
+  local set_opt = function(name, val)
     bo[slime_bufnr][name] = val
   end
 
@@ -66,7 +66,7 @@ local function create_slime_buf(slime_bufname, ft)
   return slime_bufnr
 end
 
-function sludge.start(buf_prefix, ft, slime_key)
+sludge.start = function(buf_prefix, ft, slime_key)
   local state       = get_slime_state(buf_prefix, ft)
   local slime_bufnr = state.slime_bufnr
 

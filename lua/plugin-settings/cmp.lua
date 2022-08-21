@@ -1,21 +1,21 @@
 return function(opts)
   if opts.use.cmp then
+    local cmp     = require('cmp')
+    local lspkind = require('lspkind')
+
     local has_words_before = function()
       local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 
       return col ~= 0
-      and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
-      :sub(col, col)
-      :match("%s") == nil
+        and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
+              :sub(col, col)
+              :match("%s") == nil
     end
 
     local feedkeys = function(key, mode)
       vim.api.nvim_feedkeys(
-      vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+        vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
     end
-
-    local cmp     = require('cmp')
-    local lspkind = require('lspkind')
 
     cmp.setup({
       enabled = function()
@@ -24,7 +24,7 @@ return function(opts)
           return true
         else
           return not context.in_treesitter_capture('comment')
-          and not context.in_syntax_group('Comment')
+            and not context.in_syntax_group('Comment')
         end
       end,
       formatting = {
@@ -121,7 +121,7 @@ return function(opts)
     })
 
     local capabilities =
-    require('cmp_nvim_lsp')
-    .update_capabilities(vim.lsp.protocol.make_client_capabilities())
+      require('cmp_nvim_lsp')
+        .update_capabilities(vim.lsp.protocol.make_client_capabilities())
   end
 end

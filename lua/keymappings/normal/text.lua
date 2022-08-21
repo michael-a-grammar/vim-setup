@@ -1,21 +1,7 @@
 return function()
-  local x = require'milque.cartographer'.with.nx_leader_x
+  local set = require'keymappings.helpers'.nx_leader_with('x')
 
-  x()
-  .use_M()
-  .rhs
-  .fn('<c-x>')
-  .exe()
-
-  x()
-  .use_m()
-  .rhs
-  .fn('c-a')
-  .exe()
-
-  x()
-  .use_s()
-  .rhs
-  .fn(':sort<cr>')
-  .exe()
+  set('m', '<c-a>',     'Increment')
+  set('M', '<c-x>',     'Decrement')
+  set('s', ':sort<cr>', 'Sort')
 end

@@ -1,27 +1,9 @@
 return function()
-  local p = require'milque.cartographer'.with.nx_leader_p
+  local set = require'keymappings.helpers'.nx_leader_with('p')
 
-  p()
-  .use_N()
-  .rhs
-  .plug('miniyank-cycleback')
-  .exe()
+  set('n', '<plug>miniyank-cycle',     'Yank right forwards')
+  set('N', '<plug>miniyank-cycleback', 'Yank ring backwards')
 
-  p()
-  .use_P()
-  .rhs
-  .plug('miniyank-startPut')
-  .exe()
-
-  p()
-  .use_n()
-  .rhs
-  .plug('miniyank-cycle')
-  .exe()
-
-  p()
-  .use_p()
-  .rhs
-  .plug('miniyank-startput')
-  .exe()
+  set('p', '<plug>miniyank-startput', 'Yank ring put')
+  set('P', '<plug>miniyank-startPut', 'Yank ring Put')
 end

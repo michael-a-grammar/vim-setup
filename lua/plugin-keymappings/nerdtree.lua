@@ -1,13 +1,6 @@
 return function()
-  local cartographer = require'milque.cartographer'
+  local set = require'keymappings.helpers'.nx_leader
 
-  cartographer.with.nx_leader_L()
-  .rhs
-  .cmd('NERDTreeClose')
-  .exe()
-
-  cartographer.with.nx_leader_l()
-  .rhs
-  .cmd('NERDTreeFind')
-  .exe()
+  set('l', 'NERDTreeFind',  'Open directory tree at current file')
+  set('L', 'NERDTreeClose', 'Close directory tree')
 end

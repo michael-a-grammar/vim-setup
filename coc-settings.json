@@ -1,7 +1,0 @@
-{
-  "cSpell.enabled": true,
-  "sumneko-lua.enableNvimLuaDev": true,
-  "vimlsp.diagnostic.enable": true,
-  "Lua.telemetry.enable": true,
-  "elixir.pathToElixirLS": "~/elixir-ls-1.12/language_server.sh"
-}

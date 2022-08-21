@@ -1,18 +1,6 @@
-return function(opts)
-  local e           = require'milque.cartographer'.with.nx_leader_e
-  local pp          = require'plugin-providers'
-  local diagnostics = pp.get(opts, 'telescope', 'lsp.diagnostics')
+return function()
+  local telescope = require'telescope.builtin'
+  local set       = require'keymappings.helpers'.nx_leader_with('e')
 
-  if opts.use.coc then
-    e()
-    .use_E()
-    .rhs
-    .fn(require'telescope'.extensions.coc.workspace_diagnostics)
-  end
-
-  e()
-  .use_e()
-  .rhs
-  .provider(diagnostics.diagnostics)
-  .exe()
+  set('e', telescope.diagnostics, 'Diagnostics')
 end

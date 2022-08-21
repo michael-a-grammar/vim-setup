@@ -9,12 +9,10 @@ local t      = neon.t
 local opts = {
   use = {
     airline     = false,
-    cmp         = false,
-    coc         = true,
-    dracula     = true,
-    easymotion  = true,
+    cmp         = true,
+    dracula     = false,
     elixir_nvim = false,
-    lsp         = false,
+    lsp         = true,
     tender      = false
   },
   cs_override = 'solarized'
@@ -133,10 +131,10 @@ cmd('runtime macros/matchit.vim')
 opt.mouse         = 'a'
 opt.termguicolors = true
 
-keymap.set('n', '<space>', '<nop>')
+keymap.set({ 'n', 'x' }, '<space>', '<nop>')
 g.mapleader = t'<space>'
 
-keymap.set('n', '..', '.')
+keymap.set({ 'n', 'x' }, '..', '.')
 g.maplocalleader = '.'
 
 opt.background = 'dark'
@@ -147,7 +145,6 @@ require'plugin-settings'(opts)
 cmd('colorscheme ' .. opts:get_cs())
 
 require'keymappings'()
-require'plugin-keymappings'(opts)
+require'plugin-keymappings'()
 require'auto-commands'()
 require'user-commands'()
-require'plugin-settings.which-key'()

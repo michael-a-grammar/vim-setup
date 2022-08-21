@@ -1,24 +1,8 @@
-return function(opts)
-  local telescope          = require'telescope.builtin'
-  local f                  = require'milque.cartographer'.with.nx_leader_f
-  local pp                 = require'plugin-providers'
-  local find_within_buffer = pp.get(opts, 'telescope', 'find_within_buffer')
+return function()
+  local telescope = require'telescope.builtin'
+  local set       = require'keymappings.helpers'.nx_leader_with('f')
 
-  f()
-  .use_f()
-  .rhs
-  .fn(telescope.current_buffer_fuzzy_find)
-  .exe()
-
-  f()
-  .use_s()
-  .rhs
-  .provider(find_within_buffer.document_symbols)
-  .exe()
-
-  f()
-  .use_t()
-  .rhs
-  .fn(telescope.treesitter)
-  .exe()
+  set('f', telescope.current_buffer_fuzzy_find, 'Fuzzy find')
+  set('s', telescope.lsp_document_symbols,      'Document symbols')
+  set('t', telescope.treesitter,                'Treesitter')
 end

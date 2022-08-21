@@ -5,24 +5,24 @@ local cmd          = neon.cmd
 local exe          = neon.exe
 local nine_to_five = {}
 
-local function get_bufdir()
+local get_bufdir = function()
   return fn.expand('%:h')
 end
 
-local function set_wd(scope, dir)
+local set_wd = function(scope, dir)
   cmd(scope .. 'cd ' .. dir)
   return exe('verbose pwd')
 end
 
-local function set_wd_bufdir(scope)
+local set_wd_bufdir = function(scope)
   return set_wd(scope, get_bufdir())
 end
 
-local function set_wd_prev(scope)
+local set_wd_prev = function(scope)
   return set_wd(scope, '-')
 end
 
-function nine_to_five.get_all_wds()
+nine_to_five.get_all_wds = function()
   local tabpagenr = fn.tabpagenr()
   local winnr     = fn.winnr()
   local dirs      = {}
@@ -52,27 +52,27 @@ local scopes = {
   { 'w', 'l' }
 }
 
-function nine_to_five.set_g_wd_bufdir()
+nine_to_five.set_g_wd_bufdir = function()
   return set_wd_bufdir('')
 end
 
-function nine_to_five.set_g_wd_prev()
+nine_to_five.set_g_wd_prev = function()
   return set_wd_prev('')
 end
 
-function nine_to_five.set_t_wd_bufdir()
+nine_to_five.set_t_wd_bufdir = function()
   return set_wd_bufdir('t')
 end
 
-function nine_to_five.set_t_wd_prev()
+nine_to_five.set_t_wd_prev = function()
   return set_wd_prev('t')
 end
 
-function nine_to_five.set_w_wd_bufdir()
+nine_to_five.set_w_wd_bufdir = function()
   return set_wd_bufdir('l')
 end
 
-function nine_to_five.set_w_wd_prev()
+nine_to_five.set_w_wd_prev = function()
   return set_wd_prev('l')
 end
 

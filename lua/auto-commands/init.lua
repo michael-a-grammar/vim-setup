@@ -1,4 +1,4 @@
-return function()
+return function(opts)
   local api            = vim.api
   local events_augroup = api.nvim_create_augroup('events', {})
 

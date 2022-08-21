@@ -1,9 +1,5 @@
 return function()
-  local v = require'milque.cartographer'.with.n_leader_v
+  local set = require'keymappings.helpers'.nx_leader_with('v')
 
-  v()
-  .use_v()
-  .rhs
-  .fn('<c-v>')
-  .exe()
+  set('v', '<c-v>', 'Visual block')
 end

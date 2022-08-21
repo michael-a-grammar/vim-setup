@@ -1,15 +1,6 @@
 return function()
-  local map = require'milque.cartographer'.with['n_leader_/']
+  local set = require'keymappings.helpers'.nx_leader_with('/')
 
-  map()
-  .use_i()
-  .rhs
-  .cmd('set noincsearch')
-  .exe()
-
-  map()
-  .use_t()
-  .rhs
-  .cmd('nohlsearch')
-  .exe()
+  set('i', '<cmd>set noincsearch<cr>', 'Disable incremental search')
+  set('t', '<cmd>nohlsearch<cr>',      'Disable highlighted search results')
 end

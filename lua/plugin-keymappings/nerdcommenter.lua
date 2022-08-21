@@ -1,9 +1,5 @@
 return function()
-  local map = require'milque.cartographer'.with.i
+  local set = require'keymappings.helpers'.i
 
-  map()
-  .use_ctrl('c')
-  .rhs
-  .plug('NERDCommenterInsert')
-  .exe()
+  set('<c-c>', '<plug>NERDCommenterInsert', 'Comment')
 end

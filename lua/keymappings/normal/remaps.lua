@@ -1,75 +1,22 @@
 return function()
-  local map = require'milque.cartographer'.with.nx
+  local set = require'keymappings.helpers'.nx
 
-  map()
-  .use(',,')
-  .rhs
-  .fn(',')
-  .exe()
+  set(',,', ',', 'Previous match')
 
-  map()
-  .use('$')
-  .rhs
-  .fn('g$')
-  .exe()
+  set('0', 'g0', 'Beginning of line')
 
-  map()
-  .use_0()
-  .rhs
-  .fn('g0')
-  .exe()
+  set('^', 'g^', 'Start of line')
+  set('H', 'g^', 'Start of line')
 
-  map()
-  .use('^')
-  .rhs
-  .fn('g^')
-  .exe()
+  set('$', 'g$', 'End of line')
+  set('L', 'g$', 'End of line')
 
-  map()
-  .use_H()
-  .rhs
-  .fn('g^')
-  .exe()
+  set('-', 'ddp',     'Move line down')
+  set('_', 'dd<up>P', 'Move line up')
 
-  map()
-  .use_L()
-  .rhs
-  .fn('g$')
-  .exe()
+  set('<a-left>', '<c-u>',  'Delete word backwards')
+  set('<a-right>', '<c-d>', 'Delete word forwards')
 
-  map()
-  .use_N()
-  .rhs
-  .fn('Nzzzv')
-  .exe()
-
-  map()
-  .use_n()
-  .rhs
-  .fn('nzzzv')
-  .exe()
-
-  map()
-  .use_alt('left')
-  .rhs
-  .fn('<c-u>')
-  .exe()
-
-  map()
-  .use_alt('right')
-  .rhs
-  .fn('<c-d>')
-  .exe()
-
-  map()
-  .use('-')
-  .rhs
-  .fn('ddp')
-  .exe()
-
-  map()
-  .use('_')
-  .rhs
-  .fn('dd<up>P')
-  .exe()
+  set('n', 'nzzzv', 'Next match and centre')
+  set('N', 'Nzzzv', 'Previous match and centre')
 end

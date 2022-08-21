@@ -1,21 +1,7 @@
 return function()
-  local map = require'milque.cartographer'.with.c
+  local set = require'keymappings.helpers'.c
 
-  map()
-  .use('')
-  .rhs
-  .fn('<c-w>')
-  .exe()
-
-  map()
-  .use_alt('left')
-  .rhs
-  .fn('<c-left>')
-  .exe()
-
-  map()
-  .use_alt('right')
-  .rhs
-  .fn('<c-right')
-  .exe()
+  set('',        '<c-w>',     'Delete word backwards') 
+  set('<a-left>',  '<c-left>',  'Word backwards')
+  set('<a-right>', '<c-right>', 'Word forwards')
 end

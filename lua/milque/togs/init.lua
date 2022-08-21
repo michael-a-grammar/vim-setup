@@ -2,7 +2,7 @@ local api  = vim.api
 local opt  = vim.opt
 local togs = {}
 
-local function tg_opt(opt_name)
+local tg_opt = function(opt_name)
   local opt_val = not opt[opt_name]:get()
   opt[opt_name] = opt_val
   return opt_val

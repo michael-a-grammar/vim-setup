@@ -1,10 +1,6 @@
 return function()
   local telescope = require'telescope.builtin'
-  local t         = require'milque.cartographer'.with.nx_leader_t
+  local set       = require'keymappings.helpers'.nx_leader_with('t')
 
-  t()
-  .use_t()
-  .rhs
-  .fn(telescope.buffers)
-  .exe()
+  set('t', telescope.buffers, 'Buffers')
 end

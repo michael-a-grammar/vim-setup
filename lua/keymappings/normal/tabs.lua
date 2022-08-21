@@ -1,39 +1,10 @@
 return function()
-  local y = require'milque.cartographer'.with.nx_leader_y
+  local set = require'keymappings.helpers'.nx_leader_with('y')
 
-  y()
-  .use_c()
-  .rhs
-  .cmd_tabnew()
-  .exe()
-
-  y()
-  .use_d()
-  .rhs
-  .cmd_tabclose()
-  .exe()
-
-  y()
-  .use_f()
-  .rhs
-  .cmd_tabfirst()
-  .exe()
-
-  y()
-  .use_l()
-  .rhs
-  .cmd_tablast()
-  .exe()
-
-  y()
-  .use_n()
-  .rhs
-  .cmd_tabnext()
-  .exe()
-
-  y()
-  .use_p()
-  .rhs
-  .cmd_tabprevious()
-  .exe()
+  set('c', '<cmd>tabnew<cr>',      'New tab')
+  set('d', '<cmd>tabclose<cr>',    'Close tab')
+  set('f', '<cmd>tabfirst<cr>',    'First tab')
+  set('l', '<cmd>tablast<cr>',     'Last tab')
+  set('n', '<cmd>tabnext<cr>',     'Next tab')
+  set('p', '<cmd>tabprevious<cr>', 'Previous tab')
 end

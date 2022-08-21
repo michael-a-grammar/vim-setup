@@ -1,9 +1,5 @@
 return function()
-  local x = require'milque.cartographer'.with.nx_leader_x
+  local set = require'keymappings.helpers'.nx_leader_with('x')
 
-  x()
-  .use_u()
-  .rhs
-  .cmd('GundoToggle')
-  .exe()
+  set('u', '<cmd>GundoToggle<cr>', 'Undo history')
 end

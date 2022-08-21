@@ -1,9 +1,5 @@
 return function()
-  local x = require'milque.cartographer'.with.nx_leader_x
+  local set = require'keymappings.helpers'.nx_leader_with('x')
 
-  x()
-  .use_a()
-  .rhs
-  .plug('EasyAlign')
-  .exe()
+  set('a', '<plug>EasyAlign', 'Align')
 end

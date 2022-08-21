@@ -1,40 +1,11 @@
 return function()
   local telescope = require'telescope.builtin'
-  local g         = require'milque.cartographer'.with.nx_leader_g
+  local set       = require'keymappings.helpers'.nx_leader_with('g')
 
-  g()
-  .use_C()
-  .rhs
-  .fn(telescope.git_commits)
-  .exe()
-
-  g()
-  .use_b()
-  .rhs
-  .fn(telescope.git_branches)
-  .exe()
-
-  g()
-  .use_c()
-  .rhs
-  .fn(telescope.git_bcommits)
-  .exe()
-
-  g()
-  .use_f()
-  .rhs
-  .fn(telescope.git_files)
-  .exe()
-
-  g()
-  .use_g()
-  .rhs
-  .fn(telescope.git_status)
-  .exe()
-
-  g()
-  .use_s()
-  .rhs
-  .fn(telescope.git_stash)
-  .exe()
+  set('b', telescope.git_branches, 'Branches')
+  set('c', telescope.git_bcommits, 'Branch commits')
+  set('C', telescope.git_commits,  'Commits')
+  set('f', telescope.git_files,    'Files')
+  set('g', telescope.git_status,   'Status')
+  set('s', telescope.git_stash,    'Stash')
 end

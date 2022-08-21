@@ -1,46 +1,11 @@
-return function(opts)
-  local telescope  = require'telescope.builtin'
-  local n          = require'milque.cartographer'.with.nx_leader_n
-  local pp         = require'plugin-providers'
-  local navigation = pp.get(opts, 'telescope', 'lsp.navigation')
+return function()
+  local telescope = require'telescope.builtin'
+  local set       = require'keymappings.helpers'.nx_leader_with('n')
 
-  n()
-  .use_d()
-  .rhs
-  .provider(navigation.definitions)
-  .exe()
-
-  n()
-  .use_i()
-  .rhs
-  .provider(navigation.implementations)
-  .exe()
-
-  if opts.use.lsp then
-    n()
-    .use_S()
-    .rhs
-    .provider(telescope.lsp_dynamic_workspace_symbols)
-    .exe()
-  end
-
-  n()
-  .use_s()
-  .rhs
-  .provider(navigation.workspace_symbols)
-  .exe()
-
-  if opts.use.lsp then
-    n()
-    .use_t()
-    .rhs
-    .fn(telescope.lsp_type_definitions)
-    .exe()
-  end
-
-  n()
-  .use_u()
-  .rhs
-  .provider(navigation.references)
-  .exe()
+  set('d', telescope.lsp_definitions,               'Definitions')
+  set('i', telescope.lsp_implementations,           'Implementations')
+  set('s', telescope.lsp_workspace_symbols,         'Workspace symbols')
+  set('S', telescope.lsp_dynamic_workspace_symbols, 'Dynamic workspace symbols')
+  set('t', telescope.lsp_type_definitions,          'Type definitions')
+  set('u', telescope.lsp_references,                'References')
 end

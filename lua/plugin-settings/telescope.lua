@@ -1,4 +1,4 @@
-return function(opts)
+return function()
   local telescope = require'telescope'
 
   local pickers = {
@@ -68,8 +68,4 @@ return function(opts)
   telescope.load_extension('fzf')
   telescope.load_extension('gh')
   telescope.load_extension('z')
-
-  if opts.use.coc then
-    telescope.load_extension('coc')
-  end
 end

@@ -1,39 +1,10 @@
 return function()
-  local t = require'milque.cartographer'.with.nx_leader_t
+  local set = require'keymappings.helpers'.nx_leader_with('t')
 
-  t()
-  .use_c()
-  .rhs
-  .cmd_new()
-  .exe()
-
-  t()
-  .use_d()
-  .rhs
-  .cmd_bdelete()
-  .exe()
-
-  t()
-  .use_n()
-  .rhs
-  .cmd_bnext()
-  .exe()
-
-  t()
-  .use_p()
-  .rhs
-  .cmd_bprevious()
-  .exe()
-
-  t()
-  .use_w()
-  .rhs
-  .cmd_ball()
-  .exe()
-
-  t()
-  .use_y()
-  .rhs
-  .cmd_tab_ball()
-  .exe()
+  set('c', '<cmd>new<cr>',       'New buffer')
+  set('d', '<cmd>bdelete<cr>',   'Delete buffer')
+  set('n', '<cmd>bnext<cr>',     'Next buffer')
+  set('p', '<cmd>bprevious<cr>', 'Previous buffer')
+  set('w', '<cmd>bwall<cr>',     'Open buffers in windows')
+  set('y', '<cmd>tab ball<cr>',  'Open buffers in tabs')
 end

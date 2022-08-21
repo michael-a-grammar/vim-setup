@@ -2,25 +2,25 @@ local api  = vim.api
 local g    = vim.g
 local neon = {}
 
-function neon.cmd(src)
+ neon.cmd = function(src)
   api.nvim_exec(src, false)
   return neon
 end
 
-function neon.exe(src)
+neon.exe = function(src)
   return api.nvim_exec(src, true)
 end
 
-function neon.i(val)
+neon.i = function(val)
   print(vim.inspect(val))
   return neon
 end
 
-function neon.t(str)
+neon.t = function(str)
   return api.nvim_replace_termcodes(str, true, true, true)
 end
 
-function neon.leader(suffix)
+neon.leader = function(suffix)
   local leader = g.mapleader
 
   if leader == ' ' then

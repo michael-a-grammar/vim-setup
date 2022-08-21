@@ -1,15 +1,6 @@
 return function()
-  local i = require'milque.cartographer'.with.nx_leader_i
+  local set = require'keymappings.helpers'.nx_leader_with('i')
 
-  i()
-  .use_i()
-  .rhs
-  .plug('SlimeParagraphSend')
-  .exe()
-
-  i()
-  .use_v()
-  .rhs
-  .plug('SlimeParagraphConfig')
-  .exe()
+  set('i', '<plug>SlimeParagraphSend',   'Send to REPL')
+  set('v', '<plug>SlimeParagraphConfig', 'Configure REPL')
 end

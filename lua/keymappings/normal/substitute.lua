@@ -1,15 +1,6 @@
 return function()
-  local map = require'milque.cartographer'.with['n_leader_/']
+  local set = require'keymappings.helpers'.nx_leader_with('/')
 
-  map()
-  .use('S')
-  .rhs
-  .fn(':%s/')
-  .exe()
-
-  map()
-  .use_s()
-  .rhs
-  .fn(':s/')
-  .exe()
+  set('s', ':s/', 'Substitute within line')
+  set('S', ':%s/',  'Substitute')
 end

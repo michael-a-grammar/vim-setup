@@ -1,31 +1,9 @@
-return function(opts)
-  local r        = require'milque.cartographer'.with.nx_leader_r
-  local pp       = require'plugin-providers'
-  local refactor = pp.get(opts, 'lsp', 'refactor')
+return function()
+  local set = require'keymappings.helpers'.nx_leader_with('r')
+  local lsp = vim.lsp.buf
 
-  if opts.use.lsp then
-    r()
-    .use_c()
-    .rhs
-    .provider(vim.lsp.codelens.run)
-    .exe()
-  end
-
-  r()
-  .use_f()
-  .rhs
-  .provider(refactor.format)
-  .exe()
-
-  r()
-  .use_n()
-  .rhs
-  .provider(refactor.rename)
-  .exe()
-
-  r()
-  .use_r()
-  .rhs
-  .provider(refactor.refactor)
-  .exe()
+  set('c', lsp.codelens.run, 'Run codelens')
+  set('f', lsp.format,       'Format')
+  set('n', lsp.rename,       'Rename')
+  set('r', lsp.refactor,     'Refactor')
 end
