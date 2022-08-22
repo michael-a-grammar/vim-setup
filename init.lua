@@ -8,9 +8,9 @@ local t      = neon.t
 
 local opts = {
   use = {
-    airline     = false,
+    airline     = true,
     cmp         = true,
-    dracula     = true,
+    dracula     = false,
     elixir_nvim = false,
     lsp         = true,
     tender      = false
