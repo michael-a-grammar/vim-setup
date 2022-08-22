@@ -1,31 +1,31 @@
 local helpers = {}
 
+local with_modes = function(modes)
+  return function(lhs, rhs, desc)
+    helpers.set(modes, lhs, rhs, desc)
+  end
+end
+
+local with_fn = function(fn)
+  return function(prefix)
+    return function(lhs, rhs, desc)
+      fn(prefix .. lhs, rhs, desc)
+    end
+  end
+end
+
 helpers.set = function(modes, lhs, rhs, desc)
   vim.keymap.set(modes, lhs, rhs, {
     desc = desc or '...'
   })
 end
 
-helpers.nx = function(lhs, rhs, desc)
-  helpers.set({ 'n', 'x' }, lhs, rhs, desc)
-end
+helpers.nx = with_modes({ 'n', 'x' })
+helpers.i  = with_modes('i')
+helpers.c  = with_modes('c')
 
-helpers.i = function(lhs, rhs, desc)
-  helpers.set('i', lhs, rhs, desc)
-end
-
-helpers.c = function(lhs, rhs, desc)
-  helpers.set('c', lhs, rhs, desc)
-end
-
-helpers.nx_leader = function(lhs, rhs, desc)
-  helpers.nx('<leader>' .. lhs, rhs, desc)
-end
-
-helpers.nx_leader_with = function(prefix)
-  return function(lhs, rhs, desc)
-    helpers.nx_leader(prefix .. lhs, rhs, desc)
-  end
-end
+helpers.nx_with        = with_fn(helpers.nx)
+helpers.nx_leader      = with_fn(helpers.nx)('<leader>')
+helpers.nx_leader_with = with_fn(helpers.nx_leader)
 
 return helpers
