@@ -20,12 +20,14 @@ helpers.set = function(modes, lhs, rhs, desc)
   })
 end
 
-helpers.nx = with_modes({ 'n', 'x' })
-helpers.i  = with_modes('i')
-helpers.c  = with_modes('c')
+helpers.nx  = with_modes({ 'n', 'x' })
+helpers.nvo = with_modes('')
+helpers.i   = with_modes('i')
+helpers.c   = with_modes('c')
 
 helpers.nx_with        = with_fn(helpers.nx)
 helpers.nx_leader      = with_fn(helpers.nx)('<leader>')
 helpers.nx_leader_with = with_fn(helpers.nx_leader)
+helpers.nvo_with       = with_fn(helpers.nvo)
 
 return helpers
