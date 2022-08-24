@@ -8,51 +8,20 @@ return function()
   set('a', '<plug>(easymotion-lineanywhere)',   'Line anywhere')
   set('A', '<plug>(easymotion-jumptoanywhere)', 'Jump to anywhere')
 
-  set('f', '<plug>(easymotion-bd-f)',  'Find line forward')
-  set('F', '<plug>(easymotion-bd-fl)', 'Find line bidirectional')
+  set('f', '<plug>(easymotion-bd-f)',  'Find char forward')
+  set('F', '<plug>(easymotion-bd-fl)', 'Find char bidirectional')
 
-  set('t', '<plug>(easymotion-bd-t)', 'Til line forward')
-  set('T', '<plug>(easymotion-bd-tl)', 'Til line bidirectional')
+  set('t', '<plug>(easymotion-bd-t)',  'Til char forward')
+  set('T', '<plug>(easymotion-bd-tl)', 'Til char bidirectional')
 
-  set('<up>',    '<plug>(easymotion-k)',            'Jump up')
-  set('<right>', '<plug>(easymotion-lineforward)',  'Jump forward')
-  set('<down>',  '<plug>(easymotion-j)',            'Jump down')
-  set('<left>',  '<plug>(easymotion-linebackward)', 'Jump left')
+  set('<up>',    '<plug>(easymotion-k)',            'Jump to line upwards')
+  set('<right>', '<plug>(easymotion-lineforward)',  'Jump word forward')
+  set('<down>',  '<plug>(easymotion-j)',            'Jump to line downwards')
+  set('<left>',  '<plug>(easymotion-linebackward)', 'Jump word backwards')
 
-
-  set('SF', '<plug>(easymotion-overwin-f2)', '')
-
-  set('Sf', '<plug>(easymotion-overwin-f)', '')
-
-  set('Sl', '<plug>(easymotion-overwin-line)', '')
-
-  set('Sw', '<plug>(easymotion-overwin-w)', '')
-
-
-
-  set('ke', '<plug>(easymotion-iskeyword-bd-e)', '')
-
-  set('kw', '<plug>(easymotion-iskeyword-bd-w)', '')
-
-
-
-
-
-
-  set('sS', '<plug>(easymotion-s)', '')
-
-  set('sW', '<plug>(easymotion-bd-w)', '')
-
-
-  set('se', '<plug>(easymotion-bd-el)', '')
-
-  set('sf', '<plug>(easymotion-bd-f2)', '')
-
-
-  set('ss', '<plug>(easymotion-s2)', '')
-
-  set('st', '<plug>(easymotion-bd-t2)', '')
-
-  set('sw', '<plug>(easymotion-bd-wl)', '')
-
+  set('sf', '<plug>(easymotion-overwin-f)',    'Over-window find char')
+  set('sF', '<plug>(easymotion-overwin-f2)',   'Over-window find char (2)')
+  set('sl', '<plug>(easymotion-overwin-line)', 'Over-window jump to line')
+  set('ss', '<plug>(easymotion-s2)',           'Sneak (2)')
+  set('sw', '<plug>(easymotion-overwin-w)',    'Over-window jump to word')
 end
