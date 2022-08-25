@@ -20,6 +20,11 @@ neon.t = function(str)
   return api.nvim_replace_termcodes(str, true, true, true)
 end
 
+neon.f = function(str, mode)
+  api.nvim_feedkeys(neon.t(str), mode, true)
+  return neon
+end
+
 neon.leader = function(suffix)
   local leader = g.mapleader
 

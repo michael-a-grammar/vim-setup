@@ -12,5 +12,5 @@ return function()
   set('d', find_within_buffer_dir(file_browser, 'path'),  'File browser')
   set('f', find_within_buffer_dir(telescope.find_files),  'Find files')
   set('s', find_within_buffer_dir(telescope.live_grep),   'Grep')
-  set('u', find_within_buffer_dir(telescope.grep_string), 'Grep current word')
+  set('w', find_within_buffer_dir(telescope.grep_string), 'Grep current word')
 end

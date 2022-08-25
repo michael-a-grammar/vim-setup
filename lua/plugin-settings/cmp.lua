@@ -1,26 +1,23 @@
 return function(opts)
   if opts.use.cmp then
-    local cmp     = require('cmp')
-    local lspkind = require('lspkind')
+    local api     = vim.api
+    local cmp     = require'cmp'
+    local lspkind = require'lspkind'
+    local neon    = require'milque.neon'
 
     local has_words_before = function()
       local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 
       return col ~= 0
-        and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
+        and api.nvim_buf_get_lines(0, line - 1, line, true)[1]
               :sub(col, col)
               :match("%s") == nil
-    end
-
-    local feedkeys = function(key, mode)
-      vim.api.nvim_feedkeys(
-        vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
     end
 
     cmp.setup({
       enabled = function()
         local context = require 'cmp.config.context'
-        if vim.api.nvim_get_mode().mode == 'c' then
+        if api.nvim_get_mode().mode == 'c' then
           return true
         else
           return not context.in_treesitter_capture('comment')
@@ -80,7 +77,9 @@ return function(opts)
         ['<c-n>']     = cmp.mapping.scroll_docs(4),
         ['<c-space>'] = cmp.mapping.complete(),
         ['<cr>']      = cmp.mapping.confirm({ select = true }),
-        ['<esc>']     = cmp.mapping.abort()
+        ['<esc>']     = cmp.mapping(function(fallback)
+          fallback()
+        end, { 'i', 's' })
       }),
       sources = cmp.config.sources({
         { name = 'nvim_lsp'   },
@@ -123,5 +122,19 @@ return function(opts)
     local capabilities =
       require('cmp_nvim_lsp')
         .update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+    local events_augroup = api.nvim_create_augroup('events', {})
+
+    api.nvim_create_autocmd('FileType TelescopePrompt', {
+      callback = function()
+        require'cmp'.setup.buffer({
+          completion = {
+            autocomplete = false
+          }
+        })
+      end,
+      group    = events_augroup,
+      pattern  = '*'
+    })
   end
 end
