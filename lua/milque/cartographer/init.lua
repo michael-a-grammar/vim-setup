@@ -25,9 +25,11 @@ cartograhper.nvo = with_modes('')
 cartograhper.i   = with_modes('i')
 cartograhper.c   = with_modes('c')
 
-cartograhper.nx_with        = with_fn(cartograhper.nx)
-cartograhper.nx_leader      = with_fn(cartograhper.nx)('<leader>')
-cartograhper.nx_leader_with = with_fn(cartograhper.nx_leader)
-cartograhper.nvo_with       = with_fn(cartograhper.nvo)
+cartograhper.nx_with              = with_fn(cartograhper.nx)
+cartograhper.nx_leader            = with_fn(cartograhper.nx)('<leader>')
+cartograhper.nx_leader_with       = with_fn(cartograhper.nx_leader)
+cartograhper.nx_local_leader      = with_fn(cartograhper.nx)('<localleader>')
+cartograhper.nx_local_leader_with = with_fn(cartograhper.nx_leader)
+cartograhper.nvo_with             = with_fn(cartograhper.nvo)
 
 return cartograhper

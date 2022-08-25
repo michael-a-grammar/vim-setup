@@ -6,7 +6,7 @@ return function(opts)
     local neon    = require'milque.neon'
 
     local has_words_before = function()
-      local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+      local line, col = unpack(api.nvim_win_get_cursor(0))
 
       return col ~= 0
         and api.nvim_buf_get_lines(0, line - 1, line, true)[1]
@@ -14,9 +14,9 @@ return function(opts)
               :match("%s") == nil
     end
 
-    cmp.setup({
+    cmp.setup{
       enabled = function()
-        local context = require 'cmp.config.context'
+        local context = require'cmp.config.context'
         if api.nvim_get_mode().mode == 'c' then
           return true
         else
@@ -25,23 +25,23 @@ return function(opts)
         end
       end,
       formatting = {
-        format = lspkind.cmp_format({
+        format = lspkind.cmp_format{
           mode     = 'symbol_text',
-          maxwidth = 50,
-          menu = ({
-            buffer                   = '[Buffer]',
-            calc                     = '[Calc]',
-            cmdline                  = '[CMD]',
-            nvim_lsp                 = '[LSP]',
-            nvim_lsp_document_symbol = '[LSP DS]',
-            nvim_lsp_signature_help  = '[LSP SH]',
-            nvim_lua                 = '[Lua]',
-            path                     = '[Path]',
-            spell                    = '[Spell]',
-            treesitter               = '[Treesitter]',
-            vsnip                    = '[vsnip]'
-          })
-        })
+          maxwidth = 80,
+          menu = {
+            buffer                   = '﬘',
+            calc                     = '',
+            cmdline                  = '',
+            nvim_lsp                 = '',
+            nvim_lsp_document_symbol = ' ',
+            nvim_lsp_signature_help  = ' ',
+            nvim_lua                 = '',
+            path                     = '',
+            spell                    = '﬜',
+            treesitter               = '',
+            vsnip                    = ''
+          }
+        }
       },
       snippet = {
         expand = function(args)
@@ -52,7 +52,7 @@ return function(opts)
         completion    = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered()
       },
-      mapping = cmp.mapping.preset.insert({
+      mapping = cmp.mapping.preset.insert{
         ['<tab>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_next_item()
@@ -69,25 +69,42 @@ return function(opts)
           if cmp.visible() then
             cmp.select_prev_item()
           elseif vim.fn['vsnip#jumpable'](-1) == 1 then
-            feedkey('<plug>(vsnip-jump-prev)', '')
+            neon.f('<plug>(vsnip-jump-prev)', '')
           end
         end, { 'i', 's' }),
 
-        ['<c-p>']     = cmp.mapping.scroll_docs(-4),
-        ['<c-n>']     = cmp.mapping.scroll_docs(4),
+        ['<c-p>'] = cmp.mapping.scroll_docs(-4),
+        ['<c-n>'] = cmp.mapping.scroll_docs(4),
+        ['<c-t>'] = cmp.mapping.complete{
+          config = {
+            sources = {
+              { name = 'treesitter' }
+            }
+          }
+        },
+        ['<c-l>'] = cmp.mapping.complete{
+          config = {
+            sources = {
+              { name = 'nvim_lsp' },
+              { name = 'nvim_lsp_document_symbol' },
+              { name = 'nvim_lsp_signature_help'  },
+            }
+          }
+        },
         ['<c-space>'] = cmp.mapping.complete(),
         ['<cr>']      = cmp.mapping.confirm({ select = true }),
-        ['<esc>']     = cmp.mapping(function(fallback)
-          fallback()
-        end, { 'i', 's' })
-      }),
+        ['<esc>']     = cmp.mapping.abort()
+      },
       sources = cmp.config.sources({
-        { name = 'nvim_lsp'   },
+        { name = 'nvim_lsp'                 },
+        { name = 'nvim_lsp_document_symbol' },
+        { name = 'nvim_lsp_signature_help'  },
+      },
+      {
         { name = 'treesitter' },
       },
       {
-        { name = 'nvim_lsp_signature_help' },
-        { name = 'vsnip'                   },
+        { name = 'vsnip' }
       },
       {
         { name = 'buffer' }
@@ -97,16 +114,16 @@ return function(opts)
         { name = 'calc'     },
         { name = 'spell'    }
       })
-    })
+    }
 
     cmp.setup.cmdline('/', {
       mapping = cmp.mapping.preset.cmdline(),
-      sources = {
+      sources = cmp.config.sources({
         { name = 'nvim_lsp_document_symbol' }
       },
       {
         { name = 'buffer' }
-      }
+      })
     })
 
     cmp.setup.cmdline(':', {
@@ -127,14 +144,13 @@ return function(opts)
 
     api.nvim_create_autocmd('FileType TelescopePrompt', {
       callback = function()
-        require'cmp'.setup.buffer({
+        require'cmp'.setup.buffer{
           completion = {
             autocomplete = false
           }
-        })
+        }
       end,
-      group    = events_augroup,
-      pattern  = '*'
+      group = events_augroup
     })
   end
 end
