@@ -1,7 +1,7 @@
 return function()
   local telescope    = require'telescope.builtin'
   local file_browser = require'telescope'.extensions.file_browser.file_browser
-  local set          = require'keymappings.helpers'.nx_leader_with('s')
+  local set          = require'milque.cartographer'.nx_leader_with('s')
 
   set('c', telescope.quickfix,    'quickfix')
   set('d', file_browser,          'File browser')

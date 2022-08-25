@@ -1,5 +1,5 @@
 return function()
-  local set = require'keymappings.helpers'.nx_leader_with('w')
+  local set = require'milque.cartographer'.nx_leader_with('w')
 
   set('.', '<c-w>>', 'Increase window width')
   set(',', '<c-w><', 'Decrease window width')

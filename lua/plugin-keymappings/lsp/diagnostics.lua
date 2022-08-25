@@ -1,5 +1,5 @@
 return function()
-  local set        = require'keymappings.helpers'.nx_leader_with('e')
+  local set        = require'milque.cartographer'.nx_leader_with('e')
   local diagnostic = vim.diagnostic
 
   set('c', diagnostic.setloclist, 'Set loclist with diagnostics')

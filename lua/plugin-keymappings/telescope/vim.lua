@@ -1,6 +1,6 @@
 return function()
   local telescope = require'telescope.builtin'
-  local set       = require'keymappings.helpers'.nx_leader_with('z')
+  local set       = require'milque.cartographer'.nx_leader_with('z')
 
   set(':', telescope.commands,      'Commands')
   set('h', telescope.help_tags,     'Help tags')

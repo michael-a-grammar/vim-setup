@@ -15,13 +15,14 @@ return function(opts)
   g.EasyMotion_verbose          = 1
 
   local set_hl_link = function(name, link)
-    api.nvim_set_hl(0, name, { link = link })
+    api.nvim_set_hl(0, name, {})
+    api.nvim_set_hl(0, name, { link = link, default = true })
   end
 
   if opts.use.dracula then
     set_hl_link('EasyMotionTarget',        'DraculaOrange')
     set_hl_link('EasyMotionTarget2First',  'DraculaGreen')
-    set_hl_link('EasyMotionTarget2Second', 'DraculaGreen')
+    set_hl_link('EasyMotionTarget2Second', 'DraculaCyan')
   elseif opts.use.tender then
     set_hl_link('EasyMotionTarget',        'Operator')
     set_hl_link('EasyMotionTarget2First',  'Character')

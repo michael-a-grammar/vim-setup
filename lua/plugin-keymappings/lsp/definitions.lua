@@ -1,5 +1,5 @@
 return function()
-  local set = require'keymappings.helpers'.nx_leader_with('d')
+  local set = require'milque.cartographer'.nx_leader_with('d')
   local lsp = vim.lsp.buf
 
   set('h', lsp.hover, 'Hover')

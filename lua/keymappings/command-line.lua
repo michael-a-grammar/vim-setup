@@ -1,5 +1,5 @@
 return function()
-  local set = require'keymappings.helpers'.c
+  local set = require'milque.cartographer'.c
 
   set('',        '<c-w>',     'Delete word backwards')
   set('<a-left>',  '<c-left>',  'Word backwards')

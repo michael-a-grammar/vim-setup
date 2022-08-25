@@ -1,5 +1,5 @@
 return function()
-  local set = require'keymappings.helpers'.nx
+  local set = require'milque.cartographer'.nx
 
   set(',,', ',', 'Previous match')
 
