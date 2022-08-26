@@ -103,7 +103,7 @@ opt.number         = true
 opt.relativenumber = true
 opt.signcolumn     = 'no'
 
-opt.colorcolumn:append('80')
+opt.colorcolumn:append('120')
 opt.cursorline = true
 opt.matchtime  = 2
 opt.showmatch  = true

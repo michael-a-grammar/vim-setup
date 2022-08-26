@@ -136,10 +136,6 @@ return function(opts)
       })
     })
 
-    local capabilities =
-      require('cmp_nvim_lsp')
-        .update_capabilities(vim.lsp.protocol.make_client_capabilities())
-
     local events_augroup = api.nvim_create_augroup('events', {})
 
     api.nvim_create_autocmd('FileType TelescopePrompt', {

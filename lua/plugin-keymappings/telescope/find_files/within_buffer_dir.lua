@@ -1,13 +1,12 @@
 return function()
-  local telescope    = require'telescope.builtin'
-  local buffer_dir   = require'telescope.utils'.buffer_dir
-  local file_browser = require'telescope'.extensions.file_browser.file_browser
-  local set          = require'milque.cartographer'.nx_leader_with('u')
+  local telescope  = require'telescope.builtin'
+  local buffer_dir = require'telescope.utils'.buffer_dir
+  local set        = require'milque.cartographer'.nx_leader_with('u')
 
-  local find_within
-    = require'plugin-keymappings.telescope.find_files.find_within'
+  local find_using
+    = require'plugin-keymappings.telescope.find_files.find_using'
 
-  local find_within_buffer_dir = find_within(buffer_dir)
+  local find_within_buffer_dir = find_using.within_dir(buffer_dir)
 
   set('d', find_within_buffer_dir(file_browser, 'path'),  'File browser')
   set('f', find_within_buffer_dir(telescope.find_files),  'Find files')

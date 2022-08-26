@@ -14,8 +14,6 @@ return function()
   set('pt', '<cmd>ElixirToPipe<cr>',               'To pipe')
   set('e',  '<cmd>ElixirExpandMacro<cr>',          'Expand macro')
 
-
-
   set('f',  [[<cmd>call Slime('iex', 'exs')<cr>]], 'IEx')
 end
 
