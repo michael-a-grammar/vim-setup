@@ -11,16 +11,13 @@ return function(opts)
       }),
 
       on_attach = function(client, buffer_number)
-        local map_opts = {
-          buffer  = true,
-          noremap = true
-        }
+        local cmp_nvim_lsp = require('cmp_nvim_lsp')
 
         local capabilities =
-          require('cmp_nvim_lsp')
+          cmp_nvim_lsp
             .update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-        require('cmp_nvim_lsp').update_capabilities(capabilities)
+        cmp_nvim_lsp.update_capabilities(capabilities)
       end
     })
   end

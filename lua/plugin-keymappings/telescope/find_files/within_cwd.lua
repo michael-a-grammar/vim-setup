@@ -1,8 +1,12 @@
 return function()
-  local find_using
-    = require'plugin-keymappings.telescope.find_files.find_using'
+  local finderscope =
+    require'plugin-keymappings.telescope.find_files.finderscope'
 
-  find_using.set('s', find_using.within_dir(nil, {
-    desc_suffix = '(Within current working directory)'
+  finderscope.set(
+    function()
+      return require'milque.cartographer'.nx_leader_with('s')
+    end,
+    finderscope.find_files_using({
+      desc_suffix = 'within current working directory'
   }))
 end

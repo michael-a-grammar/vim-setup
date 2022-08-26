@@ -1,6 +1,7 @@
 return function(opts)
   if opts.use.cmp then
     local api     = vim.api
+    local bo      = vim.bo
     local cmp     = require'cmp'
     local lspkind = require'lspkind'
     local neon    = require'milque.neon'
@@ -17,7 +18,8 @@ return function(opts)
     cmp.setup{
       enabled = function()
         local context = require'cmp.config.context'
-        if api.nvim_get_mode().mode == 'c' then
+        if api.nvim_get_mode().mode == 'c'
+          and not bo.filetype == 'TelescopePrompt' then
           return true
         else
           return not context.in_treesitter_capture('comment')
@@ -57,7 +59,7 @@ return function(opts)
           if cmp.visible() then
             cmp.select_next_item()
           elseif vim.fn['vsnip#available'](1) == 1 then
-            feedkey('<plug>(vsnip-expand-or-jump)', '')
+            neon.f('<plug>(vsnip-expand-or-jump)', '')
           elseif has_words_before() then
             cmp.complete()
           else
@@ -134,19 +136,6 @@ return function(opts)
       {
         { name = 'cmdline' }
       })
-    })
-
-    local events_augroup = api.nvim_create_augroup('events', {})
-
-    api.nvim_create_autocmd('FileType TelescopePrompt', {
-      callback = function()
-        require'cmp'.setup.buffer{
-          completion = {
-            autocomplete = false
-          }
-        }
-      end,
-      group = events_augroup
     })
   end
 end
