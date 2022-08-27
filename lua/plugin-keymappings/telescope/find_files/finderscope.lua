@@ -52,6 +52,10 @@ finderscope.find_files_using = function(opts)
           local cwd_key           =  (is_file_browser and 'path') or 'cwd'
           telescope_opts[cwd_key] = find_files_within_dir_fn()
         end
+
+        telescope_opts.additional_args = function(opts)
+          require'milque.neon'.i(opts)
+        end
         telescope_fn(telescope_opts)
       end
     }

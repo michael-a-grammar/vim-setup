@@ -54,9 +54,6 @@ return function()
       }
     },
     extensions = {
-      coc = {
-        theme = "ivy"
-      },
       file_browser = {
         theme = "ivy"
       }
