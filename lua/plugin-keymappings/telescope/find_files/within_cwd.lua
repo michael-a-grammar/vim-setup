@@ -1,12 +1,19 @@
 return function()
-  local finderscope =
-    require'plugin-keymappings.telescope.find_files.finderscope'
+  local telescope    = require'telescope.builtin'
+  local file_browser = require'telescope'.extensions.file_browser.file_browser
+  local set          = require'milque.cartographer'.nx_leader_with('s')
 
-  finderscope.set(
+  set('d', file_browser,          'File browser')
+  set('f', telescope.find_files,  'Find files')
+  set('s', telescope.live_grep,   'Grep')
+  set('w', telescope.grep_string, 'Grep current word')
+
+  set(
+    'r',
     function()
-      return require'milque.cartographer'.nx_leader_with('s')
+      telescope.oldfiles{
+        only_cwd = true
+      }
     end,
-    finderscope.find_files_using({
-      desc_suffix = 'within current working directory'
-  }))
+    'Recent files (cwd)')
 end

@@ -1,8 +1,0 @@
-Sort out finderscope
-  individual functions rather than a loop
-
-
-  live_grep doesn't use find_command, rather type_filter
-  grep_string can be provided with string
-  buffers can be ordered by mru
-  oldfiles can just be from cwd

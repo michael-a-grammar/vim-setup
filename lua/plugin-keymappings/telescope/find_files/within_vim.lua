@@ -7,5 +7,5 @@ return function()
   set('l', telescope.loclist,   'loclist')
   set('m', telescope.marks,     'Marks')
   set('p', telescope.jumplist,  'Jumps')
-  set('r', telescope.oldfiles,  'Recent files')
+  set('R', telescope.oldfiles,  'Recent files')
 end

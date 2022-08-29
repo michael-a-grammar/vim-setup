@@ -1,15 +1,42 @@
 return function()
+  local telescope    = require'telescope.builtin'
   local buffer_dir = require'telescope.utils'.buffer_dir
+  local file_browser = require'telescope'.extensions.file_browser.file_browser
+  local set          = require'milque.cartographer'.nx_leader_with('u')
 
-  local finderscope =
-    require'plugin-keymappings.telescope.find_files.finderscope'
-
-  finderscope.set(
+  set(
+    'd',
     function()
-      return require'milque.cartographer'.nx_leader_with('u')
+      file_browser{
+        path = buffer_dir()
+      }
     end,
-    finderscope.find_files_using({
-      find_files_within_dir_fn = buffer_dir,
-      desc_suffix              = 'within buffer directory'
-  }))
+    'File browser')
+
+  set(
+    'f',
+    function()
+      telescope.find_files{
+        cwd = buffer_dir()
+      }
+    end,
+    'Find files')
+
+  set(
+    's',
+    function()
+      telescope.live_grep{
+        cwd = buffer_dir()
+      }
+    end,
+    'Grep')
+
+  set(
+    'w',
+    function()
+      telescope.grep_string{
+        cwd = buffer_dir()
+      }
+    end,
+    'Grep current word')
 end
