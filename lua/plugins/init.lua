@@ -46,9 +46,7 @@ local packer = function(opts)
 
     use {
       'folke/which-key.nvim',
-      config = function()
-        require('which-key').setup({})
-      end
+      disable = not opts.use.which_key
     }
 
     use 'nvim-lua/plenary.nvim'

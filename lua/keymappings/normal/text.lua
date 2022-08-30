@@ -1,5 +1,5 @@
 return function()
-  local set = require'milque.cartographer'.nx_leader_with('x')
+  local set = require'milque.cartographer'.nx_leader_with'x'
 
   set('m', '<c-a>',     'Increment')
   set('M', '<c-x>',     'Decrement')

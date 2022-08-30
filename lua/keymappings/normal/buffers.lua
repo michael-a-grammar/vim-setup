@@ -1,5 +1,5 @@
 return function()
-  local set = require'milque.cartographer'.nx_leader_with('t')
+  local set = require'milque.cartographer'.nx_leader_with't'
 
   set('c', '<cmd>new<cr>',       'New buffer')
   set('d', '<cmd>bdelete<cr>',   'Delete buffer')

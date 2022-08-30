@@ -1,5 +1,5 @@
 return function()
-  local set = require'milque.cartographer'.nx_leader_with('x')
+  local set = require'milque.cartographer'.nx_leader_with'h'
 
-  set('u', '<cmd>GundoToggle<cr>', 'Undo history')
+  set('u', '<cmd>GundoToggle<cr>', 'Undo tree')
 end

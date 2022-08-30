@@ -1,5 +1,5 @@
 return function()
-  local set = require'milque.cartographer'.nx_leader_with('y')
+  local set = require'milque.cartographer'.nx_leader_with'y'
 
   set('c', '<cmd>tabnew<cr>',      'New tab')
   set('d', '<cmd>tabclose<cr>',    'Close tab')

@@ -1,5 +1,5 @@
 return function()
-  local set = require'milque.cartographer'.nx_leader_with('p')
+  local set = require'milque.cartographer'.nx_leader_with'p'
 
   set('n', '<plug>(miniyank-cycle)',     'Yank right forwards')
   set('N', '<plug>(miniyank-cycleback)', 'Yank ring backwards')

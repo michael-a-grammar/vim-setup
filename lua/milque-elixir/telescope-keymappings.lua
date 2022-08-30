@@ -28,7 +28,7 @@ return function()
     'uf',
     function()
       telescope.find_files{
-        find_command = find_command
+        find_command = find_command,
         cwd          = buffer_dir()
       }
     end,

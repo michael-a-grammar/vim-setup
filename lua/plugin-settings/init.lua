@@ -7,4 +7,5 @@ return function (opts)
   require'plugin-settings.nvim-treesitter'()
   require'plugin-settings.slime'()
   require'plugin-settings.telescope'()
+  require'plugin-settings.which-key'(opts)
 end

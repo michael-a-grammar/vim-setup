@@ -13,7 +13,8 @@ local opts = {
     dracula     = true,
     elixir_nvim = true,
     lsp         = true,
-    tender      = false
+    tender      = false,
+    which_key   = true
   },
   cs_override = 'solarized'
 }
@@ -108,7 +109,8 @@ opt.cursorline = true
 opt.matchtime  = 2
 opt.showmatch  = true
 
-opt.timeout     = false
+opt.timeout     = true
+opt.timeoutlen  = 500
 opt.ttimeout    = true
 opt.ttimeoutlen = 50
 
