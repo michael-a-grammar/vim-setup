@@ -4,10 +4,10 @@ return function(opts)
 
     elixir.setup{
       settings           = elixir.settings{
-        dialyzerEnabled  = false,
-        enableTestLenses = false,
-        fetchDeps        = false,
-        suggestSpecs     = false
+        dialyzerEnabled  = true,
+        enableTestLenses = true,
+        fetchDeps        = true,
+        suggestSpecs     = true
       },
 
       on_attach = function(client, buffer_number)

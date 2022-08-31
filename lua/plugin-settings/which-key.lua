@@ -3,19 +3,37 @@ return function(opts)
     local which_key = require'which-key'
 
     which_key.setup{
+      layout     = { align = "center" },
+      hidden     = { '<Plug>' },
+      key_labels = {
+        ['<Down>']  = '',
+        ['<Left>']  = '',
+        ['<Up>']    = '',
+        ['<Right>'] = ''
+      },
 
+      popup_mappings = {
+        scroll_down = '<m-down>', 
+        scroll_up   = '<m-up>', 
+      }
     }
 
     which_key.register{
       [','] = {
+        [','] = 'which_key_ignore',
+
         s = {
           name = 'Sneak'
         },
       },
 
+      ['.'] = {
+        ['.'] = 'which_key_ignore'
+      },
+
       ['<localleader>'] = {
         p = {
-          name = 'Pipes'
+          name = 'Manipulate pipes'
         },
 
         s = {
@@ -48,6 +66,8 @@ return function(opts)
           name = 'Find within buffer'
         },
 
+        F = 'which_key_ignore',
+
         g = {
           name = 'Git'
         },
@@ -60,6 +80,9 @@ return function(opts)
           name = 'Slime'
         },
 
+        l = "which_key_ignore",
+        L = "which_key_ignore",
+
         n = {
           name = 'Navigation'
         },
@@ -67,6 +90,8 @@ return function(opts)
         p = {
           name = 'Yank ring'
         },
+
+        P = 'which_key_ignore',
 
         r = {
           name = 'Refactor'
