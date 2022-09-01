@@ -3,7 +3,7 @@ return function()
   local g     = vim.g
   local split = vim.split
 
-  g.slime_no_mappings = 1
+  g.slime_no_mappings = true
 
   if env.TMUX then
     g.slime_target = 'tmux'

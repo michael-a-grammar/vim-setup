@@ -5,30 +5,7 @@ local opt    = vim.opt
 local neon   = require'milque.neon'
 local cmd    = neon.cmd
 local t      = neon.t
-
-local opts = {
-  use = {
-    airline     = false,
-    cmp         = true,
-    dracula     = true,
-    elixir_nvim = false,
-    elixir_lsp  = true,
-    lsp         = true,
-    tender      = false,
-    which_key   = true
-  },
-  cs_override = 'solarized'
-}
-
-function opts:get_cs()
-  if self.use.dracula then
-    return 'dracula'
-  elseif self.use.tender then
-    return 'tender'
-  else
-    return self.cs_override
-  end
-end
+local opts   = require'opts'
 
 opt.clipboard:append('unnamed')
 
@@ -151,4 +128,5 @@ require'keymappings'()
 require'plugin-keymappings'()
 require'auto-commands'()
 require'user-commands'()
-require'milque-elixir'(opts)
+
+require'milque.purp.elixir'(opts)

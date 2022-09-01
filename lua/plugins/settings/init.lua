@@ -1,0 +1,11 @@
+return function (opts)
+  require'plugins.settings.airline'(opts)
+  require'plugins.settings.cmp'(opts)
+  require'plugins.settings.easymotion'(opts)
+  require'plugins.settings.gundo'()
+  require'plugins.settings.nerdcommenter'()
+  require'plugins.settings.nvim-treesitter'()
+  require'plugins.settings.slime'()
+  require'plugins.settings.telescope'()
+  require'plugins.settings.which-key'(opts)
+end

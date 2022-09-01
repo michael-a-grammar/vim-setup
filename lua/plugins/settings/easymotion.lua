@@ -4,15 +4,15 @@ return function(opts)
 
   -- Default - asdghklqwertyuiopzxcvbnmfj;
   g.EasyMotion_keys             = 'ARSTGQWFPMIOLUYNE;'
-  g.EasyMotion_do_mapping       = 0
-  g.EasyMotion_smartcase        = 1
-  g.EasyMotion_use_smartsign_us = 1
-  g.EasyMotion_use_upper        = 1
-  g.EasyMotion_enter_jump_first = 1
-  g.EasyMotion_space_jump_first = 1
-  g.EasyMotion_inc_highlight    = 1
-  g.EasyMotion_move_highlight   = 1
-  g.EasyMotion_verbose          = 1
+  g.EasyMotion_do_mapping       = false
+  g.EasyMotion_smartcase        = true
+  g.EasyMotion_use_smartsign_us = true
+  g.EasyMotion_use_upper        = true
+  g.EasyMotion_enter_jump_first = true
+  g.EasyMotion_space_jump_first = true
+  g.EasyMotion_inc_highlight    = true
+  g.EasyMotion_move_highlight   = true
+  g.EasyMotion_verbose          = true
 
   local set_hl_link = function(name, link)
     api.nvim_set_hl(0, name, {})

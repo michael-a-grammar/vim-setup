@@ -1,0 +1,10 @@
+return function()
+  require'plugins.keymappings.easyalign'()
+  require'plugins.keymappings.easymotion'()
+  require'plugins.keymappings.gundo'()
+  require'plugins.keymappings.miniyank'()
+  require'plugins.keymappings.nerdcommenter'()
+  require'plugins.keymappings.nerdtree'()
+  require'plugins.keymappings.slime'()
+  require'plugins.keymappings.telescope'()
+end
