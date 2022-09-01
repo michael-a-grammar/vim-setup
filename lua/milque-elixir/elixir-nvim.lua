@@ -1,9 +1,13 @@
 return function(opts)
-  if opts.use.elixir_nvim and opts.use.cmp then
+  if opts.use.elixir_nvim and not opts.use.elixir_lsp and opts.use.cmp then
     local elixir = require'elixir'
 
-    elixir.setup{
-      settings           = elixir.settings{
+    local capabilities =
+      require'cmp_nvim_lsp'
+        .update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+    elixir.setup {
+      settings           = elixir.settings {
         dialyzerEnabled  = true,
         enableTestLenses = true,
         fetchDeps        = true,
@@ -11,14 +15,10 @@ return function(opts)
       },
 
       on_attach = function(client, buffer_number)
-        local cmp_nvim_lsp = require('cmp_nvim_lsp')
+        require'lsp-keymappings'()
+      end,
 
-        local capabilities =
-          cmp_nvim_lsp
-            .update_capabilities(vim.lsp.protocol.make_client_capabilities())
-
-        cmp_nvim_lsp.update_capabilities(capabilities)
-      end
+      capabilities = capabilities
     }
   end
 end

@@ -11,7 +11,8 @@ local opts = {
     airline     = false,
     cmp         = true,
     dracula     = true,
-    elixir_nvim = true,
+    elixir_nvim = false,
+    elixir_lsp  = true,
     lsp         = true,
     tender      = false,
     which_key   = true
@@ -110,7 +111,7 @@ opt.matchtime  = 2
 opt.showmatch  = true
 
 opt.timeout     = true
-opt.timeoutlen  = 500
+opt.timeoutlen  = 250
 opt.ttimeout    = true
 opt.ttimeoutlen = 50
 

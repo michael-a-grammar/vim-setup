@@ -1,5 +1,5 @@
 return function()
-  local set = require'milque.cartographer'.nx
+  local set = require'milque.cartographer'.b.nx
   local lsp = vim.lsp.buf
 
   set('gd', lsp.definition,      'Go to definition')

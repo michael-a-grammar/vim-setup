@@ -131,7 +131,10 @@ local packer = function(opts)
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-cmdline'
 
-    use 'mhanberg/elixir.nvim'
+    use {
+      'mhanberg/elixir.nvim',
+      disable = opts.use.elixir_nvim and not opts.use.elixir_lsp
+    }
   end)
 end
 

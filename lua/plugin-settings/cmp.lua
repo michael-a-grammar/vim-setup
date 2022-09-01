@@ -15,11 +15,12 @@ return function(opts)
               :match("%s") == nil
     end
 
-    cmp.setup{
+    cmp.setup {
       enabled = function()
         local context = require'cmp.config.context'
-        if api.nvim_get_mode().mode == 'c'
-          and not bo.filetype == 'TelescopePrompt' then
+        if bo.filetype == 'TelescopePrompt' then
+          return false
+        elseif api.nvim_get_mode().mode == 'c' then
           return true
         else
           return not context.in_treesitter_capture('comment')
@@ -27,7 +28,7 @@ return function(opts)
         end
       end,
       formatting = {
-        format = lspkind.cmp_format{
+        format = lspkind.cmp_format {
           mode     = 'symbol_text',
           maxwidth = 80,
           menu = {
@@ -75,32 +76,33 @@ return function(opts)
           end
         end, { 'i', 's' }),
 
-        ['<c-p>'] = cmp.mapping.scroll_docs(-4),
+        ['<c-e>'] = cmp.mapping.scroll_docs(-4),
         ['<c-n>'] = cmp.mapping.scroll_docs(4),
-        ['<c-t>'] = cmp.mapping.complete{
+
+        ['<c-t>'] = cmp.mapping.complete {
           config = {
             sources = {
               { name = 'treesitter' }
             }
           }
         },
-        ['<c-l>'] = cmp.mapping.complete{
+        ['<c-l>'] = cmp.mapping.complete {
           config = {
             sources = {
               { name = 'nvim_lsp' },
               { name = 'nvim_lsp_document_symbol' },
-              { name = 'nvim_lsp_signature_help'  },
+              { name = 'nvim_lsp_signature_help'  }
             }
           }
         },
         ['<c-space>'] = cmp.mapping.complete(),
-        ['<cr>']      = cmp.mapping.confirm{ select = true },
+        ['<cr>']      = cmp.mapping.confirm({ select = true }),
         ['<esc>']     = cmp.mapping.abort()
       },
       sources = cmp.config.sources({
         { name = 'nvim_lsp'                 },
         { name = 'nvim_lsp_document_symbol' },
-        { name = 'nvim_lsp_signature_help'  },
+        { name = 'nvim_lsp_signature_help'  }
       },
       {
         { name = 'treesitter' },
@@ -109,7 +111,14 @@ return function(opts)
         { name = 'vsnip' }
       },
       {
-        { name = 'buffer' }
+        {
+          name   = 'buffer',
+          option = {
+            get_bufnrs = function()
+              return api.nvim_list_bufs()
+            end
+          }
+        }
       },
       {
         { name = 'nvim_lua' },

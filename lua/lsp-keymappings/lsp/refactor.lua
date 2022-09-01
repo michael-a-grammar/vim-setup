@@ -1,5 +1,5 @@
 return function()
-  local set      = require'milque.cartographer'.nx_leader_with'r'
+  local set      = require'milque.cartographer'.b.nx_leader_with'r'
   local lsp      = vim.lsp.buf
   local codelens = vim.lsp.codelens
 
