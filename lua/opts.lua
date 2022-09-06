@@ -1,10 +1,10 @@
 local opts = {
   use = {
-    airline     = false,
+    airline     = true,
     cmp         = true,
     dracula     = false,
-    elixir_nvim = true,
-    elixir_lsp  = false,
+    elixir_nvim = false,
+    elixir_lsp  = true,
     lsp         = true,
     tender      = true,
     which_key   = true

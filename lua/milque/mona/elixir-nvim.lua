@@ -15,7 +15,7 @@ return function(opts)
       },
 
       on_attach = function(client, buffer_number)
-        require'lsp-keymappings'()
+        require'lsp.keymappings'()
       end,
 
       capabilities = capabilities

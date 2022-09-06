@@ -129,7 +129,7 @@ local packer = function(opts)
 
     use {
       'mhanberg/elixir.nvim',
-      disable = opts.use.elixir_nvim and not opts.use.elixir_lsp
+      disable = not opts.use.elixir_nvim and opts.use.elixir_lsp
     }
   end)
 end

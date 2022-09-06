@@ -4,12 +4,12 @@ return function()
   local file_browser = require'telescope'.extensions.file_browser.file_browser
   local set          = require'milque.cartographer'.nx_local_leader
 
-  local find_command = { 'rg', '--type elixir', '--files' }
+  local find_command = { 'rg', '--type', 'elixir', '--files' }
 
   set(
     'sf',
     function()
-      telescope.find_files{
+      telescope.find_files {
         find_command = find_command
       }
     end,
@@ -18,8 +18,9 @@ return function()
   set(
     'ss',
     function()
-      telescope.live_grep{
-        type_filer = 'elixir'
+      telescope.live_grep {
+        glob_pattern = '*.ex*',
+        type_filer   = 'elixir'
       }
     end,
     'Grep')
@@ -38,8 +39,9 @@ return function()
     'us',
     function()
       telescope.live_grep{
-        type_filer = 'elixir',
-        cwd        = buffer_dir()
+        glob_pattern = '*.ex*',
+        type_filer   = 'elixir',
+        cwd          = buffer_dir()
       }
     end,
     'Grep')

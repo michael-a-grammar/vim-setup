@@ -10,7 +10,7 @@ return function(opts)
       },
 
       on_attach = function()
-        require'lsp-keymappings'()
+        require'lsp.keymappings'()
       end,
 
       capabilities = capabilities

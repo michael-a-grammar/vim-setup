@@ -88,7 +88,7 @@ opt.matchtime  = 2
 opt.showmatch  = true
 
 opt.timeout     = true
-opt.timeoutlen  = 250
+opt.timeoutlen  = 500
 opt.ttimeout    = true
 opt.ttimeoutlen = 50
 
@@ -119,14 +119,14 @@ g.maplocalleader = '.'
 
 opt.background = 'dark'
 
-require'plugins'(opts)
-require'plugin-settings'(opts)
+require'plugins.install'(opts)
+require'plugins.settings'(opts)
 
 cmd('colorscheme ' .. opts:get_cs())
 
 require'keymappings'()
-require'plugin-keymappings'()
+require'plugins.keymappings'()
 require'auto-commands'()
 require'user-commands'()
 
-require'milque.purp.elixir'(opts)
+require'milque.mona'(opts)
