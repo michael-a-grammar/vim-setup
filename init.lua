@@ -129,4 +129,6 @@ require'plugins.keymappings'()
 require'auto-commands'()
 require'user-commands'()
 
+require'vv'()
 require'milque.mona'(opts)
+

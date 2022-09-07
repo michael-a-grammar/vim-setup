@@ -1,8 +1,17 @@
 local opts = {
   use = {
+    themes = {
+      dracula = false,
+      jellybeans = false,
+      alduin  = false,
+      noir = false
+      kolor   = false,
+      tender  = false,
+      solarized = false,
+    },
     airline     = true,
     cmp         = true,
-    dracula     = false,
+    dracula     = true,
     elixir_nvim = false,
     elixir_lsp  = true,
     lsp         = true,

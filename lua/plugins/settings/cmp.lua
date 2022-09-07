@@ -76,8 +76,8 @@ return function(opts)
           end
         end, { 'i', 's' }),
 
-        ['<c-e>'] = cmp.mapping.scroll_docs(-4),
-        ['<c-n>'] = cmp.mapping.scroll_docs(4),
+        ['<c-s>'] = cmp.mapping.scroll_docs(-4),
+        ['<c-t>'] = cmp.mapping.scroll_docs(4),
 
         ['<c-t>'] = cmp.mapping.complete {
           config = {
