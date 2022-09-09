@@ -17,16 +17,33 @@ local packer = function(opts)
     use 'wbthomason/packer.nvim'
 
     use {
+      'challenger-deep-theme/vim',
+      as = 'challenger-deep-theme'
+    }
+
+    use {
       'dracula/vim',
       as = 'dracula'
     }
 
-    use 'nanotech/jellybeans.vim'
-    use 'zeis/vim-kolor'
-    use 'jacoborus/tender.vim'
-    use 'andreasvc/vim-256noir'
     use 'AlessandroYorba/Alduin'
+    use 'NLKNguyen/papercolor-theme'
+    use 'andreasvc/vim-256noir'
+    use 'arcticicestudio/nord-vim'
+    use 'cocopon/iceberg.vim'
     use 'ericbn/vim-solarized'
+    use 'fcpg/vim-orbital'
+    use 'jacoborus/tender.vim'
+    use 'jaredgorski/SpaceCamp'
+    use 'jaredgorski/fogbell.vim'
+    use 'lifepillar/vim-solarized8'
+    use 'nanotech/jellybeans.vim'
+    use 'nikolvs/vim-sunbather'
+    use 'sainnhe/sonokai'
+    use 'sts10/vim-pink-moon'
+    use 'wadackel/vim-dogrun'
+    use 'whatyouhide/vim-gotham'
+    use 'zeis/vim-kolor'
 
     use 'mhinz/vim-startify'
 

@@ -28,7 +28,7 @@ nine_to_five.get_all_wds = function()
   local dirs      = {}
 
   local pwds =
-  split(exe('tabdo windo verbose pwd'), '\n')
+    split(exe('tabdo windo verbose pwd'), '\n')
 
   for _, pwd in ipairs(pwds) do
     local wd    = split(pwd, ' ')

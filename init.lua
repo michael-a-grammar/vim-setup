@@ -34,9 +34,9 @@ opt.listchars = {
 opt.hidden     = true
 opt.lazyredraw = true
 opt.switchbuf  = {
-  'uselast',
+  'vsplit',
   'useopen',
-  'vsplit'
+  'uselast'
 }
 
 opt.hlsearch   = true

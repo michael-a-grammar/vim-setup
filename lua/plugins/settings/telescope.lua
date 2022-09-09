@@ -13,6 +13,7 @@ return function()
     'git_branches',
     'git_commits',
     'git_files',
+    'git_stash',
     'git_status',
     'grep_string',
     'help_tags',

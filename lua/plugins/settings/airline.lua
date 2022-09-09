@@ -8,6 +8,6 @@ return function(opts)
     g.airline_skip_empty_sections = true
     g.airline_theme               = opts:get_cs()
 
-    g['airline#extensions#tabline#enabled'] = true
+    g['airline#extensions#tabline#enabled'] = false
   end
 end
