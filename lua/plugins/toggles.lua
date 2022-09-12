@@ -4,7 +4,9 @@ local toggles = {
 }
 
 local themes = {
+  'PaperColor',
   'alduin',
+  'challenger-deep-theme',
   'dogrun',
   'dracula',
   'fogbell',
@@ -17,6 +19,7 @@ local themes = {
   'noir',
   'nord',
   'orbital',
+  'pink-moon',
   'solarized',
   'solarized8',
   'solarized8_flat',
@@ -27,28 +30,23 @@ local themes = {
   'spacecamp_lite',
   'sunbather',
   'tender',
-  ['PaperColor']',
-  ['challenger-deep-theme'],
-  ['pink-moon']',
 }
 
 local plugins = {
   'airline',
   'cmp',
-  'dracula',
   'elixir_nvim',
   'elixir_lsp',
   'lsp',
-  'tender',
   'which_key'
 }
 
 for _, theme in ipairs(themes) do
-  toggles.use.themes[theme] = false
+  toggles.themes[theme] = false
 end
 
 for _, plugin in ipairs(plugins) do
-  toggles.use.plugins[plugin] = false
+  toggles.plugins[plugin] = false
 end
 
 toggles.get_theme = function()
@@ -65,6 +63,16 @@ toggles.set_theme = function(theme)
   end
   return toggles
 end
+
+toggles.use_theme = setmetatable({}, {
+  __index = function(tbl, key)
+    if not toggles.themes[key] then
+      return false
+    end
+
+    return true
+  end
+})
 
 toggles.with_plugins = function(plugins)
   for _, plugin in ipairs(plugins) do

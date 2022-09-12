@@ -19,11 +19,11 @@ return function(opts)
     api.nvim_set_hl(0, name, { link = link, default = true })
   end
 
-  if opts.use.dracula then
+  if opts.use_theme.dracula then
     set_hl_link('EasyMotionTarget',        'DraculaOrange')
     set_hl_link('EasyMotionTarget2First',  'DraculaGreen')
     set_hl_link('EasyMotionTarget2Second', 'DraculaCyan')
-  elseif opts.use.tender then
+  elseif opts.use_theme.tender then
     set_hl_link('EasyMotionTarget',        'Operator')
     set_hl_link('EasyMotionTarget2First',  'Character')
     set_hl_link('EasyMotionTarget2Second', 'Character')

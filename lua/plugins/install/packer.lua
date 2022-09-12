@@ -26,7 +26,6 @@ local packer = function(opts)
       as = 'dracula'
     }
 
-    use 'AlessandroYorba/Alduin'
     use 'NLKNguyen/papercolor-theme'
     use 'andreasvc/vim-256noir'
     use 'arcticicestudio/nord-vim'
@@ -49,17 +48,17 @@ local packer = function(opts)
 
     use {
       'vim-airline/vim-airline',
-      disable = not opts.use.airline
+      disable = not opts.use_plugin.airline
     }
 
     use {
       'vim-airline/vim-airline-themes',
-      disable = not opts.use.airline
+      disable = not opts.use_plugin.airline
     }
 
     use {
       'folke/which-key.nvim',
-      disable = not opts.use.which_key
+      disable = not opts.use_plugin.which_key
     }
 
     use 'nvim-lua/plenary.nvim'
@@ -146,7 +145,7 @@ local packer = function(opts)
 
     use {
       'mhanberg/elixir.nvim',
-      disable = not opts.use.elixir_nvim and opts.use.elixir_lsp
+      disable = not opts.use_plugin.elixir_nvim and opts.use_plugin.elixir_lsp
     }
   end)
 end

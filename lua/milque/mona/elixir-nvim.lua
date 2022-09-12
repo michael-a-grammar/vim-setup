@@ -1,5 +1,5 @@
 return function(opts)
-  if opts.use.elixir_nvim and not opts.use.elixir_lsp and opts.use.cmp then
+  if opts.use_plugin.elixir_nvim and not opts.use_plugin.elixir_lsp and opts.use_plugin.cmp then
     local elixir = require'elixir'
 
     local capabilities =

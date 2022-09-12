@@ -1,4 +1,4 @@
 return function(opts)
   require'lsp.keymappings'()
-  require'lsp.keymappings.telescope'()
+  require'lsp.plugins'()
 end

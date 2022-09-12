@@ -1,5 +1,5 @@
 return function(opts)
-  if opts.use.cmp then
+  if opts.use_plugin.cmp then
     local api     = vim.api
     local bo      = vim.bo
     local cmp     = require'cmp'

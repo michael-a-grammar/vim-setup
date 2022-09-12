@@ -1,5 +1,5 @@
 return function(opts)
-  if opts.use.elixir_lsp and not opts.use.elixir_nvim and opts.use.cmp then
+  if opts.use_plugin.elixir_lsp and not opts.use_plugin.elixir_nvim and opts.use_plugin.cmp then
     local capabilities =
       require'cmp_nvim_lsp'
         .update_capabilities(vim.lsp.protocol.make_client_capabilities())

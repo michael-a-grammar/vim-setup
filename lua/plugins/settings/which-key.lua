@@ -1,5 +1,5 @@
 return function(opts)
-  if opts.use.which_key then
+  if opts.use_plugin.which_key then
     local which_key = require'which-key'
 
     which_key.setup{
@@ -13,8 +13,8 @@ return function(opts)
       },
 
       popup_mappings = {
-        scroll_down = '<m-down>', 
-        scroll_up   = '<m-up>', 
+        scroll_down = '<m-down>',
+        scroll_up   = '<m-up>',
       }
     }
 

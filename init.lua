@@ -1,11 +1,21 @@
-﻿local api    = vim.api
-local g      = vim.g
-local keymap = vim.keymap
-local opt    = vim.opt
-local neon   = require'milque.neon'
-local cmd    = neon.cmd
-local t      = neon.t
-local opts   = require'opts'
+﻿local api     = vim.api
+local g       = vim.g
+local keymap  = vim.keymap
+local opt     = vim.opt
+local neon    = require'milque.neon'
+local cmd     = neon.cmd
+local t       = neon.t
+local toggles = require'plugins.toggles'
+
+toggles.set_theme('iceberg')
+
+toggles.with_plugins({
+  'airline',
+  'cmp',
+  'elixir_nvim',
+  'lsp',
+  'which_key'
+})
 
 opt.clipboard:append('unnamed')
 
@@ -73,10 +83,11 @@ opt.wildmenu = true
 
 opt.cmdheight  = 1
 opt.laststatus = 2
-opt.ruler      = true
+
 opt.shortmess:append('c')
-opt.showcmd    = true
-opt.showmode   = false
+opt.showcmd         = true
+opt.showmode        = false
+opt.ruler           = true
 
 opt.number         = true
 opt.relativenumber = true
@@ -119,16 +130,16 @@ g.maplocalleader = '.'
 
 opt.background = 'dark'
 
-require'plugins.install'(opts)
-require'plugins.settings'(opts)
+require'plugins.install'(toggles)
+require'plugins.settings'(toggles)
+require'plugins.themes'(toggles)
 
-cmd('colorscheme ' .. opts:get_cs())
+cmd('colorscheme ' .. toggles.get_theme())
 
 require'keymappings'()
 require'plugins.keymappings'()
 require'auto-commands'()
 require'user-commands'()
+require'gui'()
 
-require'vv'()
-require'milque.mona'(opts)
-
+require'milque.mona'(toggles)
