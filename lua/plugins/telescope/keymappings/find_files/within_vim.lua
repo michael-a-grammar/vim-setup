@@ -1,6 +1,6 @@
 return function()
   local telescope = require'telescope.builtin'
-  local set       = require'milque.cartographer'.nx_leader_with('s')
+  local set       = require'milque.cartographer'.nx_leader_with's'
 
   set('c', telescope.quickfix,  'Quickfix')
   set('g', telescope.git_files, 'Git')

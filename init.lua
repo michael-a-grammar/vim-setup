@@ -1,10 +1,15 @@
 ﻿local api     = vim.api
 local g       = vim.g
+local fn      = vim.fn
 local keymap  = vim.keymap
 local opt     = vim.opt
 local neon    = require'milque.neon'
 local cmd     = neon.cmd
 local t       = neon.t
+
+cmd('packadd cfilter')
+
+opt.background = 'dark'
 
 opt.clipboard:append('unnamed')
 
@@ -117,13 +122,27 @@ g.mapleader = t'<space>'
 keymap.set({ 'n', 'x' }, '..', '.')
 g.maplocalleader = '.'
 
-opt.background = 'dark'
-
-require'plugins'()
 require'keymappings'()
-require'auto-commands'()
-require'user-commands'()
-require'vv'()
+require'keymappings.keymappings'
+require'plugins'()
 require'milque.mona'()
 
 cmd('colorscheme iceberg')
+
+local events_augroup = api.nvim_create_augroup('events', {})
+
+api.nvim_create_autocmd('TextYankPost', {
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+  group   = events_augroup,
+  pattern = '*'
+})
+
+if g.vv then
+  local vv = fn.VVset
+
+  vv('fullscreen=1')
+  vv([[fontfamily=Hasklug\ Nerd\ Font\ Mono]])
+  vv('fontsize=18')
+end

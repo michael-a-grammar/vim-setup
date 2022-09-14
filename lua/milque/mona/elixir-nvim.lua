@@ -1,4 +1,4 @@
-return function(opts)
+return function()
   local elixir = require'elixir'
 
   local capabilities =

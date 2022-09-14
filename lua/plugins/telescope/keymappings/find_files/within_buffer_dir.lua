@@ -2,7 +2,7 @@ return function()
   local telescope    = require'telescope.builtin'
   local buffer_dir   = require'telescope.utils'.buffer_dir
   local file_browser = require'telescope'.extensions.file_browser.file_browser
-  local set          = require'milque.cartographer'.nx_leader_with('u')
+  local set          = require'milque.cartographer'.nx_leader_with'u'
 
   set(
     'd',

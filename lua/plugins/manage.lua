@@ -1,7 +1,3 @@
-local pack = function()
-  require'milque.neon'.cmd('packadd cfilter')
-end
-
 local ensure_packer = function()
   local fn = vim.fn
 
@@ -131,7 +127,6 @@ local packer = function()
 end
 
 return function()
-  pack()
   ensure_packer()
   packer()
 end

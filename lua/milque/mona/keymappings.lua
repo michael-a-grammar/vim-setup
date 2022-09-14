@@ -1,4 +1,4 @@
-return function(opts)
+return function()
   local sludge = require'milque.sludge'
   local set    = require'milque.cartographer'.nx_local_leader
 

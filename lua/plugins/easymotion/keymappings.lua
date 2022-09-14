@@ -1,5 +1,5 @@
 return function()
-  local set = require'milque.cartographer'.nvo_with(',')
+  local set = require'milque.cartographer'.nvo_with','
 
   set('/', '<plug>(easymotion-sn)',   'Search')
   set('n', '<plug>(easymotion-next)', 'Next result')

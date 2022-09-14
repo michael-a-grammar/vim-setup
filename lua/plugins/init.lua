@@ -12,5 +12,5 @@ return function ()
   require'plugins.slime'()
   require'plugins.telescope'()
   require'plugins.treesitter'()
-  require'plugins.which-key'(opts)
+  require'plugins.which-key'()
 end

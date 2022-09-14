@@ -1,4 +1,4 @@
-return function(opts)
+return function()
   local api = vim.api
   local g   = vim.g
 
@@ -19,19 +19,19 @@ return function(opts)
     api.nvim_set_hl(0, name, { link = link, default = true })
   end
 
-  if opts.use_theme.dracula then
-    set_hl_link('EasyMotionTarget',        'DraculaOrange')
-    set_hl_link('EasyMotionTarget2First',  'DraculaGreen')
-    set_hl_link('EasyMotionTarget2Second', 'DraculaCyan')
-  elseif opts.use_theme.tender then
-    set_hl_link('EasyMotionTarget',        'Operator')
-    set_hl_link('EasyMotionTarget2First',  'Character')
-    set_hl_link('EasyMotionTarget2Second', 'Character')
-  else
-    set_hl_link('EasyMotionTarget',        'Type')
-    set_hl_link('EasyMotionTarget2First',  'Title')
-    set_hl_link('EasyMotionTarget2Second', 'Title')
-  end
+  -- dracula
+  -- set_hl_link('EasyMotionTarget',        'DraculaOrange')
+  -- set_hl_link('EasyMotionTarget2First',  'DraculaGreen')
+  -- set_hl_link('EasyMotionTarget2Second', 'DraculaCyan')
+
+  -- tender
+  -- set_hl_link('EasyMotionTarget',        'Operator')
+  -- set_hl_link('EasyMotionTarget2Second', 'Character')
+  -- set_hl_link('EasyMotionTarget2First',  'Character')
+
+  set_hl_link('EasyMotionTarget',        'Type')
+  set_hl_link('EasyMotionTarget2First',  'Title')
+  set_hl_link('EasyMotionTarget2Second', 'Title')
 
   set_hl_link('EasyMotionShade',     'Comment')
   set_hl_link('EasyMotionMoveHL',    'Search')
