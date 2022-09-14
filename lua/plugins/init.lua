@@ -1,0 +1,16 @@
+return function ()
+  require'plugins.manage'()
+
+  require'plugins.airline'()
+  require'plugins.cmp'()
+  require'plugins.easyalign'()
+  require'plugins.easymotion'()
+  require'plugins.gundo'()
+  require'plugins.miniyank'()
+  require'plugins.nerdcommenter'()
+  require'plugins.nerdtree'()
+  require'plugins.slime'()
+  require'plugins.telescope'()
+  require'plugins.treesitter'()
+  require'plugins.which-key'(opts)
+end

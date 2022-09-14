@@ -1,6 +1,5 @@
-return function(opts)
-  require'milque.mona.elixir-lsp'(opts)
-  require'milque.mona.elixir-nvim'(opts)
-  require'milque.mona.keymappings'(opts)
+return function()
+  require'milque.mona.elixir-nvim'()
+  require'milque.mona.keymappings'()
   require'milque.mona.telescope-keymappings'()
 end

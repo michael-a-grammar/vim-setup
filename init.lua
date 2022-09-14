@@ -5,17 +5,6 @@ local opt     = vim.opt
 local neon    = require'milque.neon'
 local cmd     = neon.cmd
 local t       = neon.t
-local toggles = require'plugins.toggles'
-
-toggles.set_theme('iceberg')
-
-toggles.with_plugins({
-  'airline',
-  'cmp',
-  'elixir_nvim',
-  'lsp',
-  'which_key'
-})
 
 opt.clipboard:append('unnamed')
 
@@ -130,16 +119,11 @@ g.maplocalleader = '.'
 
 opt.background = 'dark'
 
-require'plugins.install'(toggles)
-require'plugins.settings'(toggles)
-require'plugins.themes'(toggles)
-
-cmd('colorscheme ' .. toggles.get_theme())
-
+require'plugins'()
 require'keymappings'()
-require'plugins.keymappings'()
 require'auto-commands'()
 require'user-commands'()
-require'gui'()
+require'vv'()
+require'milque.mona'()
 
-require'milque.mona'(toggles)
+cmd('colorscheme iceberg')
