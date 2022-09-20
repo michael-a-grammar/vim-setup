@@ -37,7 +37,7 @@ local packer = function()
 
     use {
       'folke/which-key.nvim',
-      disable = false
+      disable = true
     }
 
     use 'nvim-lua/plenary.nvim'

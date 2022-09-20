@@ -1,9 +1,9 @@
-local cartographer = {}
-cartographer.b     = {}
+local M = {}
+M.b     = {}
 
 local with_modes = function(modes, buffer)
   return function(maps)
-    cartographer.set(modes, maps, buffer)
+    M.set(modes, maps, buffer)
   end
 end
 
@@ -30,18 +30,68 @@ local with = function(tbl, buffer)
   tbl.nvo_with             = with_fn(tbl.nvo)
 end
 
-cartographer.set = function(modes, maps, buffer)
+local surround = function(s, e)
+  return function(rhs)
+    return s .. rhs .. e
+  end
+end
+
+local special = surround('<', '>')
+
+local modifier = function(mod)
+  return function(key)
+    return setmetatable({
+      lhs  = surround('<' .. mod .. '-', '>')(key),
+      with = function(self, lhs)
+        self.lhs = self.lhs .. lhs
+        return self
+      end
+    }, {
+      __tostring = function(self)
+        return self.lhs
+      end
+    })
+  end
+end
+
+M.set = function(modes, maps, buffer)
   for _, map in ipairs(maps) do
     local lhs, rhs, desc = unpack(map)
 
-    vim.keymap.set(modes, maps.prefix .. lhs, rhs, {
+    lhs = (maps.prefix or '') .. tostring(lhs)
+
+    if type(rhs) == 'table' then
+      rhs = tostring(rhs)
+    end
+
+    vim.keymap.set(modes, lhs, rhs, {
       desc   = desc or '...',
       buffer = buffer
     })
   end
 end
 
-with(cartographer,   false)
-with(cartographer.b, true)
+M.cmd   = special('cmd')
+M.ent   = special('cr')
+M.esc   = special('esc')
+M.down  = special('down')
+M.left  = special('left')
+M.right = special('right')
+M.top   = special('top')
+M.ctrl  = modifier('c')
+M.alt   = modifier('a')
 
-return cartographer
+M.exe      = surround(M.cmd, M.ent)
+M.cmd_mode = surround(':',   M.ent)
+
+M.map = function(fn)
+  debug.setfenv(fn, setmetatable(M, {
+    __index = _G
+  }))
+  return fn()
+end
+
+with(M,   false)
+with(M.b,  true)
+
+return M
