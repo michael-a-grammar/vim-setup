@@ -1,6 +1,18 @@
 local M = {}
 M.b     = {}
 
+local local_opts = {
+  use_table_maps = false
+}
+
+local metatable = {
+  __index = _G,
+  __call  = function(self, opts)
+    local_opts.use_table_maps = opts.use_table_maps
+    return self
+  end
+}
+
 local with_modes = function(modes, buffer)
   return function(maps)
     M.set(modes, maps, buffer)
@@ -55,7 +67,22 @@ local modifier = function(mod)
 end
 
 M.set = function(modes, maps, buffer)
-  for _, map in ipairs(maps) do
+  local collected_maps = (local_opts.use_table_maps and maps) or {}
+
+  if not local_opts.use_table_maps then
+    local collected_map  = {}
+
+    for index, map_segment in ipairs(maps) do
+      table.insert(collected_map, map_segment)
+
+      if index % 3 == 0 then
+        table.insert(collected_maps, collected_map)
+        collected_map = {}
+      end
+    end
+  end
+
+  for _, map in ipairs(collected_maps) do
     local lhs, rhs, desc = unpack(map)
 
     lhs = (maps.prefix or '') .. tostring(lhs)
@@ -77,21 +104,22 @@ M.esc   = special('esc')
 M.down  = special('down')
 M.left  = special('left')
 M.right = special('right')
-M.top   = special('top')
+M.up    = special('up')
 M.ctrl  = modifier('c')
 M.alt   = modifier('a')
 
-M.exe      = surround(M.cmd, M.ent)
-M.cmd_mode = surround(':',   M.ent)
+M.exe      = surround(M.cmd,   M.ent)
+M.plug     = surround('<plug>(', ')')
+M.cmd_mode = surround(':',     M.ent)
 
 M.map = function(fn)
-  debug.setfenv(fn, setmetatable(M, {
-    __index = _G
-  }))
+  debug.setfenv(fn, M)
   return fn()
 end
 
 with(M,   false)
 with(M.b,  true)
+
+setmetatable(M, metatable)
 
 return M

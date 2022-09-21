@@ -1,6 +1,7 @@
 return function()
   local api = vim.api
   local g   = vim.g
+  local map = require'milque.cartographer_new'.map
 
   -- Default - asdghklqwertyuiopzxcvbnmfj;
   g.EasyMotion_keys             = 'ARSTGQWFPMIOLUYNE;'
@@ -36,4 +37,32 @@ return function()
   set_hl_link('EasyMotionShade',     'Comment')
   set_hl_link('EasyMotionMoveHL',    'Search')
   set_hl_link('EasyMotionIncSearch', 'Search')
+
+  map(function()
+    nvo_with ',' {
+      '/', plug('easymotion-sn'),   'Search',
+      'n', plug('easymotion-next'), 'Next result',
+      'N', plug('easymotion-prev'), 'Previous result',
+
+      'a', plug('easymotion-lineanywhere'),   'Line anywhere',
+      'A', plug('easymotion-jumptoanywhere'), 'Jump to anywhere',
+
+      'f', plug('easymotion-bd-f'),  'Find char forward',
+      'F', plug('easymotion-bd-fl'), 'Find char bidirectional',
+
+      't', plug('easymotion-bd-t'),  'Til char forward',
+      'T', plug('easymotion-bd-tl'), 'Til char bidirectional',
+
+      up,    plug('easymotion-k'),            'Jump to line upwards',
+      right, plug('easymotion-lineforward'),  'Jump word forward',
+      down,  plug('easymotion-j'),            'Jump to line downwards',
+      left,  plug('easymotion-linebackward'), 'Jump word backwards',
+
+      'sf', plug('easymotion-overwin-f'),    'Over-window find char',
+      'sF', plug('easymotion-overwin-f2'),   'Over-window find char (2)',
+      'sl', plug('easymotion-overwin-line'), 'Over-window jump to line',
+      'ss', plug('easymotion-s2'),           'Sneak (2)',
+      'sw', plug('easymotion-overwin-w'),    'Over-window jump to word'
+    }
+  end
 end
