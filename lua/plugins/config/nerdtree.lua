@@ -1,6 +1,10 @@
 return function()
-  local set = require'milque.cartographer'.nx_leader
+  local map = require'milque.cartographer_new'.map
 
-  set('l', '<cmd>NERDTreeFind<cr>',  'Open directory tree at current file')
-  set('L', '<cmd>NERDTreeClose<cr>', 'Close directory tree')
+  map(function()
+    nx_leader {
+      'l', exe('NERDTreeFind'),  'Open directory tree at current file',
+      'L', exe('NERDTreeClose'), 'Close directory tree'
+    }
+  end)
 end

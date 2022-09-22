@@ -1,8 +1,12 @@
 return function()
-  local set = require'milque.cartographer'.nx_leader_with'p'
+  local map = require'milque.cartographer_new'.map
 
-  set('n', '<plug>(miniyank-cycle)',     'Yank right forwards')
-  set('N', '<plug>(miniyank-cycleback)', 'Yank ring backwards')
-  set('p', '<plug>(miniyank-startput)',  'Yank ring put')
-  set('P', '<plug>(miniyank-startPut)',  'Yank ring Put')
+  map(function()
+    nx_leader_with 'p' {
+      'n', plug('miniyank-cycle'),     'Yank right forwards',
+      'N', plug('miniyank-cycleback'), 'Yank ring backwards',
+      'p', plug('miniyank-startput'),  'Yank ring put',
+      'P', plug('miniyank-startPut'),  'Yank ring Put'
+    }
+  end)
 end

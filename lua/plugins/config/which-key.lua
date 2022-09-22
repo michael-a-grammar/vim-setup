@@ -1,7 +1,7 @@
 return function()
   local which_key = require'which-key'
 
-  which_key.setup{
+  which_key.setup {
     layout     = { align = "center" },
     hidden     = { '<Plug>' },
     key_labels = {
@@ -17,7 +17,7 @@ return function()
     }
   }
 
-  which_key.register{
+  which_key.register {
     [','] = {
       [','] = 'which_key_ignore',
 

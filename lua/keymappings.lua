@@ -1,6 +1,6 @@
 local lsp        = vim.lsp.buf
 local diagnostic = vim.diagnostic
-local map        = require'milque.cartographer_new'.map
+local map        = require'milque.cartographer'.map
 
 map(function()
   c {

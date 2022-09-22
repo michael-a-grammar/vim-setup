@@ -1,7 +1,11 @@
 return function()
-  local set = require'milque.cartographer'.i
+  local map = require'milque.cartographer_new'.map
 
   vim.g.NERDCreateDefaultMappings = false
 
-  set('<c-c>', '<plug>(NERDCommenterInsert)', 'Comment')
+  map(function()
+    nx_leader_with 'i' {
+      ctrl('c'), plug('NERDCommenterInsert'), 'Comment'
+    }
+  end)
 end

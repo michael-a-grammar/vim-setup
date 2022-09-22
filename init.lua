@@ -122,7 +122,7 @@ g.mapleader = t'<space>'
 keymap.set({ 'n', 'x' }, '..', '.')
 g.maplocalleader = '.'
 
-require'keymappings.keymappings'
+require'keymappings'
 require'plugins'()
 require'milque.mona'()
 

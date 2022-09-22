@@ -2,7 +2,7 @@ return function()
   local env   = vim.env
   local g     = vim.g
   local split = vim.split
-  local set   = require'milque.cartographer'.nx_leader_with'i'
+  local map = require'milque.cartographer_new'.map
 
   g.slime_no_mappings = true
 
@@ -15,6 +15,10 @@ return function()
     }
   end
 
-  set('i', '<plug>(SlimeParagraphSend)',   'Send to REPL')
-  set('v', '<plug>(SlimeParagraphConfig)', 'Configure REPL')
+  map(function()
+    nx_leader_with 'i' {
+      'i', plug('SlimeParagraphSend'),   'Send to REPL',
+      'v', plug('SlimeParagraphConfig'), 'Configure REPL'
+    }
+  end)
 end
