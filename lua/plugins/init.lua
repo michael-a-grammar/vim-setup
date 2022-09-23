@@ -1,7 +1,7 @@
 local fn = vim.fn
 
 local install_path =
-fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+  fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 
 if fn.empty(fn.glob(install_path)) > 0 then
   local repo = 'https://github.com/wbthomason/packer.nvim'
@@ -9,6 +9,12 @@ if fn.empty(fn.glob(install_path)) > 0 then
   local packer_bootstrap =
     fn.system({ 'git', 'clone', '--depth', '1', repo, install_path })
 end
+
+local packer = require'packer'
+
+packer.init({
+  autoremove = true
+})
 
 require'packer'.startup(function()
   use 'wbthomason/packer.nvim'
@@ -24,12 +30,8 @@ require'packer'.startup(function()
 
   use {
     'vim-airline/vim-airline',
-    disable = false
-  }
-
-  use {
-    'vim-airline/vim-airline-themes',
-    disable = false
+    disable  = false,
+    requires = 'vim-airline/vim-airline-themes'
   }
 
   use {
@@ -37,69 +39,49 @@ require'packer'.startup(function()
     disable = true
   }
 
-  use 'nvim-lua/plenary.nvim'
-  use 'nvim-telescope/telescope.nvim'
-
   use {
-    'nvim-telescope/telescope-fzf-native.nvim',
-    run = 'make'
+    'nvim-telescope/telescope.nvim',
+    disable  = false,
+    requires = {
+      'nvim-lua/plenary.nvim',
+
+      {
+        'nvim-telescope/telescope-fzf-native.nvim',
+        run = 'make'
+      },
+
+      'nvim-telescope/telescope-file-browser.nvim',
+      'nvim-telescope/telescope-github.nvim',
+      'nvim-telescope/telescope-z.nvim',
+
+      use 'kyazdani42/nvim-web-devicons'
+    }
   }
 
-  use 'nvim-telescope/telescope-file-browser.nvim'
-  use 'nvim-telescope/telescope-github.nvim'
-  use 'nvim-telescope/telescope-z.nvim'
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    disable  = false,
+    requires = 'nvim-treesitter/playground'
+  }
 
-  use 'nvim-treesitter/nvim-treesitter'
-  use 'nvim-treesitter/playground'
+  use {
+    'scrooloose/nerdtree',
+    disable  = false,
+    requires = {
+     'Xuyuanp/nerdtree-git-plugin',
+     'ryanoasis/vim-devicons'
+    }
+  }
 
-  use 'kyazdani42/nvim-web-devicons'
+  use {
+    'easymotion/vim-easymotion',
+    disable = false
+  }
 
-  use 'folke/lua-dev.nvim'
+  use {
 
-  use 'scrooloose/nerdtree'
-  use 'Xuyuanp/nerdtree-git-plugin'
+  }
 
-  use 'scrooloose/nerdcommenter'
-
-  use 'honza/vim-snippets'
-
-  use 'tpope/vim-fugitive'
-
-  use 'TamaMcGlinn/quickfixdd'
-  use 'jpalardy/vim-slime'
-
-  use 'easymotion/vim-easymotion'
-
-  use 'sjl/gundo.vim'
-
-  use 'bfredl/nvim-miniyank'
-
-  use 'tpope/vim-vinegar'
-  use 'tpope/vim-repeat'
-  use 'tpope/vim-eunuch'
-  use 'tpope/vim-unimpaired'
-  use 'tpope/vim-surround'
-  use 'tpope/vim-abolish'
-  use 'tpope/vim-characterize'
-
-  use 'chaoren/vim-wordmotion'
-
-  use 'junegunn/vim-easy-align'
-  use 'FooSoft/vim-argwrap'
-
-  use 'sickill/vim-pasta'
-
-  use 'Wolfy87/vim-syntax-expand'
-
-  use 'kana/vim-textobj-user'
-
-  use 'elixir-editors/vim-elixir'
-  use 'leafo/moonscript-vim'
-
-  use 'andyl/vim-textobj-elixir'
-  use 'rhysd/vim-textobj-ruby'
-
-  use 'ryanoasis/vim-devicons'
 
   use 'neovim/nvim-lspconfig'
   use 'onsails/lspkind.nvim'
@@ -118,6 +100,39 @@ require'packer'.startup(function()
   use 'hrsh7th/cmp-nvim-lsp-document-symbol'
   use 'hrsh7th/cmp-path'
   use 'hrsh7th/cmp-cmdline'
+
+
+
+  use 'tpope/vim-repeat'
+  use 'tpope/vim-fugitive'
+  use 'tpope/vim-eunuch'
+  use 'tpope/vim-unimpaired'
+  use 'tpope/vim-surround'
+  use 'tpope/vim-abolish'
+  use 'tpope/vim-characterize'
+
+  use 'scrooloose/nerdcommenter'
+  use 'TamaMcGlinn/quickfixdd'
+  use 'jpalardy/vim-slime'
+  use 'sjl/gundo.vim'
+  use 'bfredl/nvim-miniyank'
+
+  use 'chaoren/vim-wordmotion'
+
+  use 'junegunn/vim-easy-align'
+  use 'FooSoft/vim-argwrap'
+
+  use 'sickill/vim-pasta'
+
+  use 'Wolfy87/vim-syntax-expand'
+
+  use 'kana/vim-textobj-user'
+
+  use 'elixir-editors/vim-elixir'
+  use 'leafo/moonscript-vim'
+
+  use 'andyl/vim-textobj-elixir'
+  use 'rhysd/vim-textobj-ruby'
 
   use 'mhanberg/elixir.nvim'
 end)

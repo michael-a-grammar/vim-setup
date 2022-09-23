@@ -93,9 +93,9 @@ opt.matchtime  = 2
 opt.showmatch  = true
 
 opt.timeout     = true
-opt.timeoutlen  = 500
+opt.timeoutlen  = 800
 opt.ttimeout    = true
-opt.ttimeoutlen = 50
+opt.ttimeoutlen = 80
 
 opt.backupcopy  = 'yes'
 opt.updatetime  = 300
@@ -123,7 +123,7 @@ keymap.set({ 'n', 'x' }, '..', '.')
 g.maplocalleader = '.'
 
 require'keymappings'
-require'plugins'()
+require'plugins'
 require'milque.mona'()
 
 cmd('colorscheme iceberg')
@@ -136,6 +136,14 @@ api.nvim_create_autocmd('TextYankPost', {
   end,
   group   = events_augroup,
   pattern = '*'
+})
+
+api.nvim_create_autocmd('BufWritePost', {
+  callback = function()
+    print('saved')
+  end,
+  group   = events_augroup,
+  pattern = '*plugins/**/*.lua'
 })
 
 if g.vv then
