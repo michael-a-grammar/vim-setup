@@ -16,7 +16,12 @@ packer.init({
   autoremove = true
 })
 
-require'packer'.startup(function()
+packer.startup(function()
+  local config = function(plugin_name)
+    local plugin_path = 'plugins.config.' .. plugin_name
+    return require(plugin_path)
+  end
+
   use 'wbthomason/packer.nvim'
 
   use {
@@ -25,22 +30,24 @@ require'packer'.startup(function()
   }
 
   use 'cocopon/iceberg.vim'
-
   use 'mhinz/vim-startify'
 
   use {
     'vim-airline/vim-airline',
+    config   = config 'airline',
     disable  = false,
     requires = 'vim-airline/vim-airline-themes'
   }
 
   use {
     'folke/which-key.nvim',
+    config  = config 'which-key',
     disable = true
   }
 
   use {
     'nvim-telescope/telescope.nvim',
+    config   = config 'telescope',
     disable  = false,
     requires = {
       'nvim-lua/plenary.nvim',
@@ -54,18 +61,20 @@ require'packer'.startup(function()
       'nvim-telescope/telescope-github.nvim',
       'nvim-telescope/telescope-z.nvim',
 
-      use 'kyazdani42/nvim-web-devicons'
+      'kyazdani42/nvim-web-devicons'
     }
   }
 
   use {
     'nvim-treesitter/nvim-treesitter',
+    config   = config 'treesitter',
     disable  = false,
     requires = 'nvim-treesitter/playground'
   }
 
   use {
     'scrooloose/nerdtree',
+    config   = config 'nerdtree',
     disable  = false,
     requires = {
      'Xuyuanp/nerdtree-git-plugin',
@@ -75,64 +84,103 @@ require'packer'.startup(function()
 
   use {
     'easymotion/vim-easymotion',
+    config   = config 'easymotion',
     disable = false
   }
 
   use {
+    'hrsh7th/nvim-cmp',
+    config   = config 'cmp',
+    disable  = false,
+    requires = {
+      'neovim/nvim-lspconfig',
 
+      {
+        'ray-x/cmp-treesitter',
+        requires = 'nvim-treesitter'
+      },
+
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-nvim-lsp-document-symbol',
+      'hrsh7th/cmp-nvim-lsp-signature-help',
+
+      'hrsh7th/cmp-buffer',
+      'f3fora/cmp-spell',
+      'hrsh7th/cmp-calc',
+
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-cmdline',
+
+      'hrsh7th/cmp-nvim-lua',
+
+      'onsails/lspkind.nvim'
+    }
   }
 
+  use {
+    'mhanberg/elixir.nvim',
+    disable  = false,
+    requires = 'nvim-cmp'
+  }
 
-  use 'neovim/nvim-lspconfig'
-  use 'onsails/lspkind.nvim'
-  use 'hrsh7th/nvim-cmp'
-  use 'hrsh7th/vim-vsnip'
-
-  use 'hrsh7th/cmp-nvim-lsp'
-  use 'ray-x/cmp-treesitter'
-  use 'hrsh7th/cmp-nvim-lsp-signature-help'
-  use 'hrsh7th/cmp-vsnip'
-  use 'hrsh7th/cmp-buffer'
-  use 'hrsh7th/cmp-nvim-lua'
-  use 'f3fora/cmp-spell'
-  use 'hrsh7th/cmp-calc'
-
-  use 'hrsh7th/cmp-nvim-lsp-document-symbol'
-  use 'hrsh7th/cmp-path'
-  use 'hrsh7th/cmp-cmdline'
-
-
-
-  use 'tpope/vim-repeat'
   use 'tpope/vim-fugitive'
   use 'tpope/vim-eunuch'
-  use 'tpope/vim-unimpaired'
-  use 'tpope/vim-surround'
   use 'tpope/vim-abolish'
   use 'tpope/vim-characterize'
 
-  use 'scrooloose/nerdcommenter'
+  use {
+    'tpope/vim-unimpaired',
+    requires = 'tpope/vim-repeat'
+  }
+
+  use {
+    'tpope/vim-surround',
+    requires = 'tpope/vim-repeat'
+  }
+
+  use {
+    'scrooloose/nerdcommenter',
+    config = config 'nerdcommenter'
+  }
+
+  use {
+    'jpalardy/vim-slime',
+    config = config 'slime'
+  }
+
+  use {
+    'sjl/gundo.vim',
+    config = config 'gundo'
+  }
+
   use 'TamaMcGlinn/quickfixdd'
-  use 'jpalardy/vim-slime'
-  use 'sjl/gundo.vim'
-  use 'bfredl/nvim-miniyank'
 
   use 'chaoren/vim-wordmotion'
-
-  use 'junegunn/vim-easy-align'
   use 'FooSoft/vim-argwrap'
 
+  use {
+    'junegunn/vim-easy-align',
+    config = config 'easyalign'
+  }
+
+  use {
+    'bfredl/nvim-miniyank',
+    config = config 'miniyank'
+  }
+
   use 'sickill/vim-pasta'
-
   use 'Wolfy87/vim-syntax-expand'
-
-  use 'kana/vim-textobj-user'
 
   use 'elixir-editors/vim-elixir'
   use 'leafo/moonscript-vim'
 
-  use 'andyl/vim-textobj-elixir'
-  use 'rhysd/vim-textobj-ruby'
+  use {
+    'andyl/vim-textobj-elixir',
+    requires = 'kana/vim-textobj-user'
+  }
 
-  use 'mhanberg/elixir.nvim'
+  use {
+    'rhysd/vim-textobj-ruby',
+    requires = 'kana/vim-textobj-user'
+  }
 end)

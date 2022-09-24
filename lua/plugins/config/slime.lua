@@ -2,7 +2,7 @@ return function()
   local env   = vim.env
   local g     = vim.g
   local split = vim.split
-  local map = require'milque.cartographer_new'.map
+  local map = require'milque.cartographer'.map
 
   g.slime_no_mappings = true
 

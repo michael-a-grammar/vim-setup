@@ -1,6 +1,6 @@
 return function()
   local g   = vim.g
-  local map = require'milque.cartographer_new'.map
+  local map = require'milque.cartographer'.map
 
   g.gundo_preview_bottom   = true
   g.gundo_right            = true
@@ -12,7 +12,7 @@ return function()
 
   map(function()
     nx_leader_with 'h' {
-      'u', cmd('GundoToggle'), 'Undo tree'
+      'u', exe('GundoToggle'), 'Undo tree'
     }
   end)
 end

@@ -1,5 +1,5 @@
 return function()
-  local map = require'milque.cartographer_new'.map
+  local map = require'milque.cartographer'.map
 
   vim.g.NERDCreateDefaultMappings = false
 

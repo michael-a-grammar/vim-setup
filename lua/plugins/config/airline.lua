@@ -6,7 +6,7 @@ return function()
   g.airline_statusline_ontop    = false
   g.airline_powerline_fonts     = true
   g.airline_skip_empty_sections = true
-  g.airline_theme               = 'iceberg'
+  g.airline_theme               = 'dracula'
 
   g['airline#extensions#tabline#enabled'] = false
 end

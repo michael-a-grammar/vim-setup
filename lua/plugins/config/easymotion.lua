@@ -1,7 +1,7 @@
 return function()
   local api = vim.api
   local g   = vim.g
-  local map = require'milque.cartographer_new'.map
+  local map = require'milque.cartographer'.map
 
   -- Default - asdghklqwertyuiopzxcvbnmfj;
   g.EasyMotion_keys             = 'ARSTGQWFPMIOLUYNE;'
@@ -64,5 +64,5 @@ return function()
       'ss', plug('easymotion-s2'),           'Sneak (2)',
       'sw', plug('easymotion-overwin-w'),    'Over-window jump to word'
     }
-  end
+  end)
 end

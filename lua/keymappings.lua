@@ -1,4 +1,5 @@
 local lsp        = vim.lsp.buf
+local codelens   = vim.lsp.codelens
 local diagnostic = vim.diagnostic
 local map        = require'milque.cartographer'.map
 

@@ -124,9 +124,8 @@ g.maplocalleader = '.'
 
 require'keymappings'
 require'plugins'
-require'milque.mona'()
 
-cmd('colorscheme iceberg')
+cmd('colorscheme dracula')
 
 local events_augroup = api.nvim_create_augroup('events', {})
 
