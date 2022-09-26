@@ -66,8 +66,8 @@ local modifier = function(mod)
   end
 end
 
-local leader = function(local)
-  local key = 'map' .. (local and 'local') or '' .. 'leader'
+local leader = function(is_local)
+  local key = 'map' .. ((is_local and 'local') or '') .. 'leader'
 
   return function(leader_key)
     vim.g[key] =

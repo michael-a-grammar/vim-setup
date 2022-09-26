@@ -1,10 +1,11 @@
 local api     = vim.api
+local exec    = vim.api.nvim_exec
 local g       = vim.g
 local fn      = vim.fn
 local opt     = vim.opt
 local opts    = require 'opts'
 
-api.nvim_exec('packadd cfilter')
+exec('packadd cfilter', false)
 
 opt.background = 'dark'
 
@@ -108,7 +109,7 @@ opt.conceallevel  = 1
 opt.visualbell = true
 api.nvim_set_option('t_vb', '')
 
-me.cmd('runtime macros/matchit.vim')
+exec('runtime macros/matchit.vim', false)
 
 opt.mouse         = 'a'
 opt.termguicolors = true
@@ -116,7 +117,7 @@ opt.termguicolors = true
 require 'keymappings'
 require 'plugins'
 
-api.nvim_exec('colorscheme ' .. opts.colorscheme)
+exec('colorscheme ' .. opts.colorscheme, false)
 
 local events_augroup = api.nvim_create_augroup('events', {})
 

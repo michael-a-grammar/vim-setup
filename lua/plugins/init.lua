@@ -12,9 +12,9 @@ local ensure_packer = function()
   end
 end
 
-local disabled = function(self, plugin)
+local disabled = function(plugin)
   for _, disabled_plugin in ipairs(opts.disabled_plugins) do
-    if plugin:find(disabled_plugin, 1 true) ~= nil then
+    if plugin:find(disabled_plugin, 1, true) ~= nil then
       return true
     end
   end
@@ -22,35 +22,55 @@ local disabled = function(self, plugin)
 end
 
 local with_config = function(plugin)
-  local config_path = 'plugins.config.' .. plugin
+  local to_strip = {
+    '.*/',
+    '%.nvim',
+    '%-nvim',
+    'nvim%.',
+    'nvim%-',
+    '%.vim',
+    '%-vim',
+    'vim%.',
+    'vim%-'
+  }
 
-  return function()
-    pcall(require, config_path)
+  local stripped = plugin
+
+  for _, strip in ipairs(to_strip) do
+    stripped = stripped:gsub(strip, '')
+  end
+
+  local config_path = 'plugins.config.' .. stripped
+
+  local success, module = pcall(require, config_path)
+
+  if success then
+    return module
   end
 end
 
-local plug = function(plugin)
-  local plugin_name, merge_spec
+local plug = function(spec)
+  local plugin, merge_spec
 
-  if type(plugin) == 'table' then
-    plugin_name = plugin[1]
-    merge_spec  = plugin
+  if type(spec) == 'table' then
+    plugin      = spec[1]
+    merge_spec  = spec
   else
-    plugin_name = plugin
+    plugin      = spec
     merge_spec  = {
-      plugin_name
+      plugin
     }
   end
 
-  local config  = with_config(plugin_name)
-  local disable = disabled(plugin_name)
+  local config  = with_config(plugin)
+  local disable = disabled(plugin)
 
-  local spec = {
+  local new_spec = {
     config  = config,
     disable = disable
   }
 
-  return vim.tbl_deep_extend('error', merge_spec, spec)
+  return vim.tbl_deep_extend('error', merge_spec, new_spec)
 end
 
 ensure_packer()
@@ -59,7 +79,14 @@ require'packer'.startup({
   function()
     local use_config = function(plugin_name)
       local config_path = 'plugins.config.' .. plugin_name
+
       return require(config_path)
+    end
+
+    local use_plug = function(plugin)
+      local plug_plugin = plug(plugin)
+
+      use(plug_plugin)
     end
 
     use 'wbthomason/packer.nvim'
@@ -72,21 +99,15 @@ require'packer'.startup({
     use 'cocopon/iceberg.vim'
     use 'mhinz/vim-startify'
 
-    plug {
+    use_plug {
       'vim-airline/vim-airline',
       requires = 'vim-airline/vim-airline-themes'
     }
 
-    use {
-      'folke/which-key.nvim',
-      config  = use_config 'which-key',
-      disable = true
-    }
+    use_plug 'folke/which-key.nvim'
 
-    use {
+    use_plug {
       'nvim-telescope/telescope.nvim',
-      config   = use_config 'telescope',
-      disable  = false,
       requires = {
         'nvim-lua/plenary.nvim',
 
@@ -103,33 +124,23 @@ require'packer'.startup({
       }
     }
 
-    use {
+    use_plug {
       'nvim-treesitter/nvim-treesitter',
-      config   = use_config 'treesitter',
-      disable  = false,
       requires = 'nvim-treesitter/playground'
     }
 
-    use {
+    use_plug {
       'scrooloose/nerdtree',
-      config   = use_config 'nerdtree',
-      disable  = false,
       requires = {
        'Xuyuanp/nerdtree-git-plugin',
        'ryanoasis/vim-devicons'
       }
     }
 
-    use {
-      'easymotion/vim-easymotion',
-      config  = use_config 'easymotion',
-      disable = false
-    }
+    use_plug 'easymotion/vim-easymotion'
 
-    use {
+    use_plug {
       'hrsh7th/nvim-cmp',
-      config   = use_config 'cmp',
-      disable  = false,
       requires = {
         'neovim/nvim-lspconfig',
 
@@ -155,10 +166,9 @@ require'packer'.startup({
       }
     }
 
-    use {
+    use_plug {
       'mhanberg/elixir.nvim',
-      disable  = false,
-      requires = 'nvim-cmp'
+      ft = 'elixir'
     }
 
     use 'tpope/vim-fugitive'
@@ -176,35 +186,20 @@ require'packer'.startup({
       requires = 'tpope/vim-repeat'
     }
 
-    use {
-      'scrooloose/nerdcommenter',
-      config = use_config 'nerdcommenter'
-    }
+    use_plug 'scrooloose/nerdcommenter'
 
-    use {
-      'jpalardy/vim-slime',
-      config = use_config 'slime'
-    }
+    use_plug 'jpalardy/vim-slime'
 
-    use {
-      'sjl/gundo.vim',
-      config = use_config 'gundo'
-    }
+    use_plug 'sjl/gundo.vim'
 
     use 'TamaMcGlinn/quickfixdd'
 
     use 'chaoren/vim-wordmotion'
     use 'FooSoft/vim-argwrap'
 
-    use {
-      'junegunn/vim-easy-align',
-      config = use_config 'easyalign'
-    }
+    use_plug 'junegunn/vim-easy-align'
 
-    use {
-      'bfredl/nvim-miniyank',
-      config = use_config 'miniyank'
-    }
+    use_plug 'bfredl/nvim-miniyank'
 
     use 'sickill/vim-pasta'
     use 'Wolfy87/vim-syntax-expand'
