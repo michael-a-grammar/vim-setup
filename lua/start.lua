@@ -2,6 +2,7 @@ local api     = vim.api
 local g       = vim.g
 local fn      = vim.fn
 local opt     = vim.opt
+local opts    = require 'opts'
 
 api.nvim_exec('packadd cfilter')
 
@@ -115,7 +116,7 @@ opt.termguicolors = true
 require 'keymappings'
 require 'plugins'
 
-api.nvim_exec('colorscheme ' .. me.opts.colorscheme)
+api.nvim_exec('colorscheme ' .. opts.colorscheme)
 
 local events_augroup = api.nvim_create_augroup('events', {})
 
@@ -126,12 +127,6 @@ api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank()
   end
 })
-
--- api.nvim_create_autocmd('BufWritePost', {
-  -- callback = 'source <afile> | PackerCompile',
-  -- group    = events_augroup,
-  -- pattern  = '*plugins/*.lua'
--- })
 
 if g.vv then
   local vv = fn.VVset
