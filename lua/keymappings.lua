@@ -4,6 +4,9 @@ local diagnostic = vim.diagnostic
 local map        = require'milque.cartographer'.map
 
 map(function()
+  leader(spc)
+  local_leader('.')
+
   c {
     alt('left'),  ctrl('left'),  'Word backwards',
     alt('right'), ctrl('right'), 'Word forwards'
@@ -14,6 +17,9 @@ map(function()
   }
 
   nx {
+    spc,  nop, 'nop',
+    '..', '.', 'Repeat',
+
     ',,', ',',       'Previous match',
     '0',  'g0',      'Beginning of line',
     '^',  'g^',      'Start of line',

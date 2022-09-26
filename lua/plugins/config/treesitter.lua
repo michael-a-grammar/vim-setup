@@ -1,22 +1,20 @@
-return function()
-  require('nvim-treesitter.configs').setup({
-    ensure_installed = {
-      'elixir',
-      'eex',
-      'fish',
-      'lua',
-      'javascript',
-      'markdown',
-      'ruby',
-      'typescript',
-      'vim'
-    },
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = {
+    'elixir',
+    'eex',
+    'fish',
+    'lua',
+    'javascript',
+    'markdown',
+    'ruby',
+    'typescript',
+    'vim'
+  },
 
-    sync_install = false,
+  sync_install = false,
 
-    highlight = {
-      enable                            = true,
-      additional_vim_regex_highlighting = true
-    },
-  })
-end
+  highlight = {
+    enable                            = true,
+    additional_vim_regex_highlighting = true
+  },
+}

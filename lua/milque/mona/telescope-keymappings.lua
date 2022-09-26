@@ -1,48 +1,50 @@
 return function()
-  local telescope    = require'telescope.builtin'
-  local buffer_dir   = require'telescope.utils'.buffer_dir
+  local telescope    = require 'telescope.builtin'
+  local buffer_dir   = require 'telescope.utils'.buffer_dir
   local file_browser = require'telescope'.extensions.file_browser.file_browser
-  local set          = require'milque.cartographer'.nx_local_leader
+  local map          = require'milque.cartographer'.map
 
   local find_command = { 'rg', '--type', 'elixir', '--files' }
 
-  set(
-    'sf',
-    function()
-      telescope.find_files {
-        find_command = find_command
-      }
-    end,
-    'Find files')
+  map(function()
+    nx_local_leader_with 's' {
+      'f',
+      function()
+        telescope.find_files {
+          find_command = find_command
+        }
+      end,
+      'Find files',
 
-  set(
-    'ss',
-    function()
-      telescope.live_grep {
-        glob_pattern = '*.ex*',
-        type_filer   = 'elixir'
-      }
-    end,
-    'Grep')
+      'ss',
+      function()
+        telescope.live_grep {
+          glob_pattern = '*.ex*',
+          type_filer   = 'elixir'
+        }
+      end,
+      'Grep'
+    }
 
-  set(
-    'uf',
-    function()
-      telescope.find_files{
-        find_command = find_command,
-        cwd          = buffer_dir()
-      }
-    end,
-    'Find files')
+    nx_local_leader_with 'u' {
+      'uf',
+      function()
+        telescope.find_files{
+          find_command = find_command,
+          cwd          = buffer_dir()
+        }
+      end,
+      'Find files',
 
-  set(
-    'us',
-    function()
-      telescope.live_grep{
-        glob_pattern = '*.ex*',
-        type_filer   = 'elixir',
-        cwd          = buffer_dir()
-      }
-    end,
-    'Grep')
+      'us',
+      function()
+        telescope.live_grep{
+          glob_pattern = '*.ex*',
+          type_filer   = 'elixir',
+          cwd          = buffer_dir()
+        }
+      end,
+      'Grep'
+    }
+  end)
 end

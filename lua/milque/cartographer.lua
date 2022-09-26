@@ -66,6 +66,15 @@ local modifier = function(mod)
   end
 end
 
+local leader = function(local)
+  local key = 'map' .. (local and 'local') or '' .. 'leader'
+
+  return function(leader_key)
+    vim.g[key] =
+      vim.api.nvim_replace_termcodes(leader_key, true, true, true)
+  end
+end
+
 M.set = function(modes, maps, buffer)
   local collected_maps = (local_opts.use_table_maps and maps) or {}
 
@@ -100,7 +109,10 @@ end
 
 M.cmd   = special('cmd')
 M.ent   = special('cr')
+M.spc   = special('space')
 M.esc   = special('esc')
+M.ldr   = special('leader')
+M.nop   = special('nop')
 M.down  = special('down')
 M.left  = special('left')
 M.right = special('right')
@@ -111,6 +123,9 @@ M.alt   = modifier('a')
 M.exe      = surround(M.cmd,   M.ent)
 M.plug     = surround('<plug>(', ')')
 M.cmd_mode = surround(':',     M.ent)
+
+M.leader       = leader(false)
+M.local_leader = leader(true)
 
 M.map = function(fn)
   debug.setfenv(fn, M)

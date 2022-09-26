@@ -1,17 +1,15 @@
-local fn           = vim.fn
-local split        = vim.split
-local neon         = require'milque.neon'
-local cmd          = neon.cmd
-local exe          = neon.exe
-local nine_to_five = {}
+local exec  = vim.api.nvim_exec
+local fn    = vim.fn
+local split = vim.split
+local M     = {}
 
 local get_bufdir = function()
   return fn.expand('%:h')
 end
 
 local set_wd = function(scope, dir)
-  cmd(scope .. 'cd ' .. dir)
-  return exe('verbose pwd')
+  exec(scope .. 'cd ' .. dir, false)
+  return exec('verbose pwd', true)
 end
 
 local set_wd_bufdir = function(scope)
@@ -22,13 +20,15 @@ local set_wd_prev = function(scope)
   return set_wd(scope, '-')
 end
 
-nine_to_five.get_all_wds = function()
+M.get_all_wds = function()
   local tabpagenr = fn.tabpagenr()
   local winnr     = fn.winnr()
   local dirs      = {}
 
   local pwds =
-    split(exe('tabdo windo verbose pwd'), '\n')
+    split(
+      exec('tabdo windo verbose pwd', true),
+    '\n')
 
   for _, pwd in ipairs(pwds) do
     local wd    = split(pwd, ' ')
@@ -40,8 +40,8 @@ nine_to_five.get_all_wds = function()
     })
   end
 
-  cmd('tabnext' .. tabpagenr)
-  cmd(winnr .. 'wincmd w')
+  me.cmd('tabnext' .. tabpagenr)
+  me.cmd(winnr .. 'wincmd w')
 
   return dirs
 end
@@ -52,28 +52,16 @@ local scopes = {
   { 'w', 'l' }
 }
 
-nine_to_five.set_g_wd_bufdir = function()
-  return set_wd_bufdir('')
+for scope_name, scope in pairs(scopes) do
+  local prefix = 'set_' .. scope_name .. '_wd_'
+
+  M[prefix .. 'bufdir'] = function()
+    return set_wd_bufdir(scope)
+  end
+
+  M[prefix .. 'prev'] = function()
+    return set_wd_prev(scope)
+  end
 end
 
-nine_to_five.set_g_wd_prev = function()
-  return set_wd_prev('')
-end
-
-nine_to_five.set_t_wd_bufdir = function()
-  return set_wd_bufdir('t')
-end
-
-nine_to_five.set_t_wd_prev = function()
-  return set_wd_prev('t')
-end
-
-nine_to_five.set_w_wd_bufdir = function()
-  return set_wd_bufdir('l')
-end
-
-nine_to_five.set_w_wd_prev = function()
-  return set_wd_prev('l')
-end
-
-return nine_to_five
+return M

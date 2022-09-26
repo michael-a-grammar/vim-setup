@@ -1,5 +1,5 @@
 return function()
-  local elixir = require'elixir'
+  local elixir = require 'elixir'
 
   local capabilities =
     require'cmp_nvim_lsp'
@@ -12,10 +12,6 @@ return function()
       fetchDeps        = true,
       suggestSpecs     = true
     },
-
-    on_attach = function(client, buffer_number)
-      require'lsp.keymappings'()
-    end,
 
     capabilities = capabilities
   }

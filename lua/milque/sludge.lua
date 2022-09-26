@@ -2,9 +2,7 @@ local bo     = vim.bo
 local fn     = vim.fn
 local opt    = vim.opt
 local wo     = vim.wo
-local neon   = require'milque.neon'
-local cmd    = neon.cmd
-local sludge = {}
+local M      = {}
 
 local get_slime_bufname = function(buf_prefix, ft)
   return buf_prefix .. '_slime.' .. ft
@@ -38,16 +36,16 @@ local create_slime_win = function(slime_bufnr)
     wo[name] = val
   end
 
-  cmd(split_cmd)
-  cmd(resize_cmd)
+  me.cmd(split_cmd)
+  me.cmd(resize_cmd)
 
   set_opt('list', 0)
   set_opt('number', false)
   set_opt('relativenumber', false)
 end
 
-local function select_slime_win(slime_winnr)
-  cmd(slime_winnr .. 'wincmd w')
+local select_slime_win = function(slime_winnr)
+  me.cmd(slime_winnr .. 'wincmd w')
 end
 
 local create_slime_buf = function(slime_bufname, ft)
@@ -66,12 +64,12 @@ local create_slime_buf = function(slime_bufname, ft)
   return slime_bufnr
 end
 
-sludge.start = function(buf_prefix, ft, slime_key)
+M.start = function(buf_prefix, ft, slime_fn)
   local state       = get_slime_state(buf_prefix, ft)
   local slime_bufnr = state.slime_bufnr
 
   if state.slime_selected then
-    neon.leader(slime_key)
+    slime_fn()
   end
 
   if not state.has_slime_buf then
@@ -85,4 +83,4 @@ sludge.start = function(buf_prefix, ft, slime_key)
   end
 end
 
-return sludge
+return M
