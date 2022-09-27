@@ -17,8 +17,8 @@ return function()
 
   map(function()
     nx_leader_with 'i' {
-      'i', plug('SlimeParagraphSend'),   'Send to REPL',
-      'v', plug('SlimeParagraphConfig'), 'Configure REPL'
+      'i', plug('SlimeParagraphSend'), 'Send to REPL',
+      'v', plug('SlimeConfig'),        'Configure REPL'
     }
   end)
 end

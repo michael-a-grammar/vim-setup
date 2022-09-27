@@ -1,8 +1,9 @@
-local bo     = vim.bo
-local fn     = vim.fn
-local opt    = vim.opt
-local wo     = vim.wo
-local M      = {}
+local exec = vim.api.nvim_exec
+local bo   = vim.bo
+local fn   = vim.fn
+local opt  = vim.opt
+local wo   = vim.wo
+local M    = {}
 
 local get_slime_bufname = function(buf_prefix, ft)
   return buf_prefix .. '_slime.' .. ft
@@ -36,8 +37,8 @@ local create_slime_win = function(slime_bufnr)
     wo[name] = val
   end
 
-  me.cmd(split_cmd)
-  me.cmd(resize_cmd)
+  exec(split_cmd, false)
+  exec(resize_cmd, false)
 
   set_opt('list', 0)
   set_opt('number', false)
@@ -45,7 +46,7 @@ local create_slime_win = function(slime_bufnr)
 end
 
 local select_slime_win = function(slime_winnr)
-  me.cmd(slime_winnr .. 'wincmd w')
+  exec(slime_winnr .. 'wincmd w', false)
 end
 
 local create_slime_buf = function(slime_bufname, ft)

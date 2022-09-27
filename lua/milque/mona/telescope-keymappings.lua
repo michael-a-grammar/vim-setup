@@ -1,6 +1,6 @@
 return function()
-  local telescope    = require 'telescope.builtin'
-  local buffer_dir   = require 'telescope.utils'.buffer_dir
+  local telescope    = require'telescope.builtin'
+  local buffer_dir   = require'telescope.utils'.buffer_dir
   local file_browser = require'telescope'.extensions.file_browser.file_browser
   local map          = require'milque.cartographer'.map
 

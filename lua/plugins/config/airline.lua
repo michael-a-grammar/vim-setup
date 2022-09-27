@@ -1,6 +1,6 @@
 return function()
   local g    = vim.g
-  local opts = require 'opts'
+  local opts = require'opts'
 
   g.airline_left_sep            = ''
   g.airline_right_sep           = ''

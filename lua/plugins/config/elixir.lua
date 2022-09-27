@@ -1,5 +1,5 @@
 return function()
-  local elixir = require 'elixir'
+  local elixir = require'elixir'
 
   local capabilities =
     require'cmp_nvim_lsp'

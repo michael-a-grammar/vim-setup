@@ -1,8 +1,8 @@
 return function()
   local api     = vim.api
   local bo      = vim.bo
-  local cmp     = require 'cmp'
-  local lspkind = require 'lspkind'
+  local cmp     = require'cmp'
+  local lspkind = require'lspkind'
 
   local has_words_before = function()
     local line, col = unpack(api.nvim_win_get_cursor(0))
@@ -15,7 +15,7 @@ return function()
 
   cmp.setup {
     enabled = function()
-      local context = require 'cmp.config.context'
+      local context = require'cmp.config.context'
       if bo.filetype == 'TelescopePrompt' then
         return false
       elseif api.nvim_get_mode().mode == 'c' then
@@ -89,7 +89,7 @@ return function()
         }
       },
       ['<c-space>'] = cmp.mapping.complete(),
-      ['<cr>']      = cmp.mapping.confirm({ select = true }),
+      ['<cr>']      = cmp.mapping.confirm { select = true },
       ['<esc>']     = cmp.mapping.abort()
     },
     sources = cmp.config.sources({

@@ -1,5 +1,5 @@
 return function()
-  local sludge = require 'milque.sludge'
+  local sludge = require'milque.sludge'
   local map    = require'milque.cartographer'.map
 
   map(function()

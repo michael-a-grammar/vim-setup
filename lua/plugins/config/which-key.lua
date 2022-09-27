@@ -1,10 +1,12 @@
 return function()
-  local which_key = require 'which-key'
+  local which_key = require'which-key'
 
   which_key.setup {
-    layout     = { align = "center" },
+    layout     = { align = "left" },
     hidden     = { '<Plug>' },
     key_labels = {
+      ['<space>'] = '',
+      ['<Tab>']   = '',
       ['<Down>']  = '',
       ['<Left>']  = '',
       ['<Up>']    = '',
@@ -14,10 +16,18 @@ return function()
     popup_mappings = {
       scroll_down = '<m-down>',
       scroll_up   = '<m-up>',
+    },
+
+    disable = {
+      filetypes = {
+        'nerdtree',
+        'TelescopePrompt',
+        'qf'
+      }
     }
   }
 
-  which_key.register {
+  local to_register = {
     [','] = {
       [','] = 'which_key_ignore',
 
@@ -32,23 +42,19 @@ return function()
 
     ['<localleader>'] = {
       p = {
-        name = 'Manipulate pipes'
+        name = 'ﳤ'
       },
 
       s = {
-        name = 'Find within cwd'
+        name = 'Find within 華'
       },
 
       u = {
-        name = 'Find within bd'
+        name = 'Find within ﬘ '
       }
     },
 
     ['<leader>'] = {
-      ['/'] = {
-        name = 'Search'
-      },
-
       c = {
         name = 'Comments'
       },
@@ -62,7 +68,7 @@ return function()
       },
 
       f = {
-        name = 'Find within buffer'
+        name = 'Find within ﬘'
       },
 
       F = 'which_key_ignore',
@@ -97,7 +103,7 @@ return function()
       },
 
       s = {
-        name = 'Find within cwd'
+        name = 'Find within 華'
       },
 
       t = {
@@ -105,7 +111,7 @@ return function()
       },
 
       u = {
-        name = 'Find within bd'
+        name = 'Find within ﬘ '
       },
 
       v = {
@@ -129,4 +135,7 @@ return function()
       }
     }
   }
+
+  which_key.register(to_register, { mode = 'n' })
+  which_key.register(to_register, { mode = 'x' })
 end

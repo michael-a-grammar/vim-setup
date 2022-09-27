@@ -1,7 +1,8 @@
 return function()
-  local api = vim.api
-  local g   = vim.g
-  local map = require'milque.cartographer'.map
+  local api  = vim.api
+  local g    = vim.g
+  local map  = require'milque.cartographer'.map
+  local opts = require'opts'
 
   -- Default - asdghklqwertyuiopzxcvbnmfj;
   g.EasyMotion_keys             = 'ARSTGQWFPMIOLUYNE;'
@@ -20,15 +21,15 @@ return function()
     api.nvim_set_hl(0, name, { link = link, default = true })
   end
 
-  -- dracula
-  -- set_hl_link('EasyMotionTarget',        'DraculaOrange')
-  -- set_hl_link('EasyMotionTarget2First',  'DraculaGreen')
-  -- set_hl_link('EasyMotionTarget2Second', 'DraculaCyan')
-
-  -- tender
-  -- set_hl_link('EasyMotionTarget',        'Operator')
-  -- set_hl_link('EasyMotionTarget2Second', 'Character')
-  -- set_hl_link('EasyMotionTarget2First',  'Character')
+  if opts.colorscheme == 'dracula' then
+    set_hl_link('EasyMotionTarget',        'DraculaOrange')
+    set_hl_link('EasyMotionTarget2First',  'DraculaGreen')
+    set_hl_link('EasyMotionTarget2Second', 'DraculaCyan')
+  elseif opts.colorscheme == 'tender' then
+    set_hl_link('EasyMotionTarget',        'Operator')
+    set_hl_link('EasyMotionTarget2Second', 'Character')
+    set_hl_link('EasyMotionTarget2First',  'Character')
+  end
 
   set_hl_link('EasyMotionTarget',        'Type')
   set_hl_link('EasyMotionTarget2First',  'Title')
@@ -39,6 +40,10 @@ return function()
   set_hl_link('EasyMotionIncSearch', 'Search')
 
   map(function()
+    nvo {
+      ',', plug('easymotion-prefix'), 'EasyMotion'
+    }
+
     nvo_with ',' {
       '/', plug('easymotion-sn'),   'Search',
       'n', plug('easymotion-next'), 'Next result',

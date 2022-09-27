@@ -1,6 +1,6 @@
 return function()
-  local telescope    = require 'telescope'
-  local builtin      = require 'telescope.builtin'
+  local telescope    = require'telescope'
+  local builtin      = require'telescope.builtin'
   local buffer_dir   = require'telescope.utils'.buffer_dir
   local file_browser = require'telescope'.extensions.file_browser.file_browser
   local map          = require'milque.cartographer'.map
@@ -74,7 +74,18 @@ return function()
 
   map(function()
     nx_leader {
-      '\'', builtin.resume, 'Resume picker'
+      '\'', builtin.resume, 'Resume picker',
+
+      spc,
+      function()
+        builtin.find_files {
+          cwd = buffer_dir()
+        }
+      end,
+      'Find files',
+
+      '/', builtin.live_grep,   'Search 華',
+      '*', builtin.grep_string, 'Search 華 w/ input',
     }
 
     nx_leader_with 'e' {

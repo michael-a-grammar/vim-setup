@@ -3,7 +3,7 @@ local exec    = vim.api.nvim_exec
 local g       = vim.g
 local fn      = vim.fn
 local opt     = vim.opt
-local opts    = require 'opts'
+local opts    = require'opts'
 
 exec('packadd cfilter', false)
 
@@ -36,8 +36,6 @@ opt.listchars = {
 opt.hidden     = true
 opt.lazyredraw = true
 opt.switchbuf  = {
-  'vsplit',
-  'useopen',
   'uselast'
 }
 
@@ -113,9 +111,6 @@ exec('runtime macros/matchit.vim', false)
 
 opt.mouse         = 'a'
 opt.termguicolors = true
-
-require 'keymappings'
-require 'plugins'
 
 exec('colorscheme ' .. opts.colorscheme, false)
 
