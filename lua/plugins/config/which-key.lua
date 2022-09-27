@@ -42,15 +42,15 @@ return function()
 
     ['<localleader>'] = {
       p = {
-        name = 'ﳤ'
+        name = 'Manipulate pipes'
       },
 
       s = {
-        name = 'Find within 華'
+        name = 'Find (cwd)'
       },
 
       u = {
-        name = 'Find within ﬘ '
+        name = 'Find (bufd)'
       }
     },
 
@@ -68,7 +68,7 @@ return function()
       },
 
       f = {
-        name = 'Find within ﬘'
+        name = 'Find (buf)'
       },
 
       F = 'which_key_ignore',
@@ -103,7 +103,7 @@ return function()
       },
 
       s = {
-        name = 'Find within 華'
+        name = 'Find (cwd)'
       },
 
       t = {
@@ -111,7 +111,7 @@ return function()
       },
 
       u = {
-        name = 'Find within ﬘ '
+        name = 'Find (bufd)'
       },
 
       v = {

@@ -10,7 +10,7 @@ return function()
     }
 
     x_leader {
-      ';', plug 'comment_toggle_linewise_visual', 'Comment 麗linewise'
+      ';', plug 'comment_toggle_linewise_visual', 'Comment selection linewise'
     }
   end)
 end

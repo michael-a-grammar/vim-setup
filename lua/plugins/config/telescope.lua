@@ -82,10 +82,10 @@ return function()
           cwd = buffer_dir()
         }
       end,
-      'Find files',
+      'Find files (cwd)',
 
-      '/', builtin.live_grep,   'Search 華',
-      '*', builtin.grep_string, 'Search 華 w/ input',
+      '/', builtin.live_grep,   'Grep (cwd)',
+      '*', builtin.grep_string, 'Grep w/ input (cwd)',
     }
 
     nx_leader_with 'e' {
@@ -140,9 +140,9 @@ return function()
       end,
       'Recent files (cwd)',
 
-      'R', builtin.oldfiles,    'Recent files',
+      'R', builtin.oldfiles,    'Recent files (all)',
       's', builtin.live_grep,   'Grep',
-      'w', builtin.grep_string, 'Grep current word',
+      'w', builtin.grep_string, 'Grep w/ input',
     }
 
     nx_leader_with 't' {
