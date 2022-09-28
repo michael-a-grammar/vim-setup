@@ -55,6 +55,10 @@ return function()
     },
 
     ['<leader>'] = {
+      a = {
+        name = 'Apps'
+      },
+
       c = {
         name = 'Comments'
       },
@@ -115,7 +119,7 @@ return function()
       },
 
       v = {
-        name = 'Visual'
+        name = 'Expand region'
       },
 
       w = {

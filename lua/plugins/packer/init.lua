@@ -17,6 +17,7 @@ require'packer'.startup({
     }
 
     use 'cocopon/iceberg.vim'
+
     use 'mhinz/vim-startify'
 
     use_spec {
@@ -24,7 +25,10 @@ require'packer'.startup({
       requires = 'vim-airline/vim-airline-themes'
     }
 
-    use_spec 'folke/which-key.nvim'
+    use_spec {
+      'nvim-treesitter/nvim-treesitter',
+      requires = 'nvim-treesitter/playground'
+    }
 
     use_spec {
       'nvim-telescope/telescope.nvim',
@@ -43,24 +47,6 @@ require'packer'.startup({
         'kyazdani42/nvim-web-devicons'
       }
     }
-
-    use_spec {
-      'nvim-treesitter/nvim-treesitter',
-      requires = {
-        'nvim-treesitter/playground',
-        cmd = 'TSPlaygroundToggle'
-      }
-    }
-
-    use_spec {
-      'scrooloose/nerdtree',
-      requires = {
-       'Xuyuanp/nerdtree-git-plugin',
-       'ryanoasis/vim-devicons'
-      }
-    }
-
-    use_spec 'easymotion/vim-easymotion'
 
     use_spec {
       'hrsh7th/nvim-cmp',
@@ -89,18 +75,35 @@ require'packer'.startup({
       }
     }
 
-    use_spec 'numToStr/Comment.nvim'
+    use_spec 'folke/which-key.nvim'
 
     use_spec {
-      'mhanberg/elixir.nvim',
-      ft = 'elixir'
+      'scrooloose/nerdtree',
+      requires = {
+       'Xuyuanp/nerdtree-git-plugin',
+       'ryanoasis/vim-devicons'
+      }
     }
 
+    use_spec 'easymotion/vim-easymotion'
+    use_spec 'jpalardy/vim-slime'
+    use_spec 'numToStr/Comment.nvim'
+    use_spec 'junegunn/vim-easy-align'
+    use_spec 'terryma/vim-expand-region'
+    use_spec 'bfredl/nvim-miniyank'
+
+    use 'chaoren/vim-wordmotion'
+    use 'FooSoft/vim-argwrap'
+    use 'sickill/vim-pasta'
+    use 'Wolfy87/vim-syntax-expand'
+    use_spec 'mbbill/undotree'
+    
     use {
-      'tpope/vim-fugitive',
-      cmd = 'G*'
+      'TamaMcGlinn/quickfixdd',
+      ft = 'qf'
     }
 
+    use 'tpope/vim-fugitive'
     use 'tpope/vim-eunuch'
     use 'tpope/vim-abolish'
     use 'tpope/vim-characterize'
@@ -116,24 +119,9 @@ require'packer'.startup({
     }
 
     use_spec {
-      'jpalardy/vim-slime',
-      cmd = 'Slime*'
+      'mhanberg/elixir.nvim',
+      ft = 'elixir'
     }
-
-    use {
-      'TamaMcGlinn/quickfixdd',
-      ft = 'qf'
-    }
-
-    use 'chaoren/vim-wordmotion'
-    use 'FooSoft/vim-argwrap'
-
-    use_spec 'junegunn/vim-easy-align'
-
-    use_spec 'bfredl/nvim-miniyank'
-
-    use 'sickill/vim-pasta'
-    use 'Wolfy87/vim-syntax-expand'
 
     use {
       'elixir-editors/vim-elixir',

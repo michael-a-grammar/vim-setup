@@ -83,10 +83,6 @@ map(function()
     'y', exe 'tab ball',      'Open buffers in tabs'
   }
 
-  nx_leader_with 'v' {
-    'v', ctrl 'v', 'Visual block'
-  }
-
   nx_leader_with 'w' {
     '.', ctrl 'w' :with '>', 'Increase window width',
     ',', ctrl 'w' :with '<', 'Decrease window width',
