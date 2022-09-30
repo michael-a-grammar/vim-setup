@@ -4,7 +4,8 @@ return function()
   local split = vim.split
   local map   = require'milque.cartographer'.map
 
-  g.slime_no_mappings = true
+  g.slime_no_mappings      = true
+  g.slime_dont_ask_default = true
 
   if env.TMUX then
     g.slime_target = 'tmux'
@@ -17,8 +18,9 @@ return function()
 
   map(function()
     nx_leader_with 'i' {
-      'i', plug('SlimeParagraphSend'), 'Send to REPL',
-      'v', plug('SlimeConfig'),        'Configure REPL'
+      'a', exe '%SlimeSend',           'Send buffer to REPL',
+      'i', '<plug>SlimeParagraphSend', 'Send to REPL',
+      'v', '<plug>SlimeConfig',        'Configure REPL'
     }
   end)
 end

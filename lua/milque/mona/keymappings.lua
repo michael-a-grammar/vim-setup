@@ -7,7 +7,12 @@ return function()
       'f',  exe('%!mix format -'),    'Mix format',
       'e',  exe('ElixirExpandMacro'), 'Expand macro',
 
-      'i',
+    }
+
+    nx_local_leader_with 'i' {
+      'c', cmd [[call slime#send('clear', "\r")]], 'Clear',
+
+      'p',
       function()
         sludge.start('iex', 'exs', function()
           local leader = vim.g.mapleader
@@ -16,7 +21,7 @@ return function()
             leader = '1' .. leader
           end
 
-          vim.api.nvim_exec('normal ' .. leader .. 'i', false)
+          vim.api.nvim_exec('normal ' .. leader .. 'ii', false)
         end)
       end,
       'IEx'

@@ -1,0 +1,14 @@
+
+ - Find files (cwd)
+ - Last buffer
+! - Shell command
+' - Resume picker
+* - Grep w/input (cwd)
+/ - Grep
+; - Comment linewise w/operator
+< - Buffers
+
+C - Comments
+  h - toggle comments
+  l - toggle line comment
+  p - toggle paragraph comment

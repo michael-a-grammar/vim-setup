@@ -73,7 +73,7 @@ local with = function(tbl, buffer)
   tbl.x_leader_with        = with_fn(tbl.x_leader)
 
   tbl.nx_local_leader      = with_fn(tbl.nx)('<localleader>')
-  tbl.nx_local_leader_with = with_fn(tbl.nx_leader)
+  tbl.nx_local_leader_with = with_fn(tbl.nx_local_leader)
 end
 
 local surround = function(s, e)

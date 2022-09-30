@@ -40,8 +40,8 @@ M.get_all_wds = function()
     })
   end
 
-  me.cmd('tabnext' .. tabpagenr)
-  me.cmd(winnr .. 'wincmd w')
+  exec('tabnext' .. tabpagenr, false)
+  exec(winnr .. 'wincmd w',    false)
 
   return dirs
 end

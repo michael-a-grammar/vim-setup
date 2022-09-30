@@ -40,7 +40,7 @@ local create_slime_win = function(slime_bufnr)
   exec(split_cmd, false)
   exec(resize_cmd, false)
 
-  set_opt('list', 0)
+  set_opt('list', false)
   set_opt('number', false)
   set_opt('relativenumber', false)
 end

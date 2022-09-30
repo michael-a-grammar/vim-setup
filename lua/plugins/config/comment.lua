@@ -6,7 +6,7 @@ return function()
 
   map(function()
     n_leader {
-      ';', plug 'comment_toggle_linewise', 'Comment linewise w/ operator'
+      ';', plug 'comment_toggle_linewise', 'Comment linewise w/operator'
     }
 
     x_leader {

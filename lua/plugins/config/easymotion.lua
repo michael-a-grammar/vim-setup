@@ -41,7 +41,7 @@ return function()
 
   map(function()
     nvo {
-      ',', plug('easymotion-prefix'), 'EasyMotion'
+      --',', plug('easymotion-prefix'), 'EasyMotion'
     }
 
     nvo_with ',' {

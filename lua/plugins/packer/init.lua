@@ -97,7 +97,7 @@ require'packer'.startup({
     use 'sickill/vim-pasta'
     use 'Wolfy87/vim-syntax-expand'
     use_spec 'mbbill/undotree'
-    
+
     use {
       'TamaMcGlinn/quickfixdd',
       ft = 'qf'
