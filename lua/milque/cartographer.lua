@@ -128,15 +128,19 @@ M.set = function(modes, maps, buffer)
   for _, map in ipairs(collected_maps) do
     local lhs, rhs, desc = unpack(map)
 
-    lhs = (maps.prefix or '') .. tostring(lhs)
+    lhs  = (maps.prefix or '') .. tostring(lhs)
+    expr = false
 
     if type(rhs) == 'table' then
       rhs = tostring(rhs)
+    elseif type(rhs) == 'string'
+      expr = true
     end
 
     vim.keymap.set(modes, lhs, rhs, {
       desc   = desc or '...',
-      buffer = buffer
+      buffer = buffer,
+      expr = expr
     })
   end
 end
@@ -157,7 +161,8 @@ M.alt   = modifier('a')
 
 M.exe      = surround(M.cmd,   M.ent)
 M.plug     = surround('<plug>(', ')')
-M.cmd_mode = surround(':',     '')
+M.expr     = surround('<expr> ',  '')
+M.cmd_mode = surround(':',        '')
 
 M.leader       = leader(false)
 M.local_leader = leader(true)

@@ -43,6 +43,9 @@ map(function()
     '!', cmd_mode '!', 'Shell command',
     tab, ctrl '^',     'Last buffer',
 
+    'n', expr [[&diff ? ']c' ? <nop>]], 'Next diff',
+    'p', expr [[&diff ? '[c' ? <nop>]], 'Previous diff',
+
     'F', ctrl 'i', 'Forwards',
     'P', ctrl 'o', 'Backwards'
   }
@@ -62,8 +65,11 @@ map(function()
   nx_leader_with 'e' {
     'c', diagnostic.setloclist, 'Set loclist with diagnostics',
     'd', diagnostic.open_float, 'Info',
-    'n', diagnostic.goto_next,  'Go to next diagnostic',
-    'p', diagnostic.goto_prev,  'Go to previous diagnostic'
+    'n', diagnostic.goto_next,  'Next diagnostic',
+    'p', diagnostic.goto_prev,  'Previous diagnostic'
+  }
+
+  nx_leader_with 'gm' {
   }
 
   nx_leader_with 'r' {
