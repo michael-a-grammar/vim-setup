@@ -10,7 +10,7 @@ return function()
     }
 
     nx_local_leader_with 'i' {
-      'c', cmd [[call slime#send('clear', "\r")]], 'Clear',
+      'c', exe [[call slime#send('clear', "\r")]], 'Clear',
 
       'p',
       function()

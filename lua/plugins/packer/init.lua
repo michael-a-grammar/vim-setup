@@ -77,11 +77,9 @@ require'packer'.startup({
 
     use_spec 'folke/which-key.nvim'
 
-    use_spec {
-      'scrooloose/nerdtree',
+    use_spec 'lambdalisue/fern.vim' {
       requires = {
-       'Xuyuanp/nerdtree-git-plugin',
-       'ryanoasis/vim-devicons'
+        'lambdalisue/nerdfont.vim'
       }
     }
 
@@ -107,6 +105,7 @@ require'packer'.startup({
     use 'tpope/vim-eunuch'
     use 'tpope/vim-abolish'
     use 'tpope/vim-characterize'
+    use 'tpope/vim-vinegar'
 
     use {
       'tpope/vim-unimpaired',

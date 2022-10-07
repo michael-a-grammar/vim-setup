@@ -133,8 +133,10 @@ M.set = function(modes, maps, buffer)
 
     if type(rhs) == 'table' then
       rhs = tostring(rhs)
-    elseif type(rhs) == 'string'
-      expr = true
+    elseif type(rhs) == 'string' then
+      if string.find(rhs, '<expr> ', 1) then
+        expr = true
+      end
     end
 
     vim.keymap.set(modes, lhs, rhs, {

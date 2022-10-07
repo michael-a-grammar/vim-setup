@@ -7,10 +7,10 @@ return function()
 
   elixir.setup {
     settings           = elixir.settings {
-      dialyzerEnabled  = true,
-      enableTestLenses = true,
-      fetchDeps        = true,
-      suggestSpecs     = true
+      dialyzerEnabled  = false,
+      enableTestLenses = false,
+      fetchDeps        = false,
+      suggestSpecs     = false
     },
 
     capabilities = capabilities
