@@ -89,7 +89,7 @@ return function()
         }
       },
       ['<c-space>'] = cmp.mapping.complete(),
-      ['<cr>']      = cmp.mapping.confirm { select = true },
+      ['<cr>']      = cmp.mapping.confirm({ select = true }),
       ['<esc>']     = cmp.mapping.abort()
     },
     sources = cmp.config.sources({

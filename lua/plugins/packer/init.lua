@@ -77,7 +77,8 @@ require'packer'.startup({
 
     use_spec 'folke/which-key.nvim'
 
-    use_spec 'lambdalisue/fern.vim' {
+    use_spec {
+      'lambdalisue/fern.vim',
       requires = {
         'lambdalisue/nerdfont.vim'
       }
