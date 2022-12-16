@@ -3,7 +3,7 @@ return function()
   local builtin      = require'telescope.builtin'
   local buffer_dir   = require'telescope.utils'.buffer_dir
   local file_browser = require'telescope'.extensions.file_browser.file_browser
-  local map          = require'milque.cartographer'.map
+  local map          = require'elden.cartographer'.map
 
   local pickers = {
     'buffers',
@@ -72,20 +72,29 @@ return function()
   telescope.load_extension('gh')
   telescope.load_extension('z')
 
+  local buffers = function(only_cwd)
+    return function()
+      builtin.buffers {
+        ignore_current_buffer = true,
+        only_cwd              = only_cwd,
+        sort_mru              = true,
+      }
+    end
+  end
+
+  local buffers_only_cwd = buffers(true)
+  local buffers          = buffers(false)
+
   map(function()
     nx_leader {
       '\'', builtin.resume, 'Resume picker',
 
-      spc,
-      function()
-        builtin.find_files {
-          cwd = buffer_dir()
-        }
-      end,
-      'Find files (cwd)',
+      spc, builtin.find_files, 'Find files (cwd)',
 
-      '/', builtin.live_grep,   'Grep (cwd)',
       '*', builtin.grep_string, 'Grep w/ input (cwd)',
+      ',', buffers_only_cwd,    'Buffers (cwd)',
+      '/', builtin.live_grep,   'Grep (cwd)',
+      '<', buffers,             'Buffers',
     }
 
     nx_leader_with 'e' {
@@ -146,14 +155,7 @@ return function()
     }
 
     nx_leader_with 't' {
-      't',
-      function()
-        builtin.buffers {
-          ignore_current_buffer = true,
-          sort_mru              = true
-        }
-      end,
-      'Buffers'
+      't', buffers_only_cwd, 'Buffers (cwd)'
     }
 
     nx_leader_with 'u' {
@@ -187,7 +189,7 @@ return function()
           cwd = buffer_dir()
         }
       end,
-      'Grep current word'
+      'Grep w/ input'
     }
 
     nx_leader_with 'z' {

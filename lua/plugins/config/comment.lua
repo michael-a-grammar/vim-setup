@@ -1,6 +1,6 @@
 return function()
   local comment = require'Comment'
-  local map     = require'milque.cartographer'.map
+  local map     = require'elden.cartographer'.map
 
   comment.setup()
 

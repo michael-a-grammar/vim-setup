@@ -20,7 +20,7 @@ return function()
 
     disable = {
       filetypes = {
-        'nerdtree',
+        'fern',
         'TelescopePrompt',
         'qf'
       }

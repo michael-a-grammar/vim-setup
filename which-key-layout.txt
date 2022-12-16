@@ -6,6 +6,7 @@
 * - Grep w/input (cwd)
 / - Grep
 ; - Comment linewise w/operator
+, - Buffers
 < - Buffers
 
 A - Applications
@@ -22,3 +23,8 @@ T - Buffers
 W - Windows
 
 Y - Tabs
+
+TODO:
+
+- use 'q' to quit most transient windows (help, fern etc.)
+-

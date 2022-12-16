@@ -1,7 +1,7 @@
 return function()
   local api  = vim.api
   local g    = vim.g
-  local map  = require'milque.cartographer'.map
+  local map  = require'elden.cartographer'.map
   local opts = require'opts'
 
   -- Default - asdghklqwertyuiopzxcvbnmfj;

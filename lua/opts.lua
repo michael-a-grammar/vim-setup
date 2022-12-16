@@ -1,7 +1,4 @@
-local opts = {
-  colorscheme      = 'iceberg',
-  disabled_plugins = {
-  }
-}
+local opts       = require'elden-opts'
+local local_opts = require'elden-opts-local'
 
-return opts
+return vim.tbl_deep_extend('force', opts, local_opts)

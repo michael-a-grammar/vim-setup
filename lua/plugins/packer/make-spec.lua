@@ -34,6 +34,8 @@ local with_config = function(plugin)
 
   if success then
     return module
+  else
+    print(module)
   end
 end
 

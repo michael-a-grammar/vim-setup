@@ -1,5 +1,5 @@
 return function()
-  local map = require'milque.cartographer'.map
+  local map = require'elden.cartographer'.map
 
   map(function()
     nx_leader_with 'p' {

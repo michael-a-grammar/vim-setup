@@ -46,6 +46,7 @@ return function()
     },
     snippet = {
       expand = function(args)
+
       end
     },
     window = {

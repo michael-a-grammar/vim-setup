@@ -42,9 +42,7 @@ require'packer'.startup({
 
         'nvim-telescope/telescope-file-browser.nvim',
         'nvim-telescope/telescope-github.nvim',
-        'nvim-telescope/telescope-z.nvim',
-
-        'kyazdani42/nvim-web-devicons'
+        'nvim-telescope/telescope-z.nvim'
       }
     }
 
@@ -80,7 +78,10 @@ require'packer'.startup({
     use_spec {
       'lambdalisue/fern.vim',
       requires = {
-        'lambdalisue/nerdfont.vim'
+        'lambdalisue/fern-hijack.vim',
+        'lambdalisue/nerdfont.vim',
+        'lambdalisue/fern-renderer-nerdfont.vim',
+        'lambdalisue/glyph-palette.vim'
       }
     }
 
@@ -139,6 +140,16 @@ require'packer'.startup({
       requires = 'kana/vim-textobj-user',
       ft       = 'ruby'
     }
+
+    use {
+      'ryanoasis/vim-devicons',
+      after = {
+        'vim-startify',
+        'vim-airline'
+      }
+    }
+
+    use 'kyazdani42/nvim-web-devicons'
   end,
   config = {
     autoremove = true

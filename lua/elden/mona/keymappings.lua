@@ -1,6 +1,6 @@
 return function()
-  local sludge = require'milque.sludge'
-  local map    = require'milque.cartographer'.map
+  local sludge = require'elden.sludge'
+  local map    = require'elden.cartographer'.map
 
   map(function()
     nx_local_leader {
