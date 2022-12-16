@@ -1,3 +1,3 @@
 return {
-  dev_path = '~/dev/elden/vim-setup'
+  dev_path = '~/dev/milque/vim-setup'
 }

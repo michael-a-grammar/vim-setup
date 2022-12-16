@@ -5,11 +5,13 @@ local opts   = require'opts'
 local system = fn.system
 local M      = {}
 
-local has_dev_path = fn.isdirectory(opts.dev_path)
+local dev_path     = opts.dev_path
+local has_dev_path = fn.isdirectory(dev_path)
 
 if has_dev_path then
-  local lua_dev_path  = opts.dev_path .. '/lua'
-  local init_dev_path = opts.dev_path .. '/init.lua'
+  local lua_dev_path  = dev_path .. '/lua'
+  local init_dev_path = dev_path .. '/init.lua'
+
   local config_path   = fn.stdpath('config')
   local lua_path      = config_path .. '/lua'
   local init_path     = config_path .. '/init.lua'
@@ -25,6 +27,14 @@ if has_dev_path then
   M.delete = function()
     system({ 'rm', '-rf', lua_path })
     system({ 'rm',        init_path })
+
+    return M
+  end
+
+  M.push = function()
+    system({ 'git', 'add',    '.'             })
+    system({ 'git', 'commit', '-m', 'Updates' })
+    system({ 'git', 'push'                    })
 
     return M
   end
@@ -47,7 +57,6 @@ M.restart = function()
   cmd('quitall!')
 end
 
-M.copy()
-M.list()
+M.push()
 
 return M
