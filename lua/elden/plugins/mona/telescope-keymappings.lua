@@ -2,7 +2,7 @@ return function()
   local telescope    = require'telescope.builtin'
   local buffer_dir   = require'telescope.utils'.buffer_dir
   local file_browser = require'telescope'.extensions.file_browser.file_browser
-  local map          = require'elden.cartographer'.map
+  local map          = require'elden.plugins.cartographer'.map
 
   local find_command = { 'rg', '--type', 'elixir', '--files' }
 

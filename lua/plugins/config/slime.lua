@@ -2,7 +2,7 @@ return function()
   local env   = vim.env
   local g     = vim.g
   local split = vim.split
-  local map   = require'elden.cartographer'.map
+  local map   = require'elden.plugins.cartographer'.map
 
   g.slime_no_mappings      = true
   g.slime_dont_ask_default = true

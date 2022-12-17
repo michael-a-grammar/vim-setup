@@ -9,8 +9,8 @@ local dev_path     = opts.dev_path
 local has_dev_path = fn.isdirectory(dev_path)
 
 if has_dev_path then
-  local lua_dev_path  = dev_path .. '/lua'
-  local init_dev_path = dev_path .. '/init.lua'
+  local lua_dev_path  = fn.expand(dev_path .. '/lua')
+  local init_dev_path = fn.expand(dev_path .. '/init.lua')
 
   local config_path   = fn.stdpath('config')
   local lua_path      = config_path .. '/lua'
@@ -18,8 +18,8 @@ if has_dev_path then
   local plugins_path  = config_path .. '/plugin'
 
   M.copy = function()
-    system({ 'cp', '-r', lua_dev_path,  lua_path    })
-    system({ 'cp',       init_dev_path, config_path })
+    system({ 'cp', '-rf', lua_dev_path,  config_path })
+    system({ 'cp',        init_dev_path, config_path })
 
     return M
   end
@@ -32,9 +32,13 @@ if has_dev_path then
   end
 
   M.push = function()
-    system({ 'git', 'add',    '.'             })
-    system({ 'git', 'commit', '-m', 'Updates' })
-    system({ 'git', 'push'                    })
+    local cwd = system('pwd')
+
+    system({ 'cd',    dev_path                  })
+    system({ 'git',   'add',    '.'             })
+    system({ 'git',   'commit', '-m', 'Updates' })
+    system({ 'git',   'push'                    })
+    system({ 'cd',    cwd                       })
 
     return M
   end

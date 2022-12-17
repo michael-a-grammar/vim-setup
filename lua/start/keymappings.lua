@@ -1,7 +1,7 @@
 local lsp        = vim.lsp.buf
 local codelens   = vim.lsp.codelens
 local diagnostic = vim.diagnostic
-local map        = require'elden.cartographer'.map
+local map        = require'elden.plugins.cartographer'.map
 
 map(function()
   leader       '<space>'
@@ -106,6 +106,7 @@ map(function()
     'n', ctrl 'w' :with 'h', 'Move to left window',
     'o', ctrl 'w' :with 'l', 'Move to right window',
     'r', ctrl 'w' :with 'r', 'Rotate window downwards/rightwards',
+    'w', ctrl 'w' :with 'p', 'Previous window',
     'x', ctrl 'w' :with 'x', 'Exchange window',
 
     'E', ctrl 'w' :with 'J', 'Move window to bottom',

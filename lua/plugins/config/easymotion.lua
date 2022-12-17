@@ -1,7 +1,7 @@
 return function()
   local api  = vim.api
   local g    = vim.g
-  local map  = require'elden.cartographer'.map
+  local map  = require'elden.plugins.cartographer'.map
   local opts = require'opts'
 
   -- Default - asdghklqwertyuiopzxcvbnmfj;

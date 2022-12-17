@@ -3,4 +3,4 @@ require'start.keymappings'
 
 require'plugins'
 
-require'elden.mona'()
+require'elden.plugins.mona'()
