@@ -1,4 +1,4 @@
-local opts = require'opts'
+local opts = require'elden.opts'
 
 local disabled = function(plugin)
   for _, disabled_plugin in ipairs(opts.disabled_plugins) do

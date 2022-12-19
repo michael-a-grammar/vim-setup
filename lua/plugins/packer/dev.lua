@@ -1,7 +1,7 @@
 local cmd    = vim.cmd
 local fn     = vim.fn
 local exec   = vim.api.nvim_exec
-local opts   = require'opts'
+local opts   = require'elden.opts'
 local system = fn.system
 local M      = {}
 
@@ -61,6 +61,7 @@ M.restart = function()
   cmd('quitall!')
 end
 
-M.push()
+M.delete()
+M.copy()
 
 return M

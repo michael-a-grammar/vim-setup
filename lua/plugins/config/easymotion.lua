@@ -2,7 +2,7 @@ return function()
   local api  = vim.api
   local g    = vim.g
   local map  = require'elden.plugins.cartographer'.map
-  local opts = require'opts'
+  local opts = require'elden.opts'
 
   -- Default - asdghklqwertyuiopzxcvbnmfj;
   g.EasyMotion_keys             = 'ARSTGQWFPMIOLUYNE;'

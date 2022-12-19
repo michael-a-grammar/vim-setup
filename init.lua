@@ -1,1 +1,3 @@
-﻿require'start'
+﻿require'elden'
+require'settings'
+require'plugins'

@@ -3,7 +3,7 @@ local exec    = vim.api.nvim_exec
 local g       = vim.g
 local fn      = vim.fn
 local opt     = vim.opt
-local opts    = require'opts'
+local opts    = require'elden.opts'
 
 exec('packadd cfilter', false)
 
