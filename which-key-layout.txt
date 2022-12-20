@@ -28,3 +28,14 @@ TODO:
 
 - use 'q' to quit most transient windows (help, fern etc.)
 -
+
+init.lua
+  -> elden.start
+    - requires local and global options (local)
+  -> elden.plugins.packer
+    - uses elden.lib      (remote)
+    - uses elden.settings (remote)
+    - uses other plugins  (local)
+    - uses elden.bundles  (remote)
+
+init.lua -> elden.initial -> plugins / packer -> elden.core (settings / keymappings) -> elden.plugins -> elden.bundled

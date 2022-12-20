@@ -1,4 +1,6 @@
-local opts = require'elden.opts'
+local opts = vim.g.elden.opts
+
+local M = {}
 
 local disabled = function(plugin)
   for _, disabled_plugin in ipairs(opts.disabled_plugins) do
@@ -63,10 +65,15 @@ local make_spec = function(spec)
   return vim.tbl_deep_extend('error', merge_spec, new_spec)
 end
 
-local create_use_spec = function(use)
-  return function(plugin)
+M.create_extensions = function(use)
+  local create_use_spec = function(plugin)
     use(make_spec(plugin))
+  end
+
+  local create_local_use_spec = function(use)
+
   end
 end
 
-return create_use_spec
+
+return M

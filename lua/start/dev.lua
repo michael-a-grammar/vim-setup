@@ -1,8 +1,8 @@
 local cmd    = vim.cmd
 local fn     = vim.fn
 local exec   = vim.api.nvim_exec
-local opts   = require'elden.opts'
 local system = fn.system
+local opts   = vim.g.elden.opts
 local M      = {}
 
 local dev_path     = opts.dev_path

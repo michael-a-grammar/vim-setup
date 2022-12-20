@@ -13,7 +13,7 @@ if elden.opts == nil then
     }
   }
 
-  local local_opts = require'opts'
+  local local_opts = require'local-opts'
 
   local extended_opts = vim.tbl_deep_extend('force', opts, local_opts)
 

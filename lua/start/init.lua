@@ -4,4 +4,5 @@ if g.elden == nil then
   g.elden = {}
 end
 
-require'elden.opts'
+require'start.opts'
+require'start.globals'
