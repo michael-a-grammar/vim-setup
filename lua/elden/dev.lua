@@ -61,7 +61,4 @@ M.restart = function()
   cmd('quitall!')
 end
 
-M.delete()
-M.copy()
-
 return M

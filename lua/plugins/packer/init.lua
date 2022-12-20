@@ -75,6 +75,8 @@ require'packer'.startup({
 
     use_spec 'folke/which-key.nvim'
 
+    use 'rcarriga/nvim-notify'
+
     use_spec {
       'lambdalisue/fern.vim',
       requires = {
@@ -139,6 +141,11 @@ require'packer'.startup({
       'rhysd/vim-textobj-ruby',
       requires = 'kana/vim-textobj-user',
       ft       = 'ruby'
+    }
+
+    use {
+      'bfredl/nvim-luadev',
+      ft = 'lua'
     }
 
     use {

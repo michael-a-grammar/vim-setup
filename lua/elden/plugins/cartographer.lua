@@ -30,28 +30,6 @@ local with_fn = function(fn)
 end
 
 local with = function(tbl, buffer)
-  local leader_modes = {
-    'n',
-    'v',
-    's',
-    'x',
-    'o',
-    't',
-    'nx',
-    ['nvo'] = ''
-  }
-
-  for _, mode in ipairs(leader_modes) do
-    local modes = {}
-
-    mode:gsub('.', function(char)
-      table.insert(modes, char)
-    end)
-  end
-
-  for mode, mode_value in pairs(leader_modes) do
-  end
-
   tbl.n   = with_modes('n',          buffer)
   tbl.nx  = with_modes({ 'n', 'x' }, buffer)
   tbl.nvo = with_modes('',           buffer)
