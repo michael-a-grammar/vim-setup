@@ -63,4 +63,10 @@ local make_spec = function(spec)
   return vim.tbl_deep_extend('error', merge_spec, new_spec)
 end
 
-return make_spec
+local create_use_spec = function(use)
+  return function(plugin)
+    use(make_spec(plugin))
+  end
+end
+
+return create_use_spec

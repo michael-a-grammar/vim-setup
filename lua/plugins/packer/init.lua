@@ -1,13 +1,11 @@
-local ensure_packer = require'plugins.packer.ensure-packer'
-local make_spec     = require'plugins.packer.make-spec'
+local ensure_packer   = require'plugins.packer.ensure-packer'
+local create_use_spec = require'plugins.packer.create-use-spec'
 
 ensure_packer()
 
 require'packer'.startup({
-  function()
-    local use_spec = function(plugin)
-      use(make_spec(plugin))
-    end
+  function(use)
+    local use_spec = create_use_spec(use)
 
     use 'wbthomason/packer.nvim'
 
