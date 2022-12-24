@@ -1,8 +1,9 @@
-local opts = vim.g.elden.opts
+local globals = elden.globals
+local opts    = elden.opts
 
 local M = {}
 
-local disabled = function(plugin)
+local plugin_disabled = function(plugin)
   for _, disabled_plugin in ipairs(opts.disabled_plugins) do
     if plugin:find(disabled_plugin, 1, true) ~= nil then
       return true
@@ -11,7 +12,7 @@ local disabled = function(plugin)
   return false
 end
 
-local with_config = function(plugin)
+local plugin_config = function(plugin)
   local to_strip = {
     '.*/',
     '%.nvim',
@@ -41,8 +42,11 @@ local with_config = function(plugin)
   end
 end
 
-local make_spec = function(spec)
+local make_spec = function(spec, opts)
   local plugin, merge_spec
+
+  local is_local    = opts.is_local    or false
+  local with_config = opts.with_config or false
 
   if type(spec) == 'table' then
     plugin      = spec[1]
@@ -54,8 +58,8 @@ local make_spec = function(spec)
     }
   end
 
-  local config  = with_config(plugin)
-  local disable = disabled(plugin)
+  local disable = plugin_disabled(plugin)
+  local config  = plugin_config(plugin)
 
   local new_spec = {
     config  = config,
@@ -66,13 +70,18 @@ local make_spec = function(spec)
 end
 
 M.create_extensions = function(use)
-  local create_use_spec = function(plugin)
-    use(make_spec(plugin))
+  local use_spec = function(spec)
+    use(make_spec(spec))
   end
 
-  local create_local_use_spec = function(use)
-
+  local local_use_spec = function(plugin)
+    use(spec)
   end
+
+  return {
+    use_spec = use_spec,
+    local_use_spec = local_use_spec
+  }
 end
 
 

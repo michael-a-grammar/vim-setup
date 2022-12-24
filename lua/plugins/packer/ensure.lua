@@ -1,6 +1,6 @@
 local fn = vim.fn
 
-local ensure_packer = function()
+local ensure = function()
   local install_path =
     fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 
@@ -11,4 +11,4 @@ local ensure_packer = function()
   end
 end
 
-return ensure_packer
+return ensure

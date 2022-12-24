@@ -1,5 +1,5 @@
-local ensure_packer   = require'plugins.packer.ensure-packer'
-local create_use_spec = require'plugins.packer.create-use-spec'
+local ensure     = require'plugins.packer.ensure'
+local extensions = require'plugins.packer.extensions'
 
 ensure_packer()
 

@@ -1,12 +1,12 @@
-local fn    = vim.fn
-local opts   = vim.g.elden.opts
-local elden = vim.g.elden
+local fn = vim.fn
 
 if elden.globals == nil then
   local globals = {
     config_path = fn.stdpath('config'),
-    dev_path    = opts.dev_path
+    dev_path    = elden.opts.dev_path
   }
+
+  elden.globals = globals
 end
 
 return elden.globals

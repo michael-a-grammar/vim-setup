@@ -1,5 +1,3 @@
-local elden = vim.g.elden
-
 if elden.opts == nil then
   local opts = {
     colorscheme      = 'iceberg',
