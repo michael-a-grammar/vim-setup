@@ -1,5 +1,5 @@
 return function()
-  local map = require'elden.plugins.cartographer'.map
+  local map = require'bundled.cartographer'.map
 
   map(function()
     nx_leader_with 'a' {

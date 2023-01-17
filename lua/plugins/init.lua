@@ -1,1 +1,3 @@
-require'plugins.packer'
+return function(globals)
+  require'plugins.packer'(globals)
+end

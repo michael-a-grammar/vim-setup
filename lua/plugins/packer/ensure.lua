@@ -1,14 +1,22 @@
-local fn = vim.fn
+return function(globals)
+  local fn     = vim.fn
+  local packer = globals.packer
 
-local ensure = function()
-  local install_path =
-    fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+  local M = function()
+    local install_path = ''
 
-  if fn.empty(fn.glob(install_path)) > 0 then
-    local repo = 'https://github.com/wbthomason/packer.nvim'
+    if packer.install_path_relative then
+      install_path = globals.data_path .. packer.install_path
+    else
+      install_path = packer.install_path
+    end
 
-    fn.system({ 'git', 'clone', '--depth', '1', repo, install_path })
+    if fn.empty(fn.glob(install_path)) > 0 then
+      local repo = packer.repo
+
+      fn.system({ 'git', 'clone', '--depth', '1', repo, install_path })
+    end
   end
-end
 
-return ensure
+  return M
+end

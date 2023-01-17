@@ -1,6 +1,6 @@
 return function()
-  local sludge = require'elden.plugins.sludge'
-  local map    = require'elden.plugins.cartographer'.map
+  local sludge = require'bundled.sludge'
+  local map    = require'bundled.cartographer'.map
 
   map(function()
     nx_local_leader {

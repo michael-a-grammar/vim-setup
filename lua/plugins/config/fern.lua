@@ -2,7 +2,7 @@ return function()
   local api = vim.api
   local fn  = vim.fn
   local g   = vim.g
-  local map = require'elden.plugins.cartographer'.map
+  local map = require'bundled.cartographer'.map
 
   g['fern#renderer'] = 'nerdfont'
 

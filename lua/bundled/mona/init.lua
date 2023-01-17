@@ -1,4 +1,4 @@
 return function()
-  require'elden.plugins.mona.keymappings'()
-  require'elden.plugins.mona.telescope-keymappings'()
+  require'bundled.mona.keymappings'()
+  require'bundled.mona.telescope-keymappings'()
 end

@@ -1,7 +1,7 @@
 local lsp        = vim.lsp.buf
 local codelens   = vim.lsp.codelens
 local diagnostic = vim.diagnostic
-local map        = require'elden.plugins.cartographer'.map
+local map        = require'bundled.cartographer'.map
 
 map(function()
   leader       '<space>'

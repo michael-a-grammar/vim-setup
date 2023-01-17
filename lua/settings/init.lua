@@ -1,133 +1,132 @@
-local api     = vim.api
-local exec    = vim.api.nvim_exec
-local g       = vim.g
-local fn      = vim.fn
-local opt     = vim.opt
-local opts    = vim.elden.g.opts
+return function(globals)
+  local api     = vim.api
+  local exec    = vim.api.nvim_exec
+  local g       = vim.g
+  local fn      = vim.fn
+  local opt     = vim.opt
 
-exec('packadd cfilter', false)
+  exec('packadd cfilter', false)
 
-opt.background = 'dark'
+  opt.background = 'dark'
 
-opt.clipboard:append('unnamed')
+  opt.clipboard:append('unnamed')
 
-opt.spelllang = { 'en_gb', 'en' }
+  opt.spelllang = { 'en_gb', 'en' }
 
-opt.fileencoding = 'utf-8'
-opt.bomb         = true
+  opt.fileencoding = 'utf-8'
+  opt.bomb         = true
 
-opt.backspace    = { 'indent', 'eol', 'start' }
-opt.expandtab    = true
-opt.shiftwidth   = 2
-opt.softtabstop  = 2
-opt.tabstop      = 2
-opt.fixendofline = true
+  opt.backspace    = { 'indent', 'eol', 'start' }
+  opt.expandtab    = true
+  opt.shiftwidth   = 2
+  opt.softtabstop  = 2
+  opt.tabstop      = 2
+  opt.fixendofline = true
 
-opt.list      = false
-opt.listchars = {
-  eol      = '¬',
-  extends  = '>',
-  precedes = '<',
-  space    = '␣',
-  tab      = '>·',
-  trail    = '~'
-}
+  opt.list      = false
+  opt.listchars = {
+    eol      = '¬',
+    extends  = '>',
+    precedes = '<',
+    space    = '␣',
+    tab      = '>·',
+    trail    = '~'
+  }
 
-opt.hidden     = true
-opt.lazyredraw = true
-opt.switchbuf  = {
-  'uselast'
-}
+  opt.hidden     = true
+  opt.lazyredraw = true
+  opt.switchbuf  = {
+    'uselast'
+  }
 
-opt.hlsearch   = true
-opt.splitbelow = true
-opt.wrapscan   = true
+  opt.hlsearch   = true
+  opt.splitbelow = true
+  opt.wrapscan   = true
 
-opt.ignorecase = true
-opt.smartcase  = true
+  opt.ignorecase = true
+  opt.smartcase  = true
 
-opt.autochdir = false
-opt.path:append('**')
-opt.wildignore = {
-  '*/.git/*',
-  '*/.idea/*',
-  '*/.meteor/*',
-  '*/node_modules/*'
-}
+  opt.autochdir = false
+  opt.path:append('**')
+  opt.wildignore = {
+    '*/.git/*',
+    '*/.idea/*',
+    '*/.meteor/*',
+    '*/node_modules/*'
+  }
 
-opt.autoindent  = true
-opt.breakindent = true
+  opt.autoindent  = true
+  opt.breakindent = true
 
-opt.startofline = false
-opt.wrap        = true
+  opt.startofline = false
+  opt.wrap        = true
 
-opt.completeopt = {
-  'menuone',
-  'noinsert',
-  'noselect',
-  'preview'
-}
+  opt.completeopt = {
+    'menuone',
+    'noinsert',
+    'noselect',
+    'preview'
+  }
 
-opt.history  = 1000
-opt.wildmenu = true
+  opt.history  = 1000
+  opt.wildmenu = true
 
-opt.cmdheight  = 1
-opt.laststatus = 2
+  opt.cmdheight  = 1
+  opt.laststatus = 2
 
-opt.shortmess:append('c')
-opt.showcmd         = true
-opt.showmode        = false
-opt.ruler           = true
+  opt.shortmess:append('c')
+  opt.showcmd         = true
+  opt.showmode        = false
+  opt.ruler           = true
 
-opt.number         = true
-opt.relativenumber = true
-opt.signcolumn     = 'no'
+  opt.number         = true
+  opt.relativenumber = true
+  opt.signcolumn     = 'no'
 
-opt.colorcolumn:append('120')
-opt.cursorline = true
-opt.matchtime  = 2
-opt.showmatch  = true
+  opt.colorcolumn:append('120')
+  opt.cursorline = true
+  opt.matchtime  = 2
+  opt.showmatch  = true
 
-opt.timeout     = true
-opt.timeoutlen  = 800
-opt.ttimeout    = true
-opt.ttimeoutlen = 80
+  opt.timeout     = true
+  opt.timeoutlen  = 800
+  opt.ttimeout    = true
+  opt.ttimeoutlen = 80
 
-opt.backupcopy  = 'yes'
-opt.updatetime  = 300
-opt.writebackup = true
+  opt.backupcopy  = 'yes'
+  opt.updatetime  = 300
+  opt.writebackup = true
 
-opt.undofile   = true
-opt.undolevels = 1000
-opt.undoreload = 1000
+  opt.undofile   = true
+  opt.undolevels = 1000
+  opt.undoreload = 1000
 
-opt.concealcursor = 'nvic'
-opt.conceallevel  = 1
+  opt.concealcursor = 'nvic'
+  opt.conceallevel  = 1
 
-opt.visualbell = true
-api.nvim_set_option('t_vb', '')
+  opt.visualbell = true
+  api.nvim_set_option('t_vb', '')
 
-exec('runtime macros/matchit.vim', false)
+  exec('runtime macros/matchit.vim', false)
 
-opt.mouse         = 'a'
-opt.termguicolors = true
+  opt.mouse         = 'a'
+  opt.termguicolors = true
 
-exec('colorscheme ' .. opts.colorscheme, false)
+  local events_augroup = api.nvim_create_augroup('events', {})
 
-local events_augroup = api.nvim_create_augroup('events', {})
+  api.nvim_create_autocmd('TextYankPost', {
+    group    = events_augroup,
+    pattern  = '*',
+    callback = function()
+      vim.highlight.on_yank()
+    end
+  })
 
-api.nvim_create_autocmd('TextYankPost', {
-  group    = events_augroup,
-  pattern  = '*',
-  callback = function()
-    vim.highlight.on_yank()
+  if g.vv then
+    local vv = fn.VVset
+
+    vv('fullscreen=1')
+    vv([[fontfamily=Hasklug\ Nerd\ Font\ Mono]])
+    vv('fontsize=18')
   end
-})
-
-if g.vv then
-  local vv = fn.VVset
-
-  vv('fullscreen=1')
-  vv([[fontfamily=Hasklug\ Nerd\ Font\ Mono]])
-  vv('fontsize=18')
 end

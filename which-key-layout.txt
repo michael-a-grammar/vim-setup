@@ -30,12 +30,7 @@ TODO:
 -
 
 init.lua
-  -> elden.start
-    - requires local and global options (local)
-  -> elden.plugins.packer
-    - uses elden.lib      (remote)
-    - uses elden.settings (remote)
-    - uses other plugins  (local)
-    - uses elden.bundles  (remote)
-
-init.lua -> elden.initial -> plugins / packer -> elden.core (settings / keymappings) -> elden.plugins -> elden.bundled
+  -> start
+  -> settings
+  -> plugins
+  -> after plugins settings

@@ -1,6 +1,5 @@
 return function()
   local g    = vim.g
-  local opts = require'elden.opts'
 
   g.airline_left_sep            = ''
   g.airline_right_sep           = ''

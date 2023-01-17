@@ -3,7 +3,7 @@ return function()
   local builtin      = require'telescope.builtin'
   local buffer_dir   = require'telescope.utils'.buffer_dir
   local file_browser = require'telescope'.extensions.file_browser.file_browser
-  local map          = require'elden.plugins.cartographer'.map
+  local map          = require'bundled.cartographer'.map
 
   local pickers = {
     'buffers',

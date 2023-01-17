@@ -1,4 +1,5 @@
-﻿require'start'
-require'settings'
-require'plugins'
-require'settings.after-plugins'
+﻿local globals = require'globals'
+
+require'settings'(globals)
+require'plugins'(globals)
+require'settings.after-plugins'(globals)

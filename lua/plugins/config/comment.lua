@@ -1,6 +1,6 @@
 return function()
   local comment = require'Comment'
-  local map     = require'elden.plugins.cartographer'.map
+  local map     = require'bundled.cartographer'.map
 
   comment.setup()
 
