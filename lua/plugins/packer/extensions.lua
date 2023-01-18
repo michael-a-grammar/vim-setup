@@ -31,14 +31,12 @@ return function(globals)
     end
 
     local config_path =
-      packer.relative_plugins_config_path .. stripped
+      packer.relative_plugins_config_path .. '/' .. stripped
 
     local success, module = pcall(require, config_path)
 
     if success then
-      return function()
-        module(globals)
-      end
+      return module
     end
   end
 
@@ -72,7 +70,7 @@ return function(globals)
       disable = disable
     }
 
-    if with_config then
+    if with_config and not disable then
       new_spec.config = plugin_config(plugin)
     end
 

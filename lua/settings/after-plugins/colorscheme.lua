@@ -1,4 +1,3 @@
 return function(globals)
-  require'settings.after-plugins.colorscheme'(globals)
-  require'settings.after-plugins.keymappings'(globals)
+  vim.api.nvim_exec('colorscheme ' .. globals.colorscheme, false)
 end
