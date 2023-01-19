@@ -23,7 +23,18 @@ defmodule Elden do
                   2
 
                 :dev ->
-                  System.cmd("kitty", ["--session", "elden.dev", "--directory", "#{elden_path}"])
+                  System.cmd(
+                    "kitty",
+                    [
+                      "--session",
+                      "elden.dev",
+                      "--directory",
+                      "#{elden_path}",
+                      "--single-instance",
+                      "--title",
+                      "elden dev"
+                    ]
+                  )
               end
 
             false ->
@@ -72,7 +83,7 @@ defmodule Elden do
             expanded_path
 
           false ->
-            {:error, ""}
+            {:error, "Path is not a directory, #{expanded_path}"}
         end)
     end
   end
