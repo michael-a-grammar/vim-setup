@@ -25,6 +25,8 @@
 # Temporary files, for example, from tests.
 /cli/tmp/
 
+/cli/elden
+
 .DS_Store
 
 /nvim/lua/local-opts.lua
