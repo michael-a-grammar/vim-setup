@@ -1,6 +1,6 @@
 set runtimepath-=~/.config/nvim
-set runtimepath+=~/dev/milque/vim-setup
+set runtimepath+=~/dev/milque/vim-setup/nvim
 
 lua << EOF
-  require('dev.lua')
+  require('dev')
 EOF
