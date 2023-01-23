@@ -1,32 +1,11 @@
-# The directory Mix will write compiled artifacts to.
-/cli/_build/
-
-# If you run "mix test --cover", coverage assets end up here.
-/cli/cover/
-
-# The directory Mix downloads your dependencies sources to.
-/cli/deps/
-
-# Where third-party dependencies like ExDoc output generated docs.
-/cli/doc/
-
-# Ignore .fetch files in case you like to edit your project deps locally.
-/cli/.fetch
-
-# If the VM crashes, it generates a dump, let's ignore it too.
-/cli/erl_crash.dump
-
-# Also ignore archive artifacts (built via "mix archive.build").
-/cli/*.ez
-
-# Ignore package tarball (built via "mix hex.build").
-/cli/elden-*.tar
-
-# Temporary files, for example, from tests.
-/cli/tmp/
-
-/cli/elden
-
 .DS_Store
-
+/cli/.bundle/
+/cli/.yardoc
+/cli/_yardoc/
+/cli/coverage/
+/cli/doc/
+/cli/pkg/
+/cli/spec/reports/
+/cli/tmp/
+/cli/.rspec_status
 /nvim/lua/local-opts.lua
