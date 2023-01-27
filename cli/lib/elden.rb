@@ -52,6 +52,7 @@ module Elden
 
         define_method :initialize do
           @commands = []
+          @prefix   = prefix
         end
 
         commands.each do |command|

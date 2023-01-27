@@ -27,7 +27,7 @@ Y - Tabs
 TODO:
 
 - use 'q' to quit most transient windows (help, fern etc.)
--
+- autocommand to strip trailing whitespace (%s/\s\+$//e)
 
 init.lua
   -> start

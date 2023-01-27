@@ -19,12 +19,17 @@ return function(globals)
       }
 
       use 'cocopon/iceberg.vim'
+      use 'jacoborus/tender.vim'
+      use 'wincent/base16-nvim'
 
       use 'mhinz/vim-startify'
 
       use_spec {
         'vim-airline/vim-airline',
-        requires = 'vim-airline/vim-airline-themes'
+        requires = {
+          'vim-airline/vim-airline-themes',
+          'dawikur/base16-vim-airline-themes'
+        }
       }
 
       use_spec {
@@ -151,6 +156,13 @@ return function(globals)
       }
 
       use {
+        'norcalli/nvim-colorizer.lua',
+        config = function()
+          require'colorizer'.setup()
+        end
+      }
+
+      use {
         'ryanoasis/vim-devicons',
         after = {
           'vim-startify',
@@ -158,7 +170,14 @@ return function(globals)
         }
       }
 
-      use 'kyazdani42/nvim-web-devicons'
+      use {
+        'kyazdani42/nvim-web-devicons',
+        config = function()
+          require'nvim-web-devicons'.setup {
+            color_icons = false
+          }
+        end
+      }
     end,
     config = {
       autoremove = true
