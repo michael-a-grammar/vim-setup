@@ -3,10 +3,6 @@ return function()
   local M          = {}
 
   local global_opts = {
-    colorscheme      = 'iceberg',
-    disabled_plugins = {
-      'cmp'
-    },
     packer = {
       install_path                 = '/site/pack/packer/start/packer.nvim',
       install_path_relative        = true,
