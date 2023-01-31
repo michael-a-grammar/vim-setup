@@ -46,62 +46,57 @@ module Elden
   end
 
   class ShellCommand
-    def initialize(namespace, class_name, *args, opts: {})
-      namespace.const_set(class_name, Class.new do
+    def initialize(*args, opts: {})
+      opts[:namespace].const_set(opts[:class_name], Class.new do
         include Args
 
-        define_method :initialize do
-          @args       = []
-          @cmd        = opts[:cmd]        || ""
-          @arg_prefix = opts[:arg_prefix] || ""
-        end
+        define_method :initialize, ShellCommand.create_initialize(opts)
 
-        args.each do |arg|
-          define_method "add_#{arg[:name]}", ShellCommand.handle_arg(arg)
-        end
+        args.each { |arg| define_method arg[:name] || arg[:arg], ShellCommand.handle_arg(arg) }
       end)
     end
 
-    def self.handle_arg(arg)
-      if arg[:has_param]
-        proc do |param|
-          add_args(arg, param)
-          self
-        end
-      else
-        proc do
-          add_args(arg)
-          self
-        end
+    def self.create_initialize(opts)
+      proc do
+        @args       = []
+        @cmd        = opts[:cmd]        || ""
+        @arg_prefix = opts[:arg_prefix] || ""
       end
     end
 
+    def self.handle_arg(arg) = proc { |param = nil| add_args(arg, param) }
+
     module Args
       def args
-        @args.collect do |arg|
-          cmd    = "#{@cmd} " || ""
-          prefix = arg[:prefix] || @arg_prefix || ""
-          name   = arg[:name]
+        cmd    = "#{@cmd} " || ""
+        joined = @args.collect { |arg| get_arg(arg) }.join(" ")
 
-          if arg[:has_param] && arg[:param]
-            param_sep = arg[:param_sep] || @param_sep || " "
-            param_sur = arg[:param_sur] || @param_sur || ""
-            param     = arg[:param]     || ""
-
-            "#{cmd}#{prefix}#{name}#{param_sep}#{param_sur}#{param}#{param_sur}"
-          else
-            "#{prefix}#{name}"
-          end
-        end
-             .join(" ")
+        "#{cmd}#{joined}"
       end
 
       private
 
       def add_args(arg, param = nil)
+        arg = arg.dup if arg[:allow_multi]
         arg.store(:param, param)
 
         @args.append(arg)
+
+        self
+      end
+
+      def get_arg(arg)
+        prefix    = get_from_arg(arg, :arg_prefix, "")
+        name      = arg[:arg]   || arg[:name]
+        param     = arg[:param] || ""
+        param_sep = get_from_arg(arg, :param_sep, " ")
+        param_sur = get_from_arg(arg, :param_sur, "")
+
+        "#{prefix}#{name}#{param_sep}#{param_sur}#{param}#{param_sur}"
+      end
+
+      def get_from_arg(arg, key, *defaults)
+        arg[key] || instance_variable_get("@#{key}") || defaults.find { |d| !d.nil? && !d.empty? }
       end
     end
   end
@@ -138,15 +133,42 @@ module Elden
 end
 
 @a = Elden::ShellCommand.new(
-  Elden,
-  "NeoVim",
-  { name: "headless" },
-  { name: "config",  arg: "u", has_param: true },
-  { name: "command", arg: "+", has_param: true },
-  opts: { cmd: "nvim", arg_prefix: "-" }
+  {
+    name: "config",
+    arg_prefix: "-",
+    arg: "u"
+  },
+  {
+    name: "command",
+    arg_prefix: "",
+    arg: "+",
+    param_sep: "",
+    allow_multi: true
+  },
+  {
+    name: "headless",
+    arg_prefix: "--"
+  },
+  opts: {
+    namespace: Elden,
+    class_name: "NeoVimShellCommand",
+    cmd: "nvim"
+  }
 )
 
-@c = Elden::NeoVim.new
+class NeoVim
+  def intialize(shell)
+    @shell = shell
+  end
 
-@c.add_u("awesome")
-@c.add_.to_s
+  def config(config_path) = @shell.config(config_path)
+
+  def command(cmd) = @shell.command(cmd)
+end
+
+@p = Elden::Paths.new
+@c = Elden::NeoVimShellCommand.new
+
+@c.config(@p.elden_path)
+@c.command("PackerCompile")
+@c.command("PackerSync")
