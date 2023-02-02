@@ -27,32 +27,16 @@ module Elden
     end
   end
 
-  module Kitty
-    KITTY_COMMAND = "kitty @"
-
-    class Launcher
-      def initialize
-        @paths = Paths.new
-      end
-
-      def launch(type, start)
-        `#{KITTY_COMMAND} launch #{type_arg(type)} #{start}`
-      end
-
-      private
-
-      def type_arg(type) = "--type='#{type.to_s.gsub("_", "-")}'"
-    end
-  end
-
   class ShellCommand
     def initialize(*args, opts: {})
-      opts[:namespace].const_set(opts[:class_name], Class.new do
+      opts[:namespace].const_set("#{opts[:class_name]}ShellCommand", Class.new do
         include Args
 
         define_method :initialize, ShellCommand.create_initialize(opts)
 
-        args.each { |arg| define_method arg[:name] || arg[:arg], ShellCommand.handle_arg(arg) }
+        args.each do |arg|
+          define_method arg[:name] || arg[:arg], ShellCommand.handle_arg(arg)
+        end
       end)
     end
 
@@ -64,7 +48,11 @@ module Elden
       end
     end
 
-    def self.handle_arg(arg) = proc { |param = nil| add_args(arg, param) }
+    def self.handle_arg(arg)
+      proc do |param = nil|
+        add_args(arg, param)
+      end
+    end
 
     module Args
       def args
@@ -101,45 +89,24 @@ module Elden
     end
   end
 
-  class Vim
-    VIM_COMMAND = "nvim"
-
-    def initialize
-      @paths    = Paths.new
-      @commands = []
-    end
-
-    def config(config_file_path)
-      update_commands(:u, config_file_path)
-    end
-
-    def headless
-      update_commands(:headless)
-    end
-
-    private
-
-    def update_commands(key, value: false)
-      @commands.append({ key => value }) unless @commands.key?(key)
-    end
-  end
-
   class CLI < Thor
     desc "dev", "Starts a development environment"
     def dev
-      Kitty::Launcher.new.launch(:os_window, "nvim")
+      2
     end
   end
 end
 
-@a = Elden::ShellCommand.new(
+@p = Elden::Paths.new
+
+@c = Elden::ShellCommand.new(
   {
     name: "config",
     arg_prefix: "-",
     arg: "u"
   },
   {
-    name: "command",
+    name: "cmd",
     arg_prefix: "",
     arg: "+",
     param_sep: "",
@@ -151,24 +118,37 @@ end
   },
   opts: {
     namespace: Elden,
-    class_name: "NeoVimShellCommand",
+    class_name: "NeoVim",
     cmd: "nvim"
   }
 )
 
-class NeoVim
-  def intialize(shell)
-    @shell = shell
-  end
+@d = Elden::ShellCommand.new(
+  {
+    name: "type"
+  },
+  {
+    name: "cmd",
+    arg_prefix: "",
+    arg: "",
+    param_sep: ""
+  },
+  opts: {
+    namespace: Elden,
+    class_name: "KittyLaunch",
+    cmd: "kitty @ launch",
+    arg_prefix: "--",
+    param_sep: "="
+  }
+)
 
-  def config(config_path) = @shell.config(config_path)
+@n = Elden::NeoVimShellCommand.new
+                              .config(@p.elden_path)
+                              .cmd("PackerCompile")
+                              .cmd("PackerSync")
 
-  def command(cmd) = @shell.command(cmd)
-end
+@k = Elden::KittyLaunchShellCommand.new
+                                   .type("os-window")
+                                   .cmd(@n.args)
 
-@p = Elden::Paths.new
-@c = Elden::NeoVimShellCommand.new
-
-@c.config(@p.elden_path)
-@c.command("PackerCompile")
-@c.command("PackerSync")
+`#{@k.args}`
