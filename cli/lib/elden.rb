@@ -1,33 +1,46 @@
 # frozen_string_literal: true
 
 require_relative "elden/version"
+require "securerandom"
 require "thor"
 
 module Elden
-  class Paths
-    attr_reader :elden_path, :config_path
+  class Paths # rubocop:todo Style/Documentation
+    attr_reader :elden_path, :config_path, :nvim_dev_config_path
 
     def initialize
-      @elden_path  = env_path("ELDEN_PATH")
-      @config_path = env_path("XDG_CONFIG_HOME", "~/", ".config", "nvim")
+      @elden_path           = env_path("ELDEN_PATH")
+      @config_path          = env_path("XDG_CONFIG_HOME", ".config", "nvim", default: "~/")
+      @nvim_dev_config_path = path(@elden_path, "dev.vim")
     end
 
     private
 
-    def env_path(name, default = "", *paths)
+    def path(path, *paths)
       joined_path =
         File.join(
           File.expand_path(
-            ENV[name] || default
+            path
           ),
           paths
         )
 
-      File.exist?(joined_path) ? joined_path : false
+      exist?(joined_path)
+    end
+
+    def env_path(name, *paths, default: "")
+      path(
+        ENV[name] || default,
+        paths
+      )
+    end
+
+    def exist?(path)
+      File.exist?(path) ? path : false
     end
   end
 
-  class ShellCommand
+  class ShellCommand # rubocop:todo Style/Documentation
     def initialize(*args, opts: {})
       opts[:namespace].const_set("#{opts[:class_name]}ShellCommand", Class.new do
         include Args
@@ -35,8 +48,10 @@ module Elden
         define_method :initialize, ShellCommand.create_initialize(opts)
 
         args.each do |arg|
-          define_method arg[:name] || arg[:arg], ShellCommand.handle_arg(arg)
+          define_method arg[:name] || arg[:arg], ShellCommand.create_add_arg(arg)
         end
+
+        define_method :if, ShellCommand.create_if
       end)
     end
 
@@ -48,13 +63,20 @@ module Elden
       end
     end
 
-    def self.handle_arg(arg)
+    def self.create_add_arg(arg)
       proc do |param = nil|
-        add_args(arg, param)
+        add_arg(arg, param)
       end
     end
 
-    module Args
+    def self.create_if
+      proc do |condition, block|
+        instance_exec(&block) if condition
+        self
+      end
+    end
+
+    module Args # rubocop:todo Style/Documentation
       def args
         cmd    = "#{@cmd} " || ""
         joined = @args.collect { |arg| get_arg(arg) }.join(" ")
@@ -64,7 +86,7 @@ module Elden
 
       private
 
-      def add_args(arg, param = nil)
+      def add_arg(arg, param = nil)
         arg = arg.dup if arg[:allow_multi]
         arg.store(:param, param)
 
@@ -84,12 +106,12 @@ module Elden
       end
 
       def get_from_arg(arg, key, *defaults)
-        arg[key] || instance_variable_get("@#{key}") || defaults.find { |d| !d.nil? && !d.empty? }
+        arg[key] || instance_variable_get("@#{key}") || defaults.find { |default| !default.nil? && !default.empty? }
       end
     end
   end
 
-  class CLI < Thor
+  class CLI < Thor # rubocop:todo Style/Documentation
     desc "dev", "Starts a development environment"
     def dev
       2
@@ -97,9 +119,7 @@ module Elden
   end
 end
 
-@p = Elden::Paths.new
-
-@c = Elden::ShellCommand.new(
+Elden::ShellCommand.new(
   {
     name: "config",
     arg_prefix: "-",
@@ -123,32 +143,85 @@ end
   }
 )
 
-@d = Elden::ShellCommand.new(
-  {
-    name: "type"
-  },
+Elden::ShellCommand.new(
   {
     name: "cmd",
     arg_prefix: "",
     arg: "",
     param_sep: ""
   },
+  {
+    name: "type"
+  },
+  {
+    name: "name"
+  },
+  {
+    name: "arg",
+    arg_prefix: "",
+    arg: "",
+    param_sep: ""
+  },
   opts: {
     namespace: Elden,
-    class_name: "KittyLaunch",
-    cmd: "kitty @ launch",
+    class_name: "Kitty",
+    cmd: "kitty @",
     arg_prefix: "--",
     param_sep: "="
   }
 )
 
-@n = Elden::NeoVimShellCommand.new
-                              .config(@p.elden_path)
-                              .cmd("PackerCompile")
-                              .cmd("PackerSync")
+class KittyLaunch # rubocop:todo Style/Documentation
+  def initialize(name = "elden-#{SecureRandom.uuid}")
+    @name  = name
+    @kitty = Elden::KittyShellCommand.new
+                                     .cmd("launch")
+                                     .name(@name)
+  end
 
-@k = Elden::KittyLaunchShellCommand.new
-                                   .type("os-window")
-                                   .cmd(@n.args)
+  def launch(type, arg)
+    @kitty
+      .type(type)
+      .arg(arg)
+  end
+end
 
-`#{@k.args}`
+class NeoVim # rubocop:todo Style/Documentation
+  def initialize(paths)
+    @paths  = paths
+    @neovim = Elden::NeoVimShellCommand.new
+  end
+
+  def use_dev_config
+    update(:config, @paths.nvim_dev_config_path)
+  end
+
+  def packer_clean
+    add_cmd("PackerClean")
+  end
+
+  def packer_compile
+    add_cmd("PackerCompile")
+  end
+
+  def packer_sync
+    add_cmd("PackerSync")
+  end
+
+  def treesitter_update
+    add_cmd("TSUpdate")
+  end
+
+  private
+
+  def update(method, param)
+    @neovim.send(method, param)
+  end
+
+  def add_cmd(cmd)
+    update(:cmd, cmd)
+  end
+end
+
+class DevEnvironment # rubocop:todo Style/Documentation
+end
