@@ -77,7 +77,7 @@ module Elden
     end
 
     module Args # rubocop:todo Style/Documentation
-      def args
+      def cmd_with_args
         cmd    = "#{@cmd} " || ""
         joined = @args.collect { |arg| get_arg(arg) }.join(" ")
 
@@ -154,7 +154,7 @@ Elden::ShellCommand.new(
     name: "type"
   },
   {
-    name: "name"
+    name: "title"
   },
   {
     name: "arg",
@@ -171,18 +171,28 @@ Elden::ShellCommand.new(
   }
 )
 
-class KittyLaunch # rubocop:todo Style/Documentation
-  def initialize(name = "elden-#{SecureRandom.uuid}")
-    @name  = name
-    @kitty = Elden::KittyShellCommand.new
-                                     .cmd("launch")
-                                     .name(@name)
+class Kitty # rubocop:todo Style/Documentation
+  def launch_tab(arg, title: default_title)
+    launch(title, "tab", arg)
   end
 
-  def launch(type, arg)
-    @kitty
-      .type(type)
-      .arg(arg)
+  def launch_window(arg, title: default_title)
+    launch(title, "os-window", arg)
+  end
+
+  private
+
+  def default_title
+    "elden-#{SecureRandom.uuid}"
+  end
+
+  def launch(title, type, arg)
+    [title, Elden::KittyShellCommand.new
+                                    .cmd("launch")
+                                    .title(title)
+                                    .type(type)
+                                    .arg(arg)
+                                    .cmd_with_args]
   end
 end
 
@@ -212,10 +222,15 @@ class NeoVim # rubocop:todo Style/Documentation
     add_cmd("TSUpdate")
   end
 
+  def cmd_with_args
+    @neovim.cmd_with_args
+  end
+
   private
 
   def update(method, param)
     @neovim.send(method, param)
+    self
   end
 
   def add_cmd(cmd)
@@ -223,5 +238,5 @@ class NeoVim # rubocop:todo Style/Documentation
   end
 end
 
-class DevEnvironment # rubocop:todo Style/Documentation
+class DevEnvironment
 end
