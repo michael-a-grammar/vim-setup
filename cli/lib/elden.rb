@@ -28,43 +28,27 @@ module Elden
       exist?(joined_path)
     end
 
-    def env_path(name, *paths, default: "")
-      path(
-        ENV[name] || default,
-        paths
-      )
-    end
-
-    def exist?(path)
-      File.exist?(path) ? path : false
-    end
+    def env_path(name, *paths, default: "") = path(ENV[name] || default, paths)
+    def exist?(path)                        = File.exist?(path) ? path : false
   end
 
   class ShellCommand # rubocop:todo Style/Documentation
-    def initialize(*args, opts: {})
+    def initialize(*args, opts: {}) # rubocop:disable Metrics/MethodLength
       opts[:namespace].const_set("#{opts[:class_name]}ShellCommand", Class.new do
         include Args
 
-        define_method :initialize, ShellCommand.create_initialize(opts)
+        define_method :initialize do
+          @args       = []
+          @cmd        = opts[:cmd]        || ""
+          @arg_prefix = opts[:arg_prefix] || ""
+        end
 
         args.each do |arg|
-          define_method arg[:name] || arg[:arg], ShellCommand.create_add_arg(arg)
+          define_method arg[:name] || arg[:arg] do |param = nil|
+            add_arg(arg, param)
+          end
         end
       end)
-    end
-
-    def self.create_initialize(opts)
-      proc do
-        @args       = []
-        @cmd        = opts[:cmd]        || ""
-        @arg_prefix = opts[:arg_prefix] || ""
-      end
-    end
-
-    def self.create_add_arg(arg)
-      proc do |param = nil|
-        add_arg(arg, param)
-      end
     end
 
     module Args # rubocop:todo Style/Documentation
@@ -97,7 +81,9 @@ module Elden
       end
 
       def get_from_arg(arg, key, *defaults)
-        arg[key] || instance_variable_get("@#{key}") || defaults.find { |default| !default.nil? && !default.empty? }
+        arg[key] || instance_variable_get("@#{key}") || defaults.find do |default|
+          !default.nil? && !default.empty?
+        end
       end
     end
   end
@@ -155,14 +141,14 @@ Elden::ShellCommand.new(
   }
 )
 
-class Kitty # rubocop:todo Style/Documentation
+class KittyLaunch # rubocop:todo Style/Documentation
   %w[window tab os_window].each do |type|
-    define_method "launch_#{type}" do |arg: "", title: nil|
+    define_method "as_#{type}" do |arg: "", title: nil|
       launch(type, title:, arg:)
     end
   end
 
-  def launch(type, title: nil, arg: "") # rubocop:disable Metrics/MethodLength
+  def as(type, title: nil, arg: "") # rubocop:disable Metrics/MethodLength
     title ||= default_title
 
     [title, Elden::KittyShellCommand.new
@@ -179,8 +165,33 @@ class Kitty # rubocop:todo Style/Documentation
 
   private
 
-  def default_title
-    "elden-#{SecureRandom.uuid}"
+  def default_title = "elden-#{SecureRandom.uuid}"
+end
+
+class Kitty # rubocop:todo Style/Documentation
+  def initialize
+    @kitty_windows = []
+  end
+
+  def with(&)
+    return unless block_given?
+
+    kitty_title, kitty_cmd = instance_exec(&)
+
+    @kitty_windows << kitty_title
+
+    kitty_cmd
+  end
+
+  private
+
+  def kitty_launch   = KittyLaunch.new
+  def with_neovim(&) = NeoVim.new(Elden::Paths.new).with(&)
+end
+
+module WithKitty # rubocop:todo Style/Documentation
+  def with_kitty(&)
+    kitty.with(&)
   end
 end
 
@@ -196,33 +207,14 @@ class NeoVim # rubocop:todo Style/Documentation
     end
   end
 
-  def self.create_if
-    proc do |condition, &block|
-      instance_exec_if(condition, block)
-    end
+  def with(&)
+    instance_exec(&)
+    cmd_with_args
   end
 
-  def self.create_with
-    proc do |&block|
-      instance_exec_if(true, block)
-      cmd_with_args
-    end
-  end
-
-  define_method :if,   NeoVim.create_if
-  define_method :with, NeoVim.create_with
-
-  def use_dev_config
-    update(:config, @paths.nvim_dev_config_path)
-  end
-
-  def treesitter_update
-    add_cmd("TSUpdateSync")
-  end
-
-  def cmd_with_args
-    @neovim.cmd_with_args
-  end
+  def use_dev_config    = update(:config, @paths.nvim_dev_config_path)
+  def treesitter_update = add_cmd("TSUpdateSync")
+  def cmd_with_args     = @neovim.cmd_with_args
 
   private
 
@@ -231,27 +223,21 @@ class NeoVim # rubocop:todo Style/Documentation
     self
   end
 
-  def add_cmd(cmd)
-    update(:cmd, cmd)
-  end
-
-  def instance_exec_if(condition, block)
-    instance_exec(&block) if condition
-    self
-  end
+  def add_cmd(cmd) = update(:cmd, cmd)
 end
 
 class Shell # rubocop:todo Style/Documentation
-  def initialize(paths)
-    @paths         = paths
-    @kitty_windows = []
+  include WithKitty
+
+  def initialize(kitty)
+    @kitty = kitty
   end
 
   def dev(kitty_title: nil, sync_packer: false)
-    with do
-      kitty.launch_os_window(
+    with_kitty do
+      launch_os_window(
         title: kitty_title,
-        arg: neovim.with do
+        arg: with_neovim do
           use_dev_config
           packer_sync if sync_packer
         end
@@ -260,9 +246,9 @@ class Shell # rubocop:todo Style/Documentation
   end
 
   def update_plugins
-    with do
-      kitty.launch_window(
-        arg: neovim.with do
+    with_kitty do
+      launch_window(
+        arg: with_neovim do
           packer_sync
           treesitter_update
         end
@@ -270,18 +256,9 @@ class Shell # rubocop:todo Style/Documentation
     end
   end
 
-  def with(&)
-    return kitty unless block_given?
+  private
 
-    kitty_title, kitty_window = instance_exec(&)
-
-    @kitty_windows << kitty_title
-
-    kitty_window
-  end
-
-  def kitty  = Kitty.new
-  def neovim = NeoVim.new(@paths)
+  attr_reader :kitty
 end
 
 module Elden
@@ -290,3 +267,8 @@ module Elden
     def dev; end
   end
 end
+
+@paths  = Elden::Paths.new
+@neovim = NeoVim.new(@paths)
+@kitty  = Kitty.new
+@shell  = Shell.new(@kitty)
