@@ -50,6 +50,9 @@ module Elden
         args.each do |arg|
           define_method arg[:name] || arg[:arg], ShellCommand.create_add_arg(arg)
         end
+
+        define_method :if, ShellCommand.create_if
+        define_method :do, ShellCommand.create_do
       end)
     end
 
@@ -99,6 +102,13 @@ module Elden
       def get_from_arg(arg, key, *defaults)
         arg[key] || instance_variable_get("@#{key}") || defaults.find { |default| !default.nil? && !default.empty? }
       end
+    end
+  end
+
+  class CLI < Thor # rubocop:todo Style/Documentation
+    desc "dev", "Starts a development environment"
+    def dev
+      2
     end
   end
 end
@@ -157,14 +167,12 @@ Elden::ShellCommand.new(
 
 class Kitty # rubocop:todo Style/Documentation
   %w[window tab os_window].each do |type|
-    define_method "launch_#{type}" do |arg: "", title: nil|
-      launch(type, title:, arg:)
+    define_method "launch_#{type}" do |arg = "", title: false|
+      launch(type, title, arg)
     end
   end
 
-  def launch(type, title: nil, arg: "") # rubocop:disable Metrics/MethodLength
-    title ||= default_title
-
+  def launch(type, title: default_title, arg: "")
     [title, Elden::KittyShellCommand.new
                                     .cmd("launch")
                                     .title(title)
@@ -190,27 +198,18 @@ class NeoVim # rubocop:todo Style/Documentation
     @neovim = Elden::NeoVimShellCommand.new
   end
 
-  %w[clean compile sync].each do |cmd|
-    define_method "packer_#{cmd}" do
-      add_cmd("Packer#{cmd.capitalize}")
-    end
-  end
-
   def self.create_if
-    proc do |condition, &block|
-      instance_exec_if(condition, block)
+    proc do |condition, block|
+      instance_exec_if(condition, &block)
     end
   end
 
-  def self.create_with
-    proc do |&block|
-      instance_exec_if(true, block)
-      cmd_with_args
+  def self.create_do
+    proc do |block|
+      instance_exec_if(true, &block)
     end
   end
 
-  define_method :if,   NeoVim.create_if
-  define_method :with, NeoVim.create_with
 
   def use_dev_config
     update(:config, @paths.nvim_dev_config_path)
@@ -220,8 +219,19 @@ class NeoVim # rubocop:todo Style/Documentation
     add_cmd("TSUpdateSync")
   end
 
+  %w[clean compile sync].each do |cmd|
+    define_method "packer_#{cmd}" do
+      add_cmd("Packer#{cmd.capitalize}")
+    end
+  end
+
   def cmd_with_args
     @neovim.cmd_with_args
+  end
+
+  def instance_exec_if(condition, block)
+    instance_exec(&block) if condition
+    self
   end
 
   private
@@ -234,59 +244,33 @@ class NeoVim # rubocop:todo Style/Documentation
   def add_cmd(cmd)
     update(:cmd, cmd)
   end
-
-  def instance_exec_if(condition, block)
-    instance_exec(&block) if condition
-    self
-  end
 end
 
 class Shell # rubocop:todo Style/Documentation
   def initialize(paths)
-    @paths         = paths
-    @kitty_windows = []
+    @paths = paths
   end
 
   def dev(kitty_title: nil, sync_packer: false)
-    with do
-      kitty.launch_os_window(
+    kitty
+      .launch_os_window(
         title: kitty_title,
-        arg: neovim.with do
-          use_dev_config
-          packer_sync if sync_packer
-        end
+        arg:
+          neovim
+          .if(
+            sync_packer,
+            proc { packer_sync }
+          )
       )
-    end
   end
 
-  def update_plugins
-    with do
-      kitty.launch_window(
-        arg: neovim.with do
-          packer_sync
-          treesitter_update
-        end
-      )
-    end
+  private
+
+  def kitty
+    Kitty.new
   end
 
-  def with(&)
-    return kitty unless block_given?
-
-    kitty_title, kitty_window = instance_exec(&)
-
-    @kitty_windows << kitty_title
-
-    kitty_window
-  end
-
-  def kitty  = Kitty.new
-  def neovim = NeoVim.new(@paths)
-end
-
-module Elden
-  class CLI < Thor # rubocop:todo Style/Documentation
-    desc "dev", "Starts a development environment"
-    def dev; end
+  def neovim
+    NeoVim.new(@paths)
   end
 end
