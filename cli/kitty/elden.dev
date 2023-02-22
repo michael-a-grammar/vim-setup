@@ -1,3 +1,0 @@
-new_os_window
-focus_os_window
-launch nvim -u dev.vim -c PackerCompile
