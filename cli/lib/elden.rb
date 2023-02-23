@@ -103,6 +103,17 @@ module Elden
     end
   end
 
+  module Invoke # rubocop:todo Style/Documentation
+    def self.included(base)
+      base.instance_methods(false).each do |method_name|
+        method = base.instance_method(method_name)
+        base.define_method "invoke_#{method_name}" do |*args, &block|
+          `#{method.bind(self).call(*args, &block)}`
+        end
+      end
+    end
+  end
+
   class Shell < Elden::ShellCommands::Kitty # rubocop:todo Style/Documentation
     def initialize
       @paths = Elden::Paths.new
@@ -134,6 +145,8 @@ module Elden
       neovim.instance_exec(opts, &)
       neovim.to_s
     end
+
+    include Invoke
   end
 
   class CLI < Thor # rubocop:todo Style/Documentation
