@@ -128,6 +128,10 @@ return function(globals)
         requires = 'tpope/vim-repeat'
       }
 
+      use {
+        'rust-lang/rust.vim'
+      }
+
       use_spec {
         'mhanberg/elixir.nvim',
         ft = 'elixir'
