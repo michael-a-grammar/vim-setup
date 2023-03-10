@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
+require_relative "kitty"
+require_relative "neo_vim"
 require_relative "paths"
-require_relative "shell_commands/kitty"
-require_relative "shell_commands/invoke"
-require_relative "shell_commands/neo_vim"
+require_relative "shell_command"
 
 module Elden
-  class Shell < Elden::ShellCommands::Kitty # rubocop:todo Style/Documentation
+  class Shell < Elden::Kitty # rubocop:todo Style/Documentation
+    extend Elden::ShellCommand
+
     def initialize
       @paths = Elden::Paths.new
       super
@@ -33,11 +35,9 @@ module Elden
     end
 
     def with_neovim(opts = nil, &)
-      neovim = Elden::ShellCommands::NeoVim.new
+      neovim = Elden::NeoVim.new
       neovim.instance_exec(opts, &)
-      neovim.to_s
+      neovim.arguments
     end
-
-    include Elden::ShellCommands::Invoke
   end
 end
