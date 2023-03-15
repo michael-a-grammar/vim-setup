@@ -8,6 +8,7 @@ return function()
       'javascript',
       'markdown',
       'ruby',
+      'rust',
       'typescript',
       'vim'
     },

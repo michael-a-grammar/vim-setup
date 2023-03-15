@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require_relative "kitty"
-require_relative "neo_vim"
 require_relative "paths"
 require_relative "shell_command"
+require_relative "vim"
 
 module Elden
   class Shell < Elden::Kitty # rubocop:todo Style/Documentation
@@ -17,7 +17,7 @@ module Elden
     def launch_dev(kitty_title: nil, sync_packer: false)
       launch_os_window(
         title: kitty_title,
-        argument: with_neovim(path: @paths.nvim_dev_config_path) do |opts|
+        argument: with_vim(path: @paths.vim_dev_config_file_path) do |opts|
           use_config(opts[:path])
           packer_sync if sync_packer
         end
@@ -26,7 +26,7 @@ module Elden
 
     def update_plugins
       launch_window(
-        argument: with_neovim do
+        argument: with_vim do
           packer_sync
           treesitter_update
         end,
@@ -34,10 +34,14 @@ module Elden
       )
     end
 
-    def with_neovim(opts = nil, &)
-      neovim = Elden::NeoVim.new
-      neovim.instance_exec(opts, &)
-      neovim.arguments
+    def clean; end
+
+    def deploy; end
+
+    def with_vim(opts = nil, &)
+      vim = Elden::Vim.new
+      vim.instance_exec(opts, &)
+      vim.arguments
     end
   end
 end

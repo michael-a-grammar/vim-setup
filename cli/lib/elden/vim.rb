@@ -3,7 +3,7 @@
 require_relative "shell_command"
 
 module Elden
-  class NeoVim # rubocop:todo Style/Documentation
+  class Vim # rubocop:todo Style/Documentation
     extend Elden::ShellCommand
 
     attr_reader :arguments

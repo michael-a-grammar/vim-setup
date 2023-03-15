@@ -2,12 +2,12 @@
 
 module Elden
   class Paths # rubocop:todo Style/Documentation
-    attr_reader :elden_path, :config_path, :nvim_dev_config_path
+    attr_reader :elden_path, :vim_config_path, :vim_dev_config_file_path
 
     def initialize
-      @elden_path           = env_path("ELDEN_PATH")
-      @config_path          = env_path("XDG_CONFIG_HOME", ".config", "nvim", default: "~/")
-      @nvim_dev_config_path = path(@elden_path, "dev.vim")
+      @elden_path                = env_path("ELDEN_PATH")
+      @vim_config_path           = env_path("XDG_CONFIG_HOME", ".config", "nvim", default: "~/")
+      @vim_dev_config_file_path  = path(@elden_path, "dev.vim")
     end
 
     private
