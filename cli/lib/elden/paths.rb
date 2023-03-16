@@ -42,12 +42,10 @@ module Elden
           [method_name, block]
         end
 
-      define_method method_name, block
+      self.class.define_method method_name, block
     end
 
-    private
-
-    def path(path, *paths)
+    def self.path(path, *paths)
       joined_path =
         File.join(
           File.expand_path(
@@ -59,7 +57,7 @@ module Elden
       exist?(joined_path)
     end
 
-    def env_path(name, *paths, default: "") = path(ENV[name] || default, paths)
-    def exist?(path)                        = [File.exist?(path), path]
+    def self.env_path(name, *paths, default: "") = path(ENV[name] || default, paths)
+    def self.exist?(path)                        = [File.exist?(path), path]
   end
 end
