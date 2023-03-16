@@ -2,7 +2,7 @@
 
 module Elden
   class Paths # rubocop:todo Style/Documentation
-    [
+    [ # rubocop:disable Metrics/BlockLength
       {
         method_name: "elden_path",
         env_name: "ELDEN_PATH"
@@ -43,21 +43,29 @@ module Elden
         end
 
       self.class.define_method method_name, block
+
+      self.class.define_method "#{method_name}!" do
+        path_exists, path = block.call
+
+        raise "Path '#{path}' does not exist" unless path_exists
+
+        path
+      end
     end
 
     def self.path(path, *paths)
-      joined_path =
-        File.join(
-          File.expand_path(
-            path
-          ),
-          paths
+      unless path.nil?
+        paths.prepend(
+          File.expand_path(path)
         )
+      end
 
-      exist?(joined_path)
+      exist?(
+        File.join(paths) || ""
+      )
     end
 
-    def self.env_path(name, *paths, default: "") = path(ENV[name] || default, paths)
-    def self.exist?(path)                        = [File.exist?(path), path]
+    def self.env_path(name, *paths, default: nil) = path(ENV[name] || default, paths)
+    def self.exist?(path)                         = [File.exist?(path), path]
   end
 end

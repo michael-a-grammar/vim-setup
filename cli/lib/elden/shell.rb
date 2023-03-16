@@ -12,7 +12,7 @@ module Elden
     def launch_dev(kitty_title: nil, sync_packer: false)
       launch_os_window(
         title: kitty_title,
-        argument: with_vim(path: Elden::Paths.vim_dev_config_file_path) do |opts|
+        argument: with_vim(path: Elden::Paths.vim_dev_config_file_path!) do |opts|
           use_config(opts[:path])
           packer_sync if sync_packer
         end
