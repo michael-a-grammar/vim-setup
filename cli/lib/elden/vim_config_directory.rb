@@ -3,7 +3,7 @@
 require_relative "paths"
 require_relative "shell_command"
 
-class VimConfigDirectory # rubocop:todo Style/Documentation
+class VimConfigDirectory
   include Elden::ShellCommand
 
   def backup(backup_location); end
@@ -11,7 +11,7 @@ class VimConfigDirectory # rubocop:todo Style/Documentation
   def purge
     arguments = %w[rm -rf]
 
-    arguments << Elden::Paths.vim_config_path
+    arguments << Elden::Paths.vim_config_path!
 
     arguments
   end

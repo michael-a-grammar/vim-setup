@@ -5,5 +5,5 @@ require_relative "elden/shell"
 
 Elden::ShellCommand::ENABLED = true
 
-module Elden # rubocop:todo Style/Documentation
+module Elden
 end

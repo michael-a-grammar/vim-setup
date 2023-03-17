@@ -6,7 +6,7 @@ require_relative "shell_command"
 require_relative "vim"
 
 module Elden
-  class Shell < Elden::Kitty # rubocop:todo Style/Documentation
+  class Shell < Elden::Kitty
     include Elden::ShellCommand
 
     def launch_dev(kitty_title: nil, sync_packer: false)

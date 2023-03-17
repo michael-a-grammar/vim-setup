@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Elden
-  class Paths # rubocop:todo Style/Documentation
-    [ # rubocop:disable Metrics/BlockLength
+  class Paths
+    [
       {
         method_name: "elden_path",
         env_name: "ELDEN_PATH"
@@ -19,33 +19,33 @@ module Elden
         paths: "dev.vim"
       }
     ].each do |path_info|
-      method_name, block =
+      method_name, method_block =
         case path_info
         in method_name:, **rest
-          block =
+          method_block =
             case rest
-            in env_name:, **nil
-              -> { env_path(env_name) }
-            in env_name:, default:, paths:, **nil
+            in env_name:, default:, paths:
               -> { env_path(env_name, paths, default:) }
-            in base_path:, paths:, **nil
+            in env_name:
+              -> { env_path(env_name) }
+            in base_path:, paths:
               lambda {
                 path(
                   send(
-                    base_path
-                  )[1],
+                    "#{base_path}!"
+                  ),
                   paths
                 )
               }
             end
 
-          [method_name, block]
+          [method_name, method_block]
         end
 
-      self.class.define_method method_name, block
+      self.class.define_method method_name, method_block
 
       self.class.define_method "#{method_name}!" do
-        path_exists, path = block.call
+        path_exists, path = method_block.call
 
         raise "Path '#{path}' does not exist" unless path_exists
 
@@ -56,16 +56,25 @@ module Elden
     def self.path(path, *paths)
       unless path.nil?
         paths.prepend(
-          File.expand_path(path)
+          File.expand_path(
+            path
+          )
         )
       end
 
       exist?(
-        File.join(paths) || ""
+        File.join(
+          paths
+        ) || ""
       )
     end
 
-    def self.env_path(name, *paths, default: nil) = path(ENV[name] || default, paths)
-    def self.exist?(path)                         = [File.exist?(path), path]
+    def self.env_path(name, *paths, default: nil)
+      path(ENV[name] || default, paths)
+    end
+
+    def self.exist?(path)
+      [File.exist?(path), path]
+    end
   end
 end

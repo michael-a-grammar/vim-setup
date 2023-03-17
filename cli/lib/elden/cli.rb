@@ -4,7 +4,7 @@ require          "thor"
 require_relative "shell"
 
 module Elden
-  class CLI < Thor # rubocop:todo Style/Documentation
+  class CLI < Thor
     desc "dev", "Starts a development environment"
     option :kitty_title, aliases: "k", desc: "Sets the title of the created Kitty window"
     option :sync_packer, aliases: "s", type: :boolean, desc: "Runs the PackerSync command after launch"

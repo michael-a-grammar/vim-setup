@@ -4,7 +4,7 @@ require          "securerandom"
 require_relative "shell_command"
 
 module Elden
-  class Kitty # rubocop:todo Style/Documentation
+  class Kitty
     include Elden::ShellCommand
 
     def initialize = @windows = []
