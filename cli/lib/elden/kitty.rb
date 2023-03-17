@@ -10,7 +10,7 @@ module Elden
     def initialize = @windows = []
 
     %w[window tab os_window overlay overlay_main background].each do |type|
-      define_method "launch_#{type}" do |title: nil, argument: "", focus: true|
+      define_method("launch_#{type}") do |title: nil, argument: "", focus: true|
         launch(type, title:, argument:, focus:)
       end
     end

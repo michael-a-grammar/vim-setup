@@ -6,22 +6,22 @@ module Elden
 
     def self.shell_command(module_to_be_prepended)
       module_to_prepend = Module.new do |new_module|
-        new_module.class.define_method :prepended do |base|
+        new_module.class.define_method(:prepended) do |base|
           TracePoint.trace(:end) do |trace|
             if base == trace.self
               base.instance_methods(false).each do |method_name|
-                new_module.define_method method_name do |*args, **keyword_args|
+                new_module.define_method(method_name) do |*args, **keyword_args, &block|
                   result = if keyword_args.empty?
-                             super(*args)
+                             super(*args, &block)
                            else
-                             super(*args, **keyword_args)
+                             super(*args, **keyword_args, &block)
                            end
-                           .join(" ")
-                           .strip
 
-                  result.define_singleton_method(:to_shell_command) { to_s }
+                  result.define_singleton_method(:to_shell_command) do
+                    flatten.join(" ").strip
+                  end
 
-                  result.define_singleton_method :run do
+                  result.define_singleton_method(:run) do
                     if Elden::ShellCommand::ENABLED
                       `#{to_shell_command}`
                     else

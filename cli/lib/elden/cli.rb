@@ -3,6 +3,8 @@
 require          "thor"
 require_relative "shell"
 
+Elden::ShellCommand::ENABLED = false
+
 module Elden
   class CLI < Thor
     desc "dev", "Starts a development environment"

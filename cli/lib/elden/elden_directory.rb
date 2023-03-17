@@ -4,7 +4,7 @@ require_relative "paths"
 require_relative "shell_command"
 
 module Elden
-  class EldenDirectory
+  module EldenDirectory
     include Elden::ShellCommand
 
     def sync

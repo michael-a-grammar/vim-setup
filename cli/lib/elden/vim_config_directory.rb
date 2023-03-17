@@ -3,16 +3,18 @@
 require_relative "paths"
 require_relative "shell_command"
 
-class VimConfigDirectory
-  include Elden::ShellCommand
+module Elden
+  module VimConfigDirectory
+    include Elden::ShellCommand
 
-  def backup(backup_location); end
+    def backup(backup_location); end
 
-  def purge
-    arguments = %w[rm -rf]
+    def purge
+      arguments = %w[rm -rf]
 
-    arguments << Elden::Paths.vim_config_path!
+      arguments << Elden::Paths.vim_config_path!
 
-    arguments
+      arguments
+    end
   end
 end

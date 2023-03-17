@@ -42,9 +42,9 @@ module Elden
           [method_name, method_block]
         end
 
-      self.class.define_method method_name, method_block
+      self.class.define_method(method_name, method_block)
 
-      self.class.define_method "#{method_name}!" do
+      self.class.define_method("#{method_name}!") do
         path_exists, path = method_block.call
 
         raise "Path '#{path}' does not exist" unless path_exists

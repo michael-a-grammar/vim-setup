@@ -4,14 +4,12 @@ require_relative "shell_command"
 
 module Elden
   class Vim
-    extend Elden::ShellCommand
-
-    attr_reader :arguments
+    include Elden::ShellCommand
 
     def initialize = @arguments = %w[nvim]
 
     %w[clean compile sync].each do |packer_command|
-      define_method "packer_#{packer_command}" do
+      define_method("packer_#{packer_command}") do
         add_vim_command("Packer#{packer_command.capitalize}")
       end
     end
