@@ -8,10 +8,13 @@ Layout/LineLength:
 Metrics/AbcSize:
   Enabled: false
 
+Metrics/BlockLength:
+  Enabled: false
+
 Metrics/MethodLength:
   Enabled: false
 
-Metrics/BlockLength:
+Metrics/PerceivedComplexity:
   Enabled: false
 
 Style/Documentation:

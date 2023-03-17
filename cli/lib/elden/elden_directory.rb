@@ -5,14 +5,15 @@ require_relative "shell_command"
 
 module Elden
   module EldenDirectory
+    include Elden::Paths
     include Elden::ShellCommand
 
-    def sync
+    def sync_elden_directory
       arguments = %w[cp -r]
 
-      arguments << Elden::Paths.elden_path!
+      arguments << elden_path!
 
-      arguments << Elden::Paths.vim_config_path!
+      arguments << vim_config_path!
 
       arguments
     end

@@ -4,10 +4,8 @@ require          "securerandom"
 require_relative "shell_command"
 
 module Elden
-  class Kitty
+  module Kitty
     include Elden::ShellCommand
-
-    def initialize = @windows = []
 
     %w[window tab os_window overlay overlay_main background].each do |type|
       define_method("launch_#{type}") do |title: nil, argument: "", focus: true|
@@ -15,7 +13,7 @@ module Elden
       end
     end
 
-    def close_last = close(@windows.last)
+    def close_last = close(windows.last)
 
     private
 
@@ -24,7 +22,7 @@ module Elden
 
       title ||= default_title
 
-      @windows << title
+      windows << title
 
       arguments = kitty_command(%W[launch --title #{title} --type #{type.gsub("_", "-")}])
 
@@ -45,6 +43,6 @@ module Elden
 
     def kitty_command(arguments) = (%w[kitty @] << arguments).flatten(1)
     def default_title            = "elden-#{SecureRandom.uuid}"
-    def window_exists?(title)    = !title.nil? && @windows.include?(title)
+    def window_exists?(title)    = !title.nil? && windows.include?(title)
   end
 end

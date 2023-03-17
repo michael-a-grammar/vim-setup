@@ -1,22 +1,22 @@
 # frozen_string_literal: true
 
 module Elden
-  class Paths
+  module Paths
     [
       {
         method_name: "elden_path",
         env_name: "ELDEN_PATH"
       },
       {
+        method_name: "vim_dev_config_file_path",
+        env_name: "ELDEN_PATH",
+        paths: "dev.vim"
+      },
+      {
         method_name: "vim_config_path",
         env_name: "XDG_CONFIG_HOME",
         default: "~/",
         paths: %w[.config nvim]
-      },
-      {
-        method_name: "vim_dev_config_file_path",
-        base_path: "elden_path",
-        paths: "dev.vim"
       }
     ].each do |path_info|
       method_name, method_block =
@@ -26,25 +26,18 @@ module Elden
             case rest
             in env_name:, default:, paths:
               -> { env_path(env_name, paths, default:) }
+            in env_name:, paths:
+              -> { env_path(env_name, paths) }
             in env_name:
               -> { env_path(env_name) }
-            in base_path:, paths:
-              lambda {
-                path(
-                  send(
-                    "#{base_path}!"
-                  ),
-                  paths
-                )
-              }
             end
 
           [method_name, method_block]
         end
 
-      self.class.define_method(method_name, method_block)
+      define_method(method_name, method_block)
 
-      self.class.define_method("#{method_name}!") do
+      define_method("#{method_name}!") do
         path_exists, path = method_block.call
 
         raise "Path '#{path}' does not exist" unless path_exists

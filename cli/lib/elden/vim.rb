@@ -6,6 +6,8 @@ module Elden
   class Vim
     include Elden::ShellCommand
 
+    attr_reader :arguments
+
     def initialize = @arguments = %w[nvim]
 
     %w[clean compile sync].each do |packer_command|

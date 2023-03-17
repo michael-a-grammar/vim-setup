@@ -5,5 +5,4 @@ require_relative "elden/shell"
 
 Elden::ShellCommand::ENABLED = true
 
-module Elden
-end
+Elden::Shell.new
