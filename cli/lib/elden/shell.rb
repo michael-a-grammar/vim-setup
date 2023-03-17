@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
+require_relative "elden_directory"
 require_relative "kitty"
 require_relative "paths"
 require_relative "shell_command"
 require_relative "vim"
+require_relative "vim_config_directory"
 
 module Elden
   class Shell < Elden::Kitty
@@ -29,14 +31,26 @@ module Elden
       )
     end
 
-    def clean; end
+    def sync
+    end
 
-    def deploy; end
+    def purge; end
+
+    def with(const, opts = nil, &)
+      instance = const.new
+      instance.instance_exec(opts, &)
+      instance
+    end
 
     def with_vim(opts = nil, &)
-      vim = Elden::Vim.new
-      vim.instance_exec(opts, &)
+      with(Elden::Vim, opts, &)
       vim.arguments
+    end
+
+    def with_elden_directory(opts = nil, &)
+      with(Elden::EldenDirectory, opts, &)
+
+      # ??
     end
   end
 end
