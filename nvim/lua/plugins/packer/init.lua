@@ -13,14 +13,10 @@ return function(globals)
 
       use 'wbthomason/packer.nvim'
 
-      use {
-        'dracula/vim',
-        as = 'dracula'
+      use_spec {
+        'catppuccin/nvim',
+        as = 'catppuccin'
       }
-
-      use 'cocopon/iceberg.vim'
-      use 'jacoborus/tender.vim'
-      use 'wincent/base16-nvim'
 
       use 'mhinz/vim-startify'
 
