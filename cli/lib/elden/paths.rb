@@ -13,6 +13,12 @@ module Elden
         paths: "dev.vim"
       },
       {
+        method_name: "config_path",
+        env_name: "XDG_CONFIG_HOME",
+        default: "~/",
+        paths: ".config"
+      },
+      {
         method_name: "vim_config_path",
         env_name: "XDG_CONFIG_HOME",
         default: "~/",

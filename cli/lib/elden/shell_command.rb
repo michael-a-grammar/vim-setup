@@ -42,7 +42,7 @@ module Elden
                     flatten.join(" ").strip
                   end
 
-                  result.define_singleton_method(:run) do
+                  result.define_singleton_method("run!") do
                     if Elden::ShellCommand::ENABLED
                       `#{to_shell_command}`
                     else

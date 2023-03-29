@@ -101,7 +101,10 @@ return function(globals)
       use 'FooSoft/vim-argwrap'
       use 'sickill/vim-pasta'
       use 'Wolfy87/vim-syntax-expand'
+
       use_spec 'mbbill/undotree'
+
+      use 'TimUntersberger/neogit'
 
       use {
         'TamaMcGlinn/quickfixdd',
@@ -125,7 +128,13 @@ return function(globals)
       }
 
       use {
-        'rust-lang/rust.vim'
+        'rust-lang/rust.vim',
+        ft = 'rust'
+      }
+
+      use {
+        'simrat39/rust-tools.nvim',
+        ft = 'rust'
       }
 
       use_spec {

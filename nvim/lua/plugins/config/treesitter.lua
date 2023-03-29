@@ -9,6 +9,7 @@ return function()
       'markdown',
       'ruby',
       'rust',
+      'toml',
       'typescript',
       'vim'
     },
