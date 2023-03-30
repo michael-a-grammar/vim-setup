@@ -8,11 +8,13 @@ module Elden
     include Elden::ShellCommand
 
     %w[window tab os_window overlay overlay_main background].each do |type|
+      shell_command
       define_method("launch_#{type}") do |title: nil, argument: "", focus: true|
         launch(type, title:, argument:, focus:)
       end
     end
 
+    shell_command
     def close_last = close(windows.last)
 
     private
@@ -27,6 +29,8 @@ module Elden
       arguments = kitty_command(%W[launch --title #{title} --type #{type.gsub("_", "-")}])
 
       arguments << "--keep-focus" unless focus
+
+      arguments << "--copy-env"
 
       arguments << argument unless argument.nil? || argument.empty?
 

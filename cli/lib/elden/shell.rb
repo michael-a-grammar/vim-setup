@@ -21,6 +21,7 @@ module Elden
       super
     end
 
+    shell_command
     def launch_dev!(kitty_title: nil,
                     sync_packer: false,
                     update_treesitter: false)
@@ -32,6 +33,7 @@ module Elden
                            end)
     end
 
+    shell_command
     def update_plugins(sync_packer: true,
                        update_treesitter: true)
       launch_window(argument: with_vim do
@@ -40,6 +42,7 @@ module Elden
                               end)
     end
 
+    shell_command
     def sync!(purge_vim_config_directory: false,
               sync_packer: false,
               update_treesitter: false,

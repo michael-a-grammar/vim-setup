@@ -11,12 +11,16 @@ module Elden
     def initialize = @arguments = %w[nvim]
 
     %w[clean compile sync].each do |packer_command|
+      shell_command
       define_method("packer_#{packer_command}") do
         add_vim_command("Packer#{packer_command.capitalize}")
       end
     end
 
-    def use_config(path)  = add_argument("-u ", path)
+    shell_command
+    def use_config(path) = add_argument("-u ", path)
+
+    shell_command
     def treesitter_update = add_vim_command("TSUpdateSync")
 
     private
