@@ -8,6 +8,7 @@ module Elden
       vim = Elden::Vim.new
 
       vim.instance_exec(opts, &)
+
       vim.arguments
     end
   end

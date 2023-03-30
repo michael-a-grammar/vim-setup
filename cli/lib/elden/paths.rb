@@ -54,26 +54,26 @@ module Elden
 
     def self.path(path, *paths)
       unless path.nil?
-        paths.prepend(
-          File.expand_path(
-            path
-          )
-        )
+        expanded_path = File.expand_path(path)
+
+        paths.prepend(expanded_path)
       end
 
-      exist?(
-        File.join(
-          paths
-        ) || ""
-      )
+      joined_paths = File.join(paths) || ""
+
+      exist?(joined_paths)
     end
 
-    def self.env_path(name, *paths, default: nil)
-      path(ENV[name] || default, paths)
+    def self.env_path(env_name, *paths, default: nil)
+      env_path_or_default = ENV[env_name] || default
+
+      path(env_path_or_default, paths)
     end
 
     def self.exist?(path)
-      [File.exist?(path), path]
+      exists = File.exist?(path)
+
+      [exists, path]
     end
   end
 end
