@@ -1,12 +1,13 @@
-local opts   = require'globals.opts'()
-local values = require'globals.values'(opts.extended_opts)
-local dev    = require'globals.dev'(values)
+local opts  = require'globals.opts'()
+local dev   = require'globals.dev'()
+local paths = require'globals.paths'()
 
-local M = vim.tbl_deep_extend('force', opts.extended_opts, values)
+local M = opts.extended_opts
 
 M._opts = opts
+M.dev   = dev
+M.paths = paths
 
-_G.D = dev
 _G.E = M
 
 return M
