@@ -1,16 +1,21 @@
 return function()
+  local fn        = vim.fn
   local getenv    = os.getenv
   local normalize = vim.fs.normalize
   local M         = {}
 
-  local config_path            = getenv('XDG_CONFIG_PATH') or '~/.config'
-  local dev_path               = getenv('ELDEN_PATH')
-  local config_path_normalized = normalize(config_path .. '/nvim')
-  local dev_path_normalized    = normalize(dev_path)
+  local get_path = function(varname, default)
+    local path = getenv(varname) or default
 
-  M.config_path = config_path_normalized
-  M.data_path   = fn.stdpath('data')
-  M.dev_path    = dev_path_normalized
+    return normalize(path)
+  end
+
+  local elden_path      = get_path('ELDEN_PATH')
+  local vim_config_path = get_path('XDG_CONFIG_PATH', '~/.config')
+
+  M.data_path       = fn.stdpath('data')
+  M.elden_path      = elden_path
+  M.vim_config_path = vim_config_path
 
   return M
 end

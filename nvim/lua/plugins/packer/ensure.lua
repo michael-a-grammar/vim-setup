@@ -6,7 +6,7 @@ return function(globals)
     local install_path = ''
 
     if packer.install_path_relative then
-      install_path = globals.data_path .. packer.install_path
+      install_path = globals.paths.data_path .. packer.install_path
     else
       install_path = packer.install_path
     end

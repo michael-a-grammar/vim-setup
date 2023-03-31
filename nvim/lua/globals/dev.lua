@@ -4,6 +4,8 @@ return function()
   local system = fn.system
   local M      = {}
 
+  M.vim = {}
+
   M.vim.restart = function()
     local pid  = fn.getpid()
     local kill = 'kill -USR1 $(ps -p ' .. pid .. ' -o ppid=)'

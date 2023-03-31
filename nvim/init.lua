@@ -1,2 +1,3 @@
-﻿require'globals'
-require'start'
+﻿require'start'({
+  is_dev = false
+})

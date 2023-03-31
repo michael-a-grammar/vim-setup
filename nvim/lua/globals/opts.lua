@@ -1,26 +1,13 @@
 return function()
-  local local_opts = require'local-opts'
-  local M          = {}
+  local local_opts   = require'local-opts'
+  local default_opts = require'globals.default-opts'
+  local M            = {}
 
-  local global_opts = {
-    packer = {
-      install_path                 = '/site/pack/packer/start/packer.nvim',
-      install_path_relative        = true,
-      relative_plugins_config_path = 'plugins.config',
-      repo                         = 'https://github.com/wbthomason/packer.nvim'
-    },
-    windows = {
-      enable = {
-        select_buffer_upon_split = true
-      }
-    }
-  }
+  local merged_opts = vim.tbl_deep_extend('force', default_opts, local_opts)
 
-  local extended_opts = vim.tbl_deep_extend('force', global_opts, local_opts)
-
-  M.global_opts   = global_opts
-  M.local_opts    = local_opts
-  M.extended_opts = extended_opts
+  M.default_opts = default_opts
+  M.local_opts   = local_opts
+  M.merged_opts  = merged_opts
 
   return M
 end

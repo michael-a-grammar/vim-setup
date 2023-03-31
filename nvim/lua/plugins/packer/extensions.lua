@@ -36,6 +36,10 @@ return function(globals)
     local success, module = pcall(require, config_path)
 
     if success then
+      if globals.config.is_dev then
+        module()
+      end
+
       return module
     end
   end
@@ -48,7 +52,7 @@ return function(globals)
 
     local create_plugin = function(plugin)
       if is_local then
-        return globals.dev_path .. plugin
+        return globals.vim_config_path .. plugin
       end
 
       return plugin
