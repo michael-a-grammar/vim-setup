@@ -5,7 +5,7 @@ require_relative "lib/elden/version"
 Gem::Specification.new do |spec|
   spec.name = "elden"
   spec.version = Elden::VERSION
-  spec.authors = ["mike-a-grammar"]
+  spec.authors = ["michael-a-grammar"]
   spec.email = ["5898731+michael-a-grammar@users.noreply.github.com"]
 
   spec.summary = "Write a short summary, because RubyGems requires one."
@@ -35,6 +35,7 @@ Gem::Specification.new do |spec|
   # spec.add_dependency "example-gem", "~> 1.0"
   spec.add_dependency "thor", "1.2.1"
 
+  spec.add_development_dependency "pry",           "~> 0.14.2"
   spec.add_development_dependency "rubocop-rake",  "~> 0.6.0"
   spec.add_development_dependency "rubocop-rspec", "~> 2.19"
 

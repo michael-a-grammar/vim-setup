@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "elden/version"
 require_relative "elden/shell"
+require_relative "elden/version"
 
-Elden::ShellCommand::ENABLED = true
-
-@shell = Elden::Shell.new
+module Elden; end

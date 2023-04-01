@@ -23,11 +23,7 @@ module Elden
             end
 
             result.define_singleton_method("run!") do
-              if Elden::ShellCommand::ENABLED
-                `#{to_shell_command}`
-              else
-                to_shell_command
-              end
+              `#{to_shell_command}`
             end
 
             result
@@ -39,7 +35,7 @@ module Elden
       base.prepend(module_to_prepend)
     end
 
-    def shell_command         = @shell_command = true
+    def shell_command = @shell_command = true
 
     private
 

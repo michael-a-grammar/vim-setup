@@ -4,8 +4,6 @@ require          "thor"
 require_relative "cli_attributes"
 require_relative "shell"
 
-Elden::ShellCommand::ENABLED = true
-
 module Elden
   class CLI < Thor
     extend Elden::CLIAttributes

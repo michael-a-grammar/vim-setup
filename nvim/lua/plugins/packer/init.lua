@@ -1,12 +1,12 @@
 return function(globals)
-  local ensure     = require'plugins.packer.ensure'(globals)
-  local extensions = require'plugins.packer.extensions'(globals)
+  local ensure_packer     = require'plugins.packer.ensure'(globals)
+  local packer_extensions = require'plugins.packer.extensions'(globals)
 
-  ensure()
+  ensure_packer()
 
   require'packer'.startup({
     function(use)
-      local created_extensions = extensions.create(use)
+      local created_extensions = packer_extensions.create(use)
       local use_spec           = created_extensions.use_spec
       local local_use_spec     = created_extensions.local_use_spec
       local local_use          = created_extensions.local_use

@@ -6,7 +6,7 @@ return function()
   g.airline_statusline_ontop    = false
   g.airline_powerline_fonts     = true
   g.airline_skip_empty_sections = true
-  g.airline_theme               = E.airline_theme || E.colorscheme
+  g.airline_theme               = E.airline_theme or E.colorscheme
 
   g['airline#extensions#tabline#enabled'] = false
 end

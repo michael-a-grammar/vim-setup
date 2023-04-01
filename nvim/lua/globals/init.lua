@@ -1,7 +1,7 @@
 return function(config)
   local opts  = require'globals.opts'()
   local dev   = require'globals.dev'()
-  local paths = require'globals.paths'()
+  local paths = require'globals.paths'(config)
 
   local M = opts.merged_opts
 

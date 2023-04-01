@@ -4,6 +4,7 @@
 /cli/_yardoc/
 /cli/coverage/
 /cli/doc/
+/cli/elden*.gem
 /cli/pkg/
 /cli/spec/reports/
 /cli/tmp/

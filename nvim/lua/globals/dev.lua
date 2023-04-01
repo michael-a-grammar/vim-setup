@@ -4,9 +4,11 @@ return function()
   local system = fn.system
   local M      = {}
 
-  M.vim = {}
+  M.globals = function()
+   print(vim.inspect(_G.E))
+  end
 
-  M.vim.restart = function()
+  M.restart = function()
     local pid  = fn.getpid()
     local kill = 'kill -USR1 $(ps -p ' .. pid .. ' -o ppid=)'
 

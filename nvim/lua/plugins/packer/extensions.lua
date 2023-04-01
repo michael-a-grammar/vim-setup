@@ -2,17 +2,17 @@ return function(globals)
   local packer = globals.packer
   local M      = {}
 
-  local plugin_disabled = function(plugin)
+  local is_plugin_disabled = function(plugin_path)
     for _, disabled_plugin in ipairs(globals.disabled_plugins) do
-      if plugin:find(disabled_plugin, 1, true) ~= nil then
+      if plugin_path:find(disabled_plugin, 1, true) ~= nil then
         return true
       end
     end
     return false
   end
 
-  local plugin_config = function(plugin)
-    local to_strip = {
+  local get_plugin_config = function(plugin_path, as_name)
+    local values_to_strip_from_config_name = {
       '.*/',
       '%.nvim',
       '%-nvim',
@@ -24,58 +24,59 @@ return function(globals)
       'vim%-'
     }
 
-    local stripped = plugin
+    local config_name = as_name or plugin_path
 
-    for _, strip in ipairs(to_strip) do
-      stripped = stripped:gsub(strip, '')
+    if not as_name then
+      for _, value_to_strip_from_config_name in ipairs(values_to_strip_from_config_name) do
+        config_name =
+          config_name:gsub(value_to_strip_from_config_name, '')
+      end
     end
 
     local config_path =
-      packer.relative_plugins_config_path .. '/' .. stripped
+      packer.relative_plugins_config_path .. '.' .. config_name
 
     local success, module = pcall(require, config_path)
 
     if success then
-      if globals.config.is_dev then
-        module()
-      end
-
       return module
     end
   end
 
-  local make_spec = function(spec, opts)
-    local plugin, merge_spec
+  local create_spec = function(spec, opts)
+    local plugin_path, merge_spec, as_name
 
-    local is_local    = opts.is_local    or false
-    local with_config = opts.with_config or false
+    local plugin_is_local   = opts.is_local    or false
+    local plugin_has_config = opts.with_config or false
 
-    local create_plugin = function(plugin)
-      if is_local then
-        return globals.vim_config_path .. plugin
+    local ensure_plugin_path = function(plugin_path)
+      if plugin_is_local then
+        return globals.bundled_plugins_path .. '/' .. plugin_path
       end
 
-      return plugin
+      return plugin_path
     end
 
     if type(spec) == 'table' then
-      plugin      = create_plugin(spec[1])
+      plugin_path = ensure_plugin_path(spec[1])
+      as_name     = spec.as or nil
       merge_spec  = spec
     else
-      plugin      = create_plugin(spec)
+      plugin_path = ensure_plugin_path(spec)
+      as_name     = nil
       merge_spec  = {
-        plugin
+        plugin_path
       }
     end
 
-    local disable = plugin_disabled(plugin)
+    local plugin_is_disabled = is_plugin_disabled(plugin_path)
 
     local new_spec = {
-      disable = disable
+      disable = plugin_is_disabled
     }
 
-    if with_config and not disable then
-      new_spec.config = plugin_config(plugin)
+    if plugin_has_config then
+      new_spec.config = get_plugin_config(plugin_path, as_name)
     end
 
     return vim.tbl_deep_extend('error', merge_spec, new_spec)
@@ -84,7 +85,7 @@ return function(globals)
   M.create = function(use)
     local create_use_spec = function(opts)
       return function(spec)
-        use(make_spec(spec, opts))
+        use(create_spec(spec, opts))
       end
     end
 

@@ -121,12 +121,4 @@ return function(globals)
       vim.highlight.on_yank()
     end
   })
-
-  if g.vv then
-    local vv = fn.VVset
-
-    vv('fullscreen=1')
-    vv([[fontfamily=Hasklug\ Nerd\ Font\ Mono]])
-    vv('fontsize=18')
-  end
 end
