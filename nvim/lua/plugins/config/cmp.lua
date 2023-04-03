@@ -1,9 +1,9 @@
 return function()
-  local api     = vim.api
-  local bo      = vim.bo
-  local fn      = vim.fn
-  local cmp     = require'cmp'
-  local lspkind = require'lspkind'
+  local api           = vim.api
+  local bo            = vim.bo
+  local fn            = vim.fn
+  local cmp           = require'cmp'
+  local lspkind       = require'lspkind'
 
   local has_words_before = function()
     local line, col = unpack(api.nvim_win_get_cursor(0))
@@ -17,15 +17,14 @@ return function()
   cmp.setup {
     enabled = function()
       local context = require'cmp.config.context'
-      if bo.filetype == 'TelescopePrompt' then
-        return false
-      elseif api.nvim_get_mode().mode == 'c' then
+
+      if api.nvim_get_mode().mode == 'c' then
         return true
-      else
-        return not context.in_treesitter_capture('comment')
-          and not context.in_syntax_group('Comment')
       end
+
+      return false
     end,
+
     formatting = {
       format = lspkind.cmp_format {
         mode     = 'symbol_text',
@@ -45,14 +44,17 @@ return function()
         }
       }
     },
+
     snippet = {
       expand = function(args)
       end
     },
+
     window = {
       completion    = cmp.config.window.bordered(),
       documentation = cmp.config.window.bordered()
     },
+
     mapping = cmp.mapping.preset.insert {
       ['<tab>'] = cmp.mapping(function(fallback)
         if cmp.visible() then
@@ -70,16 +72,17 @@ return function()
         end
       end, { 'i', 's' }),
 
-      ['<c-s>'] = cmp.mapping.scroll_docs(-4),
-      ['<c-t>'] = cmp.mapping.scroll_docs(4),
+      ['<c-e>'] = cmp.mapping.scroll_docs(-4),
+      ['<c-n>'] = cmp.mapping.scroll_docs(4),
 
-      ['<c-t>'] = cmp.mapping.complete {
+      ['<c-s>'] = cmp.mapping.complete {
         config = {
           sources = {
             { name = 'treesitter' }
           }
         }
       },
+
       ['<c-l>'] = cmp.mapping.complete {
         config = {
           sources = {
@@ -89,22 +92,17 @@ return function()
           }
         }
       },
+
       ['<c-space>'] = cmp.mapping.complete(),
       ['<cr>']      = cmp.mapping.confirm({ select = true }),
       ['<esc>']     = cmp.mapping.abort()
     },
+
     sources = cmp.config.sources({
       { name = 'nvim_lsp'                 },
       { name = 'nvim_lsp_document_symbol' },
-      { name = 'nvim_lsp_signature_help'  }
-    },
-    {
-      { name = 'treesitter' },
-    },
-    {
-      { name = 'vsnip' }
-    },
-    {
+      { name = 'nvim_lsp_signature_help'  },
+      { name = 'treesitter'               },
       {
         name   = 'buffer',
         option = {
@@ -112,13 +110,12 @@ return function()
             return api.nvim_list_bufs()
           end
         }
-      }
-    },
-    {
+      },
       { name = 'nvim_lua' },
+      { name = 'spell'    },
       { name = 'calc'     },
-      { name = 'spell'    }
-    })
+      { name = 'vsnip'    }
+    }),
   }
 
   cmp.setup.cmdline('/', {
@@ -141,43 +138,35 @@ return function()
     })
   })
 
---https://github.com/hrsh7th/nvim-cmp/issues/598
---https://github.com/hrsh7th/nvim-cmp/wiki/Language-Server-Specific-Samples#rust-with-rust-toolsnvim
-local M = {}
+  local timer = vim.loop.new_timer()
 
-local cmp = require("cmp")
-local timer = vim.loop.new_timer()
+  local debounce_delay = 1000
 
-local DEBOUNCE_DELAY = 1000
+  local debounce = function()
+    timer:stop()
 
-function M.debounce()
-  timer:stop()
-  timer:start(
-    DEBOUNCE_DELAY,
-    0,
-    vim.schedule_wrap(function()
-      cmp.complete({ reason = cmp.ContextReason.Auto })
-    end)
-  )
-end
+    timer:start(
+      debounce_delay,
+      0,
+      vim.schedule_wrap(function()
+        local context = require'cmp.config.context'
 
-return M
+        if bo.filetype == 'TelescopePrompt'
+          or context.in_treesitter_capture('comment')
+          and context.in_syntax_group('Comment')
+          then
+            return false
+        end
 
-  local timer = 0
-
-  local cmp_complete = function()
-    cmp.complete({
-      reason = cmp.ContextReason.Auto
-    })
+        cmp.complete({ reason = cmp.ContextReason.Auto })
+      end))
   end
 
   local events_augroup = api.nvim_create_augroup('text_changed_insert_events', {})
 
   api.nvim_create_autocmd('TextChangedI', {
     group    = events_augroup,
-    pattern = "*",
-    callback = function()
-      fn.timer_stop(timer)
-    end
+    pattern  = "*",
+    callback = debounce
   })
 end

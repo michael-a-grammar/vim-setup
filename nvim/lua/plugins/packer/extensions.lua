@@ -38,9 +38,6 @@ return function(globals)
 
     local success, module = pcall(require, config_path)
 
-    print(config_path)
-    print(success)
-
     if success then
       return module
     end

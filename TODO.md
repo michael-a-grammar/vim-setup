@@ -28,9 +28,9 @@ TODO:
 
 - use 'q' to quit most transient windows (help, fern etc.)
 - autocommand to strip trailing whitespace (%s/\s\+$//e)
+- micro - bundled plugin to enable better understanding of macros
+- log (with tolerance)
+- cmp / lsp config
+- add delay to cmp command complete
+- formalise rust workflow functions
 
-init.lua
-  -> start
-  -> settings
-  -> plugins
-  -> after plugins settings

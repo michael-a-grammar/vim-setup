@@ -41,25 +41,24 @@ module Elden
           [method_name, method_block]
         end
 
-      define_method(method_name) do
+      path_result = proc do |pattern|
         method_block.call => {exists:, path:}
 
-        path
+        case pattern
+        in :path
+          path
+        in :exists
+          exists
+        in :ensure
+          raise "Path '#{path}' does not exist" unless exists
+
+          path
+        end
       end
 
-      define_method("#{method_name}?") do
-        method_block.call => {exists:, path:}
-
-        exists
-      end
-
-      define_method("#{method_name}!") do
-        method_block.call => {exists:, path:}
-
-        raise "Path '#{path}' does not exist" unless exists
-
-        path
-      end
+      define_method(method_name)       { path_result.call(:path)   }
+      define_method("#{method_name}?") { path_result.call(:exists) }
+      define_method("#{method_name}!") { path_result.call(:ensure) }
     end
 
     def self.path(path, *paths)
