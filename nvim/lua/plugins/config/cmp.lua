@@ -1,6 +1,7 @@
 return function()
   local api     = vim.api
   local bo      = vim.bo
+  local fn      = vim.fn
   local cmp     = require'cmp'
   local lspkind = require'lspkind'
 
@@ -46,7 +47,6 @@ return function()
     },
     snippet = {
       expand = function(args)
-
       end
     },
     window = {
@@ -139,5 +139,45 @@ return function()
     {
       { name = 'cmdline' }
     })
+  })
+
+--https://github.com/hrsh7th/nvim-cmp/issues/598
+--https://github.com/hrsh7th/nvim-cmp/wiki/Language-Server-Specific-Samples#rust-with-rust-toolsnvim
+local M = {}
+
+local cmp = require("cmp")
+local timer = vim.loop.new_timer()
+
+local DEBOUNCE_DELAY = 1000
+
+function M.debounce()
+  timer:stop()
+  timer:start(
+    DEBOUNCE_DELAY,
+    0,
+    vim.schedule_wrap(function()
+      cmp.complete({ reason = cmp.ContextReason.Auto })
+    end)
+  )
+end
+
+return M
+
+  local timer = 0
+
+  local cmp_complete = function()
+    cmp.complete({
+      reason = cmp.ContextReason.Auto
+    })
+  end
+
+  local events_augroup = api.nvim_create_augroup('text_changed_insert_events', {})
+
+  api.nvim_create_autocmd('TextChangedI', {
+    group    = events_augroup,
+    pattern = "*",
+    callback = function()
+      fn.timer_stop(timer)
+    end
   })
 end

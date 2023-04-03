@@ -5,7 +5,7 @@ return function()
   local M      = {}
 
   M.globals = function()
-   print(vim.inspect(_G.E))
+   vim.pretty_print(_G.E)
   end
 
   M.restart = function()

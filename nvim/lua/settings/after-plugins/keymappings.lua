@@ -51,13 +51,6 @@ return function()
       'P', ctrl 'o', 'Backwards'
     }
 
-    --nx_leader_with '/' {
-      --'i', exe 'set noincsearch', 'Disable incremental search',
-      --'t', exe 'nohlsearch',      'Disable highlighted search results',
-      --'s', cmd_mode 's/',         'Substitute within line',
-      --'S', cmd_mode '%s/',        'Substitute'
-    --}
-
     nx_leader_with 'd' {
       'h', lsp.hover,          'Hover',
       's', lsp.signature_help, 'Signature'
@@ -68,9 +61,6 @@ return function()
       'd', diagnostic.open_float, 'Info',
       'n', diagnostic.goto_next,  'Next diagnostic',
       'p', diagnostic.goto_prev,  'Previous diagnostic'
-    }
-
-    nx_leader_with 'gm' {
     }
 
     nx_leader_with 'r' {
@@ -137,8 +127,10 @@ return function()
     }
 
     nx_leader_with 'z' {
-      'e', exe 'edit $MYVIMRC',   'Edit profile',
-      'z', exe 'source $MYVIMRC', 'Source profile'
+      'i', exe 'set noincsearch', 'Disable incremental search',
+      't', exe 'nohlsearch',      'Disable highlighted search results',
+      's', cmd_mode 's/',         'Substitute within line',
+      'S', cmd_mode '%s/',        'Substitute'
     }
   end)
 end

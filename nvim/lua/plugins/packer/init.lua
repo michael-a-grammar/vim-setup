@@ -72,7 +72,14 @@ return function(globals)
 
           'hrsh7th/cmp-nvim-lua',
 
-          'onsails/lspkind.nvim'
+          'onsails/lspkind.nvim',
+
+          {
+            'j-hui/fidget.nvim',
+            config = function()
+              require'fidget'.setup()
+            end
+          }
         }
       }
 
@@ -132,7 +139,7 @@ return function(globals)
         ft = 'rust'
       }
 
-      use {
+      use_spec {
         'simrat39/rust-tools.nvim',
         ft = 'rust'
       }

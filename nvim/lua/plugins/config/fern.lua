@@ -9,8 +9,8 @@ return function()
   local events_augroup = api.nvim_create_augroup('file_type_events', {})
 
   api.nvim_create_autocmd('FileType', {
-    group = events_augroup,
-    pattern = 'fern,startify',
+    group    = events_augroup,
+    pattern  = 'fern,startify',
     callback = function()
       fn['glyph_palette#apply']()
     end

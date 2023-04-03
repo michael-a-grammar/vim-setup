@@ -11,7 +11,7 @@ module Elden
     def vim_config_directory_backup!(backup_location); end
 
     def vim_config_directory_purge!(verbose: true)
-      FileUtils.rm_rf(vim_config_path!, verbose:)
+      FileUtils.rm_rf(vim_config_path, verbose:) if vim_config_path?
     end
   end
 end

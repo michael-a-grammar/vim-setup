@@ -41,12 +41,22 @@ module Elden
           [method_name, method_block]
         end
 
-      define_method(method_name, method_block)
+      define_method(method_name) do
+        method_block.call => {exists:, path:}
+
+        path
+      end
+
+      define_method("#{method_name}?") do
+        method_block.call => {exists:, path:}
+
+        exists
+      end
 
       define_method("#{method_name}!") do
-        path_exists, path = method_block.call
+        method_block.call => {exists:, path:}
 
-        raise "Path '#{path}' does not exist" unless path_exists
+        raise "Path '#{path}' does not exist" unless exists
 
         path
       end
@@ -73,7 +83,7 @@ module Elden
     def self.exist?(path)
       exists = File.exist?(path)
 
-      [exists, path]
+      { exists:, path: }
     end
   end
 end
