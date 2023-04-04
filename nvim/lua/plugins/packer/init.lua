@@ -54,17 +54,11 @@ return function(globals)
         requires = {
           'neovim/nvim-lspconfig',
 
-          {
-            'ray-x/cmp-treesitter',
-            requires = 'nvim-treesitter'
-          },
-
           'hrsh7th/cmp-nvim-lsp',
           'hrsh7th/cmp-nvim-lsp-document-symbol',
           'hrsh7th/cmp-nvim-lsp-signature-help',
 
           'hrsh7th/cmp-buffer',
-          'f3fora/cmp-spell',
           'hrsh7th/cmp-calc',
 
           'hrsh7th/cmp-path',

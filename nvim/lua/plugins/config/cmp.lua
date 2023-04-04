@@ -16,8 +16,6 @@ return function()
 
   cmp.setup {
     enabled = function()
-      local context = require'cmp.config.context'
-
       if api.nvim_get_mode().mode == 'c' then
         return true
       end
@@ -39,7 +37,6 @@ return function()
           nvim_lua                 = '',
           path                     = '',
           spell                    = '﬜',
-          treesitter               = '',
           vsnip                    = ''
         }
       }
@@ -75,34 +72,14 @@ return function()
       ['<c-e>'] = cmp.mapping.scroll_docs(-4),
       ['<c-n>'] = cmp.mapping.scroll_docs(4),
 
-      ['<c-s>'] = cmp.mapping.complete {
-        config = {
-          sources = {
-            { name = 'treesitter' }
-          }
-        }
-      },
-
-      ['<c-l>'] = cmp.mapping.complete {
-        config = {
-          sources = {
-            { name = 'nvim_lsp' },
-            { name = 'nvim_lsp_document_symbol' },
-            { name = 'nvim_lsp_signature_help'  }
-          }
-        }
-      },
-
       ['<c-space>'] = cmp.mapping.complete(),
       ['<cr>']      = cmp.mapping.confirm({ select = true }),
       ['<esc>']     = cmp.mapping.abort()
     },
 
     sources = cmp.config.sources({
-      { name = 'nvim_lsp'                 },
-      { name = 'nvim_lsp_document_symbol' },
-      { name = 'nvim_lsp_signature_help'  },
-      { name = 'treesitter'               },
+      { name = 'nvim_lsp'                },
+      { name = 'nvim_lsp_signature_help' },
       {
         name   = 'buffer',
         option = {
@@ -111,19 +88,24 @@ return function()
           end
         }
       },
-      { name = 'nvim_lua' },
-      { name = 'spell'    },
-      { name = 'calc'     },
-      { name = 'vsnip'    }
-    }),
+      {
+        name    = 'path',
+        options = {
+          trailing_slash = true
+        }
+      },
+      {
+        { name = 'nvim_lua' },
+        { name = 'calc'     },
+        { name = 'vsnip'    }
+      }
+    })
   }
 
   cmp.setup.cmdline('/', {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
-      { name = 'nvim_lsp_document_symbol' }
-    },
-    {
+      { name = 'nvim_lsp_document_symbol' },
       { name = 'buffer' }
     })
   })
@@ -131,10 +113,13 @@ return function()
   cmp.setup.cmdline(':', {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
+      {
+        name = 'cmdline',
+        option = {
+          ignore_cmds = { 'Man', '!' }
+        }
+      },
       { name = 'path' }
-    },
-    {
-      { name = 'cmdline' }
     })
   })
 
