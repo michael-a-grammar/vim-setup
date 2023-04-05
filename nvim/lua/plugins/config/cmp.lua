@@ -14,14 +14,23 @@ return function()
             :match("%s") == nil
   end
 
-  cmp.setup {
-    enabled = function()
-      if api.nvim_get_mode().mode == 'c' then
-        return true
-      end
+  local enable_cmp = function()
+    local context = require'cmp.config.context'
 
-      return false
-    end,
+    if bo.filetype == 'TelescopePrompt'
+      or context.in_treesitter_capture('comment')
+      and context.in_syntax_group('Comment')
+      then
+        return false
+    end
+
+    return true
+  end
+
+  cmp.setup {
+    enabled = enable_cmp,
+
+    preselect = cmp.PreselectMode.None,
 
     formatting = {
       format = lspkind.cmp_format {
@@ -73,7 +82,7 @@ return function()
       ['<c-n>'] = cmp.mapping.scroll_docs(4),
 
       ['<c-space>'] = cmp.mapping.complete(),
-      ['<cr>']      = cmp.mapping.confirm({ select = true }),
+      ['<cr>']      = cmp.mapping.confirm({ select = false }),
       ['<esc>']     = cmp.mapping.abort()
     },
 
@@ -89,12 +98,6 @@ return function()
         }
       },
       {
-        name    = 'path',
-        options = {
-          trailing_slash = true
-        }
-      },
-      {
         { name = 'nvim_lua' },
         { name = 'calc'     },
         { name = 'vsnip'    }
@@ -102,7 +105,7 @@ return function()
     })
   }
 
-  cmp.setup.cmdline('/', {
+  cmp.setup.cmdline({ '/', '? '}, {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
       { name = 'nvim_lsp_document_symbol' },
@@ -119,39 +122,39 @@ return function()
           ignore_cmds = { 'Man', '!' }
         }
       },
-      { name = 'path' }
+      {
+        name = 'path',
+        options = {
+          trailing_slash = true
+        }
+      }
     })
   })
 
-  local timer = vim.loop.new_timer()
+  local enable_debounce = function()
+    local timer = vim.loop.new_timer()
 
-  local debounce_delay = 1000
+    local debounce_delay = 1000
 
-  local debounce = function()
-    timer:stop()
+    local debounce = function()
+      timer:stop()
 
-    timer:start(
-      debounce_delay,
-      0,
-      vim.schedule_wrap(function()
-        local context = require'cmp.config.context'
+      timer:start(
+        debounce_delay,
+        0,
+        vim.schedule_wrap(function()
+          if enable_cmp() then
+            cmp.complete({ reason = cmp.ContextReason.Auto })
+          end
+        end))
+    end
 
-        if bo.filetype == 'TelescopePrompt'
-          or context.in_treesitter_capture('comment')
-          and context.in_syntax_group('Comment')
-          then
-            return false
-        end
+    local events_augroup = api.nvim_create_augroup('text_changed_insert_events', {})
 
-        cmp.complete({ reason = cmp.ContextReason.Auto })
-      end))
+    api.nvim_create_autocmd('TextChangedI', {
+      group    = events_augroup,
+      pattern  = "*",
+      callback = debounce
+    })
   end
-
-  local events_augroup = api.nvim_create_augroup('text_changed_insert_events', {})
-
-  api.nvim_create_autocmd('TextChangedI', {
-    group    = events_augroup,
-    pattern  = "*",
-    callback = debounce
-  })
 end

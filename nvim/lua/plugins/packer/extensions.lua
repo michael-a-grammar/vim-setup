@@ -38,6 +38,8 @@ return function(globals)
 
     local success, module = pcall(require, config_path)
 
+    E.log.info('config_name: %s, config_path: %s', config_name, config_path)
+
     if success then
       return module
     end

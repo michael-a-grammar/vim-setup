@@ -62,6 +62,7 @@ return function(globals)
   opt.wrap        = true
 
   opt.completeopt = {
+    'menu',
     'menuone',
     'noinsert',
     'noselect',
@@ -81,7 +82,7 @@ return function(globals)
 
   opt.number         = true
   opt.relativenumber = true
-  opt.signcolumn     = 'no'
+  opt.signcolumn     = 'yes'
 
   opt.colorcolumn:append('120')
   opt.cursorline = true
@@ -93,9 +94,10 @@ return function(globals)
   opt.ttimeout    = true
   opt.ttimeoutlen = 80
 
-  opt.backupcopy  = 'yes'
+  opt.backup      = false
+  opt.backupcopy  = 'auto'
   opt.updatetime  = 300
-  opt.writebackup = true
+  opt.writebackup = false
 
   opt.undofile   = true
   opt.undolevels = 1000

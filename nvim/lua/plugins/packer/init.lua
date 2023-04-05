@@ -128,7 +128,7 @@ return function(globals)
         requires = 'tpope/vim-repeat'
       }
 
-      use {
+      use_spec {
         'rust-lang/rust.vim',
         ft = 'rust'
       }

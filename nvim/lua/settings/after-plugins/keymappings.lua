@@ -44,8 +44,9 @@ return function()
       '!', cmd_mode '!', 'Shell command',
       tab, ctrl '^',     'Last buffer',
 
-      'n', expr [[&diff ? ']c' ? <nop>]], 'Next diff',
-      'p', expr [[&diff ? '[c' ? <nop>]], 'Previous diff',
+      -- TODO: Not working
+      -- 'n', expr [[&diff ? ']c' ? <nop>]], 'Next diff',
+      -- 'p', expr [[&diff ? '[c' ? <nop>]], 'Previous diff',
 
       'F', ctrl 'i', 'Forwards',
       'P', ctrl 'o', 'Backwards'
