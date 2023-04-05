@@ -1,0 +1,14 @@
+{
+    "Lua.runtime.version": "Lua 5.1",
+    "diagnostics.globals": [
+        "vim",
+        "plug",
+        "nvo_with",
+        "nvo",
+        "right",
+        "up",
+        "down",
+        "left",
+        "nx_local_leader"
+    ]
+}

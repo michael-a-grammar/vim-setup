@@ -1,13 +1,13 @@
 return function(config)
   local opts  = require'globals.opts'()
   local dev   = require'globals.dev'()
-  local log   = require'globals.log'(config)
+  local log   = require'globals.log'()
   local paths = require'globals.paths'(config)
 
   local M = opts.merged_opts
 
-  M.default_opts = default_opts
-  M.local_opts   = local_opts
+  M.default_opts = opts.default_opts
+  M.local_opts   = opts.local_opts
 
   M.dev    = dev
   M.config = config

@@ -107,7 +107,8 @@ M.set = function(modes, maps, buffer)
     local lhs, rhs, desc = unpack(map)
 
     lhs  = (maps.prefix or '') .. tostring(lhs)
-    expr = false
+
+    local expr = false
 
     if type(rhs) == 'table' then
       rhs = tostring(rhs)
