@@ -4,41 +4,41 @@ module Elden
   module Paths
     [
       {
-        method_name: "elden_path",
+        path_name: "elden_path",
         env_name: "ELDEN_PATH"
       },
       {
-        method_name: "vim_dev_config_file_path",
+        path_name: "vim_dev_config_file_path",
         env_name: "ELDEN_PATH",
-        paths: "dev.vim"
+        additional_paths: "dev.vim"
       },
       {
-        method_name: "config_path",
+        path_name: "config_path",
         env_name: "XDG_CONFIG_HOME",
-        default: "~/",
-        paths: ".config"
+        default_path: "~/",
+        additional_paths: ".config"
       },
       {
-        method_name: "vim_config_path",
+        path_name: "vim_config_path",
         env_name: "XDG_CONFIG_HOME",
-        default: "~/",
-        paths: %w[.config nvim]
+        default_path: "~/",
+        additional_paths: %w[.config nvim]
       }
     ].each do |path_info|
-      method_name, method_block =
+      path_name, method_block =
         case path_info
-        in method_name:, **rest
+        in path_name:, **rest
           method_block =
             case rest
-            in env_name:, default:, paths:
-              -> { env_path(env_name, paths, default:) }
-            in env_name:, paths:
-              -> { env_path(env_name, paths) }
+            in env_name:, default_path:, additional_paths:
+              -> { env_path(env_name, additional_paths, default_path:) }
+            in env_name:, additional_paths:
+              -> { env_path(env_name, additional_paths) }
             in env_name:
               -> { env_path(env_name) }
             end
 
-          [method_name, method_block]
+          [path_name, method_block]
         end
 
       path_result = proc do |pattern|
@@ -56,27 +56,27 @@ module Elden
         end
       end
 
-      define_method(method_name)       { path_result.call(:path)   }
-      define_method("#{method_name}?") { path_result.call(:exists) }
-      define_method("#{method_name}!") { path_result.call(:ensure) }
+      define_method(path_name)       { path_result.call(:path)   }
+      define_method("#{path_name}?") { path_result.call(:exists) }
+      define_method("#{path_name}!") { path_result.call(:ensure) }
     end
 
-    def self.path(path, *paths)
+    def self.path(path, *additional_paths)
       unless path.nil?
         expanded_path = File.expand_path(path)
 
-        paths.prepend(expanded_path)
+        additional_paths.prepend(expanded_path)
       end
 
-      joined_paths = File.join(paths) || ""
+      joined_paths = File.join(additional_paths) || ""
 
       exist?(joined_paths)
     end
 
-    def self.env_path(env_name, *paths, default: nil)
+    def self.env_path(env_name, *additional_paths, default_path: nil)
       env_path_or_default = ENV[env_name] || default
 
-      path(env_path_or_default, paths)
+      path(env_path_or_default, additional_paths)
     end
 
     def self.exist?(path)

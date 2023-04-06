@@ -6,6 +6,11 @@ module Elden
     def update_description = desc("update", "Updates plugins")
     def sync_description   = desc("sync", "Sync development with the local environment")
 
+    [{
+      name
+      
+    }]
+
     def kitty_title_option
       option(:kitty_title,
              aliases: "k",
