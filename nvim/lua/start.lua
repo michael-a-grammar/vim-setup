@@ -1,7 +1,7 @@
 return function(config)
-  local globals = require'globals'(config)
+  local elden = require'elden'(config)
 
-  require'settings'(globals)
-  require'plugins'(globals)
-  require'settings.after-plugins'(globals)
+  require'settings'(elden)
+  require'plugins'(elden)
+  require'settings.after-plugins'(elden)
 end
