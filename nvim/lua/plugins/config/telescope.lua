@@ -72,7 +72,7 @@ return function()
   telescope.load_extension('gh')
   telescope.load_extension('z')
 
-  local buffers = function(only_cwd)
+  local buffer_settings = function(only_cwd)
     return function()
       builtin.buffers {
         ignore_current_buffer = true,
@@ -82,8 +82,8 @@ return function()
     end
   end
 
-  local buffers_only_cwd = buffers(true)
-  local buffers          = buffers(false)
+  local buffers_only_cwd = buffer_settings(true)
+  local buffers          = buffer_settings(false)
 
   map(function()
     nx_leader {
