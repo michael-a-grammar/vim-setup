@@ -36,8 +36,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency "thor", "1.2.1"
 
   spec.add_development_dependency "pry",           "~> 0.14.2"
-  spec.add_development_dependency "rubocop-rake",  "~> 0.6.0"
   spec.add_development_dependency "rbs",           "~> 3.0.4"
+  spec.add_development_dependency "rubocop-rake",  "~> 0.6.0"
   spec.add_development_dependency "rubocop-rspec", "~> 2.19"
 
   # For more information and examples about making a new gem, check out our

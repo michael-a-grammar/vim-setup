@@ -4,30 +4,30 @@ module Elden
   module Paths
     [
       {
-        path_name: "elden_path",
+        name: "elden_path",
         env_name: "ELDEN_PATH"
       },
       {
-        path_name: "vim_dev_config_file_path",
+        name: "vim_dev_config_file_path",
         env_name: "ELDEN_PATH",
         additional_paths: "dev.vim"
       },
       {
-        path_name: "config_path",
+        name: "config_path",
         env_name: "XDG_CONFIG_HOME",
         default_path: "~/",
         additional_paths: ".config"
       },
       {
-        path_name: "vim_config_path",
+        name: "vim_config_path",
         env_name: "XDG_CONFIG_HOME",
         default_path: "~/",
         additional_paths: %w[.config nvim]
       }
     ].each do |path_info|
-      path_name, method_block =
+      name, method_block =
         case path_info
-        in path_name:, **rest
+        in name:, **rest
           method_block =
             case rest
             in env_name:, default_path:, additional_paths:
@@ -38,7 +38,7 @@ module Elden
               -> { env_path(env_name) }
             end
 
-          [path_name, method_block]
+          [name, method_block]
         end
 
       path_result = proc do |pattern|
@@ -56,9 +56,9 @@ module Elden
         end
       end
 
-      define_method(path_name)       { path_result.call(:path)   }
-      define_method("#{path_name}?") { path_result.call(:exists) }
-      define_method("#{path_name}!") { path_result.call(:ensure) }
+      define_method(name)       { path_result.call(:path)   }
+      define_method("#{name}?") { path_result.call(:exists) }
+      define_method("#{name}!") { path_result.call(:ensure) }
     end
 
     def self.path(path, *additional_paths)
@@ -74,7 +74,7 @@ module Elden
     end
 
     def self.env_path(env_name, *additional_paths, default_path: nil)
-      env_path_or_default = ENV[env_name] || default
+      env_path_or_default = ENV[env_name] || default_path
 
       path(env_path_or_default, additional_paths)
     end
