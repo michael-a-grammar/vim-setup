@@ -8,10 +8,7 @@ module Elden
   class CLI < Thor
     extend Elden::CLIAttributes
 
-    dev_description
-    kitty_title_option
-    sync_packer_option
-    update_treesitter_option
+    dev_command
     def dev
       elden_shell
         .launch_dev!(kitty_title: options[:kitty_title],
@@ -20,8 +17,7 @@ module Elden
         .run!
     end
 
-    update_description
-    update_treesitter_option
+    update_command
     def update
       elden_shell
         .update_plugins(sync_packer: true,
@@ -29,11 +25,7 @@ module Elden
         .run!
     end
 
-    sync_description
-    purge_vim_config_directory_option
-    sync_packer_option
-    update_treesitter_option
-    launch_dev_option
+    sync_command
     def sync
       elden_shell
         .sync!(purge_vim_config_directory: options[:purge_vim_config_directory],
