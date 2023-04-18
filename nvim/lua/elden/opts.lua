@@ -1,6 +1,6 @@
 return function()
   local local_opts   = require'local-opts'
-  local default_opts = require'globals.default-opts'
+  local default_opts = require'elden.default-opts'
   local M            = {}
 
   local merged_opts = vim.tbl_deep_extend('force', default_opts, local_opts)

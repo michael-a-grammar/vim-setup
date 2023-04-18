@@ -81,6 +81,11 @@ return function()
       'y', exe 'tab ball',      'Open buffers in tabs'
     }
 
+    nx_leader_with 'q' {
+      'q', exe 'quitall',  'Quit all',
+      'Q', exe 'quitall!', 'Force quit all'
+    }
+
     nx_leader_with 'w' {
       '.', ctrl 'w' :with '>', 'Increase window width',
       ',', ctrl 'w' :with '<', 'Decrease window width',

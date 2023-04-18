@@ -90,6 +90,7 @@ return function()
       },
 
       l = "which_key_ignore",
+
       L = "which_key_ignore",
 
       n = {
@@ -101,6 +102,10 @@ return function()
       },
 
       P = 'which_key_ignore',
+
+      q = {
+        name = 'Quit'
+      },
 
       r = {
         name = 'Refactor'
