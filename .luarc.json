@@ -27,6 +27,8 @@
         "tab",
         "up",
         "vim",
-        "x_leader"
+        "x_leader",
+        "bs",
+        "nvo_leader_with"
     ]
 }
