@@ -82,40 +82,42 @@ return function()
       ['<c-n>'] = cmp.mapping.scroll_docs(4),
 
       ['<c-space>'] = cmp.mapping.complete(),
-      ['<cr>']      = cmp.mapping.confirm({ select = false }),
+      ['<cr>']      = cmp.mapping.confirm { select = false },
       ['<esc>']     = cmp.mapping.abort()
     },
 
-    sources = cmp.config.sources({
-      { name = 'nvim_lsp'                },
-      { name = 'nvim_lsp_signature_help' },
+    sources = cmp.config.sources {
       {
-        name   = 'buffer',
-        option = {
-          get_bufnrs = function()
-            return api.nvim_list_bufs()
-          end
-        }
+        { name = 'nvim_lsp'                },
+        { name = 'nvim_lsp_signature_help' },
+        {
+          name   = 'buffer',
+          option = {
+            get_bufnrs = function()
+              return api.nvim_list_bufs()
+            end
+          }
+        },
+        { name = 'nvim_lua' },
       },
       {
-        { name = 'nvim_lua' },
-        { name = 'calc'     },
-        { name = 'vsnip'    }
+        { name = 'calc'  },
+        { name = 'vsnip' }
       }
-    })
+    }
   }
 
   cmp.setup.cmdline({ '/', '? '}, {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
       { name = 'nvim_lsp_document_symbol' },
-      { name = 'buffer' }
+      { name = 'buffer'                   }
     })
   })
 
   cmp.setup.cmdline(':', {
     mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources({
+    sources = cmp.config.sources {
       {
         name = 'cmdline',
         option = {
@@ -128,7 +130,7 @@ return function()
           trailing_slash = true
         }
       }
-    })
+    }
   })
 
   local enable_debounce = function()

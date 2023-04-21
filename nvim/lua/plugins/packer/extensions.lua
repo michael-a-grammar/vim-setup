@@ -44,9 +44,7 @@ return function(elden)
       success     = success
     })
 
-    if success then
-      return module
-    end
+    return module
   end
 
   local create_spec = function(spec, opts)

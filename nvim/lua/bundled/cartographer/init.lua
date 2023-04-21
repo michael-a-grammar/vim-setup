@@ -121,7 +121,7 @@ M.set = function(modes, maps, buffer)
     vim.keymap.set(modes, lhs, rhs, {
       desc   = desc or '...',
       buffer = buffer,
-      expr = expr
+      expr   = expr
     })
   end
 end
@@ -131,6 +131,7 @@ M.ent   = special('cr')
 M.esc   = special('esc')
 M.ldr   = special('leader')
 M.nop   = special('nop')
+M.bs    = special('bs')
 M.spc   = special('space')
 M.tab   = special('tab')
 M.down  = special('down')
@@ -154,7 +155,7 @@ M.map = function(fn)
 end
 
 with(M,   false)
-with(M.b,  true)
+with(M.b, true)
 
 setmetatable(M, metatable)
 

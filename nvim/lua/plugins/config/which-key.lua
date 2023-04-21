@@ -20,7 +20,6 @@ return function()
 
     disable = {
       filetypes = {
-        'fern',
         'TelescopePrompt',
         'qf'
       }
@@ -28,29 +27,13 @@ return function()
   }
 
   local to_register = {
-    [','] = {
-      [','] = 'which_key_ignore',
-
-      s = {
-        name = 'Sneak'
-      },
-    },
-
-    ['.'] = {
-      ['.'] = 'which_key_ignore'
-    },
-
     ['<localleader>'] = {
-      p = {
-        name = 'Manipulate pipes'
-      },
-
       s = {
-        name = 'Find (cwd)'
+        name = 'Find (ft)'
       },
 
       u = {
-        name = 'Find (bufd)'
+        name = 'Find (ft, bufd)'
       }
     },
 
@@ -60,22 +43,16 @@ return function()
       },
 
       c = {
-        name = 'Comments'
+        name = 'Code'
       },
 
       d = {
-        name = 'Definitions'
-      },
-
-      e = {
-        name = 'Diagnostics'
+        name = 'Sneak'
       },
 
       f = {
         name = 'Find (buf)'
       },
-
-      F = 'which_key_ignore',
 
       g = {
         name = 'Git'
@@ -85,13 +62,7 @@ return function()
         name = 'History'
       },
 
-      i = {
-        name = 'Slime'
-      },
-
-      l = "which_key_ignore",
-
-      L = "which_key_ignore",
+      L = 'which_key_ignore',
 
       n = {
         name = 'Navigation'
@@ -101,14 +72,8 @@ return function()
         name = 'Yank ring'
       },
 
-      P = 'which_key_ignore',
-
       q = {
         name = 'Quit'
-      },
-
-      r = {
-        name = 'Refactor'
       },
 
       s = {

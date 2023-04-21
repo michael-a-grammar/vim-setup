@@ -6,7 +6,7 @@ return function()
 
   map(function()
     leader       '<space>'
-    local_leader '.'
+    local_leader '<bs>'
 
     c {
       alt 'left',  ctrl 'left',  'Word backwards',
@@ -19,8 +19,7 @@ return function()
 
     nx {
       spc, nop, 'nop',
-
-      '..', '.', 'Repeat',
+      bs,  nop, 'nop',
 
       ',,', ',',       'Previous match',
       '0',  'g0',      'Beginning of line',
@@ -52,22 +51,21 @@ return function()
       'P', ctrl 'o', 'Backwards'
     }
 
-    nx_leader_with 'd' {
-      'h', lsp.hover,          'Hover',
-      's', lsp.signature_help, 'Signature'
-    }
-
-    nx_leader_with 'e' {
-      'c', diagnostic.setloclist, 'Set loclist with diagnostics',
-      'd', diagnostic.open_float, 'Info',
+    nx_leader_with 'c' {
+      'a', codelens.run,          'Run codelens',
+      'c', lsp.rename,            'Rename',
+      'd', lsp.definition,        'Go to definition',
+      'D', lsp.declaration,       'Go to declaration',
+      'e', diagnostic.setloclist, 'Set loclist with diagnostics',
+      'f', lsp.formatting,        'Format',
+      'h', lsp.hover,             'Hover',
+      'i', diagnostic.open_float, 'Info',
+      'm', lsp.implementation,    'Go to implementation',
       'n', diagnostic.goto_next,  'Next diagnostic',
-      'p', diagnostic.goto_prev,  'Previous diagnostic'
-    }
-
-    nx_leader_with 'r' {
-      'c', codelens.run,   'Run codelens',
-      'f', lsp.formatting, 'Format',
-      'n', lsp.rename,     'Rename'
+      'p', diagnostic.goto_prev,  'Previous diagnostic',
+      'r', lsp.references,        'Go to references',
+      's', lsp.signature_help,    'Signature',
+      't', lsp.type_definition,   'Go to type definition',
     }
 
     nx_leader_with 't' {

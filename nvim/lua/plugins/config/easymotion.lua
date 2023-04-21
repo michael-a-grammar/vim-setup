@@ -20,30 +20,15 @@ return function()
     api.nvim_set_hl(0, name, { link = link, default = true })
   end
 
-  if E.colorscheme == 'dracula' then
-    set_hl_link('EasyMotionTarget',        'DraculaOrange')
-    set_hl_link('EasyMotionTarget2First',  'DraculaGreen')
-    set_hl_link('EasyMotionTarget2Second', 'DraculaCyan')
-  elseif E.colorscheme == 'tender' then
-    set_hl_link('EasyMotionTarget',        'Operator')
-    set_hl_link('EasyMotionTarget2Second', 'Character')
-    set_hl_link('EasyMotionTarget2First',  'Character')
-  end
-
   set_hl_link('EasyMotionTarget',        'Type')
   set_hl_link('EasyMotionTarget2First',  'Title')
   set_hl_link('EasyMotionTarget2Second', 'Title')
-
-  set_hl_link('EasyMotionShade',     'Comment')
-  set_hl_link('EasyMotionMoveHL',    'Search')
-  set_hl_link('EasyMotionIncSearch', 'Search')
+  set_hl_link('EasyMotionShade',         'Comment')
+  set_hl_link('EasyMotionMoveHL',        'Search')
+  set_hl_link('EasyMotionIncSearch',     'Search')
 
   map(function()
-    nvo {
-      --',', plug('easymotion-prefix'), 'EasyMotion'
-    }
-
-    nvo_with ',' {
+    nvo_leader_with 'd' {
       '/', plug('easymotion-sn'),   'Search',
       'n', plug('easymotion-next'), 'Next result',
       'N', plug('easymotion-prev'), 'Previous result',

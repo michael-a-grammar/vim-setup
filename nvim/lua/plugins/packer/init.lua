@@ -129,11 +129,6 @@ return function(globals)
       }
 
       use_spec {
-        'rust-lang/rust.vim',
-        ft = 'rust'
-      }
-
-      use_spec {
         'simrat39/rust-tools.nvim',
         ft = 'rust'
       }
@@ -184,7 +179,7 @@ return function(globals)
         'kyazdani42/nvim-web-devicons',
         config = function()
           require'nvim-web-devicons'.setup {
-            color_icons = false
+            color_icons = true
           }
         end
       }

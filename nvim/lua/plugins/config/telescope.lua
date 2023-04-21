@@ -72,7 +72,7 @@ return function()
   telescope.load_extension('gh')
   telescope.load_extension('z')
 
-  local buffer_settings = function(only_cwd)
+  local create_get_buffers = function(only_cwd)
     return function()
       builtin.buffers {
         ignore_current_buffer = true,
@@ -82,8 +82,8 @@ return function()
     end
   end
 
-  local buffers_only_cwd = buffer_settings(true)
-  local buffers          = buffer_settings(false)
+  local buffers_only_cwd = create_get_buffers(true)
+  local buffers          = create_get_buffers(false)
 
   map(function()
     nx_leader {
@@ -95,10 +95,6 @@ return function()
       ',', buffers_only_cwd,    'Buffers (cwd)',
       '/', builtin.live_grep,   'Grep (cwd)',
       '<', buffers,             'Buffers',
-    }
-
-    nx_leader_with 'e' {
-      'e', builtin.diagnostics, 'Diagnostics'
     }
 
     nx_leader_with 'f' {
@@ -125,6 +121,7 @@ return function()
     }
 
     nx_leader_with 'n' {
+      'e', builtin.diagnostics,                   'Diagnostics',
       'd', builtin.lsp_definitions,               'Definitions',
       'i', builtin.lsp_implementations,           'Implementations',
       's', builtin.lsp_dynamic_workspace_symbols, 'Dynamic workspace symbols',
@@ -201,6 +198,80 @@ return function()
       'r', builtin.registers,     'Registers',
       's', builtin.spell_suggest, 'Spelling suggestions',
       't', builtin.colorscheme,   'Colourschemes'
+    }
+  end)
+
+  local get_file_info = function()
+    local buffer_number = vim.api.nvim_get_current_buf()
+    local file_type     = vim.filetype.match({ buf = buffer_number })
+
+    if not file_type then
+      return false
+    end
+
+    local file_extension = vim.fn.expand('%:e')
+
+    return {
+      type      = file_type,
+      extension = file_extension
+    }
+  end
+
+  local get_find_command = function()
+    return { 'rg', '--type', get_file_info().type, '--files' }
+  end
+
+  local get_filters = function(cwd)
+    local file_info = get_file_info()
+
+    if not file_info then
+      return {}
+    end
+
+    local filters = {
+      glob_pattern = '*.' .. file_info.extension .. '*',
+      type_filter  = file_info.type
+    }
+
+    if cwd then
+      filters.cwd = buffer_dir()
+    end
+
+    return filters
+  end
+
+  map(function()
+    nx_local_leader_with 's' {
+      'f',
+      function()
+        builtin.find_files {
+          find_command = get_find_command()
+        }
+      end,
+      'Find files',
+
+      's',
+      function()
+        builtin.live_grep(get_filters(false))
+      end,
+      'Grep'
+    }
+
+    nx_local_leader_with 'u' {
+      'f',
+      function()
+        builtin.find_files {
+          find_command = get_find_command(),
+          cwd          = buffer_dir()
+        }
+      end,
+      'Find files',
+
+      's',
+      function()
+        builtin.live_grep(get_filters(true))
+      end,
+      'Grep'
     }
   end)
 end

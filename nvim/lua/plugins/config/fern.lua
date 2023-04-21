@@ -18,7 +18,7 @@ return function()
 
   map(function()
     nx_leader {
-      'l', exe 'Fern . -drawer -toggle -reveal=%:p', 'Fern (cwd)'
+      'l', exe 'Fern . -drawer -toggle -reveal=%:p', 'Fern (buf)'
     }
   end)
 end

@@ -9,14 +9,16 @@ return function()
     error = 'ERROR'
   }
 
-  local format_log = function(message, level, data)
+  local format_log = function(message, data, level)
     return {
-      message   = message,
-      log_level = level,
-      time      = os.date('%H:%M:%S'),
-      data      = data
+      message = message,
+      level   = level,
+      time    = os.date('%H:%M:%S'),
+      data    = data
     }
   end
+
+  M.levels = log_level
 
   local add_log = function(message, data, level)
     local formatted_log = format_log(message, data, level)
@@ -30,14 +32,16 @@ return function()
     return add_log(message, data, log_level.info)
   end
 
-  M.echo = function()
+  M.echo = function(level)
     local writable_logs =  {}
 
     for _, log in ipairs(logs) do
-      local writable_log = vim.json.encode(log)
+      if not level or log.level == level then
+        local writable_log = vim.json.encode(log)
 
-      if writable_log then
-        table.insert(writable_logs, { writable_log })
+        if writable_log then
+          table.insert(writable_logs, { writable_log })
+        end
       end
     end
 
@@ -52,7 +56,17 @@ return function()
 
   local metatable = {
     __call = function(_, message, data, level)
-      level = level or log_level.info
+      if not level then
+        if data.success ~= nil then
+          if data.success then
+            level = log_level.info
+          else
+            level = log_level.error
+          end
+        else
+          level = log_level.info
+        end
+      end
 
       return add_log(message, data, level)
     end

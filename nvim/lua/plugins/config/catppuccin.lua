@@ -1,10 +1,12 @@
 return function()
-  require('catppuccin').setup({
+  require'catppuccin'.setup {
     background = {
       light = 'latte',
       dark  = 'mocha'
     },
+
     flavour = 'mocha',
+
     integrations = {
       cmp        = true,
       fern       = true,
@@ -17,5 +19,5 @@ return function()
         enabled = true
       },
     }
-  })
+  }
 end
