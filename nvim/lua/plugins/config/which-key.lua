@@ -47,7 +47,11 @@ return function()
       },
 
       d = {
-        name = 'Sneak'
+        name = 'Sneak',
+
+        s = {
+          name = 'Over window'
+        }
       },
 
       f = {
@@ -60,6 +64,10 @@ return function()
 
       h = {
         name = 'History'
+      },
+
+      i = {
+        name = 'Slime',
       },
 
       L = 'which_key_ignore',

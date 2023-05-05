@@ -53,7 +53,7 @@ return function()
     }
   end
 
-  telescope.setup({
+  telescope.setup {
     defaults = {
       path_display = {
         truncate = 1
@@ -65,7 +65,7 @@ return function()
       }
     },
     pickers = pickers_configuration
-  })
+  }
 
   telescope.load_extension('file_browser')
   telescope.load_extension('fzf')

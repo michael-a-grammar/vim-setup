@@ -69,14 +69,16 @@ return function()
     }
 
     nx_leader_with 't' {
-      'c', exe 'new',           'New buffer',
-      'd', exe 'bdelete',       'Delete buffer',
-      'D', exe 'bufdo bdelete', 'Delete other buffers',
-      'n', exe 'bnext',         'Next buffer',
-      'p', exe 'bprevious',     'Previous buffer',
-      'w', exe 'vertical ball', 'Open buffers in vertical splits',
-      'W', exe 'ball',          'Open buffers in horizontal splits',
-      'y', exe 'tab ball',      'Open buffers in tabs'
+      'c', exe 'new',               'New buffer',
+      'd', exe 'bdelete',           'Delete buffer',
+      'D', exe 'bdelete!',          'Delete buffer (force)',
+      'n', exe 'bnext',             'Next buffer',
+      'p', exe 'bprevious',         'Previous buffer',
+      'w', exe 'vertical ball',     'Open buffers in vertical splits',
+      'W', exe 'ball',              'Open buffers in horizontal splits',
+      'x', exe '%bdelete | edit#',  'Delete other buffers',
+      'X', exe '%bdelete! | edit#', 'Delete other buffers (force)',
+      'y', exe 'tab ball',          'Open buffers in tabs'
     }
 
     nx_leader_with 'q' {
