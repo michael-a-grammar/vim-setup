@@ -28,6 +28,10 @@ return function()
 
   local to_register = {
     ['<localleader>'] = {
+      r = {
+        name = 'Rust'
+      },
+
       s = {
         name = 'Find (ft)'
       },
@@ -47,7 +51,7 @@ return function()
       },
 
       d = {
-        name = 'Sneak',
+        name = 'Hop',
 
         s = {
           name = 'Over window'
@@ -69,8 +73,6 @@ return function()
       i = {
         name = 'Slime',
       },
-
-      L = 'which_key_ignore',
 
       n = {
         name = 'Navigation'

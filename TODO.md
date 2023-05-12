@@ -33,4 +33,6 @@ TODO:
 - cmp / lsp config
 - add delay to cmp command complete
 - formalise rust workflow functions
+- replace easy-motion with hop
+- replace airline
 

@@ -82,8 +82,8 @@ return function()
     end
   end
 
-  local buffers_only_cwd = create_get_buffers(true)
-  local buffers          = create_get_buffers(false)
+  local get_buffers_only_cwd = create_get_buffers(true)
+  local get_buffers          = create_get_buffers(false)
 
   map(function()
     nx_leader {
@@ -91,10 +91,10 @@ return function()
 
       spc, builtin.find_files, 'Find files (cwd)',
 
-      '*', builtin.grep_string, 'Grep w/ input (cwd)',
-      ',', buffers_only_cwd,    'Buffers (cwd)',
-      '/', builtin.live_grep,   'Grep (cwd)',
-      '<', buffers,             'Buffers',
+      '*', builtin.grep_string,  'Grep w/ input (cwd)',
+      ',', get_buffers_only_cwd, 'Buffers (cwd)',
+      '/', builtin.live_grep,    'Grep (cwd)',
+      '<', get_buffers,          'Buffers',
     }
 
     nx_leader_with 'f' {
@@ -152,7 +152,7 @@ return function()
     }
 
     nx_leader_with 't' {
-      't', buffers_only_cwd, 'Buffers (cwd)'
+      't', get_buffers_only_cwd, 'Buffers (cwd)'
     }
 
     nx_leader_with 'u' {

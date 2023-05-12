@@ -87,7 +87,9 @@ return function(globals)
           'lambdalisue/fern-hijack.vim',
           'lambdalisue/nerdfont.vim',
           'lambdalisue/fern-renderer-nerdfont.vim',
-          'lambdalisue/glyph-palette.vim'
+          'lambdalisue/glyph-palette.vim',
+          'andykog/fern-highlight.vim',
+          'yuki-yano/fern-preview.vim'
         }
       }
 
@@ -179,11 +181,12 @@ return function(globals)
         'kyazdani42/nvim-web-devicons',
         config = function()
           require'nvim-web-devicons'.setup {
-            color_icons = true
+            color_icons = false
           }
         end
       }
     end,
+
     config = {
       autoremove = true
     }

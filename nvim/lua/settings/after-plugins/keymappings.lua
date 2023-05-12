@@ -1,6 +1,5 @@
 return function()
   local lsp        = vim.lsp.buf
-  local codelens   = vim.lsp.codelens
   local diagnostic = vim.diagnostic
   local map        = require'bundled.cartographer'.map
 
@@ -34,9 +33,9 @@ return function()
 
       'gd', lsp.definition,      'Go to definition',
       'gD', lsp.declaration,     'Go to declaration',
-      'gm', lsp.implementation,  'Go to implementation',
       'gr', lsp.references,      'Go to references',
-      'gt', lsp.type_definition, 'Go to type definition'
+      'gt', lsp.type_definition, 'Go to type definition',
+      'gy', lsp.implementation,  'Go to implementation'
     }
 
     nx_leader {
@@ -52,20 +51,20 @@ return function()
     }
 
     nx_leader_with 'c' {
-      'a', codelens.run,          'Run codelens',
+      'a', lsp.code_action,       'Action',
       'c', lsp.rename,            'Rename',
       'd', lsp.definition,        'Go to definition',
       'D', lsp.declaration,       'Go to declaration',
       'e', diagnostic.setloclist, 'Set loclist with diagnostics',
-      'f', lsp.formatting,        'Format',
+      'f', lsp.format,            'Format',
       'h', lsp.hover,             'Hover',
       'i', diagnostic.open_float, 'Info',
-      'm', lsp.implementation,    'Go to implementation',
       'n', diagnostic.goto_next,  'Next diagnostic',
       'p', diagnostic.goto_prev,  'Previous diagnostic',
       'r', lsp.references,        'Go to references',
       's', lsp.signature_help,    'Signature',
       't', lsp.type_definition,   'Go to type definition',
+      'y', lsp.implementation,    'Go to implementation'
     }
 
     nx_leader_with 't' {
