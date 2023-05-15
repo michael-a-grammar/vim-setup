@@ -9,22 +9,61 @@ return function()
 
     dim_inactive = {
       enabled    = false,
-      shade      = "dark",
+      shade      = 'dark',
       percentage = 0.15,
     },
 
+    transparent_background = true,
+    show_end_of_buffer     = true,
+    term_colors            = true,
+
+    highlight = {
+      enable                            = true,
+      additional_vim_regex_highlighting = false
+    },
+
     integrations = {
-      cmp        = true,
-      fern       = true,
-      neogit     = true,
-      notify     = true,
-      telescope  = true,
-      treesitter = true,
-      which_key  = true,
+      beacon          = true,
+      cmp             = true,
+      gitsigns        = true,
+      fern            = true,
+      fidget          = true,
+      hop             = true,
+      lsp_trouble     = true,
+      neogit          = true,
+      notify          = true,
+      telescope       = true,
+      semantic_tokens = true,
+      treesitter      = true,
+      which_key       = true,
+
+      barbecue = {
+        dim_dirname    = true,
+        bold_basename  = true,
+        dim_context    = false,
+        alt_background = false
+      },
 
       native_lsp = {
-        enabled = true
+        enabled = true,
+        virtual_text = {
+          errors      = { "italic" },
+          hints       = { "italic" },
+          information = { "italic" },
+          warnings    = { "italic" }
+        },
+        underlines = {
+          errors      = { "underline" },
+          hints       = { "underline" },
+          information = { "underline" },
+          warnings    = { "underline" }
+        }
       },
+
+      navic = {
+        enabled   = true,
+        custom_bg = 'NONE'
+      }
     }
   }
 end

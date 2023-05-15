@@ -54,8 +54,8 @@ return function()
 
   map(function()
     nx_leader {
-      'l', exe 'Fern . -drawer -reveal=%:p',         'Locate file within tree',
-      'L', exe 'Fern . -drawer -toggle -reveal=%:p', 'Toggle tree'
+      'l', exe 'Fern . -drawer -reveal=%:p',         'Locate file within fern',
+      'L', exe 'Fern . -drawer -toggle -reveal=%:p', 'Toggle fern'
     }
   end)
 end

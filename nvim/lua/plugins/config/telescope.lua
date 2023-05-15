@@ -113,11 +113,11 @@ return function()
     }
 
     nx_leader_with 'h' {
-      ',', builtin.quickfixhistory, 'Quickfix',
-      '.', builtin.pickers,         'Pickers',
-      ':', builtin.command_history, 'Commands',
-      ';', builtin.search_history,  'Searches',
-      'T', builtin.resume,          'Resume picker'
+      '\'', builtin.resume,          'Resume picker',
+      ',',  builtin.quickfixhistory, 'Quickfix',
+      '.',  builtin.pickers,         'Pickers',
+      ':',  builtin.command_history, 'Commands',
+      ';',  builtin.search_history,  'Searches'
     }
 
     nx_leader_with 'n' {

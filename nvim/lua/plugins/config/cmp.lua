@@ -1,9 +1,9 @@
 return function()
-  local api           = vim.api
-  local bo            = vim.bo
-  local fn            = vim.fn
-  local cmp           = require'cmp'
-  local lspkind       = require'lspkind'
+  local api     = vim.api
+  local bo      = vim.bo
+  local fn      = vim.fn
+  local cmp     = require'cmp'
+  local lspkind = require'lspkind'
 
   local has_words_before = function()
     local line, col = unpack(api.nvim_win_get_cursor(0))

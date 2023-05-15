@@ -67,6 +67,13 @@ return function()
       'y', lsp.implementation,    'Go to implementation'
     }
 
+    nx_leader_with 'e' {
+      'i', exe 'set noincsearch', 'Disable incremental search',
+      't', exe 'nohlsearch',      'Disable highlighted search results',
+      's', cmd_mode 's/',         'Substitute within line',
+      'S', cmd_mode '%s/',        'Substitute'
+    }
+
     nx_leader_with 't' {
       'c', exe 'new',               'New buffer',
       'd', exe 'bdelete',           'Delete buffer',
@@ -129,13 +136,6 @@ return function()
       'l', exe 'tablast',     'Last tab',
       'n', exe 'tabnext',     'Next tab',
       'p', exe 'tabprevious', 'Previous tab'
-    }
-
-    nx_leader_with 'z' {
-      'i', exe 'set noincsearch', 'Disable incremental search',
-      't', exe 'nohlsearch',      'Disable highlighted search results',
-      's', cmd_mode 's/',         'Substitute within line',
-      'S', cmd_mode '%s/',        'Substitute'
     }
   end)
 end

@@ -18,15 +18,6 @@ return function(globals)
         as = 'catppuccin'
       }
 
-      use 'mhinz/vim-startify'
-
-      use_spec {
-        'vim-airline/vim-airline',
-        requires = {
-          'vim-airline/vim-airline-themes'
-        }
-      }
-
       use_spec {
         'nvim-treesitter/nvim-treesitter'
       }
@@ -69,7 +60,11 @@ return function(globals)
           {
             'j-hui/fidget.nvim',
             config = function()
-              require'fidget'.setup()
+              require'fidget'.setup {
+                window = {
+                  blend = 0
+                }
+              }
             end
           }
         }
@@ -78,6 +73,7 @@ return function(globals)
       use_spec {
         'lambdalisue/fern.vim',
         requires = {
+          'ryanoasis/vim-devicons',
           'lambdalisue/fern-hijack.vim',
           'lambdalisue/nerdfont.vim',
           'lambdalisue/fern-renderer-nerdfont.vim',
@@ -88,7 +84,30 @@ return function(globals)
       }
 
       use_spec 'folke/which-key.nvim'
-      use_spec 'mbbill/undotree'
+
+      use {
+        'akinsho/bufferline.nvim',
+        after = {
+          'catppuccin',
+          'nvim-web-devicons'
+        },
+        config = function()
+          require'bufferline'.setup {
+            highlights = require'catppuccin.groups.integrations.bufferline'.get()
+          }
+        end
+      }
+
+      use {
+        'utilyre/barbecue.nvim',
+        after    = 'nvim-web-devicons',
+        requires = 'SmiteshP/nvim-navic',
+        config   = function()
+          require'barbecue'.setup {
+            theme = 'catppuccin'
+          }
+        end
+      }
 
       use 'rcarriga/nvim-notify'
       use 'folke/trouble.nvim'
@@ -96,12 +115,21 @@ return function(globals)
       use 'danilamihailov/beacon.nvim'
       use 'm-demare/hlargs.nvim'
 
+      use_spec 'mbbill/undotree'
+      use_spec 'numToStr/Comment.nvim'
+      use_spec 'bfredl/nvim-miniyank'
+
+      use {
+        'norcalli/nvim-colorizer.lua',
+        config = function()
+          require'colorizer'.setup()
+        end
+      }
+
       use_spec 'easymotion/vim-easymotion'
       use_spec 'jpalardy/vim-slime'
-      use_spec 'numToStr/Comment.nvim'
       use_spec 'junegunn/vim-easy-align'
       use_spec 'terryma/vim-expand-region'
-      use_spec 'bfredl/nvim-miniyank'
 
       use 'chaoren/vim-wordmotion'
       use 'FooSoft/vim-argwrap'
@@ -162,26 +190,7 @@ return function(globals)
       }
 
       use {
-        'norcalli/nvim-colorizer.lua',
-        config = function()
-          require'colorizer'.setup()
-        end
-      }
-
-      use {
-        'ryanoasis/vim-devicons',
-        after = {
-          'vim-startify',
-          'vim-airline',
-          'fern.vim'
-        }
-      }
-
-      use {
-        'kyazdani42/nvim-web-devicons',
-        after = {
-          'telescope.nvim'
-        },
+        'nvim-tree/nvim-web-devicons',
         config = function()
           require'nvim-web-devicons'.setup {
             color_icons = false

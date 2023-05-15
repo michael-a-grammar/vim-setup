@@ -6,7 +6,7 @@ return function()
     hidden     = { '<Plug>' },
     key_labels = {
       ['<space>'] = '',
-      ['<Tab>']   = '',
+      ['<Tab>']   = '󰌒',
       ['<Down>']  = '',
       ['<Left>']  = '',
       ['<Up>']    = '',
@@ -58,6 +58,10 @@ return function()
         }
       },
 
+      e = {
+        name = 'Actions'
+      },
+
       f = {
         name = 'Find (buf)'
       },
@@ -71,7 +75,11 @@ return function()
       },
 
       i = {
-        name = 'Slime',
+        name = 'Slime'
+      },
+
+      k = {
+        name = 'Toggles'
       },
 
       n = {
