@@ -19,7 +19,7 @@ return function()
 
     if bo.filetype == 'TelescopePrompt'
       or context.in_treesitter_capture('comment')
-      and context.in_syntax_group('Comment')
+      or context.in_syntax_group('Comment')
       then
         return false
     end
@@ -33,22 +33,10 @@ return function()
     preselect = cmp.PreselectMode.None,
 
     formatting = {
-      format = lspkind.cmp_format {
+      format = lspkind.cmp_format({
         mode     = 'symbol_text',
-        maxwidth = 80,
-        menu = {
-          buffer                   = '﬘',
-          calc                     = '',
-          cmdline                  = '',
-          nvim_lsp                 = '',
-          nvim_lsp_document_symbol = ' ',
-          nvim_lsp_signature_help  = ' ',
-          nvim_lua                 = '',
-          path                     = '',
-          spell                    = '﬜',
-          vsnip                    = ''
-        }
-      }
+        maxwidth = 100
+      })
     },
 
     snippet = {
@@ -61,7 +49,7 @@ return function()
       documentation = cmp.config.window.bordered()
     },
 
-    mapping = cmp.mapping.preset.insert {
+    mapping = cmp.mapping.preset.insert({
       ['<tab>'] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_next_item()
@@ -84,27 +72,16 @@ return function()
       ['<c-space>'] = cmp.mapping.complete(),
       ['<cr>']      = cmp.mapping.confirm { select = false },
       ['<esc>']     = cmp.mapping.abort()
-    },
+    }),
 
-    sources = cmp.config.sources {
-      {
-        { name = 'nvim_lsp'                },
-        { name = 'nvim_lsp_signature_help' },
-        {
-          name   = 'buffer',
-          option = {
-            get_bufnrs = function()
-              return api.nvim_list_bufs()
-            end
-          }
-        },
-        { name = 'nvim_lua' },
-      },
-      {
-        { name = 'calc'  },
-        { name = 'vsnip' }
-      }
-    }
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp'                },
+      { name = 'nvim_lsp_signature_help' },
+      { name = 'buffer'                  },
+      { name = 'nvim_lua'                },
+      { name = 'calc'                    },
+      { name = 'vsnip'                   }
+    })
   }
 
   cmp.setup.cmdline({ '/', '? '}, {
@@ -117,7 +94,7 @@ return function()
 
   cmp.setup.cmdline(':', {
     mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources {
+    sources = cmp.config.sources({
       {
         name = 'cmdline',
         option = {
@@ -130,13 +107,13 @@ return function()
           trailing_slash = true
         }
       }
-    }
+    })
   })
 
   local enable_debounce = function()
     local timer = vim.loop.new_timer()
 
-    local debounce_delay = 1000
+    local debounce_delay = 100
 
     local debounce = function()
       timer:stop()

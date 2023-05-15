@@ -1,20 +1,13 @@
 return function()
-  local lsp        = vim.lsp.buf
-  local diagnostic = vim.diagnostic
-  local rust_tools = require'rust-tools'
-  local map        = require'bundled.cartographer'.map
+  local rust_tools   = require'rust-tools'
+  local capabilities = require("cmp_nvim_lsp").default_capabilities()
+  local map          = require'bundled.cartographer'.map
+
 
   rust_tools.setup({
-    tools = {
-      inlay_hints = {
-        auto                   = true,
-        show_parameter_hints   = true,
-        parameter_hints_prefix = '',
-        other_hints_prefix     = '',
-      },
-    },
-
     server = {
+      capabilities = capabilities,
+
       on_attach = function(_, bufnr)
         map(function()
           nx_local_leader_with 'r' {

@@ -23,14 +23,12 @@ return function(globals)
       use_spec {
         'vim-airline/vim-airline',
         requires = {
-          'vim-airline/vim-airline-themes',
-          'dawikur/base16-vim-airline-themes'
+          'vim-airline/vim-airline-themes'
         }
       }
 
       use_spec {
-        'nvim-treesitter/nvim-treesitter',
-        requires = 'nvim-treesitter/playground'
+        'nvim-treesitter/nvim-treesitter'
       }
 
       use_spec {
@@ -77,10 +75,6 @@ return function(globals)
         }
       }
 
-      use_spec 'folke/which-key.nvim'
-
-      use 'rcarriga/nvim-notify'
-
       use_spec {
         'lambdalisue/fern.vim',
         requires = {
@@ -93,6 +87,15 @@ return function(globals)
         }
       }
 
+      use_spec 'folke/which-key.nvim'
+      use_spec 'mbbill/undotree'
+
+      use 'rcarriga/nvim-notify'
+      use 'folke/trouble.nvim'
+      use 'TimUntersberger/neogit'
+      use 'danilamihailov/beacon.nvim'
+      use 'm-demare/hlargs.nvim'
+
       use_spec 'easymotion/vim-easymotion'
       use_spec 'jpalardy/vim-slime'
       use_spec 'numToStr/Comment.nvim'
@@ -104,10 +107,6 @@ return function(globals)
       use 'FooSoft/vim-argwrap'
       use 'sickill/vim-pasta'
       use 'Wolfy87/vim-syntax-expand'
-
-      use_spec 'mbbill/undotree'
-
-      use 'TimUntersberger/neogit'
 
       use {
         'TamaMcGlinn/quickfixdd',
@@ -173,12 +172,16 @@ return function(globals)
         'ryanoasis/vim-devicons',
         after = {
           'vim-startify',
-          'vim-airline'
+          'vim-airline',
+          'fern.vim'
         }
       }
 
       use {
         'kyazdani42/nvim-web-devicons',
+        after = {
+          'telescope.nvim'
+        },
         config = function()
           require'nvim-web-devicons'.setup {
             color_icons = false

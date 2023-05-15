@@ -6,7 +6,7 @@ return function()
     hidden     = { '<Plug>' },
     key_labels = {
       ['<space>'] = '',
-      ['<Tab>']   = '',
+      ['<Tab>']   = '',
       ['<Down>']  = '',
       ['<Left>']  = '',
       ['<Up>']    = '',
