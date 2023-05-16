@@ -18,12 +18,11 @@ return function(globals)
         as = 'catppuccin'
       }
 
-      use_spec {
-        'nvim-treesitter/nvim-treesitter'
-      }
+      use_spec 'nvim-treesitter/nvim-treesitter'
 
       use_spec {
         'nvim-telescope/telescope.nvim',
+
         requires = {
           'nvim-lua/plenary.nvim',
 
@@ -40,6 +39,7 @@ return function(globals)
 
       use_spec {
         'hrsh7th/nvim-cmp',
+
         requires = {
           'neovim/nvim-lspconfig',
 
@@ -59,6 +59,7 @@ return function(globals)
 
           {
             'j-hui/fidget.nvim',
+
             config = function()
               require'fidget'.setup {
                 window = {
@@ -72,6 +73,7 @@ return function(globals)
 
       use_spec {
         'lambdalisue/fern.vim',
+
         requires = {
           'ryanoasis/vim-devicons',
           'lambdalisue/fern-hijack.vim',
@@ -87,24 +89,52 @@ return function(globals)
 
       use {
         'akinsho/bufferline.nvim',
+
         after = {
           'catppuccin',
           'nvim-web-devicons'
         },
+
         config = function()
           require'bufferline'.setup {
-            highlights = require'catppuccin.groups.integrations.bufferline'.get()
+            highlights =
+              require'catppuccin.groups.integrations.bufferline'.get(),
+
+            options = {
+              diagnostics     = 'nvim_lsp',
+              numbers         = 'buffer_id',
+              separator_style = 'thin',
+
+              offsets = {
+                {
+                  filetype   = 'fern',
+                  text       = 'Explorer',
+                  text_align = 'center'
+                }
+              },
+            }
           }
         end
       }
 
       use {
         'utilyre/barbecue.nvim',
-        after    = 'nvim-web-devicons',
+
         requires = 'SmiteshP/nvim-navic',
-        config   = function()
+
+        after = {
+          'catppuccin',
+          'nvim-web-devicons'
+        },
+
+        config = function()
           require'barbecue'.setup {
-            theme = 'catppuccin'
+            show_basename = false,
+            theme         = 'catppuccin',
+
+            symbols = {
+              separator = '/'
+            }
           }
         end
       }
@@ -121,6 +151,7 @@ return function(globals)
 
       use {
         'norcalli/nvim-colorizer.lua',
+
         config = function()
           require'colorizer'.setup()
         end
@@ -191,6 +222,7 @@ return function(globals)
 
       use {
         'nvim-tree/nvim-web-devicons',
+
         config = function()
           require'nvim-web-devicons'.setup {
             color_icons = false

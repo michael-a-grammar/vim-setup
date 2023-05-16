@@ -13,9 +13,7 @@ return function()
       percentage = 0.15,
     },
 
-    transparent_background = true,
-    show_end_of_buffer     = true,
-    term_colors            = true,
+    show_end_of_buffer = true,
 
     highlight = {
       enable                            = true,
@@ -61,7 +59,7 @@ return function()
       },
 
       navic = {
-        enabled   = true,
+        enabled   = false,
         custom_bg = 'NONE'
       }
     }
