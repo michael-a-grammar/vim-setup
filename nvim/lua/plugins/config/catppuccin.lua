@@ -1,28 +1,16 @@
 return function()
   require'catppuccin'.setup {
+    flavour = 'mocha',
+
     background = {
       light = 'latte',
       dark  = 'mocha'
     },
 
-    flavour = 'mocha',
-
-    dim_inactive = {
-      enabled    = false,
-      shade      = 'dark',
-      percentage = 0.15,
-    },
-
-    show_end_of_buffer = true,
-
-    highlight = {
-      enable                            = true,
-      additional_vim_regex_highlighting = false
-    },
-
     integrations = {
       beacon          = true,
       cmp             = true,
+      dashboard       = true,
       gitsigns        = true,
       fern            = true,
       fidget          = true,
@@ -38,23 +26,23 @@ return function()
       barbecue = {
         dim_dirname    = true,
         bold_basename  = true,
-        dim_context    = false,
+        dim_context    = true,
         alt_background = false
       },
 
       native_lsp = {
         enabled = true,
         virtual_text = {
-          errors      = { "italic" },
-          hints       = { "italic" },
-          information = { "italic" },
-          warnings    = { "italic" }
+          errors      = { 'italic' },
+          hints       = { 'italic' },
+          information = { 'italic' },
+          warnings    = { 'italic' }
         },
         underlines = {
-          errors      = { "underline" },
-          hints       = { "underline" },
-          information = { "underline" },
-          warnings    = { "underline" }
+          errors      = { 'underline' },
+          hints       = { 'underline' },
+          information = { 'underline' },
+          warnings    = { 'underline' }
         }
       },
 

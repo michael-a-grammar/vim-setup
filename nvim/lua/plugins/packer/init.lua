@@ -15,27 +15,24 @@ return function(globals)
 
       use_spec {
         'catppuccin/nvim',
-        as = 'catppuccin'
+        as = 'catppuccin',
       }
 
       use_spec 'nvim-treesitter/nvim-treesitter'
 
-      use_spec {
-        'nvim-telescope/telescope.nvim',
+      use {
+        'glepnir/dashboard-nvim',
 
-        requires = {
-          'nvim-lua/plenary.nvim',
+        event = 'VimEnter',
 
-          {
-            'nvim-telescope/telescope-fzf-native.nvim',
-            run = 'make'
-          },
+        config = function()
+          require'dashboard'.setup {
 
-          'nvim-telescope/telescope-file-browser.nvim',
-          'nvim-telescope/telescope-github.nvim',
-          'nvim-telescope/telescope-z.nvim'
-        }
+          }
+        end,
       }
+
+      use_spec 'nvim-lualine/lualine.nvim'
 
       use_spec {
         'hrsh7th/nvim-cmp',
@@ -64,35 +61,43 @@ return function(globals)
               require'fidget'.setup {
                 window = {
                   blend = 0
-                }
+                },
               }
-            end
-          }
+            end,
+          },
         }
       }
 
-      use_spec {
-        'lambdalisue/fern.vim',
-
-        requires = {
-          'ryanoasis/vim-devicons',
-          'lambdalisue/fern-hijack.vim',
-          'lambdalisue/nerdfont.vim',
-          'lambdalisue/fern-renderer-nerdfont.vim',
-          'lambdalisue/glyph-palette.vim',
-          'andykog/fern-highlight.vim',
-          'yuki-yano/fern-preview.vim'
-        }
+      use {
+        'L3MON4D3/LuaSnip',
+        run = 'make install_jsregexp',
       }
 
       use_spec 'folke/which-key.nvim'
+
+      use_spec {
+        'nvim-telescope/telescope.nvim',
+
+        requires = {
+          'nvim-lua/plenary.nvim',
+
+          {
+            'nvim-telescope/telescope-fzf-native.nvim',
+            run = 'make',
+          },
+
+          'nvim-telescope/telescope-file-browser.nvim',
+          'nvim-telescope/telescope-github.nvim',
+          'nvim-telescope/telescope-z.nvim',
+        },
+      }
 
       use {
         'akinsho/bufferline.nvim',
 
         after = {
           'catppuccin',
-          'nvim-web-devicons'
+          'nvim-web-devicons',
         },
 
         config = function()
@@ -108,11 +113,26 @@ return function(globals)
               offsets = {
                 {
                   filetype   = 'fern',
-                  text       = 'Explorer',
+                  text       = '󰌪',
                   text_align = 'center'
-                }
+                },
+                {
+                  filetype   = 'Outline',
+                  text       = '󰊕',
+                  text_align = 'center'
+                },
+                {
+                  filetype   = 'packer',
+                  text       = '',
+                  text_align = 'center',
+                },
+                {
+                  filetype   = 'undotree',
+                  text       = '󰕌',
+                  text_align = 'center',
+                },
               },
-            }
+            },
           }
         end
       }
@@ -124,7 +144,7 @@ return function(globals)
 
         after = {
           'catppuccin',
-          'nvim-web-devicons'
+          'nvim-web-devicons',
         },
 
         config = function()
@@ -133,19 +153,43 @@ return function(globals)
             theme         = 'catppuccin',
 
             symbols = {
-              separator = '/'
-            }
+              separator = '',
+            },
           }
         end
       }
 
-      use 'rcarriga/nvim-notify'
+      use_spec {
+        'lambdalisue/fern.vim',
+
+        requires = {
+          'ryanoasis/vim-devicons',
+          'lambdalisue/fern-hijack.vim',
+          'lambdalisue/nerdfont.vim',
+          'lambdalisue/fern-renderer-nerdfont.vim',
+          'lambdalisue/glyph-palette.vim',
+          'andykog/fern-highlight.vim',
+          'yuki-yano/fern-preview.vim',
+        }
+      }
+
       use 'folke/trouble.nvim'
       use 'TimUntersberger/neogit'
+
+      use_spec 'mbbill/undotree'
+
+      use {
+        'simrat39/symbols-outline.nvim',
+
+        config = function()
+          require'symbols-outline'.setup()
+        end,
+      }
+
+      use 'rcarriga/nvim-notify'
       use 'danilamihailov/beacon.nvim'
       use 'm-demare/hlargs.nvim'
 
-      use_spec 'mbbill/undotree'
       use_spec 'numToStr/Comment.nvim'
       use_spec 'bfredl/nvim-miniyank'
 
@@ -154,7 +198,7 @@ return function(globals)
 
         config = function()
           require'colorizer'.setup()
-        end
+        end,
       }
 
       use_spec 'easymotion/vim-easymotion'
@@ -162,14 +206,9 @@ return function(globals)
       use_spec 'junegunn/vim-easy-align'
       use_spec 'terryma/vim-expand-region'
 
-      use 'chaoren/vim-wordmotion'
-      use 'FooSoft/vim-argwrap'
-      use 'sickill/vim-pasta'
-      use 'Wolfy87/vim-syntax-expand'
-
       use {
         'TamaMcGlinn/quickfixdd',
-        ft = 'qf'
+        ft = 'qf',
       }
 
       use 'tpope/vim-fugitive'
@@ -180,44 +219,44 @@ return function(globals)
 
       use {
         'tpope/vim-unimpaired',
-        requires = 'tpope/vim-repeat'
+        requires = 'tpope/vim-repeat',
       }
 
       use {
         'tpope/vim-surround',
-        requires = 'tpope/vim-repeat'
+        requires = 'tpope/vim-repeat',
       }
 
       use_spec {
         'simrat39/rust-tools.nvim',
-        ft = 'rust'
+        ft = 'rust',
       }
 
       use_spec {
         'mhanberg/elixir.nvim',
-        ft = 'elixir'
+        ft = 'elixir',
       }
 
       use {
         'elixir-editors/vim-elixir',
-        ft = 'elixir'
+        ft = 'elixir',
       }
 
       use {
         'andyl/vim-textobj-elixir',
         requires = 'kana/vim-textobj-user',
-        ft       = 'elixir'
+        ft       = 'elixir',
       }
 
       use {
         'rhysd/vim-textobj-ruby',
         requires = 'kana/vim-textobj-user',
-        ft       = 'ruby'
+        ft       = 'ruby',
       }
 
       use {
         'bfredl/nvim-luadev',
-        ft = 'lua'
+        ft = 'lua',
       }
 
       use {
@@ -225,14 +264,14 @@ return function(globals)
 
         config = function()
           require'nvim-web-devicons'.setup {
-            color_icons = false
+            color_icons = false,
           }
-        end
+        end,
       }
     end,
 
     config = {
-      autoremove = true
-    }
+      autoremove = true,
+    },
   })
 end

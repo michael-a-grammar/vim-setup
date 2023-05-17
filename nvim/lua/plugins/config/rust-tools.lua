@@ -3,7 +3,6 @@ return function()
   local capabilities = require("cmp_nvim_lsp").default_capabilities()
   local map          = require'bundled.cartographer'.map
 
-
   rust_tools.setup({
     server = {
       capabilities = capabilities,
