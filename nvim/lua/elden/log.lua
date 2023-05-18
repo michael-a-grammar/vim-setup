@@ -3,7 +3,7 @@ return function()
 
   local logs = {}
 
-  local log_level = {
+  local log_levels = {
     info  = 'INFO',
     warn  = 'WARN',
     error = 'ERROR'
@@ -18,7 +18,7 @@ return function()
     }
   end
 
-  M.levels = log_level
+  M.level = log_level
 
   local add_log = function(message, data, level)
     local formatted_log = format_log(message, data, level)
@@ -28,8 +28,10 @@ return function()
     return M
   end
 
-  M.info = function(message, data)
-    return add_log(message, data, log_level.info)
+  for log_level, log_level_value in pairs(log_levels) do
+    M[log_level] = function(message, data)
+      return add_log(message, data, log_level_value)
+    end
   end
 
   M.echo = function(level)
@@ -59,12 +61,12 @@ return function()
       if not level then
         if data.success ~= nil then
           if data.success then
-            level = log_level.info
+            level = log_levels.info
           else
-            level = log_level.error
+            level = log_levels.error
           end
         else
-          level = log_level.info
+          level = log_levels.info
         end
       end
 

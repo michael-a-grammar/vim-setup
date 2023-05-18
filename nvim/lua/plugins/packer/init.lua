@@ -107,8 +107,17 @@ return function(globals)
 
             options = {
               diagnostics     = 'nvim_lsp',
-              numbers         = 'buffer_id',
+              numbers         = 'both',
               separator_style = 'thin',
+              show_close_icon = false,
+
+              diagnostics_indicator = function(count, level, diagnostics_dict, context)
+                if context.buffer:current() then
+                  return ''
+                end
+
+                return ''
+              end,
 
               offsets = {
                 {
@@ -163,7 +172,6 @@ return function(globals)
         'lambdalisue/fern.vim',
 
         requires = {
-          'ryanoasis/vim-devicons',
           'lambdalisue/fern-hijack.vim',
           'lambdalisue/nerdfont.vim',
           'lambdalisue/fern-renderer-nerdfont.vim',

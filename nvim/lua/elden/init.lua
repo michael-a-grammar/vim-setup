@@ -1,6 +1,6 @@
 return function(config)
-  local opts  = require'elden.opts'()
   local log   = require'elden.log'()
+  local opts  = require'elden.opts'()
   local paths = require'elden.paths'(config)
 
   local M = opts.merged_opts

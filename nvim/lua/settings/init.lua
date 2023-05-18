@@ -114,6 +114,21 @@ return function(globals)
   opt.mouse         = 'a'
   opt.termguicolors = true
 
+  local define_sign = function(name, icon)
+    name = 'DiagnosticSign' .. name
+
+    vim.fn.sign_define(name, {
+      texthl = name,
+      text   = icon,
+      numhl  = ''
+    })
+  end
+
+  define_sign('DiagnosticSignError', '')
+  define_sign('DiagnosticSignWarn',  '')
+  define_sign('DiagnosticSignHint',  '')
+  define_sign('DiagnosticSignInfo',  '')
+
   local events_augroup = api.nvim_create_augroup('events', {})
 
   api.nvim_create_autocmd('TextYankPost', {
