@@ -128,6 +128,9 @@ return function()
             cmp.complete({ reason = cmp.ContextReason.Auto })
           end
         end))
+
+        -- TODO: This timer should be closed, perhaps on VimLeave?
+        -- timer:close()
     end
 
     local events_augroup = api.nvim_create_augroup('text_changed_insert_events', {})

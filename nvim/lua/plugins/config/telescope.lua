@@ -87,7 +87,7 @@ return function()
 
   map(function()
     nx_leader {
-      '\'', builtin.resume, 'Resume picker',
+      '\'', builtin.resume, 'Resume Telescope',
 
       spc, builtin.find_files, 'Find files (cwd)',
 
@@ -113,7 +113,7 @@ return function()
     }
 
     nx_leader_with 'h' {
-      '\'', builtin.resume,          'Resume picker',
+      '\'', builtin.resume,          'Resume Telescope',
       ',',  builtin.quickfixhistory, 'Quickfix',
       '.',  builtin.pickers,         'Pickers',
       ':',  builtin.command_history, 'Commands',

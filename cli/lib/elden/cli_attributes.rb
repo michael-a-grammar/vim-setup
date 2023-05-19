@@ -10,9 +10,14 @@ module Elden
         desc: "Sets the title of the newly created Kitty window"
       },
       {
+        name: :compile_packer,
+        alias: "c",
+        desc: ""
+      },
+      {
         name: :sync_packer,
         alias: "s",
-        desc: "Sets the title of the newly created Kitty window"
+        desc: "Sync packer"
       },
       {
         name: :update_treesitter,
@@ -22,7 +27,7 @@ module Elden
       {
         name: :purge_vim_config_directory,
         alias: "p",
-        desc: "Purge the Vim config directory before sync"
+        desc: "Purge the Vim config directory before Packer compile or sync"
       },
       {
         name: :launch_dev,
@@ -68,6 +73,7 @@ module Elden
         attributes: %i[
           dev_description
           kitty_title_option
+          compile_packer_option
           sync_packer_option
           update_treesitter_option
         ]
@@ -84,6 +90,7 @@ module Elden
         attributes: %i[
           sync_description
           purge_vim_config_directory_option
+          compile_packer_option
           sync_packer_option
           update_treesitter_option
           launch_dev_option

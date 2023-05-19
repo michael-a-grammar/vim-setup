@@ -28,6 +28,10 @@ return function()
     return M
   end
 
+  M.filter_logs = function(filter)
+    return vim.tbl_filter(filter, logs)
+  end
+
   for log_level, log_level_value in pairs(log_levels) do
     M[log_level] = function(message, data)
       return add_log(message, data, log_level_value)

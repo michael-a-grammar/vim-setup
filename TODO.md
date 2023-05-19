@@ -1,20 +1,16 @@
 
- - Find files (cwd)
- - Last buffer
 ! - Shell command
 ' - Resume picker
 * - Grep w/input (cwd)
-/ - Grep
+, - Buffers (cwd)
+/ - Grep (cwd)
 ; - Comment linewise w/operator
-, - Buffers
 < - Buffers
+
 
 A - Applications
 
-C - Comments
-  h - toggle comments
-  l - toggle line comment
-  p - toggle paragraph comment
+C - Code
 
 S - Search
 
@@ -35,4 +31,7 @@ TODO:
 - formalise rust workflow functions
 - replace easy-motion with hop
 - replace airline
-
+- silence errors on sync
+- use 'U' to redo
+- use 'p' / 'P' for backwards and fowards
+- use arrow keys to move windows

@@ -23,27 +23,32 @@ module Elden
 
     shell_command
     def launch_dev!(kitty_title: nil,
+                    compile_packer: false,
                     sync_packer: false,
                     update_treesitter: false)
       launch_tab(title: kitty_title,
                  argument: with_vim(path: vim_dev_config_file_path!) do |opts|
                              use_config(opts[:path])
-                             packer_sync if sync_packer
+                             packer_compile if compile_packer && !sync_packer
+                             packer_sync if sync_packer && !compile_packer
                              treesitter_update if update_treesitter
                            end)
     end
 
     shell_command
-    def update_plugins(sync_packer: true,
+    def update_plugins(compile_packer: false,
+                       sync_packer: true,
                        update_treesitter: true)
       launch_window(argument: with_vim do
-                                packer_sync if sync_packer
+                                packer_compile if compile_packer && !sync_packer
+                                packer_sync if sync_packer && !compile_packer
                                 treesitter_update if update_treesitter
                               end)
     end
 
     shell_command
     def sync!(purge_vim_config_directory: false,
+              compile_packer: false,
               sync_packer: false,
               update_treesitter: false,
               launch_dev: false)
@@ -52,9 +57,9 @@ module Elden
       elden_directory_sync!
 
       if launch_dev
-        launch_dev!(sync_packer:, update_treesitter:)
+        launch_dev!(compile_packer:, sync_packer:, update_treesitter:)
       else
-        update_plugins(sync_packer:, update_treesitter:)
+        update_plugins(compile_packer:, sync_packer:, update_treesitter:)
       end
     end
 
