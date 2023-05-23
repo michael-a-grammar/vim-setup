@@ -3,7 +3,7 @@ local M = {}
 M.b = {}
 
 local local_opts = {
-  use_table_maps = false
+  use_table_maps = false,
 }
 
 local metatable = {
@@ -30,12 +30,12 @@ local with_fn = function(fn)
 end
 
 local with = function(tbl, buffer)
-  tbl.n   = with_modes('n',          buffer)
-  tbl.nx  = with_modes({ 'n', 'x' }, buffer)
-  tbl.nvo = with_modes('',           buffer)
-  tbl.x   = with_modes('x',          buffer)
-  tbl.i   = with_modes('i',          buffer)
-  tbl.c   = with_modes('c',          buffer)
+  tbl.n   = with_modes('n',           buffer)
+  tbl.nx  = with_modes({ 'n', 'x', }, buffer)
+  tbl.nvo = with_modes('',            buffer)
+  tbl.x   = with_modes('x',           buffer)
+  tbl.i   = with_modes('i',           buffer)
+  tbl.c   = with_modes('c',           buffer)
 
   tbl.n_with               = with_fn(tbl.n)
   tbl.n_leader             = with_fn(tbl.n)('<leader>')
@@ -69,11 +69,11 @@ local modifier = function(mod)
       with = function(self, lhs)
         self.lhs = self.lhs .. lhs
         return self
-      end
+      end,
     }, {
       __tostring = function(self)
         return self.lhs
-      end
+      end,
     })
   end
 end

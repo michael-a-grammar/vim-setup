@@ -13,7 +13,7 @@ return function()
     pattern  = 'fern,startify',
     callback = function()
       fn['glyph_palette#apply']()
-    end
+    end,
   })
 
   api.nvim_create_autocmd('FileType', {
@@ -32,7 +32,7 @@ return function()
           {
             desc   = '...',
             buffer = true,
-            expr   = true
+            expr   = true,
           })
 
         b.n {
@@ -42,20 +42,20 @@ return function()
           'o', plug 'fern-action-preview:toggle',      'Preview',
           'O', plug 'fern-action-preview:auto:toggle', 'Preview toggle',
 
-          'q', plug 'fern-quit-or-close-preview', 'Quit'
+          'q', plug 'fern-quit-or-close-preview', 'Quit',
         }
 
         b.n_leader {
-          'l', ctrl 'w' :with 'p', 'Previous window'
+          'l', ctrl 'w' :with 'p', 'Previous window',
         }
       end)
-    end
+    end,
   })
 
   map(function()
     nx_leader {
       'l', exe 'Fern . -drawer -reveal=%:p',         'Locate file within fern',
-      'L', exe 'Fern . -drawer -toggle -reveal=%:p', 'Toggle fern'
+      'L', exe 'Fern . -drawer -toggle -reveal=%:p', 'Toggle fern',
     }
   end)
 end

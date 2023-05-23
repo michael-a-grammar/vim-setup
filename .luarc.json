@@ -29,6 +29,7 @@
         "vim",
         "x_leader",
         "bs",
-        "nvo_leader_with"
+        "nvo_leader_with",
+        "b"
     ]
 }
