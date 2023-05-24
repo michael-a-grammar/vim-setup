@@ -1,4 +1,4 @@
-return function(elden)
-  require'settings.after-plugins.colorscheme'(elden)
+return function()
+  require'settings.after-plugins.colorscheme'()
   require'settings.after-plugins.keymappings'()
 end

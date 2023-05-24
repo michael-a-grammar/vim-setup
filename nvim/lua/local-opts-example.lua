@@ -1,5 +1,4 @@
 return {
-  colorscheme      = 'catppuccin',
   disabled_plugins = {
     ''
   },

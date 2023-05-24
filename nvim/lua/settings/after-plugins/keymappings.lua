@@ -9,11 +9,11 @@ return function()
 
     c {
       alt 'left',  ctrl 'left',  'Word backwards',
-      alt 'right', ctrl 'right', 'Word forwards'
+      alt 'right', ctrl 'right', 'Word forwards',
     }
 
     i {
-      'jj', esc, 'Return to normal mode'
+      'jj', esc, 'Return to normal mode',
     }
 
     nx {
@@ -35,7 +35,7 @@ return function()
       'gD', lsp.declaration,     'Go to declaration',
       'gr', lsp.references,      'Go to references',
       'gt', lsp.type_definition, 'Go to type definition',
-      'gy', lsp.implementation,  'Go to implementation'
+      'gy', lsp.implementation,  'Go to implementation',
     }
 
     nx_leader {
@@ -47,7 +47,7 @@ return function()
       -- 'p', expr [[&diff ? '[c' ? <nop>]], 'Previous diff',
 
       'F', ctrl 'i', 'Forwards',
-      'P', ctrl 'o', 'Backwards'
+      'P', ctrl 'o', 'Backwards',
     }
 
     nx_leader_with 'c' {
@@ -64,14 +64,14 @@ return function()
       'r', lsp.references,        'Go to references',
       's', lsp.signature_help,    'Signature',
       't', lsp.type_definition,   'Go to type definition',
-      'y', lsp.implementation,    'Go to implementation'
+      'y', lsp.implementation,    'Go to implementation',
     }
 
     nx_leader_with 'e' {
       'i', exe 'set noincsearch', 'Disable incremental search',
       't', exe 'nohlsearch',      'Disable highlighted search results',
       's', cmd_mode 's/',         'Substitute within line',
-      'S', cmd_mode '%s/',        'Substitute'
+      'S', cmd_mode '%s/',        'Substitute',
     }
 
     nx_leader_with 't' {
@@ -84,12 +84,12 @@ return function()
       'W', exe 'ball',              'Open buffers in horizontal splits',
       'x', exe '%bdelete | edit#',  'Delete other buffers',
       'X', exe '%bdelete! | edit#', 'Delete other buffers (force)',
-      'y', exe 'tab ball',          'Open buffers in tabs'
+      'y', exe 'tab ball',          'Open buffers in tabs',
     }
 
     nx_leader_with 'q' {
       'q', exe 'quitall',  'Quit all',
-      'Q', exe 'quitall!', 'Force quit all'
+      'Q', exe 'quitall!', 'Force quit all',
     }
 
     nx_leader_with 'w' {
@@ -120,13 +120,13 @@ return function()
 
       's', exe 'vsplit',    'Split window vertically',
       'S', exe 'split',     'Split window horizontally',
-      't', exe 'tab split', 'Open window in new tab'
+      't', exe 'tab split', 'Open window in new tab',
     }
 
     nx_leader_with 'x' {
       'm', ctrl 'a',        'Increment',
       'M', ctrl 'x',        'Decrement',
-      's', cmd_mode 'sort', 'Sort'
+      's', cmd_mode 'sort', 'Sort',
     }
 
     nx_leader_with 'y' {
@@ -135,7 +135,7 @@ return function()
       'f', exe 'tabfirst',    'First tab',
       'l', exe 'tablast',     'Last tab',
       'n', exe 'tabnext',     'Next tab',
-      'p', exe 'tabprevious', 'Previous tab'
+      'p', exe 'tabprevious', 'Previous tab',
     }
   end)
 end

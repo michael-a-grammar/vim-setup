@@ -91,7 +91,7 @@ return function()
 
       spc, builtin.find_files, 'Find files (cwd)',
 
-      '*', builtin.grep_string,  'Grep w/ input (cwd)',
+      '*', builtin.grep_string,  'Grep w/input (cwd)',
       ',', get_buffers_only_cwd, 'Buffers (cwd)',
       '/', builtin.live_grep,    'Grep (cwd)',
       '<', get_buffers,          'Buffers',
@@ -148,7 +148,7 @@ return function()
 
       'R', builtin.oldfiles,    'Recent files (all)',
       's', builtin.live_grep,   'Grep',
-      'w', builtin.grep_string, 'Grep w/ input',
+      'w', builtin.grep_string, 'Grep w/input',
     }
 
     nx_leader_with 't' {
@@ -186,7 +186,7 @@ return function()
           cwd = buffer_dir()
         }
       end,
-      'Grep w/ input'
+      'Grep w/input'
     }
 
     nx_leader_with 'z' {

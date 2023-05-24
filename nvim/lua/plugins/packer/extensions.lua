@@ -1,9 +1,9 @@
-return function(elden)
-  local packer = elden.packer
+return function(env)
+  local packer = env.packer
   local M      = {}
 
   local is_plugin_disabled = function(plugin_path)
-    for _, disabled_plugin in ipairs(elden.disabled_plugins) do
+    for _, disabled_plugin in ipairs(env.disabled_plugins) do
       if plugin_path:find(disabled_plugin, 1, true) ~= nil then
         return true
       end
@@ -55,7 +55,7 @@ return function(elden)
 
     local ensure_plugin_path = function(plugin_path)
       if plugin_is_local then
-        return elden.bundled_plugins_path .. '/' .. plugin_path
+        return env.bundled_plugins_path .. '/' .. plugin_path
       end
 
       return plugin_path

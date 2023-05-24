@@ -1,4 +1,4 @@
-return function(globals)
+return function()
   local api     = vim.api
   local exec    = vim.api.nvim_exec
   local g       = vim.g
@@ -11,12 +11,12 @@ return function(globals)
 
   opt.clipboard:append('unnamed')
 
-  opt.spelllang = { 'en_gb', 'en' }
+  opt.spelllang = { 'en_gb', 'en', }
 
   opt.fileencoding = 'utf-8'
   opt.bomb         = true
 
-  opt.backspace    = { 'indent', 'eol', 'start' }
+  opt.backspace    = { 'indent', 'eol', 'start', }
   opt.expandtab    = true
   opt.shiftwidth   = 2
   opt.softtabstop  = 2
@@ -30,13 +30,13 @@ return function(globals)
     precedes = '<',
     space    = '␣',
     tab      = '>·',
-    trail    = '~'
+    trail    = '~',
   }
 
   opt.hidden     = true
   opt.lazyredraw = true
   opt.switchbuf  = {
-    'uselast'
+    'uselast',
   }
 
   opt.hlsearch   = true
@@ -52,7 +52,7 @@ return function(globals)
     '*/.git/*',
     '*/.idea/*',
     '*/.meteor/*',
-    '*/node_modules/*'
+    '*/node_modules/*',
   }
 
   opt.autoindent  = true
@@ -66,7 +66,7 @@ return function(globals)
     'menuone',
     'noinsert',
     'noselect',
-    'preview'
+    'preview',
   }
 
   opt.history  = 1000
@@ -124,10 +124,10 @@ return function(globals)
     })
   end
 
-  define_sign('DiagnosticSignError', '')
-  define_sign('DiagnosticSignWarn',  '')
-  define_sign('DiagnosticSignHint',  '')
-  define_sign('DiagnosticSignInfo',  '')
+  define_sign('Error', '')
+  define_sign('Warn',  '')
+  define_sign('Hint',  '')
+  define_sign('Info',  '')
 
   local events_augroup = api.nvim_create_augroup('events', {})
 

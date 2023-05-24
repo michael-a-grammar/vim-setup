@@ -1,3 +1,3 @@
-return function(globals)
-  require'plugins.packer'(globals)
+return function(env)
+  require'plugins.packer'(env)
 end

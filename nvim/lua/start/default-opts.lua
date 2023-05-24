@@ -1,5 +1,4 @@
 return {
-  colorscheme      = 'catppuccin',
   disabled_plugins = { },
   packer = {
     install_path                 = '/site/pack/packer/start/packer.nvim',

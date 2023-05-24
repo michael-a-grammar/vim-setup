@@ -1,6 +1,6 @@
-return function(globals)
-  local ensure_packer     = require'plugins.packer.ensure'(globals)
-  local packer_extensions = require'plugins.packer.extensions'(globals)
+return function(env)
+  local ensure_packer     = require'plugins.packer.ensure'(env)
+  local packer_extensions = require'plugins.packer.extensions'(env)
 
   ensure_packer()
 
@@ -13,7 +13,7 @@ return function(globals)
 
       use 'wbthomason/packer.nvim'
 
-      use_spec {
+      use {
         'catppuccin/nvim',
         as = 'catppuccin',
       }
@@ -53,18 +53,6 @@ return function(globals)
           'hrsh7th/cmp-nvim-lua',
 
           'onsails/lspkind.nvim',
-
-          {
-            'j-hui/fidget.nvim',
-
-            config = function()
-              require'fidget'.setup {
-                window = {
-                  blend = 0
-                },
-              }
-            end,
-          },
         }
       }
 
@@ -116,7 +104,7 @@ return function(globals)
                   return ''
                 end
 
-                return ''
+                return ''
               end,
 
               offsets = {
@@ -194,7 +182,24 @@ return function(globals)
         end,
       }
 
-      use 'rcarriga/nvim-notify'
+      use {
+        'rcarriga/nvim-notify',
+
+        config = function()
+          vim.notify = require'notify'
+        end,
+      }
+
+      use {
+        'mrded/nvim-lsp-notify',
+
+        after = 'nvim-notify',
+
+        config = function()
+          require'lsp-notify'.setup()
+        end,
+      }
+
       use 'danilamihailov/beacon.nvim'
       use 'm-demare/hlargs.nvim'
 
