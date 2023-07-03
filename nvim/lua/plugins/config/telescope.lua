@@ -87,14 +87,12 @@ return function()
 
   map(function()
     nx_leader {
-      '\'', builtin.resume, 'Resume Telescope',
-
-      spc, builtin.find_files, 'Find files (cwd)',
-
-      '*', builtin.grep_string,  'Grep w/input (cwd)',
-      ',', get_buffers_only_cwd, 'Buffers (cwd)',
-      '/', builtin.live_grep,    'Grep (cwd)',
-      '<', get_buffers,          'Buffers',
+      '\'', builtin.resume,       'Resume Telescope',
+      spc,  builtin.find_files,   'Find files (cwd)',
+      '*',  builtin.grep_string,  'Grep w/input (cwd)',
+      ',',  get_buffers_only_cwd, 'Buffers (cwd)',
+      '/',  builtin.live_grep,    'Grep (cwd)',
+      '<',  get_buffers,          'Buffers',
     }
 
     nx_leader_with 'f' {
@@ -241,7 +239,7 @@ return function()
   end
 
   map(function()
-    nx_local_leader_with 's' {
+    nx_leader_with 'st' {
       'f',
       function()
         builtin.find_files {
@@ -257,7 +255,7 @@ return function()
       'Grep'
     }
 
-    nx_local_leader_with 'u' {
+    nx_leader_with 'ut' {
       'f',
       function()
         builtin.find_files {

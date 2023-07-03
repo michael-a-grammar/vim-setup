@@ -1,0 +1,153 @@
+! - Shell command
+' - Resume Telescope
+* - Grep w/input (cwd)
+, - Buffers (cwd)
+/ - Grep (cwd)
+; - Comment linewise w/operator
+< - Buffers
+ - Find files (cwd)
+󰌒 - Last buffer
+F - Forwards
+l - Locate file within Fern
+L - Toggle Fern
+P - Backwards
+
+a - Apps
+b - 
+c - Code
+d - Terminal
+e - Edit
+f - Buffer
+g - Git
+h - History
+i - Slime
+j - 
+k - Toggles
+m - Local leader
+n - Navigation
+o -
+p - Yank ring
+q - Quit
+r - 
+s - Find (cwd)
+t - Buffers
+u - Find (bufd)
+v - Expand region
+w - Windows
+x - 
+y - Tabs
+z - Vim
+
+Hop
+Git
+Plugins
+Projects
+Slime
+Telescope
+Terminal
+Trouble
+Symbols Outline
+
+QWFP LUY;
+ARST NEIO
+ZXCD H,./
+
+ST NE
+T N
+
+r - Terminal
+t - Buffers
+s - Find
+n - Buffer
+e - File
+i - Code
+
+s - Find (cwd)
+    * - Grep
+    / - Grep w/input
+    c - Quickfix
+    d - File browser
+    e - Diagnostics
+        e - Trouble
+        t - Telescope
+    f - Find files
+    g - Git
+    l - Loclist
+    m - Marks
+    p - Jumps
+    R - Recent files (all)
+    r - Recent files (cwd)
+    s - Dynamic workspace symbols (LSP)
+    t - Find (ft, cwd)
+        / - Grep
+        f - Find files
+
+n - Buffer
+    / - Fuzzy find
+    e - Diagnostics
+        e - Trouble
+        t - Telescope
+     n - Next diagnostic
+     o - Symbols outline
+     p - Previous diagnostic
+     r - Treesitter
+     s - Document symbols
+     u - Undotree
+     x - Delete buffer contents
+     y - Copy buffer contents
+
+e - File
+    f - View in finder
+    h - Helix
+        f - Open file in Helix
+        p - Open path in Helix
+    p - Paths
+        e - File name w/o extension
+            a - Insert above cursor
+            c - Copy to clipboard
+            e - Insert below cursor
+            i - Insert at cursor
+            n - Notify
+        n - File name
+            ..
+        r - Path relative to cwd
+            ..
+        p - Full path
+            ..
+    x - Delete file
+    y - Copy file
+
+g - Git
+    a - Commits
+    c - Branch commits
+    d - Diff
+    e - Blame
+    f - Files
+    g - Status
+    h - Hunks
+    l - Logs
+    n - Neogit
+    r - Revert
+    s - Stash
+    t - Branches
+    u - Fugitive
+
+TODO:
+
+- Backspace should become hop
+- Move opts from start into their own, seperate module
+- Use elden as the API layer - bind plugin functions here
+- Set up keymappings last
+- use 'q' to quit most transient windows (help, fern etc.)
+- autocommand to strip trailing whitespace (%s/\s\+$//e)
+- micro - bundled plugin to enable better understanding of macros
+- log (with tolerance)
+- cmp / lsp config
+- add delay to cmp command complete
+- formalise rust workflow functions
+- replace easy-motion with hop
+- replace airline
+- silence errors on sync
+- use 'U' to redo
+- use 'p' / 'P' for backwards and fowards
+- use arrow keys to move windows

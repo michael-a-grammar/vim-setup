@@ -129,6 +129,22 @@ return function()
   define_sign('Hint',  '')
   define_sign('Info',  '')
 
+  vim.lsp.handlers['textDocument/hover'] =
+    vim.lsp.with(vim.lsp.handlers.hover, {
+      border = 'rounded',
+    })
+
+  vim.lsp.handlers['textDocument/signatureHelp'] =
+    vim.lsp.with(vim.lsp.handlers.signature_help, {
+      border = 'rounded',
+    })
+
+  vim.diagnostic.config {
+    float = {
+      border = 'rounded',
+    },
+  }
+
   local events_augroup = api.nvim_create_augroup('events', {})
 
   api.nvim_create_autocmd('TextYankPost', {

@@ -65,8 +65,8 @@ return function()
         end
       end, { 'i', 's', }),
 
-      ['<c-e>'] = cmp.mapping.scroll_docs(-4),
-      ['<c-n>'] = cmp.mapping.scroll_docs(4),
+      ['<c-f>'] = cmp.mapping.scroll_docs(-4),
+      ['<c-b>'] = cmp.mapping.scroll_docs(4),
 
       ['<c-space>'] = cmp.mapping.complete(),
       ['<cr>']      = cmp.mapping.confirm { select = false },
@@ -84,7 +84,7 @@ return function()
     }),
   }
 
-  cmp.setup.cmdline({ '/', '? '}, {
+  cmp.setup.cmdline({ '/', '?', }, {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
       { name = 'nvim_lsp_document_symbol', },

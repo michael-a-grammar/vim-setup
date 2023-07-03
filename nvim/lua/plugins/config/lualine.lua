@@ -3,7 +3,7 @@ return function()
   local lualine    = require'lualine'
 
   local colors = {
-    bg       = catppuccin.base,
+    bg       = catppuccin.crust,
     fg       = catppuccin.text,
     dark_fg  = catppuccin.surface2,
     yellow   = catppuccin.yellow,
@@ -38,9 +38,7 @@ return function()
         'undotree',
         'qf',
         'Outline',
-        'NeogitHelpPopup',
-        'NeogitLogPopup',
-        'NeogitStatus',
+        'NeogitPopup',
         'Trouble',
       },
 
@@ -159,7 +157,7 @@ return function()
 
   insert_into_left_section {
     function()
-      local msg     = 'No Active LSP'
+      local msg     = '󰝾'
       local buf_ft  = vim.api.nvim_buf_get_option(0, 'filetype')
       local clients = vim.lsp.get_active_clients()
 
@@ -170,14 +168,13 @@ return function()
       for _, client in ipairs(clients) do
         local filetypes = client.config.filetypes
         if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-          return client.name
+          return ' - ' .. client.name
         end
       end
 
       return msg
     end,
 
-    icon  = ' LSP:',
     color = { fg = colors.dark_fg, gui = 'bold', },
   }
 

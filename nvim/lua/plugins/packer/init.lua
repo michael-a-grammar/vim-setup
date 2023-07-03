@@ -38,7 +38,15 @@ return function(env)
         'hrsh7th/nvim-cmp',
 
         requires = {
-          'neovim/nvim-lspconfig',
+          {
+            'neovim/nvim-lspconfig',
+
+            config = function()
+              require'lspconfig.ui.windows'.default_options = {
+                border = 'rounded'
+              }
+            end,
+          },
 
           'hrsh7th/cmp-nvim-lsp',
           'hrsh7th/cmp-nvim-lsp-document-symbol',
@@ -53,6 +61,18 @@ return function(env)
           'hrsh7th/cmp-nvim-lua',
 
           'onsails/lspkind.nvim',
+
+          {
+            'j-hui/fidget.nvim',
+
+            config = function()
+              require'fidget'.setup {
+                window = {
+                  blend = 0
+                },
+              }
+            end,
+          },
         }
       }
 
@@ -166,8 +186,10 @@ return function(env)
           'lambdalisue/glyph-palette.vim',
           'andykog/fern-highlight.vim',
           'yuki-yano/fern-preview.vim',
-        }
+        },
       }
+
+      use_spec 'voldikss/vim-floaterm'
 
       use 'folke/trouble.nvim'
       use 'TimUntersberger/neogit'
@@ -186,21 +208,19 @@ return function(env)
         'rcarriga/nvim-notify',
 
         config = function()
-          vim.notify = require'notify'
-        end,
-      }
+          local notify = require'notify'
 
-      use {
-        'mrded/nvim-lsp-notify',
+          notify.setup {
+            render = 'compact',
+            stages = 'fade',
+          }
 
-        after = 'nvim-notify',
-
-        config = function()
-          require'lsp-notify'.setup()
+          vim.notify = notify
         end,
       }
 
       use 'danilamihailov/beacon.nvim'
+
       use 'm-demare/hlargs.nvim'
 
       use_spec 'numToStr/Comment.nvim'

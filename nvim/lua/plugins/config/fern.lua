@@ -10,7 +10,7 @@ return function()
 
   api.nvim_create_autocmd('FileType', {
     group    = events_augroup,
-    pattern  = 'fern,startify',
+    pattern  = 'fern',
     callback = function()
       fn['glyph_palette#apply']()
     end,

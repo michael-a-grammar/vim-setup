@@ -5,7 +5,7 @@ return function()
 
   map(function()
     leader       '<space>'
-    local_leader '<bs>'
+    local_leader '<space>m'
 
     c {
       alt 'left',  ctrl 'left',  'Word backwards',

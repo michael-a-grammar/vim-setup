@@ -6,6 +6,7 @@ return function()
     hidden     = { '<Plug>' },
     key_labels = {
       ['<space>'] = '',
+      ['<bs>']    = '󰁮',
       ['<Tab>']   = '󰌒',
       ['<Down>']  = '',
       ['<Left>']  = '',
@@ -27,107 +28,114 @@ return function()
   }
 
   local to_register = {
-    ['<localleader>'] = {
-      r = {
-        name = 'Rust'
-      },
+    -- ['<localleader>'] = {
+    -- },
 
-      s = {
-        name = 'Find (ft)'
-      },
-
-      u = {
-        name = 'Find (ft, bufd)'
-      }
-    },
-
-    ['<leader>'] = {
-      a = {
-        name = 'Apps'
-      },
-
-      c = {
-        name = 'Code'
-      },
-
+    ['<bs>'] = {
       d = {
         name = 'Hop',
 
         s = {
-          name = 'Over window'
+          name = 'Over window',
         }
+      },
+    },
+
+    ['<leader>'] = {
+      a = {
+        name = 'Apps',
+      },
+
+      c = {
+        name = 'Code',
+      },
+
+      d = {
+        name = 'Terminal',
       },
 
       e = {
-        name = 'Actions'
+        name = 'Edit',
       },
 
       f = {
-        name = 'Find (buf)'
+        name = 'Buffer',
       },
 
       g = {
-        name = 'Git'
+        name = 'Git',
       },
 
       h = {
-        name = 'History'
-      },
-
-      i = {
-        name = 'Slime'
+        name = 'History',
       },
 
       k = {
-        name = 'Toggles'
+        name = 'Toggles',
+      },
+
+      m = {
+        name = 'Local leader',
+
+        r = {
+          name = 'Rust',
+        },
       },
 
       n = {
-        name = 'Navigation'
+        name = 'Navigation',
       },
 
       p = {
-        name = 'Yank ring'
+        name = 'Yank ring',
       },
 
       q = {
-        name = 'Quit'
+        name = 'Quit',
       },
 
       s = {
-        name = 'Find (cwd)'
+        name = 'Find (cwd)',
+
+        t = {
+          name = 'Find (ft, cwd)',
+        },
       },
 
       t = {
-        name = 'Buffers'
+        name = 'Buffers',
       },
 
       u = {
-        name = 'Find (bufd)'
+        name = 'Find (bufd)',
+
+        t = {
+          name = 'Find (ft, bufd)',
+        },
       },
 
       v = {
-        name = 'Expand region'
+        name = 'Expand region',
       },
 
       w = {
-        name = 'Windows'
+        name = 'Windows',
       },
 
       x = {
-        name = 'Text'
+        name = 'Text',
       },
 
       y = {
-        name = 'Tabs'
+        name = 'Tabs',
       },
 
       z = {
-        name = 'Vim'
+        name = 'Vim',
       }
     }
   }
 
-  which_key.register(to_register, { mode = 'n' })
-  which_key.register(to_register, { mode = 'x' })
+  which_key.register(to_register, { mode = 'n', })
+  which_key.register(to_register, { mode = 'x', })
 end

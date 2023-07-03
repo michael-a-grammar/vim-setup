@@ -13,6 +13,7 @@ return function()
       dashboard       = true,
       gitsigns        = true,
       fern            = true,
+      fidget          = true,
       hop             = true,
       lsp_trouble     = true,
       neogit          = true,
