@@ -13,7 +13,7 @@ L  - Toggle Fern
 P  - Backwards
 
 a  - Apps
-b  - 
+b  -
 c  - Code
 d  - Hop
 e  - Edit
@@ -22,11 +22,12 @@ f  - Buffer
      e - Diagnostics (Trouble)
      f - File
        e - File name w/o extension
-       n - File name
          c - Copy to clipboard
          i - Insert
-       r - Full path
-       p - 
+         r - Copy to register
+       f - Full path
+       n - File name
+       p - Relative path
 
      s - Document symbols
      o - Symbols outline
@@ -43,20 +44,20 @@ f  - Buffer
 g  - Git
 h  - History
 i  - Slime
-j  - 
+j  -
 k  - Toggles
-m  -  
+m  -
 n  - Navigation
 o  -
 p  - Yank ring
 q  - Quit
-r  - 
+r  -
 s  - Search
 t  - Buffers
 u  -
 v  -
 w  - Windows
-x  - 
+x  -
 y  - Tabs
 z  - Vim
 
@@ -90,16 +91,16 @@ TODO:
 - Move opts from start into their own, seperate module
 - Use elden as the API layer - bind plugin functions here
 - Set up keymappings last
-- use 'q' to quit most transient windows (help, fern etc.)
-- autocommand to strip trailing whitespace (%s/\s\+$//e)
+- Use 'q' to quit most transient windows (help, fern etc.)
+- Autocommand to strip trailing whitespace (%s/\s\+$//e)
 - micro - bundled plugin to enable better understanding of macros
-- log (with tolerance)
+- Log (with tolerance)
 - cmp / lsp config
-- add delay to cmp command complete
-- formalise rust workflow functions
-- replace easy-motion with hop
-- replace airline
-- silence errors on sync
-- use 'U' to redo
-- use 'p' / 'P' for backwards and fowards
-- use arrow keys to move windows
+- Add delay to cmp command complete
+- Formalise rust workflow functions
+- Replace easy-motion with hop
+- Replace airline
+- Silence errors on sync
+- Use 'U' to redo
+- Use 'p' / 'P' for backwards and fowards
+- Use arrow keys to move windows
