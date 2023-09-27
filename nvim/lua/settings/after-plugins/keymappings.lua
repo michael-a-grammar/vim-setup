@@ -30,6 +30,7 @@ return function()
       '_',  'dd<up>P', 'Move line up',
       'n',  'nzzzv',   'Next match and centre',
       'N',  'Nzzzv',   'Previous match and centre',
+      'U',  ctrl 'r',  'Redo',
 
       'gd', lsp.definition,      'Go to definition',
       'gD', lsp.declaration,     'Go to declaration',

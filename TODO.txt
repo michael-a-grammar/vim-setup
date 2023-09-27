@@ -15,7 +15,7 @@ P  - Backwards
 a  - Apps
 b  -
 c  - Code
-d  - Hop
+d  -
 e  - Edit
 f  - Buffer
      / - Fuzzy find
