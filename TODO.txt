@@ -1,66 +1,56 @@
 !  - Shell command
 '  - Resume picker
-\* - Grep w/input (cwd)
-,  - Buffers (cwd)
-/  - Grep (cwd)
+\* - Grep w/i cwd w/input
+,  - Buffers w/i cwd
+/  - Grep w/i cwd
 ;  - Comment linewise w/operator
 <  - Buffers
-  - Find files (cwd)
+  - Find files w/i cwd
 󰌒  - Last buffer
-F  - Forwards
-l  - Locate file within Fern
-L  - Toggle Fern
-P  - Backwards
+l  - Locate file w/i directory tree
+L  - Toggle directory tree
+p  - Backwards
+P  - Forwards
 
-a  - Apps
+a  -
 b  -
-c  - Code
+c  - LSP
 d  -
-e  - Edit
-f  - Buffer
-     / - Fuzzy find
-     e - Diagnostics (Trouble)
-     f - File
-       e - File name w/o extension
-         c - Copy to clipboard
-         i - Insert
-         r - Copy to register
-       f - Full path
-       n - File name
-       p - Relative path
-
-     s - Document symbols
-     o - Symbols outline
-     g - Git
-       d - Diff
-       e - Blame
-       h - Hunks
-       l - Logs
-       r - Revert
-     r - Treesitter
-     Diagnostics (Telescope)
-     u - Undotree
-
+e  - File
+f  - Yank ring
 g  - Git
 h  - History
-i  - Slime
+i  -
 j  -
 k  - Toggles
-m  -
-n  - Navigation
+m  - Local leader
+n  - Buffer
 o  -
-p  - Yank ring
 q  - Quit
-r  -
-s  - Search
+r  - Terminal
+s  - Find w/i cwd
 t  - Buffers
-u  -
-v  -
+u  - Find w/i bufd
+v  - Expand region
 w  - Windows
-x  -
+x  - Text
 y  - Tabs
 z  - Vim
 
+Standards
+---------
+Ease of use is more important than mnemonics
+c - create / new
+d - delete / destory
+D - delete / destory force
+n - next
+p - previous
+x - delete / destory all
+X - delete / destory all force
+
+
+Layers
+------
 Hop
 Git
 Plugins
@@ -71,19 +61,16 @@ Terminal
 Trouble
 Symbols Outline
 
-
+Colemak-DHm
+-------
 QWFP LUY;
 ARST NEIO
 ZXCD H,./
 
+Main keys
+---------
 ST NE
 T N
-
-T - Buffers
-N - Navigation
-
-Merge Navigation and Find
-N should be Buffer
 
 TODO:
 
@@ -99,8 +86,11 @@ TODO:
 - Add delay to cmp command complete
 - Formalise rust workflow functions
 - Replace easy-motion with hop
-- Replace airline
+- DONE Replace airline
 - Silence errors on sync
-- Use 'U' to redo
+- DONE Use 'U' to redo
 - Use 'p' / 'P' for backwards and fowards
 - Use arrow keys to move windows
+- Jump to directory
+- Command builder for cartographer
+- Prelude

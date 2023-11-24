@@ -23,43 +23,44 @@ return function()
       filetypes = {
         'TelescopePrompt',
         'qf'
-      }
-    }
+      },
+    },
   }
 
   local to_register = {
+    -- TODO: Why is this commented out?
     -- ['<localleader>'] = {
     -- },
 
     ['<bs>'] = {
-      d = {
-        name = 'Hop',
-
-        s = {
-          name = 'Over window',
-        }
+      w = {
+        name = 'Over window',
       },
     },
 
     ['<leader>'] = {
       a = {
-        name = 'Apps',
+        name = 'Unassigned',
+      },
+
+      b = {
+        name = 'Unassigned',
       },
 
       c = {
-        name = 'Code',
+        name = 'LSP',
       },
 
       d = {
-        name = 'Terminal',
+        name = 'Unassigned',
       },
 
       e = {
-        name = 'Edit',
+        name = 'File',
       },
 
       f = {
-        name = 'Buffer',
+        name = 'Yank ring',
       },
 
       g = {
@@ -70,12 +71,28 @@ return function()
         name = 'History',
       },
 
+      i = {
+        name = 'Code',
+      },
+
+      j = {
+        name = 'Unassigned',
+      },
+
       k = {
         name = 'Toggles',
       },
 
+      -- l = {
+        -- name = 'Unassigned',
+      -- },
+
       m = {
         name = 'Local leader',
+
+        e = {
+          name = 'Elixir'
+        },
 
         r = {
           name = 'Rust',
@@ -83,22 +100,30 @@ return function()
       },
 
       n = {
-        name = 'Navigation',
+        name = 'Buffer',
       },
 
-      p = {
-        name = 'Yank ring',
+      o = {
+        name = 'Unassigned',
       },
+
+      -- p = {
+        -- name = 'Unassigned',
+      -- },
 
       q = {
         name = 'Quit',
       },
 
+      r = {
+        name = 'Terminal',
+      },
+
       s = {
-        name = 'Find (cwd)',
+        name = 'Find w/i cwd',
 
         t = {
-          name = 'Find (ft, cwd)',
+          name = 'Find w/ft',
         },
       },
 
@@ -107,10 +132,10 @@ return function()
       },
 
       u = {
-        name = 'Find (bufd)',
+        name = 'Find w/i bufd',
 
         t = {
-          name = 'Find (ft, bufd)',
+          name = 'Find w/ft',
         },
       },
 

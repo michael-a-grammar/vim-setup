@@ -47,8 +47,8 @@ return function()
       -- 'n', expr [[&diff ? ']c' ? <nop>]], 'Next diff',
       -- 'p', expr [[&diff ? '[c' ? <nop>]], 'Previous diff',
 
-      'F', ctrl 'i', 'Forwards',
-      'P', ctrl 'o', 'Backwards',
+      'p', ctrl 'o', 'Backwards',
+      'P', ctrl 'i', 'Forwards',
     }
 
     nx_leader_with 'c' {
@@ -68,7 +68,7 @@ return function()
       'y', lsp.implementation,    'Go to implementation',
     }
 
-    nx_leader_with 'e' {
+    nx_leader_with 'k' {
       'i', exe 'set noincsearch', 'Disable incremental search',
       't', exe 'nohlsearch',      'Disable highlighted search results',
       's', cmd_mode 's/',         'Substitute within line',
