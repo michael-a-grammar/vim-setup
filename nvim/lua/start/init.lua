@@ -1,9 +1,9 @@
 return function(config)
-  local log                 = require'start.log'()
+  local log                 = require'api.log'()
   local success, local_opts = pcall(require, 'local-opts')
   local default_opts        = require'start.default-opts'
-  local opts                = require'start.opts'(success, local_opts, default_opts)
-  local paths               = require'start.paths'(config)
+  local opts                = require'api.opts'(success, local_opts, default_opts)
+  local paths               = require'api.paths'(config)
 
   local env = opts.merged_opts
 
@@ -16,8 +16,7 @@ return function(config)
 
   _G.E = env
 
-  require'settings'(env)
+  require'settings'()
   require'plugins'(env)
-  require'settings.after-plugins'(env)
-  require'elden'(env)
+  require'settings.after-plugins'()
 end

@@ -12,7 +12,7 @@ module Elden
       {
         name: :compile_packer,
         alias: "c",
-        desc: ""
+        desc: "Compile packer"
       },
       {
         name: :sync_packer,

@@ -62,17 +62,7 @@ return function(env)
 
           'onsails/lspkind.nvim',
 
-          {
-            'j-hui/fidget.nvim',
-
-            config = function()
-              require'fidget'.setup {
-                window = {
-                  blend = 0
-                },
-              }
-            end,
-          },
+          'j-hui/fidget.nvim',
         }
       }
 

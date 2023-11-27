@@ -58,10 +58,14 @@ return function()
     vim.api.nvim_echo(writable_logs, true, {})
   end
 
+  M.clear = function()
+    logs = {}
+  end
+
   M.flush = function()
     M.echo()
 
-    logs = {}
+    M.clear()
   end
 
   for log_level, log_level_value in pairs(log_levels) do
