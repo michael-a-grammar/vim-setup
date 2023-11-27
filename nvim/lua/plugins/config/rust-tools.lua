@@ -1,7 +1,10 @@
 return function()
-  local rust_tools   = require'rust-tools'
-  local capabilities = require'cmp_nvim_lsp'.default_capabilities()
-  local map          = require'bundled.cartographer'.map
+  local rust_tools = require'rust-tools'
+  local map        = require'bundled.cartographer'.map
+
+  local capabilities =
+    require'cmp_nvim_lsp'
+      .default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
   rust_tools.setup({
     tools = {
@@ -21,6 +24,6 @@ return function()
           }
         end)
       end
-    }
+    },
   })
 end

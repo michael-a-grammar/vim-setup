@@ -62,7 +62,13 @@ return function(env)
 
           'onsails/lspkind.nvim',
 
-          'j-hui/fidget.nvim',
+          {
+            'j-hui/fidget.nvim',
+
+            config = function()
+              require'fidget'.setup()
+            end
+          },
         }
       }
 
@@ -256,8 +262,9 @@ return function(env)
       }
 
       use_spec {
-        'mhanberg/elixir.nvim',
-        ft = 'elixir',
+        'elixir-tools/elixir-tools.nvim',
+        requires = 'nvim-lua/plenary.nvim',
+        ft       = 'elixir',
       }
 
       use {

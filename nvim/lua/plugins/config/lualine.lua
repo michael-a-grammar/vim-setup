@@ -170,6 +170,7 @@ return function()
         if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
           return ' - ' .. client.name
         end
+        return 'Something amiss!'
       end
 
       return msg
