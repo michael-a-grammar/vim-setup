@@ -5,7 +5,7 @@ return function()
 
   map(function()
     leader       '<space>'
-    local_leader '<space>m'
+    local_leader ','
 
     c {
       alt 'left',  ctrl 'left',  'Word backwards',
@@ -19,6 +19,7 @@ return function()
     nx {
       spc, nop, 'nop',
       bs,  nop, 'nop',
+      ',', nop, 'nop',
 
       ',,', ',',       'Previous match',
       '0',  'g0',      'Beginning of line',
@@ -34,9 +35,9 @@ return function()
 
       'gd', lsp.definition,      'Go to definition',
       'gD', lsp.declaration,     'Go to declaration',
+      'gm', lsp.implementation,  'Go to implementation',
       'gr', lsp.references,      'Go to references',
-      'gt', lsp.type_definition, 'Go to type definition',
-      'gy', lsp.implementation,  'Go to implementation',
+      'gy', lsp.type_definition, 'Go to type definition',
     }
 
     nx_leader {
@@ -56,16 +57,26 @@ return function()
       'c', lsp.rename,            'Rename',
       'd', lsp.definition,        'Go to definition',
       'D', lsp.declaration,       'Go to declaration',
-      'e', diagnostic.setloclist, 'Set loclist with diagnostics',
       'f', lsp.format,            'Format',
       'h', lsp.hover,             'Hover',
-      'i', diagnostic.open_float, 'Info',
+      'm', lsp.implementation,    'Go to implementation',
+      'r', lsp.references,        'Go to references',
+      's', lsp.signature_help,    'Signature help',
+
+      't',
+      function()
+        lsp.codelens.run()
+      end,
+      'Run test',
+
+      'y', lsp.type_definition,   'Go to type definition',
+    }
+
+    nx_leader_with 'd' {
+      'f', diagnostic.open_float, 'Info',
+      'l', diagnostic.setloclist, 'Set loclist with diagnostics',
       'n', diagnostic.goto_next,  'Next diagnostic',
       'p', diagnostic.goto_prev,  'Previous diagnostic',
-      'r', lsp.references,        'Go to references',
-      's', lsp.signature_help,    'Signature',
-      't', lsp.type_definition,   'Go to type definition',
-      'y', lsp.implementation,    'Go to implementation',
     }
 
     nx_leader_with 'k' {

@@ -28,13 +28,27 @@ return function()
   }
 
   local to_register = {
-    -- TODO: Why is this commented out?
-    -- ['<localleader>'] = {
-    -- },
-
     ['<bs>'] = {
       w = {
         name = 'Over window',
+      },
+    },
+
+    ['<localleader>'] = {
+      e = {
+        name = 'Elixir',
+
+        i = {
+          name = 'Pipes'
+        },
+
+        p = {
+          name = 'Project'
+        },
+      },
+
+      r = {
+        name = 'Rust',
       },
     },
 
@@ -52,7 +66,7 @@ return function()
       },
 
       d = {
-        name = 'Unassigned',
+        name = 'Diagnostics',
       },
 
       e = {
@@ -87,17 +101,9 @@ return function()
         -- name = 'Unassigned',
       -- },
 
-      m = {
-        name = 'Local leader',
-
-        e = {
-          name = 'Elixir'
-        },
-
-        r = {
-          name = 'Rust',
-        },
-      },
+      -- m = {
+       -- name = 'Unassigned'
+      -- },
 
       n = {
         name = 'Buffer',

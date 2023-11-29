@@ -157,23 +157,33 @@ return function()
 
   insert_into_left_section {
     function()
-      local msg     = '󰝾'
-      local buf_ft  = vim.api.nvim_buf_get_option(0, 'filetype')
-      local clients = vim.lsp.get_active_clients()
+      local no_lsp_message = '󰝾'
+      local lsp_message    = ' - '
+      local buf_ft         = vim.api.nvim_buf_get_option(0, 'filetype')
+      local clients        = vim.lsp.get_active_clients()
 
       if next(clients) == nil then
-        return msg
+        return no_lsp_message
       end
 
-      for _, client in ipairs(clients) do
-        local filetypes = client.config.filetypes
-        if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-          return ' - ' .. client.name
+      -- TODO: Can we detect if the current buffer is attached to the following clients?
+      -- The below fails for ElixirLS and Credo
+      -- for _, client in ipairs(clients) do
+      --   local filetypes = client.config.filetypes
+      --   if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+      --     return ' - ' .. client.name
+      --   end
+      -- end
+
+      for index, client in ipairs(clients) do
+        if index > 1 then
+          lsp_message = lsp_message .. ', '
         end
-        return 'Something amiss!'
+
+        lsp_message = lsp_message .. client.name or client.config.name
       end
 
-      return msg
+      return lsp_message
     end,
 
     color = { fg = colors.dark_fg, gui = 'bold', },

@@ -240,6 +240,7 @@ return function(env)
         ft = 'qf',
       }
 
+      use 'tpope/vim-projectionist'
       use 'tpope/vim-fugitive'
       use 'tpope/vim-eunuch'
       use 'tpope/vim-abolish'
