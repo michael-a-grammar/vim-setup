@@ -100,3 +100,6 @@ TODO:
 - Opts, Paths move to top level
 - Elden directory
 - require_elden'opts'
+- Spec name is confusing
+- Check how user opts now work
+- use with config
