@@ -1,9 +1,9 @@
 lua << EOF
   local paths = require'api.paths'
 
-  runtimepath:append(paths.elden_path)
-  runtimepath:remove(paths.vim_config_path)
-  runtimepath:remove(paths.vim_after_path)
+  runtimepath:append(paths.elden)
+  runtimepath:remove(paths.vim_config)
+  runtimepath:remove(paths.vim_after)
 
-  require'prelude'()
+  require'prelude'
 EOF

@@ -1,1 +1,1 @@
-﻿require'prelude'()
+﻿require'prelude'

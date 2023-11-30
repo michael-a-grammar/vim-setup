@@ -1,5 +1,3 @@
-return function()
-  local M = {}
+local M = {}
 
-  return M
-end
+return M

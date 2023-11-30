@@ -1,9 +1,9 @@
 return function(default_opts, user_opts, dev_opts)
-  local M = {}
+  local combined_opts = {}
 
   user_opts = (user_opts and type(user_opts) == 'table') or {}
 
-  merge_opts = function(opts1, opts2)
+  local merge_opts = function(opts1, opts2)
     return vim.tbl_deep_extend('force', opts1, opts2)
   end
 
@@ -14,10 +14,10 @@ return function(default_opts, user_opts, dev_opts)
     merged_opts     = merge_opts(merged_opts, dev_opts)
   end
 
-  M.default = default_opts
-  M.user    = user_opts
-  M.dev     = dev_opts
-  M.merged  = merged_opts
+  combined_opts.default = default_opts
+  combined_opts.user    = user_opts
+  combined_opts.dev     = dev_opts
+  combined_opts.merged  = merged_opts
 
-  return M
+  return combined_opts
 end

@@ -1,5 +1,3 @@
-return function()
-  require'settings'()
-  require'plugins'()
-  require'settings.after-plugins'()
-end
+require'settings'
+require'plugins'
+require'settings.after-plugins'()

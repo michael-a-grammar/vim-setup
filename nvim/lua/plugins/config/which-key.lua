@@ -1,6 +1,7 @@
 return function()
   local which_key = require'which-key'
-  local icons     = E.icons
+  local opts      = require'api.opts'
+  local icons     = opts.icons
 
   which_key.setup {
     layout = {

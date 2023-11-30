@@ -1,3 +1,1 @@
-return function()
-  require'plugins.packer'()
-end
+require'plugins.packer'
