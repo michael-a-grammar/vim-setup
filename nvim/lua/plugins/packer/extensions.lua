@@ -1,9 +1,11 @@
-return function(env)
-  local packer = env.packer
+return function()
+  local log    = require'api.log'()
+  local opts   = require'api.opts'()
+  local packer = opts.packer
   local M      = {}
 
   local is_plugin_disabled = function(plugin_path)
-    for _, disabled_plugin in ipairs(env.disabled_plugins) do
+    for _, disabled_plugin in ipairs(opts.disabled_plugins) do
       if plugin_path:find(disabled_plugin, 1, true) ~= nil then
         return true
       end
@@ -38,7 +40,7 @@ return function(env)
 
     local success, module = pcall(require, config_path)
 
-    E.log('plugin config retrieved', {
+    log('plugin config retrieved', {
       config_name = config_name,
       config_path = config_path,
       success     = success

@@ -94,3 +94,8 @@ TODO:
 - Jump to directory
 - Command builder for cartographer
 - Prelude
+- Create local opts, local opts example
+- Remove global state
+- What am I doing with this after file?
+- Opts, Paths move to top level
+- Elden directory

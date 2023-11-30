@@ -1,22 +1,9 @@
 lua << EOF
-  local getenv      = os.getenv
-  local normalize   = vim.fs.normalize
-  local runtimepath = vim.opt.runtimepath
+  local paths = require'api.paths'
 
-  local get_path = function(env_varname, default)
-    local path = getenv(env_varname) or default
+  runtimepath:append(paths.elden_path)
+  runtimepath:remove(paths.vim_config_path)
+  runtimepath:remove(paths.vim_after_path)
 
-    return normalize(path)
-  end
-
-  local elden_path      = get_path('ELDEN_PATH')
-  local vim_config_path = get_path('XDG_CONFIG_PATH', '~/.config') .. '/nvim'
-
-  runtimepath:append(elden_path)
-  runtimepath:remove(vim_config_path)
-  runtimepath:remove(vim_config_path .. '/after')
-
-  require'start'({
-    is_dev = true
-  })
+  require'prelude'()
 EOF

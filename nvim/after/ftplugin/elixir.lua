@@ -5,3 +5,5 @@ map(function()
 
   }
 end)
+
+print('Hello Elixir ftplugin!')

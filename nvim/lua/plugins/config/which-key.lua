@@ -1,17 +1,22 @@
 return function()
   local which_key = require'which-key'
+  local icons     = E.icons
 
   which_key.setup {
-    layout     = { align = "left" },
-    hidden     = { '<Plug>' },
+    layout = {
+      align = opts.alignment,
+    },
+
+    hidden = { '<Plug>' },
+
     key_labels = {
-      ['<space>'] = '',
-      ['<bs>']    = '󰁮',
-      ['<Tab>']   = '󰌒',
-      ['<Down>']  = '',
-      ['<Left>']  = '',
-      ['<Up>']    = '',
-      ['<Right>'] = ''
+      ['<space>'] = icons.keys.space,
+      ['<bs>']    = icons.keys.backspace,
+      ['<tab>']   = icons.keys.tab,
+      ['<down>']  = icons.keys.down,
+      ['<left>']  = icons.keys.left,
+      ['<up>']    = icons.keys.up,
+      ['<right>'] = icons.keys.right,
     },
 
     popup_mappings = {

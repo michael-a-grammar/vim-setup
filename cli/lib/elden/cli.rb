@@ -11,17 +11,17 @@ module Elden
     dev_command
     def dev
       elden_shell
-        .launch_dev!(kitty_title: options[:kitty_title],
-                     sync_packer: options[:sync_packer],
-                     update_treesitter: options[:update_treesitter])
+        .dev!(kitty_title: options[:kitty_title],
+              sync_packer: options[:sync_packer],
+              update_treesitter: options[:update_treesitter])
         .run!
     end
 
     update_command
     def update
       elden_shell
-        .update_plugins(sync_packer: true,
-                        update_treesitter: options[:update_treesitter])
+        .update(sync_packer: true,
+                update_treesitter: options[:update_treesitter])
         .run!
     end
 

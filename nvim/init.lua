@@ -1,3 +1,1 @@
-﻿require'start'({
-  is_dev = false
-})
+﻿require'prelude'()

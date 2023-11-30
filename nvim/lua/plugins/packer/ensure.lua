@@ -1,12 +1,13 @@
-return function(env)
-  local fn     = vim.fn
-  local packer = env.packer
-
+return function()
   local M = function()
+    local fn     = vim.fn
+    local paths  = require'api.paths'()
+    local packer = require'api.opts'().packer
+
     local packer_install_path
 
-    if packer.install_path_relative then
-      packer_install_path = env.paths.data_path .. packer.install_path
+    if packer.is_install_path_relative then
+      packer_install_path = paths.data_path .. packer.install_path
     else
       packer_install_path = packer.install_path
     end

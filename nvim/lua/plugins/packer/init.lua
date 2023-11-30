@@ -1,6 +1,6 @@
-return function(env)
-  local ensure_packer     = require'plugins.packer.ensure'(env)
-  local packer_extensions = require'plugins.packer.extensions'(env)
+return function()
+  local ensure_packer     = require'plugins.packer.ensure'()
+  local packer_extensions = require'plugins.packer.extensions'()
 
   ensure_packer()
 

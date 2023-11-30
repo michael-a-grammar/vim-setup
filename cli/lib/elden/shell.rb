@@ -22,10 +22,10 @@ module Elden
     end
 
     shell_command
-    def launch_dev!(kitty_title: nil,
-                    compile_packer: false,
-                    sync_packer: false,
-                    update_treesitter: false)
+    def dev!(kitty_title: nil,
+             compile_packer: false,
+             sync_packer: false,
+             update_treesitter: false)
       launch_tab(title: kitty_title,
                  argument: with_vim(path: vim_dev_config_file_path!) do |opts|
                              use_config(opts[:path])
@@ -36,9 +36,9 @@ module Elden
     end
 
     shell_command
-    def update_plugins(compile_packer: false,
-                       sync_packer: true,
-                       update_treesitter: true)
+    def update(compile_packer: false,
+               sync_packer: true,
+               update_treesitter: true)
       launch_window(argument: with_vim do
                                 packer_compile if compile_packer && !sync_packer
                                 packer_sync if sync_packer && !compile_packer

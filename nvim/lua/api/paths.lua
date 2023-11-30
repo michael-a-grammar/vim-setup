@@ -1,7 +1,8 @@
-return function(config)
+return function()
   local fn        = vim.fn
   local getenv    = os.getenv
   local normalize = vim.fs.normalize
+  local opts      = require'api.opts'()
   local M         = {}
 
   local get_path = function(env_varname, default)
@@ -19,7 +20,7 @@ return function(config)
   local vim_config_path = config_path and config_path .. '/nvim' or false
 
   local get_bundled_plugins_path = function()
-    local base_path = config.is_dev and elden_path or vim_config_path
+    local base_path = opts.is_dev and elden_path or vim_config_path
 
     return base_path .. '/lua/bundled'
   end
@@ -30,6 +31,7 @@ return function(config)
   M.bundled_plugins_path = bundled_plugins_path
   M.elden_path           = elden_path
   M.vim_config_path      = vim_config_path
+  M.vim_after_path       = vim_config_path .. '/after'
 
   return M
 end

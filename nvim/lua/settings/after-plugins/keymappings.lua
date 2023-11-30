@@ -101,7 +101,7 @@ return function()
 
     nx_leader_with 'q' {
       'q', exe 'quitall',  'Quit all',
-      'Q', exe 'quitall!', 'Force quit all',
+      'Q', exe 'quitall!', 'Quit all (force)',
     }
 
     nx_leader_with 'w' {
