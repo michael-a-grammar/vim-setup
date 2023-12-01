@@ -9,32 +9,29 @@ module Elden
       },
       {
         name: "elden_dev_config_file_path",
-        env_name: "ELDEN_PATH",
-        additional_paths: "dev.vim"
+        parent_path_method_name: :elden_source_path
+        path_leaf: "dev.vim"
       },
       {
         name: "config_path",
         env_name: "XDG_CONFIG_HOME",
         default_path: "~/",
-        additional_paths: ".config"
+        path_leaf: ".config"
       },
       {
         name: "vim_config_path",
-        env_name: "XDG_CONFIG_HOME",
-        default_path: "~/",
-        additional_paths: %w[.config nvim]
+        parent_path_method_name: :config_path,
+        path_leaf: "nvim"
       },
       {
         name: "vim_lua_path",
-        env_name: "XDG_CONFIG_HOME",
-        default_path: "~/",
-        additional_paths: %w[.config nvim lua]
+        parent_path_method_name: :vim_config_path,
+        path_leaf: "lua"
       },
       {
         name: "elden_deploy_path",
-        env_name: "XDG_CONFIG_HOME",
-        default_path: "~/",
-        additional_paths: %w[.config nvim lua elden]
+        parent_path_method_name: :vim_lua_path,
+        path_leaf: "elden"
       }
     ].each do |path_info|
       name, method_block =
@@ -42,12 +39,12 @@ module Elden
         in name:, **rest
           method_block =
             case rest
-            in env_name:, default_path:, additional_paths:
-              -> { env_path(env_name, additional_paths, default_path:) }
-            in env_name:, additional_paths:
-              -> { env_path(env_name, additional_paths) }
             in env_name:
-              -> { env_path(env_name) }
+              -> { get_path_from_env(env_name) }
+            in env_name:, default_path:, path_leaf:
+              -> { get_path_from_env(env_name, default_path, path_leaf) }
+            in parent_path_method_name:, path_leaf:
+              -> { get_path_using_parent_path_method(parent_path_method_name, path_leaf) }
             end
 
           [name, method_block]
@@ -73,25 +70,37 @@ module Elden
       define_method("#{name}!") { path_result.call(:ensure) }
     end
 
-    def self.path(path, *additional_paths)
-      unless path.nil?
-        expanded_path = File.expand_path(path)
+    def self.get_path_from_env(env_name, default_path: nil, path_leaf: nil)
+      path_tree = ENV[env_name] || default_path
 
-        additional_paths.prepend(expanded_path)
-      end
-
-      joined_paths = File.join(additional_paths) || ""
-
-      exist?(joined_paths)
+      get_path_result(path_tree, path_leaf)
     end
 
-    def self.env_path(env_name, *additional_paths, default_path: nil)
-      env_path_or_default = ENV[env_name] || default_path
+    def self.get_path_using_parent_path_method(parent_path_method_name, path_leaf)
+      path_tree = send(parent_path_method_name)
 
-      path(env_path_or_default, additional_paths)
+      get_path_result(path_tree, path_leaf)
     end
 
-    def self.exist?(path)
+    def self.get_path_result(path_tree, path_leaf)
+      path = File.expand_path(path_tree) unless path_tree.nil?
+
+      path =
+        case { path_tree, path_leaf }
+        in path_tree:, path_leaf: unless path_tree.nil? || path_leaf.nil?
+          File.join(path_tree, path_leaf)
+        in path_tree:, path_leaf: if path_tree.nil?
+          path_leaf
+        in path_tree:, path_leaf: if path_leaf.nil?
+          path_tree
+        else
+          ""
+        end
+
+      path_exists?(File.expand(path))
+    end
+
+    def self.path_exists?(path)
       exists = File.exist?(path)
 
       { exists:, path: }
