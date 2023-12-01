@@ -27,7 +27,7 @@ return {
   packer = {
     install_path                 = '/site/pack/packer/start/packer.nvim',
     is_install_path_relative     = true,
-    relative_plugins_config_path = 'plugins',
+    relative_plugins_config_path = 'elden.plugins',
     repo                         = 'https://github.com/wbthomason/packer.nvim',
   },
 

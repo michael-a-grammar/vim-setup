@@ -1,11 +1,11 @@
-require'elden.plugins.packer.ensure'()
+require'elden.packer.ensure'()
 
 require'packer'.startup({
   function(use)
-    local packer_extensions  = require'elden.plugins.packer.extensions'(use)
-    local use_spec           = packer_extensions.use_spec
-    local local_use_spec     = packer_extensions.local_use_spec
-    local local_use          = packer_extensions.local_use
+    local packer_extensions = require'elden.packer.extensions'(use)
+    local plugin_spec       = packer_extensions.plugin_spec
+    local local_plugin_spec = packer_extensions.local_plugin_spec
+    local local_plugin      = packer_extensions.local_plugin
 
     use 'wbthomason/packer.nvim'
 
@@ -14,7 +14,7 @@ require'packer'.startup({
       as = 'catppuccin',
     }
 
-    use_spec 'nvim-treesitter/nvim-treesitter'
+    plugin_spec 'nvim-treesitter/nvim-treesitter'
 
     use {
       'glepnir/dashboard-nvim',
@@ -28,9 +28,9 @@ require'packer'.startup({
       end,
     }
 
-    use_spec 'nvim-lualine/lualine.nvim'
+    plugin_spec 'nvim-lualine/lualine.nvim'
 
-    use_spec {
+    plugin_spec {
       'hrsh7th/nvim-cmp',
 
       requires = {
@@ -73,9 +73,9 @@ require'packer'.startup({
       run = 'make install_jsregexp',
     }
 
-    use_spec 'folke/which-key.nvim'
+    plugin_spec 'folke/which-key.nvim'
 
-    use_spec {
+    plugin_spec {
       'nvim-telescope/telescope.nvim',
 
       requires = {
@@ -168,7 +168,7 @@ require'packer'.startup({
       end
     }
 
-    use_spec {
+    plugin_spec {
       'lambdalisue/fern.vim',
 
       requires = {
@@ -181,12 +181,12 @@ require'packer'.startup({
       },
     }
 
-    use_spec 'voldikss/vim-floaterm'
+    plugin_spec 'voldikss/vim-floaterm'
 
     use 'folke/trouble.nvim'
     use 'TimUntersberger/neogit'
 
-    use_spec 'mbbill/undotree'
+    plugin_spec 'mbbill/undotree'
 
     use {
       'simrat39/symbols-outline.nvim',
@@ -215,8 +215,8 @@ require'packer'.startup({
 
     use 'm-demare/hlargs.nvim'
 
-    use_spec 'numToStr/Comment.nvim'
-    use_spec 'bfredl/nvim-miniyank'
+    plugin_spec 'numToStr/Comment.nvim'
+    plugin_spec 'bfredl/nvim-miniyank'
 
     use {
       'norcalli/nvim-colorizer.lua',
@@ -226,10 +226,10 @@ require'packer'.startup({
       end,
     }
 
-    use_spec 'easymotion/vim-easymotion'
-    use_spec 'jpalardy/vim-slime'
-    use_spec 'junegunn/vim-easy-align'
-    use_spec 'terryma/vim-expand-region'
+    plugin_spec 'easymotion/vim-easymotion'
+    plugin_spec 'jpalardy/vim-slime'
+    plugin_spec 'junegunn/vim-easy-align'
+    plugin_spec 'terryma/vim-expand-region'
 
     use {
       'TamaMcGlinn/quickfixdd',
@@ -253,12 +253,12 @@ require'packer'.startup({
       requires = 'tpope/vim-repeat',
     }
 
-    use_spec {
+    plugin_spec {
       'simrat39/rust-tools.nvim',
       ft = 'rust',
     }
 
-    use_spec {
+    plugin_spec {
       'elixir-tools/elixir-tools.nvim',
       requires = 'nvim-lua/plenary.nvim',
       ft       = 'elixir',
