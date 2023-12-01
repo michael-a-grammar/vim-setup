@@ -4,11 +4,11 @@ module Elden
   module Paths
     [
       {
-        name: "elden_path",
+        name: "elden_source_path",
         env_name: "ELDEN_PATH"
       },
       {
-        name: "vim_dev_config_file_path",
+        name: "elden_dev_config_file_path",
         env_name: "ELDEN_PATH",
         additional_paths: "dev.vim"
       },
@@ -23,6 +23,18 @@ module Elden
         env_name: "XDG_CONFIG_HOME",
         default_path: "~/",
         additional_paths: %w[.config nvim]
+      },
+      {
+        name: "vim_lua_path",
+        env_name: "XDG_CONFIG_HOME",
+        default_path: "~/",
+        additional_paths: %w[.config nvim lua]
+      },
+      {
+        name: "elden_deploy_path",
+        env_name: "XDG_CONFIG_HOME",
+        default_path: "~/",
+        additional_paths: %w[.config nvim lua elden]
       }
     ].each do |path_info|
       name, method_block =

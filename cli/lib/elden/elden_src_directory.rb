@@ -5,11 +5,11 @@ require_relative "paths"
 require_relative "shell_command"
 
 module Elden
-  module EldenDirectory
+  module EldenSrcDirectory
     include Elden::Paths
 
-    def elden_directory_sync!(verbose: true)
-      FileUtils.cp_r(elden_path!, config_path, verbose:)
+    def elden_src_directory_sync!(verbose: true)
+      FileUtils.cp_r(elden_src_path!, config_path, verbose:)
     end
   end
 end
