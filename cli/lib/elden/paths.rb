@@ -9,7 +9,7 @@ module Elden
       },
       {
         name: "elden_dev_config_file_path",
-        parent_path_method_name: :elden_source_path
+        parent_path_method_name: :elden_source_path,
         path_leaf: "dev.vim"
       },
       {
@@ -21,39 +21,42 @@ module Elden
       {
         name: "vim_config_path",
         parent_path_method_name: :config_path,
-        path_leaf: "nvim"
+        path_leaf: "nvim",
+        methods: :purge
       },
       {
         name: "vim_lua_path",
         parent_path_method_name: :vim_config_path,
-        path_leaf: "lua"
+        path_leaf: "lua",
+        methods: :purge
       },
       {
         name: "elden_deploy_path",
         parent_path_method_name: :vim_lua_path,
-        path_leaf: "elden"
+        path_leaf: "elden",
+        methods: %i[purge sync]
       }
     ].each do |path_info|
-      name, method_block =
+      path_name, method_block =
         case path_info
         in name:, **rest
           method_block =
             case rest
-            in env_name:
-              -> { get_path_from_env(env_name) }
             in env_name:, default_path:, path_leaf:
               -> { get_path_from_env(env_name, default_path, path_leaf) }
+            in env_name:
+              -> { get_path_from_env(env_name) }
             in parent_path_method_name:, path_leaf:
               -> { get_path_using_parent_path_method(parent_path_method_name, path_leaf) }
             end
 
-          [name, method_block]
+          [path_name, method_block]
         end
 
-      path_result = proc do |pattern|
+      path_delegate = proc do |delegate|
         method_block.call => {exists:, path:}
 
-        case pattern
+        case delegate
         in :path
           path
         in :exists
@@ -65,12 +68,25 @@ module Elden
         end
       end
 
-      define_method(name)       { path_result.call(:path)   }
-      define_method("#{name}?") { path_result.call(:exists) }
-      define_method("#{name}!") { path_result.call(:ensure) }
+      [
+        {
+          name: path_name,
+          delegate: :path
+        },
+        {
+          name: "#{path_name}?",
+          delegate: :exists
+        },
+        {
+          name: "#{path_name}!",
+          delegate: :ensure
+        }
+      ].each do |method_info|
+        define_method(method_info.name) { path_delegate.call(method_info.delegate) }
+      end
     end
 
-    def self.get_path_from_env(env_name, default_path: nil, path_leaf: nil)
+    def self.get_path_from_env(env_name, default_path = nil, path_leaf = nil)
       path_tree = ENV[env_name] || default_path
 
       get_path_result(path_tree, path_leaf)
@@ -83,21 +99,21 @@ module Elden
     end
 
     def self.get_path_result(path_tree, path_leaf)
-      path = File.expand_path(path_tree) unless path_tree.nil?
-
       path =
-        case { path_tree, path_leaf }
-        in path_tree:, path_leaf: unless path_tree.nil? || path_leaf.nil?
+        case { path_tree:, path_leaf: }
+        in { path_tree:, path_leaf: } unless path_tree.nil? || path_leaf.nil?
           File.join(path_tree, path_leaf)
-        in path_tree:, path_leaf: if path_tree.nil?
+        in { path_tree:, path_leaf: } if path_tree.nil?
           path_leaf
-        in path_tree:, path_leaf: if path_leaf.nil?
+        in { path_tree:, path_leaf: } if path_leaf.nil?
           path_tree
         else
           ""
         end
 
-      path_exists?(File.expand(path))
+      path = File.expand_path(path)
+
+      path_exists?(path)
     end
 
     def self.path_exists?(path)

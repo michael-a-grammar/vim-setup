@@ -5,7 +5,7 @@ require_relative "paths"
 require_relative "shell_command"
 
 module Elden
-  module EldenSrcDirectory
+  module EldenDirectory
     include Elden::Paths
 
     def elden_src_directory_sync!(verbose: true)
