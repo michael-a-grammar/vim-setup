@@ -50,15 +50,15 @@ module Elden
 
     [
       {
-        name: "dev",
+        name: :dev,
         desc: "Starts a development environment"
       },
       {
-        name: "update",
+        name: :update,
         desc: "Updates plugins"
       },
       {
-        name: "sync",
+        name: :sync,
         desc: "Sync development with the local environment"
       }
     ].each do |description_info|
@@ -69,7 +69,7 @@ module Elden
 
     [
       {
-        name: "dev",
+        name: :dev,
         attributes: %i[
           dev_description
           kitty_title_option
@@ -79,14 +79,14 @@ module Elden
         ]
       },
       {
-        name: "update",
+        name: :update,
         attributes: %i[
           update_description
           update_treesitter_option
         ]
       },
       {
-        name: "sync",
+        name: :sync,
         attributes: %i[
           sync_description
           purge_vim_config_directory_option
