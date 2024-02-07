@@ -215,7 +215,7 @@ require'packer'.startup({
 
     use 'm-demare/hlargs.nvim'
 
-    plugin_spec 'numToStr/Comment.nvim'
+    -- plugin_spec 'numToStr/Comment.nvim'
     plugin_spec 'bfredl/nvim-miniyank'
 
     use {
