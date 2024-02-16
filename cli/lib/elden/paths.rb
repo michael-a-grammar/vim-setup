@@ -9,7 +9,7 @@ module Elden
       },
       {
         name: :elden_dev_config_file_path,
-        parent_path_method: :elden_source_path,
+        parent_path: :elden_source_path,
         path: "dev.vim"
       },
       {
@@ -20,21 +20,18 @@ module Elden
       },
       {
         name: :vim_config_path,
-        parent_path_method: :config_path,
-        path: "nvim",
-        methods: :purge
+        parent_path: :config_path,
+        path: "nvim"
       },
       {
         name: :vim_lua_path,
-        parent_path_method: :vim_config_path,
-        path: "lua",
-        methods: :purge
+        parent_path: :vim_config_path,
+        path: "lua"
       },
       {
         name: :elden_deploy_path,
-        parent_path_method: :vim_lua_path,
-        path: "elden",
-        methods: %i[purge sync]
+        parent_path: :vim_lua_path,
+        path: "elden"
       }
     ].each do |path_info|
       path_name, method_block =
@@ -46,17 +43,17 @@ module Elden
               -> { get_path_from_env(env_name, default_path, path) }
             in env_name:
               -> { get_path_from_env(env_name) }
-            in parent_path_method:, path:
-              -> { get_path(parent_path_method, path) }
+            in parent_path:, path:
+              -> { get_path(parent_path, path) }
             end
 
-          [path_name, method_block]
+          [name, method_block]
         end
 
-      path_delegate = proc do |delegate|
+      path_cmd = proc do |cmd|
         method_block.call => {exists:, path:}
 
-        case delegate
+        case cmd
         in :path
           path
         in :exists
@@ -71,18 +68,18 @@ module Elden
       [
         {
           name: path_name,
-          delegate: :path
+          cmd: :path
         },
         {
           name: "#{path_name}?",
-          delegate: :exists
+          cmd: :exists
         },
         {
           name: "#{path_name}!",
-          delegate: :ensure
+          cmd: :ensure
         }
       ].each do |method_info|
-        define_method(method_info.name) { path_delegate.call(method_info.delegate) }
+        define_method(method_info[:name]) { path_cmd.call(method_info[:cmd]) }
       end
     end
 

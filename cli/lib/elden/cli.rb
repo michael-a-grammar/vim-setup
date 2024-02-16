@@ -35,6 +35,11 @@ module Elden
         .run!
     end
 
+    check_health_command
+    def check_health
+      elden_shell.check_health
+    end
+
     private
 
     def elden_shell = Elden::Shell.new

@@ -1,21 +1,18 @@
-module PathOperations
-  def delete
-  end
+# frozen_string_literal: true
 
-  def copy
-  end
+require          "fileutils"
+require_relative "paths"
 
-  def backup
-  end
+module Elden
+  module PathOperations
+    include Elden::Paths
 
-  def exists
-  end
-end
+    def elden_source_directory_sync!(verbose: true)
+      FileUtils.cp_r(elden_source_path!, vim_config_path!, verbose:)
+    end
 
-module Paths
-  def get_path_from_env(paths)
-  end
-
-  def get_path(paths)
+    def vim_lua_directory_purge!(verbose: true)
+      FileUtils.rm_rf(vim_lua_path!, secure: true, verbose:)
+    end
   end
 end

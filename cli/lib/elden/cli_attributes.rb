@@ -60,6 +60,10 @@ module Elden
       {
         name: :sync,
         desc: "Sync development with the local environment"
+      },
+      {
+        name: :check_health,
+        desc: "Runs various health checks"
       }
     ].each do |description_info|
       define_method("#{description_info[:name]}_description") do
@@ -95,6 +99,10 @@ module Elden
           update_treesitter_option
           launch_dev_option
         ]
+      },
+      {
+        name: :check_health,
+        attirbutes: []
       }
     ].each do |command_info|
       define_method("#{command_info[:name]}_command") do

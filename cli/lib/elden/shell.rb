@@ -1,19 +1,16 @@
 # frozen_string_literal: true
 
-require_relative "elden_directory"
 require_relative "kitty"
-require_relative "paths"
+require_relative "path_operations"
 require_relative "shell_command"
-require_relative "vim_config_directory"
 require_relative "with_vim"
 
 module Elden
   class Shell
-    include Elden::EldenDirectory
     include Elden::Kitty
     include Elden::Paths
+    include Elden::PathOperations
     include Elden::ShellCommand
-    include Elden::VimConfigDirectory
     include Elden::WithVim
 
     def initialize
@@ -27,7 +24,7 @@ module Elden
              sync_packer: false,
              update_treesitter: false)
       launch_tab(title: kitty_title,
-                 argument: with_vim(path: vim_dev_config_file_path!) do |opts|
+                 argument: with_vim(path: elden_dev_config_file_path!) do |opts|
                              use_config(opts[:path])
                              packer_compile if compile_packer && !sync_packer
                              packer_sync if sync_packer && !compile_packer
@@ -47,12 +44,12 @@ module Elden
     end
 
     shell_command
-    def sync!(purge_vim_config_directory: false,
+    def sync!(purge_vim_lua_directory: false,
               compile_packer: false,
               sync_packer: false,
               update_treesitter: false,
               launch_dev: false)
-      vim_config_directory_purge! if purge_vim_config_directory
+      vim_lua_directory_purge! if purge_vim_lua_directory
 
       elden_directory_sync!
 
