@@ -9,27 +9,6 @@ require'packer'.startup({
 
     use 'wbthomason/packer.nvim'
 
-    use {
-      'catppuccin/nvim',
-      as = 'catppuccin',
-    }
-
-    plugin_spec 'nvim-treesitter/nvim-treesitter'
-
-    use {
-      'glepnir/dashboard-nvim',
-
-      event = 'VimEnter',
-
-      config = function()
-        require'dashboard'.setup {
-
-        }
-      end,
-    }
-
-    plugin_spec 'nvim-lualine/lualine.nvim'
-
     plugin_spec {
       'hrsh7th/nvim-cmp',
 
@@ -96,7 +75,6 @@ require'packer'.startup({
       'akinsho/bufferline.nvim',
 
       after = {
-        'catppuccin',
         'nvim-web-devicons',
       },
 
@@ -152,14 +130,13 @@ require'packer'.startup({
       requires = 'SmiteshP/nvim-navic',
 
       after = {
-        'catppuccin',
         'nvim-web-devicons',
       },
 
       config = function()
         require'barbecue'.setup {
           show_basename = false,
-          theme         = 'catppuccin',
+          --theme         = 'catppuccin',
 
           symbols = {
             separator = '',

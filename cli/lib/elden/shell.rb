@@ -8,7 +8,6 @@ require_relative "with_vim"
 module Elden
   class Shell
     include Elden::Kitty
-    include Elden::Paths
     include Elden::PathOperations
     include Elden::ShellCommand
     include Elden::WithVim

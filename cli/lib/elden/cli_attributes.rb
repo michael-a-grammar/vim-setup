@@ -102,7 +102,7 @@ module Elden
       },
       {
         name: :check_health,
-        attirbutes: []
+        attributes: []
       }
     ].each do |command_info|
       define_method("#{command_info[:name]}_command") do

@@ -1,4 +1,4 @@
 require'elden.vim-settings'
+require'elden.lazy'
 require'elden.packer'
-require'elden.colorscheme'
 require'elden.keymappings'

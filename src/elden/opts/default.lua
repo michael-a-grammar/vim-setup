@@ -1,4 +1,6 @@
 return {
+  is_dev = false,
+
   disabled_plugins = {
     '',
   },
@@ -20,6 +22,13 @@ return {
       up        = '',
       right     = '',
     },
+  },
+
+  lazy = {
+    install_path                 = '/lazy/lazy.nvim',
+    is_install_path_relative     = true,
+    relative_plugins_config_path = 'elden.plugins',
+    repo                         = 'https://github.com/folke/lazy.nvim.git',
   },
 
   packer = {

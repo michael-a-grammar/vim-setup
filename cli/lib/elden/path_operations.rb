@@ -8,11 +8,11 @@ module Elden
     include Elden::Paths
 
     def elden_source_directory_sync!(verbose: true)
-      FileUtils.cp_r(elden_source_path!, vim_config_path!, verbose:)
+      FileUtils.cp_r(elden_lua_path!, vim_lua_path!, verbose:)
     end
 
-    def vim_lua_directory_purge!(verbose: true)
-      FileUtils.rm_rf(vim_lua_path!, secure: true, verbose:)
+    def elden_deploy_directory_purge!(verbose: true)
+      FileUtils.rm_rf(elden_deploy_path!, secure: true, verbose:)
     end
   end
 end
