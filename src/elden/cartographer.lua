@@ -2,20 +2,16 @@ local M = {}
 
 M.b = {}
 
-local local_opts = {
-  use_table_maps = false,
-}
-
 local metatable = {
   __index = _G,
-  __call  = function(self, opts)
-    local_opts.use_table_maps = opts.use_table_maps
+  __call  = function(self)
     return self
   end
 }
 
 local with_modes = function(modes, buffer)
   return function(maps)
+    -- Here
     M.set(modes, maps, buffer)
   end
 end
@@ -88,18 +84,15 @@ local leader = function(is_local)
 end
 
 M.set = function(modes, maps, buffer)
-  local collected_maps = (local_opts.use_table_maps and maps) or {}
+  local collected_maps = {}
+  local collected_map  = {}
 
-  if not local_opts.use_table_maps then
-    local collected_map  = {}
+  for index, map_segment in ipairs(maps) do
+    table.insert(collected_map, map_segment)
 
-    for index, map_segment in ipairs(maps) do
-      table.insert(collected_map, map_segment)
-
-      if index % 3 == 0 then
-        table.insert(collected_maps, collected_map)
-        collected_map = {}
-      end
+    if index % 3 == 0 then
+      table.insert(collected_maps, collected_map)
+      collected_map = {}
     end
   end
 

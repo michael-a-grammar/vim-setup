@@ -2,6 +2,8 @@
     "Lua.runtime.version": "Lua 5.1",
     "diagnostics.globals": [
         "alt",
+        "b",
+        "bs",
         "c",
         "cmd_mode",
         "ctrl",
@@ -15,6 +17,7 @@
         "n_leader",
         "nop",
         "nvo",
+        "nvo_leader_with",
         "nvo_with",
         "nx",
         "nx_leader",
@@ -28,9 +31,6 @@
         "up",
         "vim",
         "x_leader",
-        "x_leader_with",
-        "bs",
-        "nvo_leader_with",
-        "b"
+        "x_leader_with"
     ]
 }

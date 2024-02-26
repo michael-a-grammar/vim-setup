@@ -9,43 +9,6 @@ require'packer'.startup({
 
     use 'wbthomason/packer.nvim'
 
-    plugin_spec {
-      'hrsh7th/nvim-cmp',
-
-      requires = {
-        {
-          'neovim/nvim-lspconfig',
-
-          config = function()
-            require'lspconfig.ui.windows'.default_options = {
-              border = 'rounded'
-            }
-          end,
-        },
-
-        'hrsh7th/cmp-nvim-lsp',
-        'hrsh7th/cmp-nvim-lsp-document-symbol',
-        'hrsh7th/cmp-nvim-lsp-signature-help',
-
-        'hrsh7th/cmp-buffer',
-        'hrsh7th/cmp-calc',
-
-        'hrsh7th/cmp-path',
-        'hrsh7th/cmp-cmdline',
-
-        'hrsh7th/cmp-nvim-lua',
-
-        'onsails/lspkind.nvim',
-
-        {
-          'j-hui/fidget.nvim',
-
-          config = function()
-            require'fidget'.setup()
-          end
-        },
-      }
-    }
 
     use {
       'L3MON4D3/LuaSnip',
@@ -230,48 +193,6 @@ require'packer'.startup({
       requires = 'tpope/vim-repeat',
     }
 
-    plugin_spec {
-      'simrat39/rust-tools.nvim',
-      ft = 'rust',
-    }
-
-    plugin_spec {
-      'elixir-tools/elixir-tools.nvim',
-      requires = 'nvim-lua/plenary.nvim',
-      ft       = 'elixir',
-    }
-
-    use {
-      'elixir-editors/vim-elixir',
-      ft = 'elixir',
-    }
-
-    use {
-      'andyl/vim-textobj-elixir',
-      requires = 'kana/vim-textobj-user',
-      ft       = 'elixir',
-    }
-
-    use {
-      'rhysd/vim-textobj-ruby',
-      requires = 'kana/vim-textobj-user',
-      ft       = 'ruby',
-    }
-
-    use {
-      'bfredl/nvim-luadev',
-      ft = 'lua',
-    }
-
-    use {
-      'nvim-tree/nvim-web-devicons',
-
-      config = function()
-        require'nvim-web-devicons'.setup {
-          color_icons = false,
-        }
-      end,
-    }
   end,
 
   config = {

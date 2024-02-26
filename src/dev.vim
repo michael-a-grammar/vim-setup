@@ -5,5 +5,5 @@ lua << EOF
   runtimepath:remove(paths.vim_config)
   runtimepath:remove(paths.vim_after)
 
-  require'elden.prelude'
+  require'elden'
 EOF

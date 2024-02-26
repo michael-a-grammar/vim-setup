@@ -25,7 +25,7 @@ return {
   lazy = {
     install_path                 = '/lazy/lazy.nvim',
     is_install_path_relative     = true,
-    relative_plugins_config_path = 'elden.plugins',
+    relative_plugins_config_path = 'elden.lazy-plugins',
     repo                         = 'https://github.com/folke/lazy.nvim.git',
   },
 

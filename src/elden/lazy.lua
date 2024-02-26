@@ -11,8 +11,6 @@ else
   lazy_install_path = lazy.install_path
 end
 
-require'elden.log'("Here", { path = lazy_install_path })
-
 if fn.empty(fn.glob(lazy_install_path)) > 0 then
   local repo = lazy.repo
 
@@ -28,4 +26,4 @@ end
 
 rtp:prepend(lazy_install_path)
 
-require'lazy'.setup('elden.plugins')
+require'lazy'.setup(lazy.relative_plugins_config_path)
