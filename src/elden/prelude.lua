@@ -153,3 +153,10 @@ api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank()
   end
 })
+
+local map = require'elden.cartographer'.map
+
+map(function()
+  leader       '<space>'
+  local_leader ','
+end)

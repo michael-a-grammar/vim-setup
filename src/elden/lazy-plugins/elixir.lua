@@ -1,7 +1,7 @@
 return {
   {
     'elixir-tools/elixir-tools.nvim',
-    dependancies = 'nvim-lua/plenary.nvim',
+    dependencies = 'nvim-lua/plenary.nvim',
     ft           = 'elixir',
 
     opts = function()
@@ -75,7 +75,7 @@ return {
 
   {
     'andyl/vim-textobj-elixir',
-    dependancies = 'kana/vim-textobj-user',
-    ft       = 'elixir',
+    dependencies = 'kana/vim-textobj-user',
+    ft           = 'elixir',
   },
 }

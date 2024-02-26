@@ -3,9 +3,6 @@ local diagnostic = vim.diagnostic
 local map        = require'elden.cartographer'.map
 
 map(function()
-  leader       '<space>'
-  local_leader ','
-
   c {
     alt 'left',  ctrl 'left',  'Word backwards',
     alt 'right', ctrl 'right', 'Word forwards',
