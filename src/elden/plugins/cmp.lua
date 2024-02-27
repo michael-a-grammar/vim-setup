@@ -96,8 +96,8 @@ return {
           end
         end, { 'i', 's', }),
 
-        ['<c-f>'] = cmp.mapping.scroll_docs(-4),
-        ['<c-b>'] = cmp.mapping.scroll_docs(4),
+        ['<c-p>'] = cmp.mapping.scroll_docs(-4),
+        ['<c-P>'] = cmp.mapping.scroll_docs(4),
 
         ['<c-space>'] = cmp.mapping.complete(),
         ['<cr>']      = cmp.mapping.confirm { select = false },

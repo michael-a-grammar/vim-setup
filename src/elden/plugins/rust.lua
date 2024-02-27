@@ -21,6 +21,8 @@ return {
         capabilities = capabilities,
 
         on_attach = function(_, bufnr)
+          local map = require'elden.cartographer'.map
+
           map(function()
             nx_local_leader_with 'r' {
               'a', rust_tools.code_action_group.code_action_group, 'Code actions',

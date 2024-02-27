@@ -8,13 +8,14 @@ return {
   icons = {
     legends = {
       buffer                    = '',
+      buffer_directory          = '',
       current_working_directory = '',
       file_type                 = '',
       force                     = '',
     },
 
     keys = {
-      space     = '',
+      space     = '󰯉',
       backspace = '󰁮',
       tab       = '󰌒',
       down      = '',

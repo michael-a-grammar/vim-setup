@@ -15,9 +15,7 @@ map(function()
   nx {
     spc, nop, 'nop',
     bs,  nop, 'nop',
-    ',', nop, 'nop',
 
-    ',,', ',',       'Previous match',
     '0',  'g0',      'Beginning of line',
     '^',  'g^',      'Start of line',
     'H',  'g^',      'Start of line',
@@ -48,7 +46,14 @@ map(function()
     'P', ctrl 'i', 'Forwards',
   }
 
-  nx_leader_with 'c' {
+  nx_leader_with 'd' {
+    'f', diagnostic.open_float, 'Info',
+    'l', diagnostic.setloclist, 'Set loclist with diagnostics',
+    'n', diagnostic.goto_next,  'Next diagnostic',
+    'p', diagnostic.goto_prev,  'Previous diagnostic',
+  }
+
+  nx_leader_with 'i' {
     'a', lsp.code_action,       'Action',
     'c', lsp.rename,            'Rename',
     'd', lsp.definition,        'Go to definition',
@@ -66,13 +71,6 @@ map(function()
     'Run test',
 
     'y', lsp.type_definition,   'Go to type definition',
-  }
-
-  nx_leader_with 'd' {
-    'f', diagnostic.open_float, 'Info',
-    'l', diagnostic.setloclist, 'Set loclist with diagnostics',
-    'n', diagnostic.goto_next,  'Next diagnostic',
-    'p', diagnostic.goto_prev,  'Previous diagnostic',
   }
 
   nx_leader_with 'k' {

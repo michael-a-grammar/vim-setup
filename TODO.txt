@@ -1,50 +1,11 @@
-!  - Shell command
-'  - Resume picker
-\* - Grep w/i cwd w/input
-,  - Buffers w/i cwd
-/  - Grep w/i cwd
-;  - Comment linewise w/operator
-<  - Buffers
-  - Find files w/i cwd
-󰌒  - Last buffer
-l  - Locate file w/i directory tree
-L  - Toggle directory tree
-p  - Backwards
-P  - Forwards
-
-a  -
-b  -
-c  - LSP
-d  -
-e  - File
-f  - Yank ring
-g  - Git
-h  - History
-i  -
-j  -
-k  - Toggles
-m  - Local leader
-n  - Buffer
-o  -
-q  - Quit
-r  - Terminal
-s  - Find w/i cwd
-t  - Buffers
-u  - Find w/i bufd
-v  - Expand region
-w  - Windows
-x  - Text
-y  - Tabs
-z  - Vim
-
 Standards
 ---------
 Ease of use is more important than mnemonics
 c - create / new
 d - delete / destory
 D - delete / destory force
-n - next
-p - previous
+p - next
+P - previous
 x - delete / destory all
 X - delete / destory all force
 
@@ -61,45 +22,13 @@ Terminal
 Trouble
 Symbols Outline
 
-Colemak-DHm
--------
-QWFP LUY;
-ARST NEIO
-ZXCD H,./
-
-Main keys
----------
-ST NE
-T N
-
-TODO:
-
 - Backspace should become hop
-- Move opts from start into their own, seperate module
-- Use elden as the API layer - bind plugin functions here
-- Set up keymappings last
 - Use 'q' to quit most transient windows (help, fern etc.)
 - Autocommand to strip trailing whitespace (%s/\s\+$//e)
 - micro - bundled plugin to enable better understanding of macros
 - Log (with tolerance)
-- cmp / lsp config
 - Add delay to cmp command complete
-- Formalise rust workflow functions
-- Replace easy-motion with hop
-- DONE Replace airline
-- Silence errors on sync
-- DONE Use 'U' to redo
-- Use 'p' / 'P' for backwards and fowards
 - Use arrow keys to move windows
 - Jump to directory
 - Command builder for cartographer
-- Prelude
 - Create local opts, local opts example
-- Remove global state
-- What am I doing with this after file?
-- Opts, Paths move to top level
-- Elden directory
-- require_elden'opts'
-- Spec name is confusing
-- Check how user opts now work
-- use with config

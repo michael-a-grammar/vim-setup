@@ -2,12 +2,12 @@ return {
   'folke/which-key.nvim',
 
   opts = function()
-    local opts      = require'elden.opts'
-    local icons     = opts.icons
+    local opts  = require'elden.opts'
+    local icons = opts.icons
 
     return {
       layout = {
-        align = opts.alignment,
+        align = opts.plugins.which_key.alignment,
       },
 
       hidden = { '<Plug>' },
@@ -15,16 +15,16 @@ return {
       key_labels = {
         ['<space>'] = icons.keys.space,
         ['<bs>']    = icons.keys.backspace,
-        ['<tab>']   = icons.keys.tab,
         ['<down>']  = icons.keys.down,
         ['<left>']  = icons.keys.left,
         ['<up>']    = icons.keys.up,
         ['<right>'] = icons.keys.right,
+        ['<Tab>']   = icons.keys.tab,
       },
 
       popup_mappings = {
-        scroll_down = '<m-down>',
-        scroll_up   = '<m-up>',
+        scroll_down = '<c-p>',
+        scroll_up   = '<c-P>',
       },
 
       disable = {
@@ -37,6 +37,7 @@ return {
   end,
 
   config = function(_, opts)
+    local icons     = require'elden.opts'.icons
     local which_key = require'which-key'
 
     which_key.setup(opts)
@@ -50,19 +51,23 @@ return {
 
       ['<localleader>'] = {
         e = {
-          name = 'Elixir',
+          name = '',
 
-          i = {
-            name = 'Pipes'
+          n = {
+            name = 'New file'
           },
 
           p = {
-            name = 'Project'
+            name = 'Pipes'
+          },
+
+          r = {
+            name = 'Restart LSP'
           },
         },
 
         r = {
-          name = 'Rust',
+          name = '',
         },
       },
 
@@ -75,9 +80,9 @@ return {
           name = 'Unassigned',
         },
 
-        c = {
-          name = 'LSP',
-        },
+        -- c = {
+          -- name = 'Unassigned',
+        -- },
 
         d = {
           name = 'Diagnostics',
@@ -100,7 +105,7 @@ return {
         },
 
         i = {
-          name = 'Code',
+          name = 'LSP',
         },
 
         j = {
@@ -140,10 +145,10 @@ return {
         },
 
         s = {
-          name = 'Find w/i cwd',
+          name = icons.legends.current_working_directory .. ' Find',
 
           t = {
-            name = 'Find w/ft',
+            name = icons.legends.file_type .. ' Find',
           },
         },
 
@@ -152,10 +157,10 @@ return {
         },
 
         u = {
-          name = 'Find w/i bufd',
+          name = icons.legends.buffer_directory .. ' Find',
 
           t = {
-            name = 'Find w/ft',
+            name = icons.legends.file_type .. 'Find',
           },
         },
 

@@ -11,7 +11,6 @@ local metatable = {
 
 local with_modes = function(modes, buffer)
   return function(maps)
-    -- Here
     M.set(modes, maps, buffer)
   end
 end

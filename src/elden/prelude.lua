@@ -158,5 +158,5 @@ local map = require'elden.cartographer'.map
 
 map(function()
   leader       '<space>'
-  local_leader ','
+  local_leader '\\'
 end)
