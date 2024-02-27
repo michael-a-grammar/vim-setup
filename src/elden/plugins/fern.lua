@@ -10,7 +10,7 @@ return {
     'yuki-yano/fern-preview.vim',
   },
 
-  config = function()
+  init = function()
     local api = vim.api
     local fn  = vim.fn
     local g   = vim.g

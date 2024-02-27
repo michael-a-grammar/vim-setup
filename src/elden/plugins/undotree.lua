@@ -1,7 +1,7 @@
 return {
   'mbbill/undotree',
 
-  config = function()
+  init = function()
     local map = require'elden.cartographer'.map
 
     map(function()

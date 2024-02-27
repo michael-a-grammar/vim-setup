@@ -15,6 +15,7 @@ return {
       return {
         elixirls = {
           settings = elixir_ls.settings {
+            cmd              = 'elixir-ls',
             dialyzerEnabled  = true,
             enableTestLenses = true,
             fetchDeps        = true,
