@@ -12,7 +12,7 @@ return {
     'nvim-tree/nvim-web-devicons',
     
     opts = {
-      color_icons = true
+      color_icons = false
     },
   },
 
