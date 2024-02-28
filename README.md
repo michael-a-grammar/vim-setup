@@ -1,2 +1,2 @@
-# Elden
-Various vim related setup scripts.
+# vamp
+My personal vim setup

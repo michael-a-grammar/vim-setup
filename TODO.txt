@@ -4,8 +4,8 @@ Ease of use is more important than mnemonics
 c - create / new
 d - delete / destory
 D - delete / destory force
-p - next
-P - previous
+n - next
+p - previous
 x - delete / destory all
 X - delete / destory all force
 

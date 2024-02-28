@@ -1,12 +1,1 @@
 .DS_Store
-/cli/.bundle/
-/cli/.yardoc
-/cli/_yardoc/
-/cli/coverage/
-/cli/doc/
-/cli/elden*.gem
-/cli/pkg/
-/cli/spec/reports/
-/cli/tmp/
-/cli/.rspec_status
-/nvim/lua/local-opts.lua
