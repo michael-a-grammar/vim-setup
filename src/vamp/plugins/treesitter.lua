@@ -29,5 +29,5 @@ return {
     sync_install = false,
   },
 
-  main = 'nvim-treestter.configs',
+  main = 'nvim-treesitter.configs',
 }

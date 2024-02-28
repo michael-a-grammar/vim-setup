@@ -222,12 +222,9 @@ set_keymap(
   { desc = 'Signature help', noremap = true }
 )
 
-set_keymap(
-  { 'n', 'x' },
-  '<leader>it',
-  lsp.codelens.run,
-  { desc = 'Run test', noremap = true }
-)
+set_keymap({ 'n', 'x' }, '<leader>it', function()
+  lsp.codelens.run()
+end, { desc = 'Run test', noremap = true })
 
 set_keymap(
   { 'n', 'x' },

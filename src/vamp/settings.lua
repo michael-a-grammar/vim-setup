@@ -1,5 +1,4 @@
 local api = vim.api
-local set_keymap = vim.keymap.set
 local exec = vim.api.nvim_exec
 local g = vim.g
 local fn = vim.fn
@@ -24,6 +23,7 @@ opt.tabstop = 2
 opt.fixendofline = true
 
 opt.list = false
+
 opt.listchars = {
   eol = '¬',
   extends = '>',
@@ -35,6 +35,7 @@ opt.listchars = {
 
 opt.hidden = true
 opt.lazyredraw = true
+
 opt.switchbuf = {
   'uselast',
 }
@@ -47,7 +48,9 @@ opt.ignorecase = true
 opt.smartcase = true
 
 opt.autochdir = false
+
 opt.path:append('**')
+
 opt.wildignore = {
   '*/.git/*',
   '*/.idea/*',
@@ -154,7 +157,5 @@ api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
-map(function()
-  leader('<space>')
-  local_leader('\\')
-end)
+g['mapleader'] = vim.api.nvim_replace_termcodes('<space>', true, true, true)
+g['maplocalleader'] = vim.api.nvim_replace_termcodes('\\', true, true, true)

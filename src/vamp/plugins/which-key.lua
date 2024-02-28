@@ -1,43 +1,37 @@
 return {
   'folke/which-key.nvim',
 
-  opts = function()
-    local opts = require('vamp.opts')
-    local icons = opts.icons
+  opts = {
+    layout = {
+      align = 'left',
+    },
 
-    return {
-      layout = {
-        align = opts.plugins.which_key.alignment,
+    hidden = { '<Plug>' },
+
+    key_labels = {
+      ['<space>'] = '󰯉',
+      ['<bs>'] = '󰁮',
+      ['<down>'] = '',
+      ['<left>'] = '',
+      ['<up>'] = '',
+      ['<right>'] = '',
+      ['<Tab>'] = '󰌒',
+    },
+
+    popup_mappings = {
+      scroll_up = '<c-f>',
+      scroll_down = '<c-p>',
+    },
+
+    disable = {
+      filetypes = {
+        'TelescopePrompt',
+        'qf',
       },
-
-      hidden = { '<Plug>' },
-
-      key_labels = {
-        ['<space>'] = icons.keys.space,
-        ['<bs>'] = icons.keys.backspace,
-        ['<down>'] = icons.keys.down,
-        ['<left>'] = icons.keys.left,
-        ['<up>'] = icons.keys.up,
-        ['<right>'] = icons.keys.right,
-        ['<Tab>'] = icons.keys.tab,
-      },
-
-      popup_mappings = {
-        scroll_down = '<c-p>',
-        scroll_up = '<c-P>',
-      },
-
-      disable = {
-        filetypes = {
-          'TelescopePrompt',
-          'qf',
-        },
-      },
-    }
-  end,
+    },
+  },
 
   config = function(_, opts)
-    local icons = require('vamp.opts').icons
     local which_key = require('which-key')
 
     which_key.setup(opts)
@@ -51,7 +45,7 @@ return {
 
       ['<localleader>'] = {
         e = {
-          name = '',
+          name = ' ',
 
           n = {
             name = 'New file',
@@ -67,7 +61,7 @@ return {
         },
 
         r = {
-          name = '',
+          name = ' ',
         },
       },
 
@@ -80,9 +74,9 @@ return {
           name = 'Unassigned',
         },
 
-        -- c = {
-        -- name = 'Unassigned',
-        -- },
+        c = {
+          name = 'Slime',
+        },
 
         d = {
           name = 'Diagnostics',
@@ -116,13 +110,13 @@ return {
           name = 'Toggles',
         },
 
-        -- l = {
-        -- name = 'Unassigned',
-        -- },
+        l = {
+          name = 'Unassigned',
+        },
 
-        -- m = {
-        -- name = 'Unassigned'
-        -- },
+        m = {
+          name = 'Unassigned',
+        },
 
         n = {
           name = 'Buffer',
@@ -132,9 +126,9 @@ return {
           name = 'Unassigned',
         },
 
-        -- p = {
-        -- name = 'Unassigned',
-        -- },
+        p = {
+          name = 'Yank ring',
+        },
 
         q = {
           name = 'Quit',
@@ -145,10 +139,10 @@ return {
         },
 
         s = {
-          name = icons.legends.current_working_directory .. ' Find',
+          name = 'Find ' .. '',
 
           t = {
-            name = icons.legends.file_type .. ' Find',
+            name = 'Find ' .. '',
           },
         },
 
@@ -157,10 +151,10 @@ return {
         },
 
         u = {
-          name = icons.legends.buffer_directory .. ' Find',
+          name = 'Find ' .. '',
 
           t = {
-            name = icons.legends.file_type .. 'Find',
+            name = 'Find ' .. '',
           },
         },
 

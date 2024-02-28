@@ -14,6 +14,7 @@ return {
     local api = vim.api
     local fn = vim.fn
     local g = vim.g
+    local set_keymap = vim.keymap.set
 
     g['fern#renderer'] = 'nerdfont'
 
@@ -31,8 +32,6 @@ return {
       group = events_augroup,
       pattern = 'fern',
       callback = function()
-        local set_keymap = vim.keymap.set
-
         vim.opt_local.number = false
         vim.opt_local.relativenumber = false
         vim.opt_local.signcolumn = 'no'
@@ -61,13 +60,6 @@ return {
         set_keymap(
           'n',
           '<leader>o',
-          '<plug>(fern-action-preview:toggle)',
-          { desc = 'Preview', buffer = true, noremap = true }
-        )
-
-        set_keymap(
-          'n',
-          '<leader>O',
           '<plug>(fern-action-preview:auto:toggle)',
           { desc = 'Preview toggle', buffer = true, noremap = true }
         )

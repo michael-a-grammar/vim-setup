@@ -5,6 +5,7 @@ return {
     local env = vim.env
     local g = vim.g
     local split = vim.split
+    local set_keymap = vim.keymap.set
 
     g.slime_no_mappings = true
 

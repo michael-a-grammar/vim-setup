@@ -82,9 +82,9 @@ return {
     local telescope = require('telescope')
     local builtin = require('telescope.builtin')
     local buffer_dir = require('telescope.utils').buffer_dir
+
     local file_browser =
       require('telescope').extensions.file_browser.file_browser
-    local map = require('vamp.cartographer').map
 
     telescope.setup(opts)
 
