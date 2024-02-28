@@ -1,7 +1,7 @@
-local fn    = vim.fn
-local rtp   = vim.opt.rtp
-local paths = require'vamp.paths'
-local lazy  = require'vamp.opts'.lazy
+local fn = vim.fn
+local rtp = vim.opt.rtp
+local paths = require('vamp.paths')
+local lazy = require('vamp.opts').lazy
 
 local lazy_install_path
 
@@ -20,10 +20,10 @@ if fn.empty(fn.glob(lazy_install_path)) > 0 then
     '--filter=blob:none',
     repo,
     '--branch=stable',
-    lazy_install_path
+    lazy_install_path,
   })
 end
 
 rtp:prepend(lazy_install_path)
 
-require'lazy'.setup(lazy.relative_plugins_config_path)
+require('lazy').setup(lazy.relative_plugins_config_path)

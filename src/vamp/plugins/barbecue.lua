@@ -4,7 +4,7 @@ return {
 
   config = {
     show_basename = false,
-    theme         = 'catppuccin',
+    theme = 'catppuccin',
 
     symbols = {
       separator = '',

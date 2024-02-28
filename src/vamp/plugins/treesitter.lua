@@ -1,6 +1,6 @@
 return {
   'nvim-treesitter/nvim-treesitter',
-  build = ":TSUpdate",
+  build = ':TSUpdate',
 
   opts = {
     ensure_installed = {
@@ -18,7 +18,7 @@ return {
     },
 
     highlight = {
-      enable                            = true,
+      enable = true,
       additional_vim_regex_highlighting = false,
     },
 
@@ -29,5 +29,5 @@ return {
     sync_install = false,
   },
 
-  main = 'nvim-treestter.configs'
+  main = 'nvim-treestter.configs',
 }

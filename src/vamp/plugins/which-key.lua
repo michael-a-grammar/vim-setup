@@ -2,7 +2,7 @@ return {
   'folke/which-key.nvim',
 
   opts = function()
-    local opts  = require'vamp.opts'
+    local opts = require('vamp.opts')
     local icons = opts.icons
 
     return {
@@ -14,31 +14,31 @@ return {
 
       key_labels = {
         ['<space>'] = icons.keys.space,
-        ['<bs>']    = icons.keys.backspace,
-        ['<down>']  = icons.keys.down,
-        ['<left>']  = icons.keys.left,
-        ['<up>']    = icons.keys.up,
+        ['<bs>'] = icons.keys.backspace,
+        ['<down>'] = icons.keys.down,
+        ['<left>'] = icons.keys.left,
+        ['<up>'] = icons.keys.up,
         ['<right>'] = icons.keys.right,
-        ['<Tab>']   = icons.keys.tab,
+        ['<Tab>'] = icons.keys.tab,
       },
 
       popup_mappings = {
         scroll_down = '<c-p>',
-        scroll_up   = '<c-P>',
+        scroll_up = '<c-P>',
       },
 
       disable = {
         filetypes = {
           'TelescopePrompt',
-          'qf'
+          'qf',
         },
       },
     }
   end,
 
   config = function(_, opts)
-    local icons     = require'vamp.opts'.icons
-    local which_key = require'which-key'
+    local icons = require('vamp.opts').icons
+    local which_key = require('which-key')
 
     which_key.setup(opts)
 
@@ -54,15 +54,15 @@ return {
           name = '',
 
           n = {
-            name = 'New file'
+            name = 'New file',
           },
 
           p = {
-            name = 'Pipes'
+            name = 'Pipes',
           },
 
           r = {
-            name = 'Restart LSP'
+            name = 'Restart LSP',
           },
         },
 
@@ -81,7 +81,7 @@ return {
         },
 
         -- c = {
-          -- name = 'Unassigned',
+        -- name = 'Unassigned',
         -- },
 
         d = {
@@ -117,7 +117,7 @@ return {
         },
 
         -- l = {
-          -- name = 'Unassigned',
+        -- name = 'Unassigned',
         -- },
 
         -- m = {
@@ -133,7 +133,7 @@ return {
         },
 
         -- p = {
-          -- name = 'Unassigned',
+        -- name = 'Unassigned',
         -- },
 
         q = {
@@ -186,7 +186,7 @@ return {
       },
     }
 
-    which_key.register(to_register, { mode = 'n', })
-    which_key.register(to_register, { mode = 'x', })
+    which_key.register(to_register, { mode = 'n' })
+    which_key.register(to_register, { mode = 'x' })
   end,
 }

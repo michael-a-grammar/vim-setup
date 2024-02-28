@@ -59,31 +59,32 @@ return {
 
     for _, picker in ipairs(pickers) do
       pickers_configuration[picker] = {
-        theme = 'ivy'
+        theme = 'ivy',
       }
     end
 
     return {
       defaults = {
         path_display = {
-          truncate = 1
-        }
+          truncate = 1,
+        },
       },
       extensions = {
         file_browser = {
-          theme = "ivy"
-        }
+          theme = 'ivy',
+        },
       },
-      pickers = pickers_configuration
+      pickers = pickers_configuration,
     }
   end,
 
   config = function(_, opts)
-    local telescope    = require'telescope'
-    local builtin      = require'telescope.builtin'
-    local buffer_dir   = require'telescope.utils'.buffer_dir
-    local file_browser = require'telescope'.extensions.file_browser.file_browser
-    local map          = require'vamp.cartographer'.map
+    local telescope = require('telescope')
+    local builtin = require('telescope.builtin')
+    local buffer_dir = require('telescope.utils').buffer_dir
+    local file_browser =
+      require('telescope').extensions.file_browser.file_browser
+    local map = require('vamp.cartographer').map
 
     telescope.setup(opts)
 
@@ -94,134 +95,360 @@ return {
 
     local create_get_buffers = function(only_cwd)
       return function()
-        builtin.buffers {
+        builtin.buffers({
           ignore_current_buffer = true,
-          only_cwd              = only_cwd,
-          sort_mru              = true,
-        }
+          only_cwd = only_cwd,
+          sort_mru = true,
+        })
       end
     end
 
     local get_buffers_only_cwd = create_get_buffers(true)
-    local get_buffers          = create_get_buffers(false)
+    local get_buffers = create_get_buffers(false)
 
-    map(function()
-      nx_leader {
-        '\'', builtin.resume,       'Resume Telescope',
-        spc,  builtin.find_files,   'Find files (cwd)',
-        '*',  builtin.grep_string,  'Grep w/input (cwd)',
-        ',',  get_buffers_only_cwd, 'Buffers (cwd)',
-        '/',  builtin.live_grep,    'Grep (cwd)',
-        '<',  get_buffers,          'Buffers',
-      }
+    local set_keymap = vim.keymap.set
 
-      nx_leader_with 'f' {
-        'f', builtin.current_buffer_fuzzy_find, 'Fuzzy find',
-        's', builtin.lsp_document_symbols,      'Document symbols',
-        't', builtin.treesitter,                'Treesitter'
-      }
+    set_keymap(
+      { 'n', 'x' },
+      "<leader>'",
+      builtin.resume,
+      { desc = 'Resume Telescope', noremap = true }
+    )
 
-      nx_leader_with 'g' {
-        'b', builtin.git_branches, 'Branches',
-        'c', builtin.git_bcommits, 'Branch commits',
-        'C', builtin.git_commits,  'Commits',
-        'f', builtin.git_files,    'Files',
-        'g', builtin.git_status,   'Status',
-        's', builtin.git_stash,    'Stash'
-      }
+    set_keymap(
+      { 'n', 'x' },
+      '<leader><space>',
+      builtin.find_files,
+      { desc = 'Find files (cwd)', noremap = true }
+    )
 
-      nx_leader_with 'h' {
-        '\'', builtin.resume,          'Resume Telescope',
-        ',',  builtin.quickfixhistory, 'Quickfix',
-        '.',  builtin.pickers,         'Pickers',
-        ':',  builtin.command_history, 'Commands',
-        ';',  builtin.search_history,  'Searches'
-      }
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>*',
+      builtin.grep_string,
+      { desc = 'Grep w/input (cwd)', noremap = true }
+    )
 
-      nx_leader_with 'n' {
-        'e', builtin.diagnostics,                   'Diagnostics',
-        'd', builtin.lsp_definitions,               'Definitions',
-        'i', builtin.lsp_implementations,           'Implementations',
-        's', builtin.lsp_dynamic_workspace_symbols, 'Dynamic workspace symbols',
-        't', builtin.lsp_type_definitions,          'Type definitions',
-        'u', builtin.lsp_references,                'References'
-      }
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>,',
+      get_buffers_only_cwd,
+      { desc = 'Buffers (cwd)', noremap = true }
+    )
 
-      nx_leader_with 's' {
-        'c', builtin.quickfix,   'Quickfix',
-        'd', file_browser,       'File browser',
-        'f', builtin.find_files, 'Find files',
-        'g', builtin.git_files,  'Git',
-        'l', builtin.loclist,    'Loclist',
-        'm', builtin.marks,      'Marks',
-        'p', builtin.jumplist,   'Jumps',
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>/',
+      builtin.live_grep,
+      { desc = 'Grep (cwd)', noremap = true }
+    )
 
-        'r',
-        function()
-          builtin.oldfiles{
-            only_cwd = true
-          }
-        end,
-        'Recent files (cwd)',
+    set_keymap(
+      { 'n', 'x' },
+      '<leader><',
+      get_buffers,
+      { desc = 'Buffers', noremap = true }
+    )
 
-        'R', builtin.oldfiles,    'Recent files (all)',
-        's', builtin.live_grep,   'Grep',
-        'w', builtin.grep_string, 'Grep w/input',
-      }
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>ff',
+      builtin.current_buffer_fuzzy_find,
+      { desc = 'Fuzzy find', noremap = true }
+    )
 
-      nx_leader_with 't' {
-        't', get_buffers_only_cwd, 'Buffers (cwd)'
-      }
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>fs',
+      builtin.lsp_document_symbols,
+      { desc = 'Document symbols', noremap = true }
+    )
 
-      nx_leader_with 'u' {
-        'd',
-        function()
-          file_browser {
-            path = buffer_dir()
-          }
-        end,
-        'File browser',
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>ft',
+      builtin.treesitter,
+      { desc = 'Treesitter', noremap = true }
+    )
 
-        'f',
-        function()
-          builtin.find_files {
-            cwd = buffer_dir()
-          }
-        end,
-        'Find files',
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>gb',
+      builtin.git_branches,
+      { desc = 'Branches', noremap = true }
+    )
 
-        's',
-        function()
-          builtin.live_grep {
-            cwd = buffer_dir()
-          }
-        end,
-        'Grep',
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>gc',
+      builtin.git_bcommits,
+      { desc = 'Branch commits', noremap = true }
+    )
 
-        'w',
-        function()
-          builtin.grep_string {
-            cwd = buffer_dir()
-          }
-        end,
-        'Grep w/input'
-      }
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>gC',
+      builtin.git_commits,
+      { desc = 'Commits', noremap = true }
+    )
 
-      nx_leader_with 'z' {
-        ':', builtin.commands,      'Commands',
-        'h', builtin.help_tags,     'Help tags',
-        'k', builtin.keymaps,       'Keymaps',
-        'k', builtin.reloader,      'Lua modules',
-        'o', builtin.vim_options,   'Options',
-        'r', builtin.registers,     'Registers',
-        's', builtin.spell_suggest, 'Spelling suggestions',
-        't', builtin.colorscheme,   'Colourschemes'
-      }
-    end)
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>gf',
+      builtin.git_files,
+      { desc = 'Files', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>gg',
+      builtin.git_status,
+      { desc = 'Status', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>gs',
+      builtin.git_stash,
+      { desc = 'Stash', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      "<leader>h'",
+      builtin.resume,
+      { desc = 'Resume Telescope', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>h,',
+      builtin.quickfixhistory,
+      { desc = 'Quickfix', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>h.',
+      builtin.pickers,
+      { desc = 'Pickers', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>h:',
+      builtin.command_history,
+      { desc = 'Commands', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>h;',
+      builtin.search_history,
+      { desc = 'Searches', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>ne',
+      builtin.diagnostics,
+      { desc = 'Diagnostics', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>nd',
+      builtin.lsp_definitions,
+      { desc = 'Definitions', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>ni',
+      builtin.lsp_implementations,
+      { desc = 'Implementations', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>ns',
+      builtin.lsp_dynamic_workspace_symbols,
+      { desc = 'Dynamic workspace symbols', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>nt',
+      builtin.lsp_type_definitions,
+      { desc = 'Type definitions', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>nu',
+      builtin.lsp_references,
+      { desc = 'References', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>sc',
+      builtin.quickfix,
+      { desc = 'Quickfix', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>sd',
+      file_browser,
+      { desc = 'File browser', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>sf',
+      builtin.find_files,
+      { desc = 'Find files', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>sg',
+      builtin.git_files,
+      { desc = 'Git', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>sl',
+      builtin.loclist,
+      { desc = 'Loclist', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>sm',
+      builtin.marks,
+      { desc = 'Marks', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>sp',
+      builtin.jumplist,
+      { desc = 'Jumps', noremap = true }
+    )
+
+    set_keymap({ 'n', 'x' }, '<leader>sr', function()
+      builtin.oldfiles({
+        only_cwd = true,
+      })
+    end, { desc = 'Recent files (cwd)', noremap = true })
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>sR',
+      builtin.oldfiles,
+      { desc = 'Recent files (all)', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>ss',
+      builtin.live_grep,
+      { desc = 'Grep', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>sw',
+      builtin.grep_string,
+      { desc = 'Grep w/input', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>tt',
+      get_buffers_only_cwd,
+      { desc = 'Buffers (cwd)', noremap = true }
+    )
+
+    set_keymap({ 'n', 'x' }, '<leader>ud', function()
+      file_browser({
+        path = buffer_dir(),
+      })
+    end, { desc = 'File browser', noremap = true })
+
+    set_keymap({ 'n', 'x' }, '<leader>uf', function()
+      builtin.find_files({
+        cwd = buffer_dir(),
+      })
+    end, { desc = 'Find files', noremap = true })
+
+    set_keymap({ 'n', 'x' }, '<leader>us', function()
+      builtin.live_grep({
+        cwd = buffer_dir(),
+      })
+    end, { desc = 'Grep', noremap = true })
+
+    set_keymap({ 'n', 'x' }, '<leader>uw', function()
+      builtin.grep_string({
+        cwd = buffer_dir(),
+      })
+    end, { desc = 'Grep w/input', noremap = true })
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>z:',
+      builtin.commands,
+      { desc = 'Commands', noremap = true }
+    )
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>zh',
+      builtin.help_tags,
+      { desc = 'Help tags', noremap = true }
+    )
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>zk',
+      builtin.keymaps,
+      { desc = 'Keymaps', noremap = true }
+    )
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>zk',
+      builtin.reloader,
+      { desc = 'Lua modules', noremap = true }
+    )
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>zo',
+      builtin.vim_options,
+      { desc = 'Options', noremap = true }
+    )
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>zr',
+      builtin.registers,
+      { desc = 'Registers', noremap = true }
+    )
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>zs',
+      builtin.spell_suggest,
+      { desc = 'Spelling suggestions', noremap = true }
+    )
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>zt',
+      builtin.colorscheme,
+      { desc = 'Colourschemes', noremap = true }
+    )
 
     local get_file_info = function()
       local buffer_number = vim.api.nvim_get_current_buf()
-      local file_type     = vim.filetype.match({ buf = buffer_number })
+      local file_type = vim.filetype.match({ buf = buffer_number })
 
       if not file_type then
         return false
@@ -230,8 +457,8 @@ return {
       local file_extension = vim.fn.expand('%:e')
 
       return {
-        type      = file_type,
-        extension = file_extension
+        type = file_type,
+        extension = file_extension,
       }
     end
 
@@ -248,7 +475,7 @@ return {
 
       local filters = {
         glob_pattern = '*.' .. file_info.extension .. '*',
-        type_filter  = file_info.type
+        type_filter = file_info.type,
       }
 
       if cwd then
@@ -258,39 +485,25 @@ return {
       return filters
     end
 
-    map(function()
-      nx_leader_with 'st' {
-        'f',
-        function()
-          builtin.find_files {
-            find_command = get_find_command()
-          }
-        end,
-        'Find files',
+    set_keymap({ 'n', 'x' }, '<leader>stf', function()
+      builtin.find_files({
+        find_command = get_find_command(),
+      })
+    end, { desc = 'Find files', noremap = true })
 
-        's',
-        function()
-          builtin.live_grep(get_filters(false))
-        end,
-        'Grep'
-      }
+    set_keymap({ 'n', 'x' }, '<leader>sts', function()
+      builtin.live_grep(get_filters(false))
+    end, { desc = 'Grep', noremap = true })
 
-      nx_leader_with 'ut' {
-        'f',
-        function()
-          builtin.find_files {
-            find_command = get_find_command(),
-            cwd          = buffer_dir()
-          }
-        end,
-        'Find files',
+    set_keymap({ 'n', 'x' }, '<leader>utf', function()
+      builtin.find_files({
+        find_command = get_find_command(),
+        cwd = buffer_dir(),
+      })
+    end, { desc = 'Find files', noremap = true })
 
-        's',
-        function()
-          builtin.live_grep(get_filters(true))
-        end,
-        'Grep'
-      }
-    end)
+    set_keymap({ 'n', 'x' }, '<leader>uts', function()
+      builtin.live_grep(get_filters(true))
+    end, { desc = 'Grep', noremap = true })
   end,
 }

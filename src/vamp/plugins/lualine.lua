@@ -2,21 +2,21 @@ return {
   'nvim-lualine/lualine.nvim',
 
   opts = function()
-    local catppuccin = require'catppuccin.palettes'.get_palette('mocha')
+    local catppuccin = require('catppuccin.palettes').get_palette('mocha')
 
     local colors = {
-      bg       = catppuccin.crust,
-      fg       = catppuccin.text,
-      dark_fg  = catppuccin.surface2,
-      yellow   = catppuccin.yellow,
-      cyan     = catppuccin.teal,
+      bg = catppuccin.crust,
+      fg = catppuccin.text,
+      dark_fg = catppuccin.surface2,
+      yellow = catppuccin.yellow,
+      cyan = catppuccin.teal,
       darkblue = catppuccin.blue,
-      green    = catppuccin.green,
-      orange   = catppuccin.peach,
-      violet   = catppuccin.lavender,
-      magenta  = catppuccin.mauve,
-      blue     = catppuccin.sapphire,
-      red      = catppuccin.red,
+      green = catppuccin.green,
+      orange = catppuccin.peach,
+      violet = catppuccin.lavender,
+      magenta = catppuccin.mauve,
+      blue = catppuccin.sapphire,
+      red = catppuccin.red,
     }
 
     local conditions = {
@@ -32,7 +32,7 @@ return {
     local opts = {
       options = {
         component_separators = '',
-        section_separators   = '',
+        section_separators = '',
 
         disabled_filetypes = {
           'fern',
@@ -45,8 +45,8 @@ return {
         },
 
         theme = {
-          normal   = { c = { fg = colors.fg, bg = colors.bg }, },
-          inactive = { c = { fg = colors.fg, bg = colors.bg }, },
+          normal = { c = { fg = colors.fg, bg = colors.bg } },
+          inactive = { c = { fg = colors.fg, bg = colors.bg } },
         },
       },
 
@@ -77,91 +77,91 @@ return {
       table.insert(opts.sections.lualine_x, component)
     end
 
-    insert_into_left_section {
+    insert_into_left_section({
       function()
         return '▊'
       end,
 
-      color   = { fg   = colors.blue,  },
-      padding = { left = 0, right = 1, },
-    }
+      color = { fg = colors.blue },
+      padding = { left = 0, right = 1 },
+    })
 
-    insert_into_left_section {
+    insert_into_left_section({
       function()
         return '󰣐'
       end,
 
       color = function()
         local mode_color = {
-          n      = colors.red,
-          i      = colors.green,
-          v      = colors.blue,
-          ['']  = colors.blue,
-          V      = colors.blue,
-          c      = colors.magenta,
-          no     = colors.red,
-          s      = colors.orange,
-          S      = colors.orange,
-          ic     = colors.yellow,
-          R      = colors.violet,
-          Rv     = colors.violet,
-          cv     = colors.red,
-          ce     = colors.red,
-          r      = colors.cyan,
-          rm     = colors.cyan,
+          n = colors.red,
+          i = colors.green,
+          v = colors.blue,
+          [''] = colors.blue,
+          V = colors.blue,
+          c = colors.magenta,
+          no = colors.red,
+          s = colors.orange,
+          S = colors.orange,
+          ic = colors.yellow,
+          R = colors.violet,
+          Rv = colors.violet,
+          cv = colors.red,
+          ce = colors.red,
+          r = colors.cyan,
+          rm = colors.cyan,
           ['r?'] = colors.cyan,
-          ['!']  = colors.red,
-          t      = colors.red,
+          ['!'] = colors.red,
+          t = colors.red,
         }
 
-        return { fg = mode_color[vim.fn.mode()], }
+        return { fg = mode_color[vim.fn.mode()] }
       end,
 
-      padding = { right = 1, },
-    }
+      padding = { right = 1 },
+    })
 
-    insert_into_left_section {
+    insert_into_left_section({
       'filesize',
-      cond  = conditions.is_buffer_empty,
-      color = { fg = colors.dark_fg, gui = 'bold', },
-    }
+      cond = conditions.is_buffer_empty,
+      color = { fg = colors.dark_fg, gui = 'bold' },
+    })
 
-    insert_into_left_section {
+    insert_into_left_section({
       'filename',
-      cond  = conditions.is_buffer_empty,
-      color = { fg = colors.magenta, gui = 'bold', },
-    }
+      cond = conditions.is_buffer_empty,
+      color = { fg = colors.magenta, gui = 'bold' },
+    })
 
-    insert_into_left_section { 'location', color = { fg = colors.dark_fg, }, }
+    insert_into_left_section({ 'location', color = { fg = colors.dark_fg } })
 
-    insert_into_left_section { 'progress', color = { fg = colors.dark_fg, }, }
+    insert_into_left_section({ 'progress', color = { fg = colors.dark_fg } })
 
-    insert_into_left_section {
+    insert_into_left_section({
       'diagnostics',
 
-      sources = { 'nvim_diagnostic', },
+      sources = { 'nvim_diagnostic' },
 
-      symbols = { error = ' ', warn = ' ', info = ' ', },
+      symbols = { error = ' ', warn = ' ', info = ' ' },
 
       diagnostics_color = {
-        color_error = { fg = colors.red,    },
-        color_warn  = { fg = colors.yellow, },
-        color_info  = { fg = colors.cyan,   },
+        color_error = { fg = colors.red },
+        color_warn = { fg = colors.yellow },
+        color_info = { fg = colors.cyan },
       },
-    }
+    })
 
-    insert_into_left_section {
+    insert_into_left_section({
       function()
         return '%='
       end,
-    }
+    })
 
-    insert_into_left_section {
+    insert_into_left_section({
       function()
         local no_lsp_message = '󰝾'
-        local lsp_message    = ' - '
-        local buf_ft         = vim.api.nvim_buf_get_option(0, 'filetype')
-        local clients        = vim.lsp.get_active_clients()
+        local lsp_message = ' - '
+        local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
+        local clients = vim.lsp.get_active_clients()
 
         if next(clients) == nil then
           return no_lsp_message
@@ -187,27 +187,27 @@ return {
         return lsp_message
       end,
 
-      color = { fg = colors.dark_fg, gui = 'bold', },
-    }
+      color = { fg = colors.dark_fg, gui = 'bold' },
+    })
 
-    insert_into_right_section {
+    insert_into_right_section({
       'o:encoding',
-      cond  = conditions.hide,
-      color = { fg = colors.green, gui = 'bold', },
-    }
+      cond = conditions.hide,
+      color = { fg = colors.green, gui = 'bold' },
+    })
 
-    insert_into_right_section {
+    insert_into_right_section({
       'fileformat',
 
       icons_enabled = false,
 
-      color = { fg = colors.green, gui = 'bold', },
-    }
+      color = { fg = colors.green, gui = 'bold' },
+    })
 
-    insert_into_right_section {
+    insert_into_right_section({
       'branch',
 
-      icon  = '',
+      icon = '',
 
       fmt = function(section)
         if string.len(section) > 1 then
@@ -221,26 +221,26 @@ return {
         return section
       end,
 
-      color = { fg = colors.violet, gui = 'bold', },
-    }
+      color = { fg = colors.violet, gui = 'bold' },
+    })
 
-    insert_into_right_section {
+    insert_into_right_section({
       'diff',
 
       symbols = {
-        added    = ' ',
+        added = ' ',
         modified = '󰝤 ',
-        removed  = ' ',
+        removed = ' ',
       },
 
       diff_color = {
-        added    = { fg = colors.green  },
+        added = { fg = colors.green },
         modified = { fg = colors.orange },
-        removed  = { fg = colors.red    },
+        removed = { fg = colors.red },
       },
 
       cond = conditions.hide,
-    }
+    })
 
     return opts
   end,

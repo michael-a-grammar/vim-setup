@@ -1,13 +1,13 @@
 return {
   'rcarriga/nvim-notify',
 
-  opts = { 
+  opts = {
     render = 'compact',
     stages = 'fade',
   },
 
   config = function(_, opts)
-    local notify = require'notify'
+    local notify = require('notify')
 
     notify.setup(opts)
 

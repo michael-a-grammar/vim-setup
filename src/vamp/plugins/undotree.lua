@@ -3,9 +3,9 @@ return {
 
   keys = {
     {
-      "<leader>f",
-      "<cmd>UndotreeToggle<cr>",
-      desc = "Undo tree",
+      '<leader>f',
+      '<cmd>UndotreeToggle<cr>',
+      desc = 'Undo tree',
     },
-  }
+  },
 }

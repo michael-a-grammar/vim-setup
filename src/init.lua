@@ -1,1 +1,1 @@
-require'vamp'
+require('vamp')
