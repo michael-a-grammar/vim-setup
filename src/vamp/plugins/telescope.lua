@@ -194,6 +194,34 @@ return {
 
     set_keymap(
       { 'n', 'x' },
+      '<leader>f/',
+      builtin.search_history,
+      { desc = 'Searches', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>f:',
+      builtin.command_history,
+      { desc = 'Commands', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>fh',
+      builtin.quickfixhistory,
+      { desc = 'Quickfix history', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>fl',
+      builtin.loclist,
+      { desc = 'Loclist', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
       '<leader>ff',
       builtin.jumplist,
       { desc = 'Jumps', noremap = true }
@@ -201,16 +229,36 @@ return {
 
     set_keymap(
       { 'n', 'x' },
-      '<leader>gb',
-      builtin.git_branches,
-      { desc = 'Branches', noremap = true }
+      '<leader>fm',
+      builtin.marks,
+      { desc = 'Marks', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>fq',
+      builtin.quickfix,
+      { desc = 'Quickfix', noremap = true }
+    )
+
+    set_keymap({ 'n', 'x' }, '<leader>fr', function()
+      builtin.oldfiles({
+        only_cwd = true,
+      })
+    end, { desc = '' .. ' Recent files', noremap = true })
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>ft',
+      builtin.oldfiles,
+      { desc = 'Recent files', noremap = true }
     )
 
     set_keymap(
       { 'n', 'x' },
       '<leader>gb',
-      builtin.git_bcommits,
-      { desc = 'Branch commits', noremap = true }
+      builtin.git_branches,
+      { desc = 'Branches', noremap = true }
     )
 
     set_keymap(
@@ -236,44 +284,16 @@ return {
 
     set_keymap(
       { 'n', 'x' },
+      '<leader>gr',
+      builtin.git_bcommits,
+      { desc = 'Branch commits', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
       '<leader>gs',
       builtin.git_stash,
       { desc = 'Stash', noremap = true }
-    )
-
-    set_keymap(
-      { 'n', 'x' },
-      "<leader>h'",
-      builtin.resume,
-      { desc = 'Resume Telescope', noremap = true }
-    )
-
-    set_keymap(
-      { 'n', 'x' },
-      '<leader>h,',
-      builtin.quickfixhistory,
-      { desc = 'Quickfix', noremap = true }
-    )
-
-    set_keymap(
-      { 'n', 'x' },
-      '<leader>h.',
-      builtin.pickers,
-      { desc = 'Pickers', noremap = true }
-    )
-
-    set_keymap(
-      { 'n', 'x' },
-      '<leader>h/',
-      builtin.search_history,
-      { desc = 'Searches', noremap = true }
-    )
-
-    set_keymap(
-      { 'n', 'x' },
-      '<leader>h:',
-      builtin.command_history,
-      { desc = 'Commands', noremap = true }
     )
 
     set_keymap(
@@ -299,9 +319,16 @@ return {
 
     set_keymap(
       { 'n', 'x' },
-      '<leader>sc',
-      builtin.quickfix,
-      { desc = 'Quickfix', noremap = true }
+      '<leader>pr',
+      builtin.registers,
+      { desc = 'Registers', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>pc',
+      builtin.spell_suggest,
+      { desc = 'Spelling suggestions', noremap = true }
     )
 
     set_keymap(
@@ -320,58 +347,22 @@ return {
 
     set_keymap(
       { 'n', 'x' },
-      '<leader>sg',
-      builtin.git_files,
-      { desc = 'Git', noremap = true }
-    )
-
-    set_keymap(
-      { 'n', 'x' },
-      '<leader>sl',
-      builtin.loclist,
-      { desc = 'Loclist', noremap = true }
-    )
-
-    set_keymap(
-      { 'n', 'x' },
-      '<leader>sm',
-      builtin.marks,
-      { desc = 'Marks', noremap = true }
-    )
-
-    set_keymap({ 'n', 'x' }, '<leader>sr', function()
-      builtin.oldfiles({
-        only_cwd = true,
-      })
-    end, { desc = 'Recent files (cwd)', noremap = true })
-
-    set_keymap(
-      { 'n', 'x' },
-      '<leader>sR',
-      builtin.oldfiles,
-      { desc = 'Recent files (all)', noremap = true }
-    )
-
-    set_keymap(
-      { 'n', 'x' },
-      '<leader>ss',
-      builtin.live_grep,
-      { desc = 'Grep', noremap = true }
-    )
-
-    set_keymap(
-      { 'n', 'x' },
-      '<leader>sw',
-      builtin.grep_string,
-      { desc = 'Grep w/input', noremap = true }
-    )
-
-    set_keymap(
-      { 'n', 'x' },
       '<leader>tt',
       get_buffers_only_cwd,
       { desc = 'Buffers (cwd)', noremap = true }
     )
+
+    set_keymap({ 'n', 'x' }, '<leader>u*', function()
+      builtin.grep_string({
+        cwd = buffer_dir(),
+      })
+    end, { desc = 'Grep w/input', noremap = true })
+
+    set_keymap({ 'n', 'x' }, '<leader>u/', function()
+      builtin.live_grep({
+        cwd = buffer_dir(),
+      })
+    end, { desc = 'Grep', noremap = true })
 
     set_keymap({ 'n', 'x' }, '<leader>ud', function()
       file_browser({
@@ -385,30 +376,20 @@ return {
       })
     end, { desc = 'Find files', noremap = true })
 
-    set_keymap({ 'n', 'x' }, '<leader>us', function()
-      builtin.live_grep({
-        cwd = buffer_dir(),
-      })
-    end, { desc = 'Grep', noremap = true })
-
-    set_keymap({ 'n', 'x' }, '<leader>uw', function()
-      builtin.grep_string({
-        cwd = buffer_dir(),
-      })
-    end, { desc = 'Grep w/input', noremap = true })
-
     set_keymap(
       { 'n', 'x' },
       '<leader>z:',
       builtin.commands,
       { desc = 'Commands', noremap = true }
     )
+
     set_keymap(
       { 'n', 'x' },
       '<leader>zh',
       builtin.help_tags,
       { desc = 'Help tags', noremap = true }
     )
+
     set_keymap(
       { 'n', 'x' },
       '<leader>zk',
@@ -427,18 +408,7 @@ return {
       builtin.vim_options,
       { desc = 'Options', noremap = true }
     )
-    set_keymap(
-      { 'n', 'x' },
-      '<leader>zr',
-      builtin.registers,
-      { desc = 'Registers', noremap = true }
-    )
-    set_keymap(
-      { 'n', 'x' },
-      '<leader>zs',
-      builtin.spell_suggest,
-      { desc = 'Spelling suggestions', noremap = true }
-    )
+
     set_keymap(
       { 'n', 'x' },
       '<leader>zt',

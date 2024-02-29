@@ -87,7 +87,7 @@ return {
         },
 
         f = {
-          name = 'Jumps',
+          name = 'Search',
         },
 
         g = {
@@ -95,7 +95,7 @@ return {
         },
 
         h = {
-          name = 'History',
+          name = 'Unassigned',
         },
 
         i = {
@@ -127,7 +127,7 @@ return {
         },
 
         p = {
-          name = 'Yank ring',
+          name = 'Editing',
         },
 
         q = {
@@ -159,7 +159,7 @@ return {
         },
 
         v = {
-          name = 'Expand region',
+          name = 'Unassigned',
         },
 
         w = {

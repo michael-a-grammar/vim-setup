@@ -18,9 +18,58 @@ set_keymap(
 
 set_keymap(
   'i',
+  '<esc>',
+  '<esc><esc>',
+  { desc = 'Return to normal mode', noremap = true }
+)
+
+set_keymap(
+  'i',
   'jj',
   '<esc>',
-  { desc = 'Return to normal mode', noremap = true }
+  { desc = 'Return to normal mode', noremap = false }
+)
+
+set_keymap(
+  { 'n', 'x' },
+  '<c-down>',
+  '<c-w>j',
+  { desc = 'Move to bottom window', noremap = true }
+)
+
+set_keymap(
+  { 'n', 'x' },
+  '<c-up>',
+  '<c-w>w',
+  { desc = 'Move to top window', noremap = true }
+)
+
+set_keymap(
+  { 'n', 'x' },
+  '<c-left>',
+  '<c-w>h',
+  { desc = 'Move to left window', noremap = true }
+)
+
+set_keymap(
+  { 'n', 'x' },
+  '<c-right>',
+  '<c-w>l',
+  { desc = 'Move to right window', noremap = true }
+)
+
+set_keymap(
+  { 'n', 'x' },
+  '<c-f>',
+  '<c-u>',
+  { desc = 'Scroll up', noremap = true }
+)
+
+set_keymap(
+  { 'n', 'x' },
+  '<c-p>',
+  '<c-d>',
+  { desc = 'Scroll down', noremap = true }
 )
 
 set_keymap(
@@ -195,6 +244,13 @@ set_keymap(
 
 set_keymap(
   { 'n', 'x' },
+  '<leader>kh',
+  '<cmd>set nohlsearch<cr>',
+  { desc = 'Disable highlighted search results', noremap = true }
+)
+
+set_keymap(
+  { 'n', 'x' },
   '<leader>ki',
   '<cmd>set noincsearch<cr>',
   { desc = 'Disable incremental search', noremap = true }
@@ -202,23 +258,46 @@ set_keymap(
 
 set_keymap(
   { 'n', 'x' },
-  '<leader>kt',
-  '<cmd>set nohlsearch<cr>',
-  { desc = 'Disable highlighted search results', noremap = true }
-)
-
-set_keymap(
-  { 'n', 'x' },
-  '<leader>ks',
+  '<leader>p/',
   ':s/',
   { desc = 'Substitute within line', noremap = true }
 )
 
 set_keymap(
   { 'n', 'x' },
-  '<leader>kS',
+  '<leader>p?',
   ':%s/',
   { desc = 'Substitute within buffer', noremap = true }
+)
+
+set_keymap(
+  { 'n', 'x' },
+  '<leader>pd',
+  '<c-x>',
+  { desc = 'Decrement', noremap = true }
+)
+
+set_keymap(
+  { 'n', 'x' },
+  '<leader>pi',
+  '<c-a>',
+  { desc = 'Increment', noremap = true }
+)
+
+set_keymap('x', '<leader>ps', ':sort<cr>', { desc = 'Sort', noremap = true })
+
+set_keymap(
+  { 'n', 'x' },
+  '<leader>qq',
+  '<cmd>quitall<cr>',
+  { desc = 'Quit all', noremap = true }
+)
+
+set_keymap(
+  { 'n', 'x' },
+  '<leader>qQ',
+  '<cmd>quitall!<cr>',
+  { desc = '' .. ' Quit all', noremap = true }
 )
 
 set_keymap(
@@ -239,7 +318,7 @@ set_keymap(
   { 'n', 'x' },
   '<leader>tD',
   '<cmd>bdelete!<cr>',
-  { desc = 'Delete buffer (force)', noremap = true }
+  { desc = '' .. ' Delete buffer', noremap = true }
 )
 
 set_keymap(
@@ -281,7 +360,7 @@ set_keymap(
   { 'n', 'x' },
   '<leader>tX',
   '<cmd>%bdelete! | edit#<cr>',
-  { desc = 'Delete other buffers (force)', noremap = true }
+  { desc = '' .. ' Delete other buffers', noremap = true }
 )
 
 set_keymap(
@@ -289,20 +368,6 @@ set_keymap(
   '<leader>ty',
   '<cmd>tab ball<cr>',
   { desc = 'Open buffers in tabs', noremap = true }
-)
-
-set_keymap(
-  { 'n', 'x' },
-  '<leader>qq',
-  '<cmd>quitall<cr>',
-  { desc = 'Quit all', noremap = true }
-)
-
-set_keymap(
-  { 'n', 'x' },
-  '<leader>qQ',
-  '<cmd>quitall!<cr>',
-  { desc = 'Quit all (force)', noremap = true }
 )
 
 set_keymap(
@@ -356,16 +421,9 @@ set_keymap(
 
 set_keymap(
   { 'n', 'x' },
-  '<leader>wd',
-  '<cmd>close<cr>',
-  { desc = 'Close window', noremap = true }
-)
-
-set_keymap(
-  { 'n', 'x' },
-  '<leader>wh',
-  '<cmd>only<cr>',
-  { desc = 'Close other windows', noremap = true }
+  '<leader>wn',
+  '<c-w>h',
+  { desc = 'Move to left window', noremap = true }
 )
 
 set_keymap(
@@ -384,13 +442,6 @@ set_keymap(
 
 set_keymap(
   { 'n', 'x' },
-  '<leader>wn',
-  '<c-w>h',
-  { desc = 'Move to left window', noremap = true }
-)
-
-set_keymap(
-  { 'n', 'x' },
   '<leader>wo',
   '<c-w>l',
   { desc = 'Move to right window', noremap = true }
@@ -398,23 +449,9 @@ set_keymap(
 
 set_keymap(
   { 'n', 'x' },
-  '<leader>wr',
-  '<c-w>r',
-  { desc = 'Rotate window downwards/rightwards', noremap = true }
-)
-
-set_keymap(
-  { 'n', 'x' },
-  '<leader>ww',
-  '<c-w>p',
-  { desc = 'Previous window', noremap = true }
-)
-
-set_keymap(
-  { 'n', 'x' },
-  '<leader>wx',
-  '<c-w>x',
-  { desc = 'Exchange window', noremap = true }
+  '<leader>wN',
+  '<c-w>H',
+  { desc = 'Move window to left', noremap = true }
 )
 
 set_keymap(
@@ -433,16 +470,30 @@ set_keymap(
 
 set_keymap(
   { 'n', 'x' },
-  '<leader>wN',
-  '<c-w>H',
-  { desc = 'Move window to left', noremap = true }
+  '<leader>wO',
+  '<c-w>L',
+  { desc = 'Move window to right', noremap = true }
 )
 
 set_keymap(
   { 'n', 'x' },
-  '<leader>wO',
-  '<c-w>L',
-  { desc = 'Move window to right', noremap = true }
+  '<leader>wd',
+  '<cmd>close<cr>',
+  { desc = 'Close window', noremap = true }
+)
+
+set_keymap(
+  { 'n', 'x' },
+  '<leader>wh',
+  '<cmd>only<cr>',
+  { desc = 'Close other windows', noremap = true }
+)
+
+set_keymap(
+  { 'n', 'x' },
+  '<leader>wr',
+  '<c-w>r',
+  { desc = 'Rotate window downwards/rightwards', noremap = true }
 )
 
 set_keymap(
@@ -475,23 +526,16 @@ set_keymap(
 
 set_keymap(
   { 'n', 'x' },
-  '<leader>xm',
-  '<c-a>',
-  { desc = 'Increment', noremap = true }
+  '<leader>ww',
+  '<c-w>p',
+  { desc = 'Previous window', noremap = true }
 )
 
 set_keymap(
   { 'n', 'x' },
-  '<leader>xM',
-  '<c-x>',
-  { desc = 'Decrement', noremap = true }
-)
-
-set_keymap(
-  'x',
-  '<leader>xs',
-  '<cmd>sort<cr>',
-  { desc = 'Sort', noremap = true }
+  '<leader>wx',
+  '<c-w>x',
+  { desc = 'Exchange window', noremap = true }
 )
 
 set_keymap(

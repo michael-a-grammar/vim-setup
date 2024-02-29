@@ -172,7 +172,7 @@ return {
               '<localleader>erf',
               '<cmd>ElixirRestart | edit!<cr>',
               {
-                desc = 'Restart ElixirLS and force reattach',
+                desc = '' .. ' Restart ElixirLS',
                 buffer = true,
                 noremap = true,
               }

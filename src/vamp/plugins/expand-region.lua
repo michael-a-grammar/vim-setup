@@ -3,14 +3,14 @@ return {
 
   keys = {
     {
-      '<leader>ve',
+      '<leader>pe',
       '<plug>(expand_region_expand)',
       desc = 'Expand region',
       mode = { 'n', 'x' },
     },
 
     {
-      '<leader>vs',
+      '<leader>ps',
       '<plug>(expand_region_shrink)',
       desc = 'Shrink region',
       mode = { 'n', 'x' },
