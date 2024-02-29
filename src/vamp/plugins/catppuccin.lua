@@ -22,7 +22,6 @@ return {
       lsp_trouble = true,
       neogit = true,
       notify = true,
-      telescope = true,
       semantic_tokens = true,
       treesitter = true,
       which_key = true,
@@ -53,6 +52,11 @@ return {
       navic = {
         enabled = true,
         custom_bg = 'NONE',
+      },
+
+      telescope = {
+        enabled = true,
+        style = 'nvchad',
       },
     },
   },

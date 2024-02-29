@@ -1,5 +1,6 @@
 return {
   'akinsho/bufferline.nvim',
+  version = '*',
 
   opts = {
     highlights = require('catppuccin.groups.integrations.bufferline').get(),

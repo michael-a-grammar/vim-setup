@@ -8,7 +8,7 @@ return {
     'nvim-tree/nvim-web-devicons',
   },
 
-  config = {
+  opts = {
     show_basename = false,
     theme = 'catppuccin',
 
@@ -16,4 +16,14 @@ return {
       separator = '',
     },
   },
+
+  config = function(_, opts)
+    local set_keymap = vim.keymap.set
+
+    require('barbecue').setup(opts)
+
+    set_keymap({ 'n', 'x' }, '<leader>kb', function()
+      require('barbecue.ui').toggle()
+    end, { desc = 'Toggle barbecue', noremap = true })
+  end,
 }
