@@ -119,28 +119,28 @@ return {
       { 'n', 'x' },
       '<leader><space>',
       builtin.find_files,
-      { desc = 'Find files (cwd)', noremap = true }
+      { desc = '' .. ' Find files', noremap = true }
     )
 
     set_keymap(
       { 'n', 'x' },
       '<leader>*',
       builtin.grep_string,
-      { desc = 'Grep w/input (cwd)', noremap = true }
+      { desc = '' .. ' Grep w/input', noremap = true }
     )
 
     set_keymap(
       { 'n', 'x' },
       '<leader>,',
       get_buffers_only_cwd,
-      { desc = 'Buffers (cwd)', noremap = true }
+      { desc = '' .. ' Buffers', noremap = true }
     )
 
     set_keymap(
       { 'n', 'x' },
       '<leader>/',
       builtin.live_grep,
-      { desc = 'Grep (cwd)', noremap = true }
+      { desc = '' .. ' Grep', noremap = true }
     )
 
     set_keymap(
@@ -152,23 +152,51 @@ return {
 
     set_keymap(
       { 'n', 'x' },
+      '<leader>dd',
+      builtin.diagnostics,
+      { desc = 'Diagnostics', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>ed',
+      builtin.lsp_definitions,
+      { desc = 'Definitions', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>ee',
+      builtin.lsp_dynamic_workspace_symbols,
+      { desc = 'Dynamic workspace symbols', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>ei',
+      builtin.lsp_implementations,
+      { desc = 'Implementations', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>eu',
+      builtin.lsp_references,
+      { desc = 'References', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>ey',
+      builtin.lsp_type_definitions,
+      { desc = 'Type definitions', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
       '<leader>ff',
-      builtin.current_buffer_fuzzy_find,
-      { desc = 'Fuzzy find', noremap = true }
-    )
-
-    set_keymap(
-      { 'n', 'x' },
-      '<leader>fs',
-      builtin.lsp_document_symbols,
-      { desc = 'Document symbols', noremap = true }
-    )
-
-    set_keymap(
-      { 'n', 'x' },
-      '<leader>ft',
-      builtin.treesitter,
-      { desc = 'Treesitter', noremap = true }
+      builtin.jumplist,
+      { desc = 'Jumps', noremap = true }
     )
 
     set_keymap(
@@ -180,14 +208,14 @@ return {
 
     set_keymap(
       { 'n', 'x' },
-      '<leader>gc',
+      '<leader>gb',
       builtin.git_bcommits,
       { desc = 'Branch commits', noremap = true }
     )
 
     set_keymap(
       { 'n', 'x' },
-      '<leader>gC',
+      '<leader>gc',
       builtin.git_commits,
       { desc = 'Commits', noremap = true }
     )
@@ -236,6 +264,13 @@ return {
 
     set_keymap(
       { 'n', 'x' },
+      '<leader>h/',
+      builtin.search_history,
+      { desc = 'Searches', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
       '<leader>h:',
       builtin.command_history,
       { desc = 'Commands', noremap = true }
@@ -243,51 +278,23 @@ return {
 
     set_keymap(
       { 'n', 'x' },
-      '<leader>h;',
-      builtin.search_history,
-      { desc = 'Searches', noremap = true }
-    )
-
-    set_keymap(
-      { 'n', 'x' },
-      '<leader>ne',
-      builtin.diagnostics,
-      { desc = 'Diagnostics', noremap = true }
-    )
-
-    set_keymap(
-      { 'n', 'x' },
-      '<leader>nd',
-      builtin.lsp_definitions,
-      { desc = 'Definitions', noremap = true }
-    )
-
-    set_keymap(
-      { 'n', 'x' },
-      '<leader>ni',
-      builtin.lsp_implementations,
-      { desc = 'Implementations', noremap = true }
+      '<leader>nf',
+      builtin.current_buffer_fuzzy_find,
+      { desc = 'Fuzzy find', noremap = true }
     )
 
     set_keymap(
       { 'n', 'x' },
       '<leader>ns',
-      builtin.lsp_dynamic_workspace_symbols,
-      { desc = 'Dynamic workspace symbols', noremap = true }
+      builtin.lsp_document_symbols,
+      { desc = 'Document symbols', noremap = true }
     )
 
     set_keymap(
       { 'n', 'x' },
       '<leader>nt',
-      builtin.lsp_type_definitions,
-      { desc = 'Type definitions', noremap = true }
-    )
-
-    set_keymap(
-      { 'n', 'x' },
-      '<leader>nu',
-      builtin.lsp_references,
-      { desc = 'References', noremap = true }
+      builtin.treesitter,
+      { desc = 'Treesitter', noremap = true }
     )
 
     set_keymap(
@@ -330,13 +337,6 @@ return {
       '<leader>sm',
       builtin.marks,
       { desc = 'Marks', noremap = true }
-    )
-
-    set_keymap(
-      { 'n', 'x' },
-      '<leader>sp',
-      builtin.jumplist,
-      { desc = 'Jumps', noremap = true }
     )
 
     set_keymap({ 'n', 'x' }, '<leader>sr', function()

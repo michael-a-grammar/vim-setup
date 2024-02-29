@@ -77,13 +77,6 @@ set_keymap(
 
 set_keymap(
   { 'n', 'x' },
-  'ge',
-  lsp.declaration,
-  { desc = 'Go to declaration', noremap = true }
-)
-
-set_keymap(
-  { 'n', 'x' },
   'gm',
   lsp.implementation,
   { desc = 'Go to implementation', noremap = true }
@@ -103,6 +96,8 @@ set_keymap(
   { desc = 'Go to type definition', noremap = true }
 )
 
+set_keymap({ 'n', 'x' }, 'h', lsp.hover, { desc = 'Hover', noremap = true })
+
 set_keymap(
   { 'n', 'x' },
   '<leader>!',
@@ -119,21 +114,7 @@ set_keymap(
 
 set_keymap(
   { 'n', 'x' },
-  '<leader>o',
-  '<c-o>',
-  { desc = 'Backwards', noremap = true }
-)
-
-set_keymap(
-  { 'n', 'x' },
-  '<leader>p',
-  '<c-i>',
-  { desc = 'Forwards', noremap = true }
-)
-
-set_keymap(
-  { 'n', 'x' },
-  '<leader>df',
+  '<leader>di',
   diagnostic.open_float,
   { desc = 'Info', noremap = true }
 )
@@ -161,76 +142,55 @@ set_keymap(
 
 set_keymap(
   { 'n', 'x' },
-  '<leader>ia',
+  '<leader>ea',
   lsp.code_action,
   { desc = 'Action', noremap = true }
 )
 
 set_keymap(
   { 'n', 'x' },
-  '<leader>ic',
-  lsp.rename,
-  { desc = 'Rename', noremap = true }
-)
-
-set_keymap(
-  { 'n', 'x' },
-  '<leader>id',
-  lsp.definition,
-  { desc = 'Go to definition', noremap = true }
-)
-
-set_keymap(
-  { 'n', 'x' },
-  '<leader>ie',
-  lsp.declaration,
-  { desc = 'Go to declaration', noremap = true }
-)
-
-set_keymap(
-  { 'n', 'x' },
-  '<leader>if',
+  '<leader>ef',
   lsp.format,
   { desc = 'Format', noremap = true }
 )
 
 set_keymap(
   { 'n', 'x' },
-  '<leader>ih',
+  '<leader>eh',
   lsp.hover,
   { desc = 'Hover', noremap = true }
 )
 
 set_keymap(
   { 'n', 'x' },
-  '<leader>im',
-  lsp.implementation,
-  { desc = 'Go to implementation', noremap = true }
+  '<leader>er',
+  lsp.rename,
+  { desc = 'Rename', noremap = true }
 )
 
 set_keymap(
   { 'n', 'x' },
-  '<leader>ir',
-  lsp.references,
-  { desc = 'Go to references', noremap = true }
-)
-
-set_keymap(
-  { 'n', 'x' },
-  '<leader>is',
+  '<leader>es',
   lsp.signature_help,
   { desc = 'Signature help', noremap = true }
 )
 
-set_keymap({ 'n', 'x' }, '<leader>it', function()
+set_keymap({ 'n', 'x' }, '<leader>et', function()
   lsp.codelens.run()
 end, { desc = 'Run test', noremap = true })
 
 set_keymap(
   { 'n', 'x' },
-  '<leader>iy',
-  lsp.type_definition,
-  { desc = 'Go to type definition', noremap = true }
+  '<leader>fo',
+  '<c-o>',
+  { desc = 'Backwards', noremap = true }
+)
+
+set_keymap(
+  { 'n', 'x' },
+  '<leader>fi',
+  '<c-i>',
+  { desc = 'Forwards', noremap = true }
 )
 
 set_keymap(

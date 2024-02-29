@@ -9,7 +9,7 @@ return {
     hidden = { '<Plug>' },
 
     key_labels = {
-      ['<space>'] = '󰯉',
+      ['<space>'] = '󰭟',
       ['<bs>'] = '󰁮',
       ['<down>'] = '',
       ['<left>'] = '',
@@ -45,7 +45,7 @@ return {
 
       ['<localleader>'] = {
         e = {
-          name = ' ',
+          name = '',
 
           n = {
             name = 'New file',
@@ -61,7 +61,7 @@ return {
         },
 
         r = {
-          name = ' ',
+          name = '',
         },
       },
 
@@ -83,11 +83,11 @@ return {
         },
 
         e = {
-          name = 'File',
+          name = 'LSP',
         },
 
         f = {
-          name = 'Yank ring',
+          name = 'Jumps',
         },
 
         g = {
@@ -99,7 +99,7 @@ return {
         },
 
         i = {
-          name = 'LSP',
+          name = 'Unassigned',
         },
 
         j = {
@@ -139,10 +139,10 @@ return {
         },
 
         s = {
-          name = 'Find ' .. '',
+          name = '' .. ' Find',
 
           t = {
-            name = 'Find ' .. '',
+            name = '' .. ' Find',
           },
         },
 
@@ -151,10 +151,10 @@ return {
         },
 
         u = {
-          name = 'Find ' .. '',
+          name = '' .. ' Find',
 
           t = {
-            name = 'Find ' .. '',
+            name = '' .. ' Find',
           },
         },
 

@@ -4,7 +4,6 @@ return {
 
   opts = function()
     local rust_tools = require('rust-tools')
-    local map = require('vamp.cartographer').map
 
     local capabilities = require('cmp_nvim_lsp').default_capabilities(
       vim.lsp.protocol.make_client_capabilities()
