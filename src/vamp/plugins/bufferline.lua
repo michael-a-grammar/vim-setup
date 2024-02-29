@@ -11,12 +11,14 @@ return {
       separator_style = 'thin',
       show_close_icon = false,
 
-      diagnostics_indicator = function(count, level, diagnostics_dict, context)
+      diagnostics_indicator = function(count, level, _, context)
         if context.buffer:current() then
           return ''
         end
 
-        return ''
+        local icon = level:match('error') and '' or ''
+
+        return ' ' .. icon .. count
       end,
 
       offsets = {

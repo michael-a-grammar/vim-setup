@@ -1,7 +1,6 @@
 local api = vim.api
 local exec = vim.api.nvim_exec
 local g = vim.g
-local fn = vim.fn
 local opt = vim.opt
 
 exec('packadd cfilter', false)
