@@ -133,13 +133,6 @@ set_keymap(
 
 set_keymap(
   { 'n', 'x' },
-  'gr',
-  lsp.references,
-  { desc = 'Go to references', noremap = true }
-)
-
-set_keymap(
-  { 'n', 'x' },
   'gy',
   lsp.type_definition,
   { desc = 'Go to type definition', noremap = true }

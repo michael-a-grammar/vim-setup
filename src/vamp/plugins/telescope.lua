@@ -152,44 +152,9 @@ return {
 
     set_keymap(
       { 'n', 'x' },
-      '<leader>dd',
-      builtin.diagnostics,
-      { desc = 'Diagnostics', noremap = true }
-    )
-
-    set_keymap(
-      { 'n', 'x' },
-      '<leader>ed',
-      builtin.lsp_definitions,
-      { desc = 'Definitions', noremap = true }
-    )
-
-    set_keymap(
-      { 'n', 'x' },
-      '<leader>ee',
-      builtin.lsp_dynamic_workspace_symbols,
-      { desc = 'Dynamic workspace symbols', noremap = true }
-    )
-
-    set_keymap(
-      { 'n', 'x' },
       '<leader>ei',
       builtin.lsp_implementations,
       { desc = 'Implementations', noremap = true }
-    )
-
-    set_keymap(
-      { 'n', 'x' },
-      '<leader>eu',
-      builtin.lsp_references,
-      { desc = 'References', noremap = true }
-    )
-
-    set_keymap(
-      { 'n', 'x' },
-      '<leader>ey',
-      builtin.lsp_type_definitions,
-      { desc = 'Type definitions', noremap = true }
     )
 
     set_keymap(
@@ -215,13 +180,6 @@ return {
 
     set_keymap(
       { 'n', 'x' },
-      '<leader>fl',
-      builtin.loclist,
-      { desc = 'Loclist', noremap = true }
-    )
-
-    set_keymap(
-      { 'n', 'x' },
       '<leader>ff',
       builtin.jumplist,
       { desc = 'Jumps', noremap = true }
@@ -232,13 +190,6 @@ return {
       '<leader>fm',
       builtin.marks,
       { desc = 'Marks', noremap = true }
-    )
-
-    set_keymap(
-      { 'n', 'x' },
-      '<leader>fq',
-      builtin.quickfix,
-      { desc = 'Quickfix', noremap = true }
     )
 
     set_keymap({ 'n', 'x' }, '<leader>fr', function()
@@ -454,6 +405,13 @@ return {
 
       return filters
     end
+
+    set_keymap({ 'n', 'x' }, '<leader>.', function()
+      builtin.find_files({
+        find_command = get_find_command(),
+        cwd = buffer_dir(),
+      })
+    end, { desc = '' .. ' Find files', noremap = true })
 
     set_keymap({ 'n', 'x' }, '<leader>stf', function()
       builtin.find_files({

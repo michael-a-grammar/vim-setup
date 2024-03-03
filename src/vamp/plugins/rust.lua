@@ -19,7 +19,7 @@ return {
       server = {
         capabilities = capabilities,
 
-        on_attach = function(_, bufnr)
+        on_attach = function(_, _)
           local set_keymap = vim.keymap.set
 
           set_keymap(

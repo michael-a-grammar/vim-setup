@@ -5,7 +5,6 @@ return {
     ft = 'elixir',
 
     opts = function()
-      local elixir = require('elixir')
       local elixir_ls = require('elixir.elixirls')
 
       local capabilities = require('cmp_nvim_lsp').default_capabilities(
@@ -24,13 +23,13 @@ return {
 
           capabilities = capabilities,
 
-          on_attach = function(_, bufnr)
+          on_attach = function(_, _)
             local set_keymap = vim.keymap.set
 
             set_keymap(
               { 'n', 'x' },
               '<localleader>ee',
-              'ElixirExpandMacro',
+              '<cmd>ElixirExpandMacro<cr>',
               { desc = 'Expand macro', buffer = true, noremap = true }
             )
 
