@@ -220,48 +220,6 @@ return {
 
     set_keymap(
       { 'n', 'x' },
-      '<leader>gb',
-      builtin.git_branches,
-      { desc = 'Branches', noremap = true }
-    )
-
-    set_keymap(
-      { 'n', 'x' },
-      '<leader>gc',
-      builtin.git_commits,
-      { desc = 'Commits', noremap = true }
-    )
-
-    set_keymap(
-      { 'n', 'x' },
-      '<leader>gf',
-      builtin.git_files,
-      { desc = 'Files', noremap = true }
-    )
-
-    set_keymap(
-      { 'n', 'x' },
-      '<leader>gg',
-      builtin.git_status,
-      { desc = 'Status', noremap = true }
-    )
-
-    set_keymap(
-      { 'n', 'x' },
-      '<leader>gr',
-      builtin.git_bcommits,
-      { desc = 'Branch commits', noremap = true }
-    )
-
-    set_keymap(
-      { 'n', 'x' },
-      '<leader>gs',
-      builtin.git_stash,
-      { desc = 'Stash', noremap = true }
-    )
-
-    set_keymap(
-      { 'n', 'x' },
       '<leader>nf',
       builtin.current_buffer_fuzzy_find,
       { desc = 'Fuzzy find', noremap = true }
@@ -387,6 +345,48 @@ return {
       '<leader>zt',
       builtin.highlights,
       { desc = 'Highlights', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>ggb',
+      builtin.git_branches,
+      { desc = 'Branches', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>ggc',
+      builtin.git_commits,
+      { desc = 'Commits', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>ggf',
+      builtin.git_files,
+      { desc = 'Files', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>ggg',
+      builtin.git_status,
+      { desc = 'Status', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>ggr',
+      builtin.git_bcommits,
+      { desc = 'Branch commits', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
+      '<leader>ggs',
+      builtin.git_stash,
+      { desc = 'Stash', noremap = true }
     )
 
     local get_file_info = function()

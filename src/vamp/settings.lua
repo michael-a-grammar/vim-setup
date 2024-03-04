@@ -156,5 +156,5 @@ api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
-g['mapleader'] = vim.api.nvim_replace_termcodes('<space>', true, true, true)
-g['maplocalleader'] = vim.api.nvim_replace_termcodes('\\', true, true, true)
+g['mapleader'] = api.nvim_replace_termcodes('<space>', true, true, true)
+g['maplocalleader'] = api.nvim_replace_termcodes('\\', true, true, true)

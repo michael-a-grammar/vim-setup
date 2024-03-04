@@ -1,7 +1,15 @@
 return {
-  { 'danilamihailov/beacon.nvim' },
-  { 'm-demare/hlargs.nvim' },
-  { 'norcalli/nvim-colorizer.lua' },
+  {
+    'danilamihailov/beacon.nvim',
+  },
+
+  {
+    'm-demare/hlargs.nvim',
+  },
+
+  {
+    'norcalli/nvim-colorizer.lua',
+  },
 
   {
     'nvim-tree/nvim-web-devicons',

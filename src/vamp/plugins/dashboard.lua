@@ -11,8 +11,8 @@ return {
     disable_move = true,
 
     config = {
-  -- stylua: ignore start
       header = {
+-- stylua: ignore start
 '⠀⠀⠀⠀⠀⠀⠀⠀⢀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀',
 '⠀⠀⠀⠀⠀⠀⢴⡾⢿⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀',
 '⠀⠀⠀⠀⣴⠗⠀⠀⠀⠹⣿⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀',
@@ -28,19 +28,19 @@ return {
 '┗┛┗┻┛┗┗┣┛ ⠀⠀⠀⠀⠀⠀⠹⣿⣿⣿⣿⣿⣿⣿⡿⠀⠀⠀⠀⠀',
 '       ┛ v0.0.1⠀⠀⠘⠿⣿⣿⣿⣿⠟⠁⠀⠀⠀⠀⠀',
 '⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀',
+        -- stylua: ignore end
       },
-      -- stylua: ignore end
 
       center = {
         {
-          icon = '',
+          icon = '󰭟',
           icon_hl = '@error',
           desc = ' Find files',
           desc_hl = '@error',
-          key = 'f',
+          key = '<space>',
           key_hl = '@character',
-          keymap = 'SPC SPC',
           key_format = ' %s',
+          keymap = '<space>',
           action = "lua vim.api.nvim_input('<space><space>')",
         },
 
@@ -51,9 +51,9 @@ return {
           desc_hl = '@attribute',
           key = 'g',
           key_hl = '@character',
-          keymap = 'SPC g g',
           key_format = ' %s',
-          action = "lua vim.api.nvim_input('<space>gg')",
+          keymap = '<space> g g',
+          action = "lua vim.api.nvim_input('<space>ggg')",
         },
 
         {
@@ -63,8 +63,8 @@ return {
           desc_hl = '@lsp.type.builtinType',
           key = 'r',
           key_hl = '@character',
-          keymap = 'SPC f r',
           key_format = ' %s',
+          keymap = '<space> f',
           action = "lua vim.api.nvim_input('<space>fr')",
         },
 
@@ -75,8 +75,8 @@ return {
           desc_hl = '@lsp.typemod.string.injected',
           key = 't',
           key_hl = '@character',
-          keymap = 'SPC f t',
           key_format = ' %s',
+          keymap = '<space> f',
           action = "lua vim.api.nvim_input('<space>fr')",
         },
 
@@ -87,8 +87,8 @@ return {
           desc_hl = '@constructor',
           key = 'p',
           key_hl = '@character',
-          keymap = 'SPC z p',
           key_format = ' %s',
+          keymap = '<space> z',
           action = "lua vim.api.nvim_command('Lazy')",
         },
 
@@ -99,8 +99,8 @@ return {
           desc_hl = '@exception',
           key = 'q',
           key_hl = '@character',
-          keymap = 'SPC q q',
           key_format = ' %s',
+          keymap = '<space> q',
           action = "lua vim.api.nvim_input('<space>qq')",
         },
       },

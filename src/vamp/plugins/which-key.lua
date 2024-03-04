@@ -92,6 +92,10 @@ return {
 
         g = {
           name = 'Git',
+
+          g = {
+            name = 'Browse',
+          },
         },
 
         h = {

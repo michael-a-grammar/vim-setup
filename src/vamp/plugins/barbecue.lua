@@ -1,7 +1,6 @@
 return {
   'utilyre/barbecue.nvim',
   name = 'barbecue',
-  version = '*',
 
   dependencies = {
     'SmiteshP/nvim-navic',
@@ -18,11 +17,9 @@ return {
   },
 
   config = function(_, opts)
-    local set_keymap = vim.keymap.set
-
     require('barbecue').setup(opts)
 
-    set_keymap({ 'n', 'x' }, '<leader>kb', function()
+    vim.keymap.set({ 'n', 'x' }, '<leader>kb', function()
       require('barbecue.ui').toggle()
     end, { desc = 'Toggle barbecue', noremap = true })
   end,
