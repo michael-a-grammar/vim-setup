@@ -3,6 +3,7 @@ return {
 
   dependencies = {
     'nvim-lua/plenary.nvim',
+    'folke/trouble.nvim',
 
     {
       'nvim-telescope/telescope-fzf-native.nvim',
@@ -63,8 +64,14 @@ return {
       }
     end
 
+    local trouble = require('trouble.providers.telescope')
+
     return {
       defaults = {
+        mappings = {
+          i = { ['<c-r>'] = trouble.open_with_trouble },
+          n = { ['<c-r>'] = trouble.open_with_trouble },
+        },
         path_display = {
           truncate = 1,
         },
@@ -114,6 +121,12 @@ return {
       builtin.resume,
       { desc = 'Resume Telescope', noremap = true }
     )
+
+    set_keymap({ 'n', 'x' }, '<leader>.', function()
+      builtin.find_files({
+        cwd = buffer_dir(),
+      })
+    end, { desc = '' .. ' Find files', noremap = true })
 
     set_keymap(
       { 'n', 'x' },
@@ -405,13 +418,6 @@ return {
 
       return filters
     end
-
-    set_keymap({ 'n', 'x' }, '<leader>.', function()
-      builtin.find_files({
-        find_command = get_find_command(),
-        cwd = buffer_dir(),
-      })
-    end, { desc = '' .. ' Find files', noremap = true })
 
     set_keymap({ 'n', 'x' }, '<leader>stf', function()
       builtin.find_files({
