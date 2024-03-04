@@ -1,9 +1,8 @@
 return {
   'akinsho/bufferline.nvim',
+  version = '*',
 
   opts = {
-    highlights = require('catppuccin.groups.integrations.bufferline').get(),
-
     options = {
       diagnostics = 'nvim_lsp',
       numbers = 'both',
@@ -39,4 +38,10 @@ return {
       },
     },
   },
+
+  config = function(_, opts)
+    opts.highlights = require('catppuccin.groups.integrations.bufferline').get()
+
+    require('bufferline').setup(opts)
+  end,
 }

@@ -33,7 +33,6 @@ opt.listchars = {
 }
 
 opt.hidden = true
-opt.lazyredraw = true
 
 opt.switchbuf = {
   'uselast',

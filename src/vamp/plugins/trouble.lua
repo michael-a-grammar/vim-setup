@@ -16,6 +16,9 @@ return {
       toggle_mode = 'm',
       toggle_preview = 'o',
     },
+
+    fold_closed = '',
+    fold_open = '', -- icon used for open folds
   },
 
   config = function(_, opts)

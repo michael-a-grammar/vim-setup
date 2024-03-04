@@ -16,12 +16,12 @@ return {
       cmp = true,
       dashboard = true,
       gitsigns = true,
-      fern = true,
-      fidget = true,
       hop = true,
       lsp_trouble = true,
       neogit = true,
+      noice = true,
       notify = true,
+      rainbow_delimiters = true,
       semantic_tokens = true,
       treesitter = true,
       which_key = true,
@@ -31,6 +31,11 @@ return {
         bold_basename = true,
         dim_context = true,
         alt_background = false,
+      },
+
+      mini = {
+        enabled = true,
+        indentscope_color = 'green',
       },
 
       native_lsp = {

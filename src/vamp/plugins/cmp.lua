@@ -23,18 +23,6 @@ return {
     'hrsh7th/cmp-nvim-lua',
 
     'onsails/lspkind.nvim',
-
-    {
-      'j-hui/fidget.nvim',
-
-      opts = {
-        notification = {
-          window = {
-            winblend = 0,
-          },
-        },
-      },
-    },
   },
 
   config = function()

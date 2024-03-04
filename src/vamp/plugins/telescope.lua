@@ -90,15 +90,16 @@ return {
     local builtin = require('telescope.builtin')
     local buffer_dir = require('telescope.utils').buffer_dir
 
-    local file_browser =
-      require('telescope').extensions.file_browser.file_browser
-
     telescope.setup(opts)
 
     telescope.load_extension('file_browser')
     telescope.load_extension('fzf')
     telescope.load_extension('gh')
+    telescope.load_extension('notify')
     telescope.load_extension('z')
+
+    local file_browser =
+      require('telescope').extensions.file_browser.file_browser
 
     local create_get_buffers = function(only_cwd)
       return function()
@@ -332,6 +333,10 @@ return {
       builtin.reloader,
       { desc = 'Lua modules', noremap = true }
     )
+
+    vim.keymap.set({ 'n', 'i' }, '<leader>zn', function()
+      telescope.extensions.notify.notify()
+    end, { desc = '', noremap = true })
 
     set_keymap(
       { 'n', 'x' },
