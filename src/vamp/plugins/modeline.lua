@@ -159,7 +159,7 @@ return {
     insert_into_left_section({
       function()
         local no_lsp_message = '󰝾'
-        local lsp_message = '  '
+        local lsp_message = '' .. '  '
         local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
         local clients = vim.lsp.get_active_clients()
 

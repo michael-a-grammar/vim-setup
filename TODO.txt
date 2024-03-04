@@ -3,11 +3,9 @@ Standards
 Ease of use is more important than mnemonics
 c - create / new
 d - delete / destory
-D - delete / destory force
 n - next
 p - previous
 x - delete / destory all
-X - delete / destory all force
 
 
 Layers
@@ -23,12 +21,7 @@ Trouble
 Symbols Outline
 
 - Backspace should become hop
-- Use 'q' to quit most transient windows (help, fern etc.)
 - Autocommand to strip trailing whitespace (%s/\s\+$//e)
 - micro - bundled plugin to enable better understanding of macros
-- Log (with tolerance)
 - Add delay to cmp command complete
 - Use arrow keys to move windows
-- Jump to directory
-- Command builder for cartographer
-- Create local opts, local opts example

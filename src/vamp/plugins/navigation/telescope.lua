@@ -95,7 +95,6 @@ return {
     telescope.load_extension('file_browser')
     telescope.load_extension('fzf')
     telescope.load_extension('gh')
-    telescope.load_extension('notify')
     telescope.load_extension('z')
 
     local file_browser =
@@ -333,10 +332,6 @@ return {
       builtin.reloader,
       { desc = 'Lua modules', noremap = true }
     )
-
-    vim.keymap.set({ 'n', 'i' }, '<leader>zn', function()
-      telescope.extensions.notify.notify()
-    end, { desc = '', noremap = true })
 
     set_keymap(
       { 'n', 'x' },

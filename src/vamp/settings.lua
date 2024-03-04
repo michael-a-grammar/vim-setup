@@ -1,29 +1,24 @@
-local api = vim.api
-local exec = vim.api.nvim_exec
-local g = vim.g
-local opt = vim.opt
+vim.api.nvim_exec('packadd cfilter', false)
 
-exec('packadd cfilter', false)
+vim.opt.background = 'dark'
 
-opt.background = 'dark'
+vim.opt.clipboard:append('unnamed')
 
-opt.clipboard:append('unnamed')
+vim.opt.spelllang = { 'en_gb', 'en' }
 
-opt.spelllang = { 'en_gb', 'en' }
+vim.opt.fileencoding = 'utf-8'
+vim.opt.bomb = true
 
-opt.fileencoding = 'utf-8'
-opt.bomb = true
+vim.opt.backspace = { 'indent', 'eol', 'start' }
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 2
+vim.opt.softtabstop = 2
+vim.opt.tabstop = 2
+vim.opt.fixendofline = true
 
-opt.backspace = { 'indent', 'eol', 'start' }
-opt.expandtab = true
-opt.shiftwidth = 2
-opt.softtabstop = 2
-opt.tabstop = 2
-opt.fixendofline = true
+vim.opt.list = false
 
-opt.list = false
-
-opt.listchars = {
+vim.opt.listchars = {
   eol = '¬',
   extends = '>',
   precedes = '<',
@@ -32,37 +27,37 @@ opt.listchars = {
   trail = '~',
 }
 
-opt.hidden = true
+vim.opt.hidden = true
 
-opt.switchbuf = {
+vim.opt.switchbuf = {
   'uselast',
 }
 
-opt.hlsearch = true
-opt.splitbelow = true
-opt.wrapscan = true
+vim.opt.hlsearch = true
+vim.opt.splitbelow = true
+vim.opt.wrapscan = true
 
-opt.ignorecase = true
-opt.smartcase = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
 
-opt.autochdir = false
+vim.opt.autochdir = false
 
-opt.path:append('**')
+vim.opt.path:append('**')
 
-opt.wildignore = {
+vim.opt.wildignore = {
   '*/.git/*',
   '*/.idea/*',
   '*/.meteor/*',
   '*/node_modules/*',
 }
 
-opt.autoindent = true
-opt.breakindent = true
+vim.opt.autoindent = true
+vim.opt.breakindent = true
 
-opt.startofline = false
-opt.wrap = true
+vim.opt.startofline = false
+vim.opt.wrap = true
 
-opt.completeopt = {
+vim.opt.completeopt = {
   'menu',
   'menuone',
   'noinsert',
@@ -70,50 +65,50 @@ opt.completeopt = {
   'preview',
 }
 
-opt.history = 1000
-opt.wildmenu = true
+vim.opt.history = 1000
+vim.opt.wildmenu = true
 
-opt.cmdheight = 1
-opt.laststatus = 2
+vim.opt.cmdheight = 1
+vim.opt.laststatus = 2
 
-opt.shortmess:append('c')
-opt.showcmd = true
-opt.showmode = false
-opt.ruler = true
+vim.opt.shortmess:append('c')
+vim.opt.showcmd = true
+vim.opt.showmode = false
+vim.opt.ruler = true
 
-opt.number = true
-opt.relativenumber = true
-opt.signcolumn = 'yes'
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.signcolumn = 'yes'
 
-opt.colorcolumn:append('120')
-opt.cursorline = true
-opt.matchtime = 2
-opt.showmatch = true
+vim.opt.colorcolumn:append('120')
+vim.opt.cursorline = true
+vim.opt.matchtime = 2
+vim.opt.showmatch = true
 
-opt.timeout = true
-opt.timeoutlen = 800
-opt.ttimeout = true
-opt.ttimeoutlen = 80
+vim.opt.timeout = true
+vim.opt.timeoutlen = 800
+vim.opt.ttimeout = true
+vim.opt.ttimeoutlen = 80
 
-opt.backup = false
-opt.backupcopy = 'auto'
-opt.updatetime = 300
-opt.writebackup = false
+vim.opt.backup = false
+vim.opt.backupcopy = 'auto'
+vim.opt.updatetime = 300
+vim.opt.writebackup = false
 
-opt.undofile = true
-opt.undolevels = 1000
-opt.undoreload = 1000
+vim.opt.undofile = true
+vim.opt.undolevels = 1000
+vim.opt.undoreload = 1000
 
-opt.concealcursor = 'nvic'
-opt.conceallevel = 1
+vim.opt.concealcursor = 'nvic'
+vim.opt.conceallevel = 1
 
-opt.visualbell = true
-api.nvim_set_option('t_vb', '')
+vim.opt.visualbell = true
+vim.api.nvim_set_option('t_vb', '')
 
-exec('runtime macros/matchit.vim', false)
+vim.api.nvim_exec('runtime macros/matchit.vim', false)
 
-opt.mouse = 'a'
-opt.termguicolors = true
+vim.opt.mouse = 'a'
+vim.opt.termguicolors = true
 
 local define_sign = function(name, icon)
   name = 'DiagnosticSign' .. name
@@ -145,9 +140,9 @@ vim.diagnostic.config({
   },
 })
 
-local events_augroup = api.nvim_create_augroup('events', {})
+local events_augroup = vim.api.nvim_create_augroup('events', {})
 
-api.nvim_create_autocmd('TextYankPost', {
+vim.api.nvim_create_autocmd('TextYankPost', {
   group = events_augroup,
   pattern = '*',
   callback = function()
@@ -155,5 +150,5 @@ api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
-g['mapleader'] = api.nvim_replace_termcodes('<space>', true, true, true)
-g['maplocalleader'] = api.nvim_replace_termcodes('\\', true, true, true)
+vim.g['mapleader'] = vim.api.nvim_replace_termcodes('<space>', true, true, true)
+vim.g['maplocalleader'] = vim.api.nvim_replace_termcodes('\\', true, true, true)
