@@ -215,7 +215,7 @@ return {
       { 'n', 'x' },
       '<leader>ft',
       builtin.oldfiles,
-      { desc = 'Recent files', noremap = true }
+      { desc = '' .. ' Recent files', noremap = true }
     )
 
     set_keymap(
@@ -349,6 +349,13 @@ return {
 
     set_keymap(
       { 'n', 'x' },
+      '<leader>zc',
+      builtin.colorscheme,
+      { desc = 'Colourschemes', noremap = true }
+    )
+
+    set_keymap(
+      { 'n', 'x' },
       '<leader>zh',
       builtin.help_tags,
       { desc = 'Help tags', noremap = true }
@@ -360,12 +367,14 @@ return {
       builtin.keymaps,
       { desc = 'Keymaps', noremap = true }
     )
+
     set_keymap(
       { 'n', 'x' },
-      '<leader>zk',
+      '<leader>zl',
       builtin.reloader,
       { desc = 'Lua modules', noremap = true }
     )
+
     set_keymap(
       { 'n', 'x' },
       '<leader>zo',
@@ -376,8 +385,8 @@ return {
     set_keymap(
       { 'n', 'x' },
       '<leader>zt',
-      builtin.colorscheme,
-      { desc = 'Colourschemes', noremap = true }
+      builtin.highlights,
+      { desc = 'Highlights', noremap = true }
     )
 
     local get_file_info = function()

@@ -8,32 +8,100 @@ return {
 
   opts = {
     theme = 'doom',
+    disable_move = true,
 
     config = {
-      week_header = {
-        enable = true,
+  -- stylua: ignore start
+      header = {
+'⠀⠀⠀⠀⠀⠀⠀⠀⢀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀',
+'⠀⠀⠀⠀⠀⠀⢴⡾⢿⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀',
+'⠀⠀⠀⠀⣴⠗⠀⠀⠀⠹⣿⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀',
+'⠀⠀⠀⠈⠁⠀⠀⠀⠀⠀⢻⠻⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀',
+'⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⡆⠠⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀',
+'⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢳⠀⠠⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀',
+'⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣧⠀⢴⠄⠀⠀⠀⣄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀',
+'⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⡆⠠⣴⡀⠀⠀⣿⣿⣿⣿⣶⣦⣤⡀⠀⠀⠀',
+'⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⡄⢹⣧⠀⠀⠙⠛⠿⣿⣿⣿⠁⠀⠀⠀⠀',
+'⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣷⡀⢻⣧⠀⠸⠿⠀⣿⣿⣿⠀⠀⠀⠀⠀',
+'┓┏        ⠀⠀⠀⠀⠹⣷⡀⢻⣇⠀⣴⣦⠈⣿⣿⠀⠀⠀⠀⠀',
+'┃┃┏┓┏┳┓┏┓ ⠀⠀⠀⠀⠀⠹⣷⣠⣿⣆⢈⣁⣴⣿⣿⠀⠀⠀⠀⠀',
+'┗┛┗┻┛┗┗┣┛ ⠀⠀⠀⠀⠀⠀⠹⣿⣿⣿⣿⣿⣿⣿⡿⠀⠀⠀⠀⠀',
+'       ┛ v0.0.1⠀⠀⠘⠿⣿⣿⣿⣿⠟⠁⠀⠀⠀⠀⠀',
+'⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀',
       },
+      -- stylua: ignore end
 
       center = {
         {
-          icon = ' ',
-          icon_hl = 'Title',
-          desc = 'Find files',
-          desc_hl = 'String',
+          icon = '',
+          icon_hl = '@error',
+          desc = ' Find files',
+          desc_hl = '@error',
           key = 'f',
+          key_hl = '@character',
           keymap = 'SPC SPC',
-          key_hl = 'Number',
-          key_format = ' %s', -- remove default surrounding `[]`
-          action = 'lua print(2)',
+          key_format = ' %s',
+          action = "lua vim.api.nvim_input('<space><space>')",
         },
 
         {
-          icon = ' ',
-          desc = 'Recent files',
+          icon = '',
+          icon_hl = '@attribute',
+          desc = ' Git status',
+          desc_hl = '@attribute',
+          key = 'g',
+          key_hl = '@character',
+          keymap = 'SPC g g',
+          key_format = ' %s',
+          action = "lua vim.api.nvim_input('<space>gg')",
+        },
+
+        {
+          icon = '',
+          icon_hl = '@lsp.type.builtinType',
+          desc = ' Recent files',
+          desc_hl = '@lsp.type.builtinType',
           key = 'r',
-          keymap = 'SPC f d',
-          key_format = ' %s', -- remove default surrounding `[]`
-          action = 'lua print(3)',
+          key_hl = '@character',
+          keymap = 'SPC f r',
+          key_format = ' %s',
+          action = "lua vim.api.nvim_input('<space>fr')",
+        },
+
+        {
+          icon = '',
+          icon_hl = '@lsp.typemod.string.injected',
+          desc = ' Recent files',
+          desc_hl = '@lsp.typemod.string.injected',
+          key = 't',
+          key_hl = '@character',
+          keymap = 'SPC f t',
+          key_format = ' %s',
+          action = "lua vim.api.nvim_input('<space>fr')",
+        },
+
+        {
+          icon = '󰒲',
+          icon_hl = '@constructor',
+          desc = ' Lazy',
+          desc_hl = '@constructor',
+          key = 'p',
+          key_hl = '@character',
+          keymap = 'SPC z p',
+          key_format = ' %s',
+          action = "lua vim.api.nvim_command('Lazy')",
+        },
+
+        {
+          icon = '󱠡',
+          icon_hl = '@exception',
+          desc = ' Quit',
+          desc_hl = '@exception',
+          key = 'q',
+          key_hl = '@character',
+          keymap = 'SPC q q',
+          key_format = ' %s',
+          action = "lua vim.api.nvim_input('<space>qq')",
         },
       },
     },
