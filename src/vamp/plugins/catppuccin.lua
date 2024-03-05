@@ -7,8 +7,8 @@ return {
     flavour = 'mocha',
 
     background = {
-      light = 'latte',
       dark = 'mocha',
+      light = 'latte',
     },
 
     integrations = {

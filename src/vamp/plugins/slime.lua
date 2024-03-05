@@ -2,65 +2,60 @@ return {
   'jpalardy/vim-slime',
 
   init = function()
-    local env = vim.env
-    local g = vim.g
-    local split = vim.split
-    local set_keymap = vim.keymap.set
+    vim.g.slime_no_mappings = true
 
-    g.slime_no_mappings = true
+    if vim.env.TMUX then
+      vim.g.slime_dont_ask_default = true
+      vim.g.slime_target = 'tmux'
 
-    if env.TMUX then
-      g.slime_dont_ask_default = true
-      g.slime_target = 'tmux'
-
-      g.slime_default_config = {
-        socket_name = split(env.TMUX, ',')[1],
+      vim.g.slime_default_config = {
+        socket_name = vim.split(vim.env.TMUX, ',')[1],
         target_pane = ':0.{last}',
       }
-    elseif env.KITTY_LISTEN_ON then
-      g.slime_target = 'kitty'
+    elseif vim.env.KITTY_LISTEN_ON then
+      vim.g.slime_target = 'kitty'
 
-      g.slime_default_config = {
+      vim.g.slime_default_config = {
         listen_on = 'unix:/tmp/mykitty',
       }
     end
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>c%',
       '<cmd>%SlimeSend<cr>',
       { desc = 'Send buffer to REPL', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>cc',
       '<plug>(SlimeConfig)',
       { desc = 'Configure REPL', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>ci',
       '<cmd>SlimeSendCurrentLine<cr>',
       { desc = 'Send line to REPL', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>cp',
       '<plug>(SlimeParagraphSend)',
       { desc = 'Send paragraph to REPL', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>cr',
       '<plug>(SlimeRegionSend)',
       { desc = 'Send region to REPL', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
       'x',
       '<leader>cv',
       "<cmd>'<,'>SlimeSend<cr>",

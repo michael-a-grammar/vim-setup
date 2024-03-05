@@ -24,23 +24,21 @@ return {
           capabilities = capabilities,
 
           on_attach = function(_, _)
-            local set_keymap = vim.keymap.set
-
-            set_keymap(
+            vim.keymap.set(
               { 'n', 'x' },
               '<localleader>ee',
               '<cmd>ElixirExpandMacro<cr>',
               { desc = 'Expand macro', buffer = true, noremap = true }
             )
 
-            set_keymap(
+            vim.keymap.set(
               { 'n', 'x' },
               '<localleader>em',
               ':Mix ',
               { desc = 'Mix', buffer = true, noremap = true }
             )
 
-            set_keymap({ 'n', 'x' }, '<localleader>eo', function()
+            vim.keymap.set({ 'n', 'x' }, '<localleader>eo', function()
               elixir_ls.open_output_panel({
                 window = 'float',
               })
@@ -50,105 +48,105 @@ return {
               noremap = true,
             })
 
-            set_keymap(
+            vim.keymap.set(
               { 'n', 'x' },
               '<localleader>ena',
               ':Etask ',
               { desc = 'New Task', buffer = true, noremap = true }
             )
 
-            set_keymap(
+            vim.keymap.set(
               { 'n', 'x' },
               '<localleader>enc',
               ':Econtroller ',
               { desc = 'New Controller', buffer = true, noremap = true }
             )
 
-            set_keymap(
+            vim.keymap.set(
               { 'n', 'x' },
               '<localleader>ene',
               ':Echannel ',
               { desc = 'New Channel', buffer = true, noremap = true }
             )
 
-            set_keymap(
+            vim.keymap.set(
               { 'n', 'x' },
               '<localleader>enf',
               ':Efeature ',
               { desc = 'New Feature', buffer = true, noremap = true }
             )
 
-            set_keymap(
+            vim.keymap.set(
               { 'n', 'x' },
               '<localleader>enh',
               ':Ehtml ',
               { desc = 'New HTML', buffer = true, noremap = true }
             )
 
-            set_keymap(
+            vim.keymap.set(
               { 'n', 'x' },
               '<localleader>enj',
               ':Ejson ',
               { desc = 'New JSON', buffer = true, noremap = true }
             )
 
-            set_keymap(
+            vim.keymap.set(
               { 'n', 'x' },
               '<localleader>enl',
               ':Eliveview ',
               { desc = 'New LiveView', buffer = true, noremap = true }
             )
 
-            set_keymap(
+            vim.keymap.set(
               { 'n', 'x' },
               '<localleader>enm',
               ':Ecomponent ',
               { desc = 'New Component', buffer = true, noremap = true }
             )
 
-            set_keymap(
+            vim.keymap.set(
               { 'n', 'x' },
               '<localleader>enn',
               ':Esource ',
               { desc = 'New Module', buffer = true, noremap = true }
             )
 
-            set_keymap(
+            vim.keymap.set(
               { 'n', 'x' },
               '<localleader>eno',
               ':Elivecomponent ',
               { desc = 'New LiveComponent', buffer = true, noremap = true }
             )
 
-            set_keymap(
+            vim.keymap.set(
               { 'n', 'x' },
               '<localleader>ent',
               ':Etest ',
               { desc = 'New Test', buffer = true, noremap = true }
             )
 
-            set_keymap(
+            vim.keymap.set(
               { 'n', 'x' },
               '<localleader>env',
               ':Eview ',
               { desc = 'New View', buffer = true, noremap = true }
             )
 
-            set_keymap(
+            vim.keymap.set(
               { 'n', 'x' },
               '<localleader>epf',
               '<cmd>ElixirFromPipe<cr>',
               { desc = 'From pipe', buffer = true, noremap = true }
             )
 
-            set_keymap(
+            vim.keymap.set(
               { 'n', 'x' },
               '<localleader>ept',
               '<cmd>ElixirToPipe<cr>',
               { desc = 'To pipe', buffer = true, noremap = true }
             )
 
-            set_keymap(
+            vim.keymap.set(
               { 'n', 'x' },
               '<localleader>ere',
               '<cmd>ElixirRestart | edit<cr>',
@@ -159,14 +157,14 @@ return {
               }
             )
 
-            set_keymap(
+            vim.keymap.set(
               { 'n', 'x' },
               '<localleader>err',
               '<cmd>ElixirRestart<cr>',
               { desc = 'Restart ElixirLS', buffer = true, noremap = true }
             )
 
-            set_keymap(
+            vim.keymap.set(
               { 'n', 'x' },
               '<localleader>erf',
               '<cmd>ElixirRestart | edit!<cr>',

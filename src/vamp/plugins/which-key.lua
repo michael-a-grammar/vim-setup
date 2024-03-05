@@ -25,8 +25,8 @@ return {
 
     disable = {
       filetypes = {
-        'TelescopePrompt',
         'qf',
+        'TelescopePrompt',
       },
     },
   },
@@ -124,6 +124,10 @@ return {
 
         n = {
           name = 'Buffer',
+
+          g = {
+            name = 'Git',
+          },
         },
 
         o = {
@@ -152,6 +156,14 @@ return {
 
         t = {
           name = 'Buffers',
+
+          d = {
+            name = 'Delete buffer',
+          },
+
+          x = {
+            name = 'Delete other buffers',
+          },
         },
 
         u = {
@@ -168,6 +180,26 @@ return {
 
         w = {
           name = 'Windows',
+
+          c = {
+            name = 'Jump',
+          },
+
+          m = {
+            name = 'Move',
+          },
+
+          o = {
+            name = 'Rotate',
+          },
+
+          r = {
+            name = 'Resize',
+          },
+
+          s = {
+            name = 'Split',
+          },
         },
 
         x = {

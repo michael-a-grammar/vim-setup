@@ -3,16 +3,14 @@ return {
 
   dependencies = {
     'nvim-lua/plenary.nvim',
-    'folke/trouble.nvim',
+    'nvim-telescope/telescope-file-browser.nvim',
+    'nvim-telescope/telescope-github.nvim',
+    'nvim-telescope/telescope-z.nvim',
 
     {
       'nvim-telescope/telescope-fzf-native.nvim',
       build = 'make',
     },
-
-    'nvim-telescope/telescope-file-browser.nvim',
-    'nvim-telescope/telescope-github.nvim',
-    'nvim-telescope/telescope-z.nvim',
   },
 
   opts = function()
@@ -113,276 +111,288 @@ return {
     local get_buffers_only_cwd = create_get_buffers(true)
     local get_buffers = create_get_buffers(false)
 
-    local set_keymap = vim.keymap.set
-
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       "<leader>'",
       builtin.resume,
       { desc = 'Resume Telescope', noremap = true }
     )
 
-    set_keymap({ 'n', 'x' }, '<leader>.', function()
+    vim.keymap.set({ 'n', 'x' }, '<leader>.', function()
       builtin.find_files({
         cwd = buffer_dir(),
       })
     end, { desc = '' .. ' Find files', noremap = true })
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader><space>',
       builtin.find_files,
       { desc = '' .. ' Find files', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>*',
       builtin.grep_string,
       { desc = '' .. ' Grep w/input', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>,',
       get_buffers_only_cwd,
       { desc = '' .. ' Buffers', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>/',
       builtin.live_grep,
       { desc = '' .. ' Grep', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader><',
       get_buffers,
       { desc = 'Buffers', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>ei',
       builtin.lsp_implementations,
       { desc = 'Implementations', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>f/',
       builtin.search_history,
       { desc = 'Searches', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>f:',
       builtin.command_history,
       { desc = 'Commands', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>fh',
       builtin.quickfixhistory,
       { desc = 'Quickfix history', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>ff',
       builtin.jumplist,
       { desc = 'Jumps', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>fm',
       builtin.marks,
       { desc = 'Marks', noremap = true }
     )
 
-    set_keymap({ 'n', 'x' }, '<leader>fr', function()
+    vim.keymap.set({ 'n', 'x' }, '<leader>fr', function()
       builtin.oldfiles({
         only_cwd = true,
       })
     end, { desc = '' .. ' Recent files', noremap = true })
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>ft',
       builtin.oldfiles,
       { desc = '' .. ' Recent files', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>nf',
       builtin.current_buffer_fuzzy_find,
       { desc = 'Fuzzy find', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>ns',
       builtin.lsp_document_symbols,
       { desc = 'Document symbols', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>nt',
       builtin.treesitter,
       { desc = 'Treesitter', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>pr',
       builtin.registers,
       { desc = 'Registers', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>pc',
       builtin.spell_suggest,
       { desc = 'Spelling suggestions', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
+      { 'n', 'x' },
+      '<leader>s*',
+      builtin.grep_string,
+      { desc = 'Grep w/input', noremap = true }
+    )
+
+    vim.keymap.set(
+      { 'n', 'x' },
+      '<leader>s/',
+      builtin.live_grep,
+      { desc = 'Grep', noremap = true }
+    )
+
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>sd',
       file_browser,
       { desc = 'File browser', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>sf',
       builtin.find_files,
       { desc = 'Find files', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>tt',
       get_buffers_only_cwd,
       { desc = 'Buffers (cwd)', noremap = true }
     )
 
-    set_keymap({ 'n', 'x' }, '<leader>u*', function()
+    vim.keymap.set({ 'n', 'x' }, '<leader>u*', function()
       builtin.grep_string({
         cwd = buffer_dir(),
       })
     end, { desc = 'Grep w/input', noremap = true })
 
-    set_keymap({ 'n', 'x' }, '<leader>u/', function()
+    vim.keymap.set({ 'n', 'x' }, '<leader>u/', function()
       builtin.live_grep({
         cwd = buffer_dir(),
       })
     end, { desc = 'Grep', noremap = true })
 
-    set_keymap({ 'n', 'x' }, '<leader>ud', function()
+    vim.keymap.set({ 'n', 'x' }, '<leader>ud', function()
       file_browser({
         path = buffer_dir(),
       })
     end, { desc = 'File browser', noremap = true })
 
-    set_keymap({ 'n', 'x' }, '<leader>uf', function()
+    vim.keymap.set({ 'n', 'x' }, '<leader>uf', function()
       builtin.find_files({
         cwd = buffer_dir(),
       })
     end, { desc = 'Find files', noremap = true })
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>z:',
       builtin.commands,
       { desc = 'Commands', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>zc',
       builtin.colorscheme,
       { desc = 'Colourschemes', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>zh',
       builtin.help_tags,
       { desc = 'Help tags', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>zk',
       builtin.keymaps,
       { desc = 'Keymaps', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>zl',
       builtin.reloader,
       { desc = 'Lua modules', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>zo',
       builtin.vim_options,
       { desc = 'Options', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>zt',
       builtin.highlights,
       { desc = 'Highlights', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>ggb',
       builtin.git_branches,
       { desc = 'Branches', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>ggc',
       builtin.git_commits,
       { desc = 'Commits', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>ggf',
       builtin.git_files,
       { desc = 'Files', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>ggg',
       builtin.git_status,
       { desc = 'Status', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>ggr',
       builtin.git_bcommits,
       { desc = 'Branch commits', noremap = true }
     )
 
-    set_keymap(
+    vim.keymap.set(
       { 'n', 'x' },
       '<leader>ggs',
       builtin.git_stash,
@@ -428,24 +438,24 @@ return {
       return filters
     end
 
-    set_keymap({ 'n', 'x' }, '<leader>stf', function()
+    vim.keymap.set({ 'n', 'x' }, '<leader>stf', function()
       builtin.find_files({
         find_command = get_find_command(),
       })
     end, { desc = 'Find files', noremap = true })
 
-    set_keymap({ 'n', 'x' }, '<leader>sts', function()
+    vim.keymap.set({ 'n', 'x' }, '<leader>sts', function()
       builtin.live_grep(get_filters(false))
     end, { desc = 'Grep', noremap = true })
 
-    set_keymap({ 'n', 'x' }, '<leader>utf', function()
+    vim.keymap.set({ 'n', 'x' }, '<leader>utf', function()
       builtin.find_files({
         find_command = get_find_command(),
         cwd = buffer_dir(),
       })
     end, { desc = 'Find files', noremap = true })
 
-    set_keymap({ 'n', 'x' }, '<leader>uts', function()
+    vim.keymap.set({ 'n', 'x' }, '<leader>uts', function()
       builtin.live_grep(get_filters(true))
     end, { desc = 'Grep', noremap = true })
   end,

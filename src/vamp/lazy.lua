@@ -1,12 +1,9 @@
-local fn = vim.fn
-local rtp = vim.opt.rtp
+local lazy_install_path = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 
-local lazy_install_path = fn.stdpath('data') .. '/lazy/lazy.nvim'
-
-if fn.empty(fn.glob(lazy_install_path)) > 0 then
+if not vim.loop.fs_stat(lazy_install_path) then
   local repo = 'https://github.com/folke/lazy.nvim.git'
 
-  fn.system({
+  vim.fn.system({
     'git',
     'clone',
     '--filter=blob:none',
@@ -16,6 +13,6 @@ if fn.empty(fn.glob(lazy_install_path)) > 0 then
   })
 end
 
-rtp:prepend(lazy_install_path)
+vim.opt.rtp:prepend(lazy_install_path)
 
 require('lazy').setup('vamp.plugins')

@@ -20,16 +20,14 @@ return {
         capabilities = capabilities,
 
         on_attach = function(_, _)
-          local set_keymap = vim.keymap.set
-
-          set_keymap(
+          vim.keymap.set(
             { 'n', 'x' },
             '<localleader>ra',
             rust_tools.code_action_group.code_action_group,
             { desc = 'Code actions', buffer = true, noremap = true }
           )
 
-          set_keymap(
+          vim.keymap.set(
             { 'n', 'x' },
             '<localleader>rh',
             rust_tools.hover_actions.hover_actions,

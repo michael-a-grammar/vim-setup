@@ -244,16 +244,16 @@ end, { desc = 'Run test', noremap = true })
 
 vim.keymap.set(
   { 'n', 'x' },
-  '<leader>fo',
-  '<c-o>',
-  { desc = 'Backwards', noremap = true }
+  '<leader>fi',
+  '<c-i>',
+  { desc = 'Forwards', noremap = true }
 )
 
 vim.keymap.set(
   { 'n', 'x' },
-  '<leader>fi',
-  '<c-i>',
-  { desc = 'Forwards', noremap = true }
+  '<leader>fo',
+  '<c-o>',
+  { desc = 'Backwards', noremap = true }
 )
 
 vim.keymap.set(
@@ -307,16 +307,16 @@ vim.keymap.set(
 
 vim.keymap.set(
   { 'n', 'x' },
-  '<leader>qq',
-  '<cmd>quitall<cr>',
-  { desc = 'Quit all', noremap = true }
+  '<leader>qf',
+  '<cmd>quitall!<cr>',
+  { desc = '' .. ' Quit all', noremap = true }
 )
 
 vim.keymap.set(
   { 'n', 'x' },
-  '<leader>qQ',
-  '<cmd>quitall!<cr>',
-  { desc = '' .. ' Quit all', noremap = true }
+  '<leader>qq',
+  '<cmd>quitall<cr>',
+  { desc = 'Quit all', noremap = true }
 )
 
 vim.keymap.set(
@@ -328,16 +328,9 @@ vim.keymap.set(
 
 vim.keymap.set(
   { 'n', 'x' },
-  '<leader>td',
-  '<cmd>bdelete<cr>',
-  { desc = 'Delete buffer', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  '<leader>tD',
-  '<cmd>bdelete!<cr>',
-  { desc = '' .. ' Delete buffer', noremap = true }
+  '<leader>th',
+  '<cmd>vertical ball<cr>',
+  { desc = 'Open buffers in vertical splits', noremap = true }
 )
 
 vim.keymap.set(
@@ -356,30 +349,9 @@ vim.keymap.set(
 
 vim.keymap.set(
   { 'n', 'x' },
-  '<leader>tw',
-  '<cmd>vertical ball<cr>',
-  { desc = 'Open buffers in vertical splits', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  '<leader>tW',
+  '<leader>tv',
   '<cmd>ball<cr>',
   { desc = 'Open buffers in horizontal splits', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  '<leader>tx',
-  '<cmd>%bdelete | edit#<cr>',
-  { desc = 'Delete other buffers', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  '<leader>tX',
-  '<cmd>%bdelete! | edit#<cr>',
-  { desc = '' .. ' Delete other buffers', noremap = true }
 )
 
 vim.keymap.set(
@@ -391,44 +363,30 @@ vim.keymap.set(
 
 vim.keymap.set(
   { 'n', 'x' },
-  '<leader>w.',
-  '<c-w>>',
-  { desc = 'Increase window width', noremap = true }
+  '<leader>tdd',
+  '<cmd>bdelete<cr>',
+  { desc = 'Delete buffer', noremap = true }
 )
 
 vim.keymap.set(
   { 'n', 'x' },
-  '<leader>w,',
-  '<c-w><',
-  { desc = 'Decrease window width', noremap = true }
+  '<leader>tdf',
+  '<cmd>bdelete!<cr>',
+  { desc = '' .. ' Delete buffer', noremap = true }
 )
 
 vim.keymap.set(
   { 'n', 'x' },
-  '<leader>w|',
-  '<c-w>|',
-  { desc = 'Maximise window width', noremap = true }
+  '<leader>txf',
+  '<cmd>%bdelete! | edit#<cr>',
+  { desc = '' .. ' Delete other buffers', noremap = true }
 )
 
 vim.keymap.set(
   { 'n', 'x' },
-  '<leader>w+',
-  '<c-w>+',
-  { desc = 'Increase window height', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  '<leader>w-',
-  '<c-w>-',
-  { desc = 'Decrease window height', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  '<leader>w_',
-  '<c-w>_',
-  { desc = 'Maximise window height', noremap = true }
+  '<leader>txx',
+  '<cmd>%bdelete | edit#<cr>',
+  { desc = 'Delete other buffers', noremap = true }
 )
 
 vim.keymap.set(
@@ -440,62 +398,6 @@ vim.keymap.set(
 
 vim.keymap.set(
   { 'n', 'x' },
-  '<leader>wn',
-  '<c-w>h',
-  { desc = 'Move to left window', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  '<leader>we',
-  '<c-w>j',
-  { desc = 'Move to bottom window', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  '<leader>wi',
-  '<c-w>w',
-  { desc = 'Move to top window', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  '<leader>wo',
-  '<c-w>l',
-  { desc = 'Move to right window', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  '<leader>wN',
-  '<c-w>H',
-  { desc = 'Move window to left', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  '<leader>wE',
-  '<c-w>J',
-  { desc = 'Move window to bottom', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  '<leader>wI',
-  '<c-w>w',
-  { desc = 'Move window to top', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  '<leader>wO',
-  '<c-w>L',
-  { desc = 'Move window to right', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
   '<leader>wd',
   '<cmd>close<cr>',
   { desc = 'Close window', noremap = true }
@@ -503,37 +405,9 @@ vim.keymap.set(
 
 vim.keymap.set(
   { 'n', 'x' },
-  '<leader>wh',
-  '<cmd>only<cr>',
-  { desc = 'Close other windows', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  '<leader>wr',
-  '<c-w>r',
-  { desc = 'Rotate window downwards/rightwards', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  '<leader>wR',
-  '<c-w>R',
-  { desc = 'Rotate window upwards/leftwards', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  '<leader>ws',
-  '<cmd>vsplit<cr>',
-  { desc = 'Split window vertically', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  '<leader>wS',
-  '<cmd>split<cr>',
-  { desc = 'Split window horizontally', noremap = true }
+  '<leader>we',
+  '<c-w>x',
+  { desc = 'Exchange window', noremap = true }
 )
 
 vim.keymap.set(
@@ -553,8 +427,134 @@ vim.keymap.set(
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>wx',
-  '<c-w>x',
-  { desc = 'Exchange window', noremap = true }
+  '<cmd>only<cr>',
+  { desc = 'Close other windows', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<leader>wcn',
+  '<c-w>h',
+  { desc = 'Jump to left window', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<leader>wce',
+  '<c-w>j',
+  { desc = 'Jump to bottom window', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<leader>wci',
+  '<c-w>w',
+  { desc = 'Jump to top window', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<leader>wco',
+  '<c-w>l',
+  { desc = 'Jump to right window', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<leader>wmn',
+  '<c-w>H',
+  { desc = 'Move window to left', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<leader>wme',
+  '<c-w>J',
+  { desc = 'Move window to bottom', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<leader>wmi',
+  '<c-w>w',
+  { desc = 'Move window to top', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<leader>wmo',
+  '<c-w>L',
+  { desc = 'Move window to right', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<leader>wof',
+  '<c-w>R',
+  { desc = 'Rotate window upwards/leftwards', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<leader>wop',
+  '<c-w>r',
+  { desc = 'Rotate window downwards/rightwards', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<leader>wrn',
+  '<c-w><',
+  { desc = 'Decrease window width', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<leader>wre',
+  '<c-w>-',
+  { desc = 'Decrease window height', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<leader>wri',
+  '<c-w>+',
+  { desc = 'Increase window height', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<leader>wro',
+  '<c-w>>',
+  { desc = 'Increase window width', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<leader>wrh',
+  '<c-w>_',
+  { desc = 'Maximise window height', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<leader>wrw',
+  '<c-w>|',
+  { desc = 'Maximise window width', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<leader>wsh',
+  '<cmd>split<cr>',
+  { desc = 'Split window horizontally', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<leader>wsv',
+  '<cmd>vsplit<cr>',
+  { desc = 'Split window vertically', noremap = true }
 )
 
 vim.keymap.set(

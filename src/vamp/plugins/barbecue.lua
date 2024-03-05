@@ -3,8 +3,8 @@ return {
   name = 'barbecue',
 
   dependencies = {
-    'SmiteshP/nvim-navic',
     'nvim-tree/nvim-web-devicons',
+    'SmiteshP/nvim-navic',
   },
 
   opts = {
@@ -12,7 +12,7 @@ return {
     theme = 'catppuccin',
 
     symbols = {
-      separator = '',
+      separator = '',
     },
   },
 

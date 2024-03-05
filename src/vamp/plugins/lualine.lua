@@ -6,17 +6,17 @@ return {
 
     local colors = {
       bg = catppuccin.crust,
-      fg = catppuccin.text,
-      dark_fg = catppuccin.surface2,
-      yellow = catppuccin.yellow,
-      cyan = catppuccin.teal,
-      darkblue = catppuccin.blue,
-      green = catppuccin.green,
-      orange = catppuccin.peach,
-      violet = catppuccin.lavender,
-      magenta = catppuccin.mauve,
       blue = catppuccin.sapphire,
+      cyan = catppuccin.teal,
+      dark_fg = catppuccin.surface2,
+      darkblue = catppuccin.blue,
+      fg = catppuccin.text,
+      green = catppuccin.green,
+      magenta = catppuccin.mauve,
+      orange = catppuccin.peach,
       red = catppuccin.red,
+      violet = catppuccin.lavender,
+      yellow = catppuccin.yellow,
     }
 
     local conditions = {
@@ -35,12 +35,11 @@ return {
         section_separators = '',
 
         disabled_filetypes = {
-          'fern',
-          'packer',
-          'undotree',
           'qf',
-          'Outline',
+          'undotree',
+          'DiffviewFiles',
           'NeogitPopup',
+          'Outline',
           'Trouble',
         },
 
@@ -141,12 +140,12 @@ return {
 
       sources = { 'nvim_diagnostic' },
 
-      symbols = { error = ' ', warn = ' ', info = ' ' },
+      symbols = { error = ' ', info = ' ', warn = ' ' },
 
       diagnostics_color = {
         color_error = { fg = colors.red },
-        color_warn = { fg = colors.yellow },
         color_info = { fg = colors.cyan },
+        color_warn = { fg = colors.yellow },
       },
     })
 
@@ -198,9 +197,7 @@ return {
 
     insert_into_right_section({
       'fileformat',
-
       icons_enabled = false,
-
       color = { fg = colors.green, gui = 'bold' },
     })
 
@@ -228,14 +225,14 @@ return {
       'diff',
 
       symbols = {
-        added = ' ',
-        modified = '󰝤 ',
-        removed = ' ',
+        added = '' .. ' ',
+        modified = '󰝤' .. ' ',
+        removed = '' .. ' ',
       },
 
       diff_color = {
         added = { fg = colors.green },
-        modified = { fg = colors.orange },
+        modified = { fg = colors.yellow },
         removed = { fg = colors.red },
       },
 
