@@ -1,5 +1,7 @@
 return {
   'voldikss/vim-floaterm',
 
-  config = function(_, _) end,
+  init = function()
+    vim.g.floaterm_keymap_toggle = '<c-t>'
+  end,
 }

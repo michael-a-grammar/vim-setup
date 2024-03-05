@@ -1,27 +1,14 @@
 Standards
 ---------
 Ease of use is more important than mnemonics
-c - create / new
-d - delete / destory
+
+c - create
+d - delete
 n - next
 p - previous
-x - delete / destory all
+x - delete
 
+<c-f> - up
+<c-p> - down
 
-Layers
-------
-Hop
-Git
-Plugins
-Projects
-Slime
-Telescope
-Terminal
-Trouble
-Symbols Outline
-
-- Backspace should become hop
 - Autocommand to strip trailing whitespace (%s/\s\+$//e)
-- micro - bundled plugin to enable better understanding of macros
-- Add delay to cmp command complete
-- Use arrow keys to move windows

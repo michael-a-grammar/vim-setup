@@ -92,7 +92,6 @@ return {
 
         ['<c-space>'] = cmp.mapping.complete(),
         ['<cr>'] = cmp.mapping.confirm({ select = false }),
-        ['<esc>'] = cmp.mapping.abort(),
       }),
 
       sources = cmp.config.sources({

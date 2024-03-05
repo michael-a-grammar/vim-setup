@@ -35,10 +35,12 @@ return {
         section_separators = '',
 
         disabled_filetypes = {
+          'neo-tree',
           'qf',
           'undotree',
           'DiffviewFiles',
           'NeogitPopup',
+          'NeogitStatus',
           'Outline',
           'Trouble',
         },

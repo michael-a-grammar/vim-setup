@@ -21,18 +21,23 @@ return {
 
       offsets = {
         {
-          filetype = 'fern',
+          filetype = 'neo-tree',
           text = '󰌪',
-          text_align = 'center',
-        },
-        {
-          filetype = 'Outline',
-          text = '󰊕',
           text_align = 'center',
         },
         {
           filetype = 'undotree',
           text = '󰕌',
+          text_align = 'center',
+        },
+        {
+          filetype = 'NeogitStatus',
+          text = '',
+          text_align = 'center',
+        },
+        {
+          filetype = 'Outline',
+          text = '󰊕',
           text_align = 'center',
         },
       },
