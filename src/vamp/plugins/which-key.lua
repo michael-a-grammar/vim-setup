@@ -127,6 +127,10 @@ return {
 
           g = {
             name = 'Git',
+
+            t = {
+              name = 'Toggles',
+            },
           },
         },
 

@@ -179,7 +179,7 @@ vim.keymap.set(
   { 'n', 'x' },
   '<leader>di',
   vim.diagnostic.open_float,
-  { desc = 'Info', noremap = true }
+  { desc = 'Diagnostic info', noremap = true }
 )
 
 vim.keymap.set(
@@ -260,14 +260,14 @@ vim.keymap.set(
   { 'n', 'x' },
   '<leader>kh',
   '<cmd>set nohlsearch<cr>',
-  { desc = 'Disable highlighted search results', noremap = true }
+  { desc = 'Toggle highlighted search results', noremap = true }
 )
 
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>ki',
   '<cmd>set noincsearch<cr>',
-  { desc = 'Disable incremental search', noremap = true }
+  { desc = 'Toggle incremental search', noremap = true }
 )
 
 vim.keymap.set(
