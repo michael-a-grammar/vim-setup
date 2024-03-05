@@ -8,7 +8,7 @@ return {
     {
       'rcarriga/nvim-notify',
       opts = {
-        render = 'compact',
+        render = 'default',
         stages = 'fade',
       },
     },

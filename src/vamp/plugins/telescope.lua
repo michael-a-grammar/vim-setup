@@ -168,6 +168,20 @@ return {
 
     vim.keymap.set(
       { 'n', 'x' },
+      '<leader>en',
+      builtin.lsp_dynamic_workspace_symbols,
+      { desc = 'Dynamic workspace symbols', noremap = true }
+    )
+
+    vim.keymap.set(
+      { 'n', 'x' },
+      '<leader>ew',
+      builtin.lsp_workspace_symbols,
+      { desc = 'Workspace symbols', noremap = true }
+    )
+
+    vim.keymap.set(
+      { 'n', 'x' },
       '<leader>f/',
       builtin.search_history,
       { desc = 'Searches', noremap = true }
