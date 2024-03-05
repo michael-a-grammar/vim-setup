@@ -58,6 +58,10 @@ return {
       trouble.toggle('quickfix')
     end, { desc = 'Quickfix', noremap = true })
 
+    vim.keymap.set({ 'n', 'x' }, '<leader>kt', function()
+      trouble.toggle()
+    end, { desc = 'Toggle trouble', noremap = true })
+
     vim.keymap.set({ 'n', 'x' }, '<leader>ne', function()
       trouble.toggle('document_diagnostics')
     end, { desc = 'Diagnostics', noremap = true })

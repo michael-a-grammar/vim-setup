@@ -15,20 +15,20 @@ return {
       local gitsigns = require('gitsigns')
 
       vim.keymap.set(
-        'n',
+        { 'n', 'x' },
         '<leader>nga',
         gitsigns.stage_buffer,
         { desc = 'Stage buffer', noremap = true }
       )
 
       vim.keymap.set(
-        'n',
+        { 'n', 'x' },
         '<leader>ngd',
         gitsigns.diffthis,
         { desc = 'Diff', noremap = true }
       )
 
-      vim.keymap.set('n', '<leader>ngf', function()
+      vim.keymap.set({ 'n', 'x' }, '<leader>ngf', function()
         if vim.wo.diff then
           return '[c'
         end
@@ -37,71 +37,7 @@ return {
           gitsigns.prev_hunk()
         end)
         return '<ignore>'
-      end, { desc = 'Previous hunk', noremap = true })
-
-      vim.keymap.set(
-        'n',
-        '<leader>ngh',
-        gitsigns.preview_hunk,
-        { desc = 'Preview hunk', noremap = true }
-      )
-
-      vim.keymap.set({ 'n', 'x' }, '<leader>ngm', function()
-        gitsigns.blame_line({ full = true })
-      end, { desc = 'Blame', noremap = true })
-
-      vim.keymap.set('n', '<leader>ngp', function()
-        if vim.wo.diff then
-          return '[c'
-        end
-
-        vim.schedule(function()
-          gitsigns.next_hunk()
-        end)
-        return '<ignore>'
-      end, { desc = 'Next hunk', noremap = true })
-
-      vim.keymap.set(
-        'n',
-        '<leader>ngr',
-        gitsigns.reset_hunk,
-        { desc = 'Reset hunk', noremap = true }
-      )
-
-      vim.keymap.set(
-        'n',
-        '<leader>ngs',
-        gitsigns.stage_hunk,
-        { desc = 'Stage hunk', noremap = true }
-      )
-
-      vim.keymap.set(
-        'n',
-        '<leader>ngu',
-        gitsigns.undo_stage_hunk,
-        { desc = 'Undo stage hunk', noremap = true }
-      )
-
-      vim.keymap.set(
-        'n',
-        '<leader>ngx',
-        gitsigns.reset_buffer,
-        { desc = 'Reset buffer', noremap = true }
-      )
-
-      vim.keymap.set('x', '<leader>ngr', function()
-        gitsigns.reset_hunk({
-          vim.fn.line('.'),
-          vim.fn.line('v'),
-        })
-      end, { desc = 'Reset hunk', noremap = true })
-
-      vim.keymap.set('x', '<leader>ngs', function()
-        gitsigns.stage_hunk({
-          vim.fn.line('.'),
-          vim.fn.line('v'),
-        })
-      end, { desc = 'Stage hunk', noremap = true })
+      end, { desc = 'Previous hunk', expr = true, noremap = true })
 
       vim.keymap.set(
         { 'n', 'x' },
@@ -112,9 +48,73 @@ return {
 
       vim.keymap.set(
         { 'n', 'x' },
+        '<leader>ngh',
+        gitsigns.preview_hunk,
+        { desc = 'Preview hunk', noremap = true }
+      )
+
+      vim.keymap.set('n', '<leader>ngm', function()
+        gitsigns.blame_line({ full = true })
+      end, { desc = 'Blame', noremap = true })
+
+      vim.keymap.set({ 'n', 'x' }, '<leader>ngp', function()
+        if vim.wo.diff then
+          return '[c'
+        end
+
+        vim.schedule(function()
+          gitsigns.next_hunk()
+        end)
+        return '<ignore>'
+      end, { desc = 'Next hunk', expr = true, noremap = true })
+
+      vim.keymap.set(
+        { 'n', 'x' },
         '<leader>ngq',
         '<cmd>Gitsigns setqflist<cr>',
         { desc = 'Set quickfix', noremap = true }
+      )
+
+      vim.keymap.set(
+        'n',
+        '<leader>ngr',
+        gitsigns.reset_hunk,
+        { desc = 'Reset hunk', noremap = true }
+      )
+
+      vim.keymap.set('x', '<leader>ngr', function()
+        gitsigns.reset_hunk({
+          vim.fn.line('.'),
+          vim.fn.line('v'),
+        })
+      end, { desc = 'Reset hunk', noremap = true })
+
+      vim.keymap.set(
+        'n',
+        '<leader>ngs',
+        gitsigns.stage_hunk,
+        { desc = 'Stage hunk', noremap = true }
+      )
+
+      vim.keymap.set('x', '<leader>ngs', function()
+        gitsigns.stage_hunk({
+          vim.fn.line('.'),
+          vim.fn.line('v'),
+        })
+      end, { desc = 'Stage hunk', noremap = true })
+
+      vim.keymap.set(
+        'n',
+        '<leader>ngu',
+        gitsigns.undo_stage_hunk,
+        { desc = 'Undo stage hunk', noremap = true }
+      )
+
+      vim.keymap.set(
+        { 'n', 'x' },
+        '<leader>ngx',
+        gitsigns.reset_buffer,
+        { desc = 'Reset buffer', noremap = true }
       )
 
       vim.keymap.set(
@@ -152,6 +152,7 @@ return {
         { desc = 'Toggle word diff', noremap = true }
       )
 
+      vim.keymap.set({ 'o', 'x' }, 'ih', ':<c-u>Gitsigns select_hunk<cr>')
     end,
   },
 }
