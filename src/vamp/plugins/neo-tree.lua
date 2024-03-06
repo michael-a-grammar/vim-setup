@@ -24,6 +24,64 @@ return {
   },
 
   opts = {
+    buffers = {
+      window = {
+        mappings = {
+          ['<bs>'] = 'navigate_up',
+
+          ['.'] = 'set_root',
+
+          ['s'] = {
+            'show_help',
+
+            config = {
+              prefix_key = 'o',
+              title = 'Order by',
+            },
+
+            nowait = true,
+          },
+
+          ['x'] = 'buffer_delete',
+
+          ['sc'] = {
+            'order_by_created',
+            nowait = true,
+          },
+
+          ['sd'] = {
+            'order_by_diagnostics',
+            nowait = true,
+          },
+
+          ['sg'] = {
+            'order_by_git_status',
+            nowait = true,
+          },
+
+          ['sm'] = {
+            'order_by_modified',
+            nowait = true,
+          },
+
+          ['sn'] = {
+            'order_by_name',
+            nowait = true,
+          },
+
+          ['ss'] = {
+            'order_by_size',
+            nowait = true,
+          },
+
+          ['st'] = {
+            'order_by_type',
+            nowait = true,
+          },
+        },
+      },
+    },
+
     close_if_last_window = true,
 
     commands = {}, -- TODO: Open with helix
@@ -36,25 +94,31 @@ return {
 
       window = {
         mappings = {
-          ['<bs>'] = 'navigate_up',
-          ['f'] = 'filter_on_submit',
-
-          ['.'] = 'set_root',
-          ['H'] = 'toggle_hidden',
-          ['/'] = 'fuzzy_finder',
-          ['D'] = 'fuzzy_finder_directory',
-          ['#'] = 'fuzzy_sorter',
           ['<c-x>'] = 'clear_filter',
+
+          ['<bs>'] = 'navigate_up',
+
+          ['#'] = 'fuzzy_sorter',
+          [','] = 'fuzzy_finder_directory',
+          ['.'] = 'set_root',
+          ['/'] = 'fuzzy_finder',
+
           ['[g'] = 'prev_git_modified',
           [']g'] = 'next_git_modified',
 
+
+          ['f'] = 'filter_on_submit',
+          ['u'] = 'toggle_hidden',
+
           ['s'] = {
             'show_help',
-            nowait = true,
+
             config = {
-              title = 'Order by',
               prefix_key = 's',
+              title = 'Order by',
             },
+
+            nowait = true,
           },
 
           ['sc'] = {
@@ -100,6 +164,67 @@ return {
       },
     },
 
+    git_status = {
+      window = {
+        position = 'float',
+        mappings = {
+          ['ga'] = 'git_add_file',
+          ['gc'] = 'git_commit',
+          ['gg'] = 'git_commit_and_push',
+          ['gp'] = 'git_push',
+          ['gr'] = 'git_revert_file',
+          ['gs'] = 'git_add_all',
+          ['gu'] = 'git_unstage_file',
+
+          ['s'] = {
+            'show_help',
+
+            config = {
+              prefix_key = 's',
+              title = 'Order by',
+            },
+
+            nowait = true,
+          },
+
+          ['sc'] = {
+            'order_by_created',
+            nowait = true,
+          },
+
+          ['sd'] = {
+            'order_by_diagnostics',
+            nowait = true,
+          },
+
+          ['sg'] = {
+            'order_by_git_status',
+            nowait = true,
+          },
+
+          ['sm'] = {
+            'order_by_modified',
+            nowait = true,
+          },
+
+          ['sn'] = {
+            'order_by_name',
+            nowait = true,
+          },
+
+          ['ss'] = {
+            'order_by_size',
+            nowait = true,
+          },
+
+          ['st'] = {
+            'order_by_type',
+            nowait = true,
+          },
+        },
+      },
+    },
+
     open_files_do_not_replace_types = {
       'terminal',
       'trouble',
@@ -111,11 +236,6 @@ return {
       width = 30,
 
       mappings = {
-        ['<space>'] = {
-          'toggle_node',
-          nowait = true,
-        },
-
         ['<c-c>'] = {
           'copy',
           config = {
@@ -128,6 +248,11 @@ return {
         ['<c-x>'] = 'cut_to_clipboard',
         ['<c-y>'] = 'copy_to_clipboard',
 
+        ['<space>'] = {
+          'toggle_node',
+          nowait = true,
+        },
+
         ['a'] = {
           'add',
           config = {
@@ -139,10 +264,6 @@ return {
         ['h'] = 'split_with_window_picker',
         ['k'] = 'show_file_details',
         ['l'] = 'focus_preview',
-        ['r'] = 'rename',
-        ['t'] = 'open_tabnew',
-        ['v'] = 'vsplit_with_window_picker',
-        ['w'] = 'open_with_window_picker',
 
         ['m'] = {
           'move',
@@ -150,6 +271,12 @@ return {
             show_path = 'relative',
           },
         },
+
+        ['p'] = 'toggle_preview',
+        ['r'] = 'rename',
+        ['t'] = 'open_tabnew',
+        ['v'] = 'vsplit_with_window_picker',
+        ['w'] = 'open_with_window_picker',
 
         ['A'] = {
           'add_directory',

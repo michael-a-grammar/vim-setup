@@ -1,6 +1,7 @@
 return {
-  'simrat39/rust-tools.nvim',
+  'mrcjkb/rustaceanvim',
   ft = 'rust',
+  version = '^4',
 
   opts = function()
     local rust_tools = require('rust-tools')
