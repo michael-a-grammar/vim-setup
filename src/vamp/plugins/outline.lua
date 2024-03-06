@@ -24,11 +24,12 @@ return {
   opts = {
     keymaps = {
       down_and_jump = '<c-p>',
-      fold = 'f',
+      fold = 'c',
       fold_all = 'M',
       hover_symbol = 'k',
+      peek_location = 'e',
       toggle_preview = 'p',
-      unfold = 'u',
+      unfold = 'o',
       unfold_all = 'R',
       up_and_jump = '<c-f>',
     },

@@ -19,6 +19,7 @@ return {
       hop = true,
       lsp_trouble = true,
       neogit = true,
+      neotree = true,
       noice = true,
       notify = true,
       rainbow_delimiters = true,

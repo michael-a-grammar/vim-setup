@@ -45,7 +45,7 @@ return {
 
       ['<localleader>'] = {
         e = {
-          name = '',
+          name = ' ' .. '',
 
           n = {
             name = 'New file',
@@ -61,7 +61,7 @@ return {
         },
 
         r = {
-          name = '',
+          name = ' ' .. '',
         },
       },
 
@@ -131,6 +131,10 @@ return {
             t = {
               name = 'Toggles',
             },
+          },
+
+          o = {
+            name = 'Outline',
           },
         },
 

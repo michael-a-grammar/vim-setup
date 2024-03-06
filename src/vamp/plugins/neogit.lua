@@ -3,35 +3,36 @@ return {
 
   dependencies = {
     'nvim-lua/plenary.nvim',
-    'sindrets/diffview.nvim',
     'nvim-telescope/telescope.nvim',
+    'sindrets/diffview.nvim',
   },
 
   opts = {
     disable_hint = true,
     graph_style = 'unicode',
+    kind = 'auto',
 
     signs = {
-      section = { '', '' },
-      item = { '󰄾', '󰄼' },
       hunk = { '', '' },
+      item = { '󰄾', '󰄼' },
+      section = { '', '' },
     },
 
     mappings = {
       commit_editor = {
+        ['<c-c><c-d>'] = 'Abort',
         ['q'] = 'Close',
-        ['<c-c><c-d>'] = 'Abort',
-      },
-
-      rebase_editor = {
-        ['ge'] = 'MoveDown',
-        ['gi'] = 'MoveUp',
-        ['<c-c><c-d>'] = 'Abort',
       },
 
       finder = {
         ['<c-f>'] = 'Previous',
         ['<c-p>'] = 'Next',
+      },
+
+      rebase_editor = {
+        ['<c-c><c-d>'] = 'Abort',
+        ['ge'] = 'MoveDown',
+        ['gi'] = 'MoveUp',
       },
     },
   },
