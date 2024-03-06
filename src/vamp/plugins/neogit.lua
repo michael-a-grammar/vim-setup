@@ -10,7 +10,7 @@ return {
   opts = {
     disable_hint = true,
     graph_style = 'unicode',
-    kind = 'auto',
+    kind = 'tab',
 
     signs = {
       hunk = { '', '' },
