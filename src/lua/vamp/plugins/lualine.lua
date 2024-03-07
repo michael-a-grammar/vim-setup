@@ -95,8 +95,14 @@ return {
         return '▊'
       end,
 
-      color = { fg = colors.blue },
-      padding = { left = 0, right = 1 },
+      color = {
+        fg = colors.blue,
+      },
+
+      padding = {
+        left = 0,
+        right = 1,
+      },
     })
 
     insert_into_left_section({
@@ -127,27 +133,51 @@ return {
           t = colors.red,
         }
 
-        return { fg = mode_color[vim.fn.mode()] }
+        return {
+          fg = mode_color[vim.fn.mode()],
+        }
       end,
 
-      padding = { right = 1 },
+      padding = {
+        right = 1,
+      },
     })
 
     insert_into_left_section({
       'filesize',
       cond = conditions.is_buffer_empty,
-      color = { fg = colors.dark_fg, gui = 'bold' },
+
+      color = {
+        fg = colors.dark_fg,
+        gui = 'bold',
+      },
     })
 
     insert_into_left_section({
       'filename',
       cond = conditions.is_buffer_empty,
-      color = { fg = colors.magenta, gui = 'bold' },
+
+      color = {
+        fg = colors.magenta,
+        gui = 'bold',
+      },
     })
 
-    insert_into_left_section({ 'location', color = { fg = colors.dark_fg } })
+    insert_into_left_section({
+      'location',
 
-    insert_into_left_section({ 'progress', color = { fg = colors.dark_fg } })
+      color = {
+        fg = colors.dark_fg,
+      },
+    })
+
+    insert_into_left_section({
+      'progress',
+
+      color = {
+        fg = colors.dark_fg,
+      },
+    })
 
     insert_into_left_section({
       'diagnostics',
@@ -161,9 +191,17 @@ return {
       },
 
       diagnostics_color = {
-        color_error = { fg = colors.red },
-        color_info = { fg = colors.cyan },
-        color_warn = { fg = colors.yellow },
+        color_error = {
+          fg = colors.red,
+        },
+
+        color_info = {
+          fg = colors.cyan,
+        },
+
+        color_warn = {
+          fg = colors.yellow,
+        },
       },
     })
 
@@ -194,19 +232,30 @@ return {
         return lsp_message
       end,
 
-      color = { fg = colors.dark_fg, gui = 'bold' },
+      color = {
+        fg = colors.dark_fg,
+        gui = 'bold',
+      },
     })
 
     insert_into_right_section({
       'o:encoding',
       cond = conditions.hide,
-      color = { fg = colors.green, gui = 'bold' },
+
+      color = {
+        fg = colors.green,
+        gui = 'bold',
+      },
     })
 
     insert_into_right_section({
       'fileformat',
       icons_enabled = false,
-      color = { fg = colors.green, gui = 'bold' },
+
+      color = {
+        fg = colors.green,
+        gui = 'bold',
+      },
     })
 
     insert_into_right_section({
@@ -226,7 +275,10 @@ return {
         return section
       end,
 
-      color = { fg = colors.violet, gui = 'bold' },
+      color = {
+        fg = colors.violet,
+        gui = 'bold',
+      },
     })
 
     insert_into_right_section({
@@ -239,9 +291,17 @@ return {
       },
 
       diff_color = {
-        added = { fg = colors.green },
-        modified = { fg = colors.yellow },
-        removed = { fg = colors.red },
+        added = {
+          fg = colors.green,
+        },
+
+        modified = {
+          fg = colors.yellow,
+        },
+
+        removed = {
+          fg = colors.red,
+        },
       },
 
       cond = conditions.hide,

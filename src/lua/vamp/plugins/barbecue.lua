@@ -1,6 +1,5 @@
 return {
   'utilyre/barbecue.nvim',
-  name = 'barbecue',
 
   dependencies = {
     'nvim-tree/nvim-web-devicons',
@@ -8,8 +7,8 @@ return {
   },
 
   opts = {
-    show_basename = false,
     theme = 'catppuccin',
+    show_basename = false,
 
     symbols = {
       separator = '',

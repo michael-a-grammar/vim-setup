@@ -4,12 +4,12 @@ return {
   priority = 1000,
 
   opts = {
-    flavour = 'mocha',
-
     background = {
       dark = 'mocha',
       light = 'latte',
     },
+
+    flavour = 'mocha',
 
     integrations = {
       beacon = true,
@@ -28,10 +28,10 @@ return {
       which_key = true,
 
       barbecue = {
+        alt_background = true,
         dim_dirname = true,
         bold_basename = true,
         dim_context = true,
-        alt_background = false,
       },
 
       mini = {
@@ -41,17 +41,41 @@ return {
 
       native_lsp = {
         enabled = true,
-        virtual_text = {
-          errors = { 'italic' },
-          hints = { 'italic' },
-          information = { 'italic' },
-          warnings = { 'italic' },
-        },
+
         underlines = {
-          errors = { 'underline' },
-          hints = { 'underline' },
-          information = { 'underline' },
-          warnings = { 'underline' },
+          errors = {
+            'underline',
+          },
+
+          hints = {
+            'underline',
+          },
+
+          information = {
+            'underline',
+          },
+
+          warnings = {
+            'underline',
+          },
+        },
+
+        virtual_text = {
+          errors = {
+            'italic',
+          },
+
+          hints = {
+            'italic',
+          },
+
+          information = {
+            'italic',
+          },
+
+          warnings = {
+            'italic',
+          },
         },
       },
 

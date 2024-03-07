@@ -25,14 +25,14 @@ return {
 
           on_attach = function(_, _)
             vim.keymap.set(
-              'x',
+              { 'n', 'x' },
               '<localleader>ee',
               '<cmd>ElixirExpandMacro<cr>',
               { desc = 'Expand macro', buffer = true, noremap = true }
             )
 
             vim.keymap.set(
-              'n',
+              { 'n', 'x' },
               '<localleader>em',
               ':Mix ',
               { desc = 'Mix', buffer = true, noremap = true }
@@ -140,14 +140,14 @@ return {
             )
 
             vim.keymap.set(
-              'n',
+              { 'n', 'x' },
               '<localleader>ept',
               '<cmd>ElixirToPipe<cr>',
               { desc = 'To pipe', buffer = true, noremap = true }
             )
 
             vim.keymap.set(
-              'n',
+              { 'n', 'x' },
               '<localleader>ere',
               '<cmd>ElixirRestart | edit<cr>',
               {

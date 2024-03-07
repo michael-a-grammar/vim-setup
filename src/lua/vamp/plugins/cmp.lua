@@ -46,8 +46,8 @@ return {
 
       if
         vim.bo.filetype == 'TelescopePrompt'
-        or context.in_treesitter_capture('comment')
         or context.in_syntax_group('Comment')
+        or context.in_treesitter_capture('comment')
       then
         return false
       end
@@ -69,6 +69,13 @@ return {
       },
 
       mapping = cmp.mapping.preset.insert({
+        ['<c-f>'] = cmp.mapping.scroll_docs(-4),
+        ['<c-p>'] = cmp.mapping.scroll_docs(4),
+
+        ['<cr>'] = cmp.mapping.confirm({ select = false }),
+
+        ['<c-space>'] = cmp.mapping.complete(),
+
         ['<tab>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_next_item()
@@ -86,12 +93,6 @@ return {
             fallback()
           end
         end, { 'i', 's' }),
-
-        ['<c-f>'] = cmp.mapping.scroll_docs(-4),
-        ['<c-p>'] = cmp.mapping.scroll_docs(4),
-
-        ['<c-space>'] = cmp.mapping.complete(),
-        ['<cr>'] = cmp.mapping.confirm({ select = false }),
       }),
 
       preselect = cmp.PreselectMode.None,
@@ -126,6 +127,7 @@ return {
 
     cmp.setup.cmdline({ '/', '?' }, {
       mapping = cmp.mapping.preset.cmdline(),
+
       sources = cmp.config.sources({
         {
           name = 'nvim_lsp_document_symbol',
