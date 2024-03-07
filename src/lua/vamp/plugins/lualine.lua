@@ -39,6 +39,7 @@ return {
           'qf',
           'undotree',
           'DiffviewFiles',
+          'NeogitCommitView',
           'NeogitPopup',
           'NeogitStatus',
           'Outline',
@@ -46,8 +47,19 @@ return {
         },
 
         theme = {
-          normal = { c = { fg = colors.fg, bg = colors.bg } },
-          inactive = { c = { fg = colors.fg, bg = colors.bg } },
+          normal = {
+            c = {
+              fg = colors.fg,
+              bg = colors.bg,
+            },
+          },
+
+          inactive = {
+            c = {
+              fg = colors.fg,
+              bg = colors.bg,
+            },
+          },
         },
       },
 
@@ -142,7 +154,11 @@ return {
 
       sources = { 'nvim_diagnostic' },
 
-      symbols = { error = ' ', info = ' ', warn = ' ' },
+      symbols = {
+        error = '' .. ' ',
+        info = '' .. ' ',
+        warn = '' .. ' ',
+      },
 
       diagnostics_color = {
         color_error = { fg = colors.red },
@@ -161,21 +177,11 @@ return {
       function()
         local no_lsp_message = '󰝾'
         local lsp_message = '' .. '  '
-        local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
         local clients = vim.lsp.get_active_clients()
 
         if next(clients) == nil then
           return no_lsp_message
         end
-
-        -- TODO: Can we detect if the current buffer is attached to the following clients?
-        -- The below fails for ElixirLS and Credo
-        -- for _, client in ipairs(clients) do
-        --   local filetypes = client.config.filetypes
-        --   if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-        --     return ' - ' .. client.name
-        --   end
-        -- end
 
         for index, client in ipairs(clients) do
           if index > 1 then

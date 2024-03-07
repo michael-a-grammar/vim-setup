@@ -59,6 +59,34 @@ return {
             name = 'Restart LSP',
           },
         },
+
+        r = {
+          name = ' ' .. '',
+
+          d = {
+            name = 'Diagnostics',
+          },
+
+          i = {
+            name = 'Move item',
+          },
+
+          m = {
+            name = 'Macros',
+          },
+
+          r = {
+            name = 'Runnables',
+          },
+
+          s = {
+            name = 'Find',
+          },
+
+          t = {
+            name = 'Testables',
+          },
+        },
       },
 
       ['<leader>'] = {

@@ -14,27 +14,27 @@ return {
     },
 
     'hrsh7th/cmp-buffer',
-    'hrsh7th/cmp-calc',
     'hrsh7th/cmp-cmdline',
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-nvim-lsp-document-symbol',
     'hrsh7th/cmp-nvim-lsp-signature-help',
-    'hrsh7th/cmp-nvim-lua',
     'hrsh7th/cmp-path',
+
+    'dmitmel/cmp-cmdline-history',
+    'amarakon/nvim-cmp-buffer-lines',
 
     'onsails/lspkind.nvim',
   },
 
   config = function()
-    local api = vim.api
-    local bo = vim.bo
     local cmp = require('cmp')
+    local lspkind = require('lspkind')
 
     local has_words_before = function()
-      local line, col = unpack(api.nvim_win_get_cursor(0))
+      local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 
       return col ~= 0
-        and api
+        and vim.api
             .nvim_buf_get_lines(0, line - 1, line, true)[1]
             :sub(col, col)
             :match('%s')
@@ -45,7 +45,7 @@ return {
       local context = require('cmp.config.context')
 
       if
-        bo.filetype == 'TelescopePrompt'
+        vim.bo.filetype == 'TelescopePrompt'
         or context.in_treesitter_capture('comment')
         or context.in_syntax_group('Comment')
       then
@@ -57,15 +57,15 @@ return {
 
     cmp.setup({
       enabled = enable_cmp,
-      preselect = cmp.PreselectMode.None,
 
-      snippet = {
-        expand = function(_) end,
-      },
+      formatting = {
+        format = lspkind.cmp_format({
+          ellipsis_char = '...',
+          mode = 'symbol',
+          maxwidth = 50,
 
-      window = {
-        completion = cmp.config.window.bordered(),
-        documentation = cmp.config.window.bordered(),
+          show_labelDetails = true,
+        }),
       },
 
       mapping = cmp.mapping.preset.insert({
@@ -94,21 +94,46 @@ return {
         ['<cr>'] = cmp.mapping.confirm({ select = false }),
       }),
 
+      preselect = cmp.PreselectMode.None,
+
+      snippet = {
+        expand = function(_) end,
+      },
+
       sources = cmp.config.sources({
-        { name = 'nvim_lsp' },
-        { name = 'nvim_lsp_signature_help' },
-        { name = 'buffer' },
-        { name = 'nvim_lua' },
-        { name = 'calc' },
-        { name = 'vsnip' },
+        {
+          name = 'buffer',
+        },
+
+        {
+          name = 'buffer-lines',
+        },
+
+        {
+          name = 'nvim_lsp',
+        },
+
+        {
+          name = 'nvim_lsp_signature_help',
+        },
       }),
+
+      window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+      },
     })
 
     cmp.setup.cmdline({ '/', '?' }, {
       mapping = cmp.mapping.preset.cmdline(),
       sources = cmp.config.sources({
-        { name = 'nvim_lsp_document_symbol' },
-        { name = 'buffer' },
+        {
+          name = 'nvim_lsp_document_symbol',
+        },
+
+        {
+          name = 'buffer',
+        },
       }),
     })
 
@@ -121,6 +146,11 @@ return {
             ignore_cmds = { 'Man', '!' },
           },
         },
+
+        {
+          name = 'cmdline_history',
+        },
+
         {
           name = 'path',
           options = {
