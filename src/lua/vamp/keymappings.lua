@@ -14,13 +14,6 @@ vim.keymap.set(
 
 vim.keymap.set(
   'i',
-  '<esc>',
-  '<esc><esc>',
-  { desc = 'Return to normal mode', noremap = true }
-)
-
-vim.keymap.set(
-  'i',
   'jj',
   '<esc>',
   { desc = 'Return to normal mode', noremap = false }
@@ -142,6 +135,13 @@ vim.keymap.set(
 
 vim.keymap.set(
   { 'n', 'x' },
+  'gD',
+  vim.lsp.buf.declaration,
+  { desc = 'Go to declaration', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
   'gm',
   vim.lsp.buf.implementation,
   { desc = 'Go to implementation', noremap = true }
@@ -210,12 +210,9 @@ vim.keymap.set(
   { desc = 'Action', noremap = true }
 )
 
-vim.keymap.set(
-  { 'n', 'x' },
-  '<leader>ef',
-  vim.lsp.buf.format,
-  { desc = 'Format', noremap = true }
-)
+vim.keymap.set({ 'n', 'x' }, '<leader>ef', function()
+  vim.lsp.buf.format({ async = true })
+end, { desc = 'Format', noremap = true })
 
 vim.keymap.set(
   { 'n', 'x' },

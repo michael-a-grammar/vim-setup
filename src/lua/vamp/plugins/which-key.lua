@@ -59,10 +59,6 @@ return {
             name = 'Restart LSP',
           },
         },
-
-        r = {
-          name = ' ' .. '',
-        },
       },
 
       ['<leader>'] = {

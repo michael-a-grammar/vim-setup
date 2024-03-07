@@ -106,7 +106,6 @@ return {
           ['[g'] = 'prev_git_modified',
           [']g'] = 'next_git_modified',
 
-
           ['f'] = 'filter_on_submit',
           ['u'] = 'toggle_hidden',
 
