@@ -86,6 +86,27 @@ return {
 
     commands = {}, -- TODO: Open with helix
 
+    default_component_configs = {
+      git_status = {
+        symbols = {
+          added = '',
+          deleted = '󰛌',
+          modified = '',
+          renamed = '',
+
+          conflict = '󰶇',
+          ignored = '',
+          staged = '',
+          unstaged = '󰄱',
+          untracked = '󱜸',
+        },
+      },
+
+      modified = {
+        symbol = '󰝤',
+      },
+    },
+
     filesystem = {
       follow_current_file = {
         enabled = true,
@@ -167,12 +188,12 @@ return {
       window = {
         position = 'float',
         mappings = {
-          ['ga'] = 'git_add_file',
+          ['ga'] = 'git_add_all',
           ['gc'] = 'git_commit',
           ['gg'] = 'git_commit_and_push',
           ['gp'] = 'git_push',
           ['gr'] = 'git_revert_file',
-          ['gs'] = 'git_add_all',
+          ['gs'] = 'git_add_file',
           ['gu'] = 'git_unstage_file',
 
           ['s'] = {

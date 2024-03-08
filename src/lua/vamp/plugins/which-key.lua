@@ -43,52 +43,6 @@ return {
         },
       },
 
-      ['<localleader>'] = {
-        e = {
-          name = ' ' .. '',
-
-          n = {
-            name = 'New file',
-          },
-
-          p = {
-            name = 'Pipes',
-          },
-
-          r = {
-            name = 'Restart LSP',
-          },
-        },
-
-        r = {
-          name = ' ' .. '',
-
-          d = {
-            name = 'Diagnostics',
-          },
-
-          i = {
-            name = 'Move item',
-          },
-
-          m = {
-            name = 'Macros',
-          },
-
-          r = {
-            name = 'Runnables',
-          },
-
-          s = {
-            name = 'Find',
-          },
-
-          t = {
-            name = 'Testables',
-          },
-        },
-      },
-
       ['<leader>'] = {
         a = {
           name = 'Unassigned',
@@ -139,6 +93,10 @@ return {
         },
 
         l = {
+          name = 'Unassigned',
+        },
+
+        L = {
           name = 'Unassigned',
         },
 

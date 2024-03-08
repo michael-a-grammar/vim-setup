@@ -93,10 +93,12 @@ return {
     telescope.load_extension('file_browser')
     telescope.load_extension('fzf')
     telescope.load_extension('gh')
+    -- telescope.load_extension('yank_history')
     telescope.load_extension('z')
 
-    local file_browser =
-      require('telescope').extensions.file_browser.file_browser
+    local file_browser = telescope.extensions.file_browser.file_browser
+
+    -- local yank_ring_history = telescope.extensions.yank_history.yank_history
 
     local create_get_buffers = function(only_cwd)
       return function()
@@ -248,6 +250,13 @@ return {
       builtin.treesitter,
       { desc = 'Treesitter', noremap = true }
     )
+
+    -- vim.keymap.set(
+    --   { 'n', 'x' },
+    --   '<leader>ph',
+    --   yank_ring_history,
+    --   { desc = 'Yank ring history', noremap = true }
+    -- )
 
     vim.keymap.set(
       { 'n', 'x' },
