@@ -1,6 +1,6 @@
 return {
   'bfredl/nvim-miniyank',
-  enabled = true,
+  enabled = false,
 
   keys = {
     {

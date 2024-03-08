@@ -4,8 +4,19 @@ return {
   version = '^4',
 
   config = function(_, _)
+    local handlers = {
+      ['textDocument/signatureHelp'] = vim.lsp.with(
+        vim.lsp.handlers.signature_help,
+        {
+          border = 'rounded',
+        }
+      ),
+    }
+
     vim.g.rustaceanvim = {
       server = {
+        handlers = handlers,
+
         on_attach = function(_, bufnr)
           vim.keymap.set({ 'n', 'x' }, '<leader>ma', function()
             vim.cmd.RustLsp('codeAction')
@@ -200,6 +211,7 @@ return {
               },
             },
           }
+
           local which_key = require('which-key')
 
           which_key.register(to_register, { mode = 'n' })

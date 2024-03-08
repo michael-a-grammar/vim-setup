@@ -11,8 +11,28 @@ return {
         vim.lsp.protocol.make_client_capabilities()
       )
 
+      local handlers = {
+        ['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
+          border = 'rounded',
+        }),
+
+        ['textDocument/signatureHelp'] = vim.lsp.with(
+          vim.lsp.handlers.signature_help,
+          {
+            border = 'rounded',
+          }
+        ),
+      }
+
       return {
+        credo = {
+          handlers = handlers,
+        },
+
         elixirls = {
+          handlers = handlers,
+          capabilities = capabilities,
+
           settings = elixir_ls.settings({
             cmd = '~/bin/elixir-ls/elixir-ls',
             dialyzerEnabled = true,
@@ -20,8 +40,6 @@ return {
             fetchDeps = true,
             suggestSpecs = true,
           }),
-
-          capabilities = capabilities,
 
           on_attach = function(_, bufnr)
             vim.keymap.set(

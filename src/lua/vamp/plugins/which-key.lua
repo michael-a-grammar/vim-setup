@@ -2,8 +2,11 @@ return {
   'folke/which-key.nvim',
 
   opts = {
-    layout = {
-      align = 'left',
+    disable = {
+      filetypes = {
+        'qf',
+        'TelescopePrompt',
+      },
     },
 
     hidden = { '<Plug>' },
@@ -18,16 +21,17 @@ return {
       ['<Tab>'] = '󰌒',
     },
 
+    layout = {
+      align = 'left',
+    },
+
     popup_mappings = {
       scroll_up = '<c-f>',
       scroll_down = '<c-p>',
     },
 
-    disable = {
-      filetypes = {
-        'qf',
-        'TelescopePrompt',
-      },
+    window = {
+      border = 'rounded',
     },
   },
 
