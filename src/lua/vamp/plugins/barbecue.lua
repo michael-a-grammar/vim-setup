@@ -7,12 +7,13 @@ return {
   },
 
   opts = {
-    theme = 'catppuccin',
     show_basename = false,
 
     symbols = {
       separator = '',
     },
+
+    theme = 'catppuccin',
   },
 
   config = function(_, opts)

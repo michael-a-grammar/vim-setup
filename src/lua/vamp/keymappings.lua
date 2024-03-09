@@ -430,30 +430,16 @@ vim.keymap.set(
 
 vim.keymap.set(
   { 'n', 'x' },
-  '<leader>wcn',
-  '<c-w>h',
-  { desc = 'Jump to left window', noremap = true }
+  '<leader>wch',
+  '<cmd>split<cr>',
+  { desc = 'Split window horizontally', noremap = true }
 )
 
 vim.keymap.set(
   { 'n', 'x' },
-  '<leader>wce',
-  '<c-w>j',
-  { desc = 'Jump to bottom window', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  '<leader>wci',
-  '<c-w>w',
-  { desc = 'Jump to top window', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  '<leader>wco',
-  '<c-w>l',
-  { desc = 'Jump to right window', noremap = true }
+  '<leader>wcv',
+  '<cmd>vsplit<cr>',
+  { desc = 'Split window vertically', noremap = true }
 )
 
 vim.keymap.set(
@@ -482,6 +468,34 @@ vim.keymap.set(
   '<leader>wmo',
   '<c-w>L',
   { desc = 'Move window to right', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<leader>wnn',
+  '<c-w>h',
+  { desc = 'Jump to left window', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<leader>wne',
+  '<c-w>j',
+  { desc = 'Jump to bottom window', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<leader>wni',
+  '<c-w>w',
+  { desc = 'Jump to top window', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<leader>wno',
+  '<c-w>l',
+  { desc = 'Jump to right window', noremap = true }
 )
 
 vim.keymap.set(
@@ -538,20 +552,6 @@ vim.keymap.set(
   '<leader>wrw',
   '<c-w>|',
   { desc = 'Maximise window width', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  '<leader>wsh',
-  '<cmd>split<cr>',
-  { desc = 'Split window horizontally', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  '<leader>wsv',
-  '<cmd>vsplit<cr>',
-  { desc = 'Split window vertically', noremap = true }
 )
 
 vim.keymap.set(

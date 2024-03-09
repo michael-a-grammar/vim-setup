@@ -176,23 +176,23 @@ return {
           name = 'Windows',
 
           c = {
-            name = 'Jump',
+            name = 'New window',
           },
 
           m = {
-            name = 'Move',
+            name = 'Move window',
+          },
+
+          n = {
+            name = 'Navigate windows',
           },
 
           o = {
-            name = 'Rotate',
+            name = 'Rotate window',
           },
 
           r = {
-            name = 'Resize',
-          },
-
-          s = {
-            name = 'Split',
+            name = 'Resize window',
           },
         },
 
