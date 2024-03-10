@@ -12,12 +12,7 @@ vim.keymap.set(
   { desc = 'Word forwards', noremap = true }
 )
 
-vim.keymap.set(
-  'i',
-  'jj',
-  '<esc>',
-  { desc = 'Return to normal mode', noremap = false }
-)
+vim.keymap.set('i', 'jj', '<esc>', { desc = 'Normal mode', noremap = false })
 
 vim.keymap.set(
   { 'n', 'x' },

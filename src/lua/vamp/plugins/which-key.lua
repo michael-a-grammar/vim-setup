@@ -210,6 +210,14 @@ return {
       },
     }
 
+    for index = 2, 5, 1 do
+      local terminal_index = tostring(index)
+
+      to_register['<leader>'].r[terminal_index] = {
+        name = 'Terminal ' .. terminal_index,
+      }
+    end
+
     which_key.register(to_register, { mode = 'n' })
     which_key.register(to_register, { mode = 'x' })
   end,

@@ -82,6 +82,7 @@ return {
       },
 
       extensions = {
+        'toggleterm',
         'trouble',
       },
     }

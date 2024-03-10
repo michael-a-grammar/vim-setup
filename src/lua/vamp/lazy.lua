@@ -1,6 +1,6 @@
 local lazy_install_path = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 
-if not vim.loop.fs_stat(lazy_install_path) then
+if vim.fn.empty(vim.fn.glob(lazy_install_path)) > 0 then
   local repo = 'https://github.com/folke/lazy.nvim.git'
 
   vim.fn.system({

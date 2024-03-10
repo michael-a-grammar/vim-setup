@@ -25,6 +25,11 @@ return {
           text_align = 'center',
         },
         {
+          filetype = 'toggleterm',
+          text = '',
+          text_align = 'center',
+        },
+        {
           filetype = 'undotree',
           text = '󰕌',
           text_align = 'center',
