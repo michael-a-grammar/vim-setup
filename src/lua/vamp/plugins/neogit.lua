@@ -42,17 +42,6 @@ return {
 
     neogit.setup(opts)
 
-    vim.keymap.set(
-      { 'n', 'x' },
-      '<leader>g/',
-      neogit.open,
-      { desc = 'Neogit dispatch', noremap = true }
-    )
-
-    vim.keymap.set({ 'n', 'x' }, '<leader>g?', function()
-      neogit.open({ 'help' })
-    end, { desc = 'Neogit help', noremap = true })
-
     vim.keymap.set({ 'n', 'x' }, '<leader>ga', function()
       neogit.open({ 'cherry_pick' })
     end, { desc = 'Cherry Pick', noremap = true })
@@ -76,6 +65,17 @@ return {
     vim.keymap.set({ 'n', 'x' }, '<leader>gf', function()
       neogit.open({ 'fetch' })
     end, { desc = 'Fetch', noremap = true })
+
+    vim.keymap.set(
+      { 'n', 'x' },
+      '<leader>gg',
+      neogit.open,
+      { desc = 'Neogit dispatch', noremap = true }
+    )
+
+    vim.keymap.set({ 'n', 'x' }, '<leader>gh', function()
+      neogit.open({ 'help' })
+    end, { desc = 'Neogit help', noremap = true })
 
     vim.keymap.set({ 'n', 'x' }, '<leader>gl', function()
       neogit.open({ 'log' })

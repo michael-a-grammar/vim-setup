@@ -1,5 +1,6 @@
 return {
   'nvim-lualine/lualine.nvim',
+  dependencies = 'nvim-tree/nvim-web-devicons',
 
   opts = function()
     local catppuccin = require('catppuccin.palettes').get_palette('mocha')
@@ -43,7 +44,6 @@ return {
           'NeogitPopup',
           'NeogitStatus',
           'Outline',
-          'Trouble',
         },
 
         theme = {
@@ -79,6 +79,10 @@ return {
         lualine_z = {},
         lualine_c = {},
         lualine_x = {},
+      },
+
+      extensions = {
+        'trouble',
       },
     }
 
