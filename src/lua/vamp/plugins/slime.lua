@@ -57,7 +57,7 @@ return {
 
     vim.keymap.set(
       'x',
-      '<leader>cv',
+      '<leader>cs',
       "<cmd>'<,'>SlimeSend<cr>",
       { desc = 'Send selection to REPL', noremap = true }
     )
