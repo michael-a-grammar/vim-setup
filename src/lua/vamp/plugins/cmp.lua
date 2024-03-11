@@ -23,10 +23,7 @@ return {
     'dmitmel/cmp-cmdline-history',
     'amarakon/nvim-cmp-buffer-lines',
 
-    {
-      'chrisgrieser/cmp_yanky',
-      enabled = false,
-    },
+    'chrisgrieser/cmp_yanky',
 
     {
       'kbwo/cmp-yank',
@@ -123,6 +120,10 @@ return {
             leading_whitespace = false,
             line_numbers = true,
           },
+        },
+
+        {
+          name = 'cmp_yanky',
         },
 
         {
