@@ -58,7 +58,7 @@ return {
 
     for _, picker in ipairs(pickers) do
       pickers_configuration[picker] = {
-        theme = 'ivy',
+        -- theme = 'ivy',
       }
     end
 

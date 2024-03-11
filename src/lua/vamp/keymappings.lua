@@ -469,28 +469,28 @@ vim.keymap.set(
   { 'n', 'x' },
   '<leader>wnn',
   '<c-w>h',
-  { desc = 'Jump to left window', noremap = true }
+  { desc = 'Navigate to left window', noremap = true }
 )
 
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>wne',
   '<c-w>j',
-  { desc = 'Jump to bottom window', noremap = true }
+  { desc = 'Navigate to bottom window', noremap = true }
 )
 
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>wni',
   '<c-w>w',
-  { desc = 'Jump to top window', noremap = true }
+  { desc = 'Navigate to top window', noremap = true }
 )
 
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>wno',
   '<c-w>l',
-  { desc = 'Jump to right window', noremap = true }
+  { desc = 'Navigate to right window', noremap = true }
 )
 
 vim.keymap.set(

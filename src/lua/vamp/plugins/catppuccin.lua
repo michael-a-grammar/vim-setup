@@ -24,8 +24,10 @@ return {
       notify = true,
       rainbow_delimiters = true,
       semantic_tokens = true,
+      symbols_outline = true,
       treesitter = true,
       which_key = true,
+      window_picker = true,
 
       barbecue = {
         alt_background = true,
@@ -86,7 +88,6 @@ return {
 
       telescope = {
         enabled = true,
-        style = 'nvchad',
       },
     },
   },
