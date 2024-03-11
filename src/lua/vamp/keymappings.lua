@@ -151,7 +151,7 @@ vim.keymap.set(
 
 vim.keymap.set(
   { 'n', 'x' },
-  'k',
+  'h',
   vim.lsp.buf.hover,
   { desc = 'Hover', noremap = true }
 )
