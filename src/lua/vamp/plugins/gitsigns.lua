@@ -3,12 +3,29 @@ return {
 
   opts = {
     signs = {
-      add = { text = '' },
-      change = { text = '󰝤' },
-      changedelete = { text = '󰝤' },
-      delete = { text = '' },
-      topdelete = { text = '' },
-      untracked = { text = '󰝤' },
+      add = {
+        text = '',
+      },
+
+      change = {
+        text = '󰝤',
+      },
+
+      changedelete = {
+        text = '󰝤',
+      },
+
+      delete = {
+        text = '',
+      },
+
+      topdelete = {
+        text = '',
+      },
+
+      untracked = {
+        text = '󰝤',
+      },
     },
 
     on_attach = function(_)

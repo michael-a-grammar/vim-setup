@@ -15,4 +15,8 @@ end
 
 vim.opt.rtp:prepend(lazy_install_path)
 
-require('lazy').setup('vamp.plugins')
+require('lazy').setup('vamp.plugins', {
+  ui = {
+    border = 'rounded',
+  },
+})

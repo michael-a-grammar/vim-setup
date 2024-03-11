@@ -10,19 +10,6 @@ return {
     's1n7ax/nvim-window-picker',
   },
 
-  keys = {
-    {
-      '<leader>l',
-      '<cmd>Neotree reveal<cr>',
-      desc = 'Neotree',
-    },
-    {
-      '<leader>L',
-      '<cmd>Neotree toggle reveal<cr>',
-      desc = 'Neotree toggle',
-    },
-  },
-
   opts = {
     buffers = {
       window = {
@@ -312,4 +299,32 @@ return {
       },
     },
   },
+
+  config = function(_, opts)
+    require('neo-tree').setup(opts)
+
+    local catppuccin = require('catppuccin.palettes').get_palette('mocha')
+
+    vim.api.nvim_set_hl(0, 'NeoTreeNormal', {
+      bg = catppuccin.base,
+    })
+
+    vim.api.nvim_set_hl(0, 'NeoTreeNormalNC', {
+      bg = catppuccin.base,
+    })
+
+    vim.keymap.set(
+      { 'n', 'x' },
+      '<leader>l',
+      '<cmd>Neotree reveal<cr>',
+      { desc = 'Neotree', noremap = true }
+    )
+
+    vim.keymap.set(
+      { 'n', 'x' },
+      '<leader>L',
+      '<cmd>Neotree toggle reveal<cr>',
+      { desc = 'Neotree toggle', noremap = true }
+    )
+  end,
 }

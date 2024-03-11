@@ -38,7 +38,7 @@ return {
     local set_op_func = vim.fn[vim.api.nvim_exec(
       [[
         function s:set_op_func(val)
-          let &opfunc = a:val
+          let &op_func = a:val
         endfunction
         echon get(function('s:set_op_func'), 'name')
       ]],

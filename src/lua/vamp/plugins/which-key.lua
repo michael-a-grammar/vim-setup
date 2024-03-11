@@ -49,7 +49,7 @@ return {
 
       ['<leader>'] = {
         a = {
-          name = 'Unassigned',
+          name = 'Notifications',
         },
 
         b = {

@@ -13,9 +13,20 @@ return {
     kind = 'tab',
 
     signs = {
-      hunk = { '', '' },
-      item = { '󰄾', '󰄼' },
-      section = { '', '' },
+      hunk = {
+        '',
+        '',
+      },
+
+      item = {
+        '󰄾',
+        '󰄼',
+      },
+
+      section = {
+        '',
+        '',
+      },
     },
 
     mappings = {

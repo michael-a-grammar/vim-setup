@@ -58,7 +58,7 @@ return {
 
     for _, picker in ipairs(pickers) do
       pickers_configuration[picker] = {
-        theme = 'ivy',
+        -- theme = 'ivy',
       }
     end
 
@@ -76,7 +76,7 @@ return {
       },
       extensions = {
         file_browser = {
-          theme = 'ivy',
+          -- theme = 'ivy',
         },
       },
       pickers = pickers_configuration,
@@ -94,7 +94,7 @@ return {
     telescope.load_extension('file_browser')
     telescope.load_extension('fzf')
     telescope.load_extension('gh')
-    -- telescope.load_extension('yank_history')
+    telescope.load_extension('yank_history')
     telescope.load_extension('z')
 
     vim.api.nvim_set_hl(0, 'TelescopePreviewTitle', {
@@ -114,7 +114,7 @@ return {
 
     local file_browser = telescope.extensions.file_browser.file_browser
 
-    -- local yank_ring_history = telescope.extensions.yank_history.yank_history
+    local yank_ring_history = telescope.extensions.yank_history.yank_history
 
     local create_get_buffers = function(only_cwd)
       return function()
@@ -267,12 +267,12 @@ return {
       { desc = 'Treesitter', noremap = true }
     )
 
-    -- vim.keymap.set(
-    --   { 'n', 'x' },
-    --   '<leader>ph',
-    --   yank_ring_history,
-    --   { desc = 'Yank ring history', noremap = true }
-    -- )
+    vim.keymap.set(
+      { 'n', 'x' },
+      '<leader>ph',
+      yank_ring_history,
+      { desc = 'Yank ring history', noremap = true }
+    )
 
     vim.keymap.set(
       { 'n', 'x' },

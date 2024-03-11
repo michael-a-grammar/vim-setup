@@ -1,6 +1,5 @@
 return {
   'gbprod/yanky.nvim',
-  enabled = false,
 
   keys = {
     {
@@ -44,11 +43,11 @@ return {
       desc = 'Yank ring put before cursor',
       mode = { 'n', 'x' },
     },
+  },
 
-    opts = {
-      ring = {
-        storage = 'memory',
-      },
+  opts = {
+    ring = {
+      storage = 'memory',
     },
   },
 }

@@ -5,14 +5,14 @@ return {
     vim.keymap.set(
       { 'n', 'x' },
       'n',
-      'n:Beacon<cr>',
+      'nzzzv<cmd>Beacon<cr>',
       { desc = 'Next match and centre' }
     )
 
     vim.keymap.set(
       { 'n', 'x' },
       'N',
-      'N:Beacon<cr>',
+      'Nzzzv<cmd>Beacon<cr>',
       { desc = 'Previous match and centre' }
     )
 
@@ -20,7 +20,7 @@ return {
       { 'n', 'x' },
       '<leader>ke',
       '<cmd>BeaconToggle<cr>',
-      { desc = 'Toggle barbecue', noremap = true }
+      { desc = 'Toggle beacon', noremap = true }
     )
   end,
 }

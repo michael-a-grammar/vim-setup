@@ -7,8 +7,8 @@ return {
   },
 
   opts = {
-    theme = 'doom',
     disable_move = true,
+    theme = 'doom',
 
     config = {
       header = {

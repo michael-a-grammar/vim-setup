@@ -105,20 +105,6 @@ vim.keymap.set(
   { desc = 'Move line up', noremap = true }
 )
 
-vim.keymap.set(
-  { 'n', 'x' },
-  'n',
-  'nzzzv',
-  { desc = 'Next match and centre', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  'N',
-  'Nzzzv',
-  { desc = 'Previous match and centre', noremap = true }
-)
-
 vim.keymap.set({ 'n', 'x' }, 'U', '<c-r>', { desc = 'Redo', noremap = true })
 
 vim.keymap.set(
@@ -293,7 +279,7 @@ vim.keymap.set(
 vim.keymap.set(
   'x',
   '<leader>ps',
-  ':sort<cr>',
+  "<cmd>'<,'>sort<cr>",
   { desc = 'Sort', noremap = true }
 )
 
