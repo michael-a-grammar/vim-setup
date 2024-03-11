@@ -1,7 +1,7 @@
 return {
   'akinsho/toggleterm.nvim',
 
-  opts = function()
+  opts = function(_, _)
     local catppuccin = require('catppuccin.palettes').get_palette('mocha')
 
     return {

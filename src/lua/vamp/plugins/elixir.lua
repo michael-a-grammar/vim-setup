@@ -4,7 +4,7 @@ return {
     dependencies = 'nvim-lua/plenary.nvim',
     ft = 'elixir',
 
-    opts = function()
+    opts = function(_, _)
       local elixir_ls = require('elixir.elixirls')
 
       local capabilities = require('cmp_nvim_lsp').default_capabilities(

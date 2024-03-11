@@ -23,9 +23,15 @@ return {
     'dmitmel/cmp-cmdline-history',
     'amarakon/nvim-cmp-buffer-lines',
 
-    { 'chrisgrieser/cmp_yanky', enabled = false },
+    {
+      'chrisgrieser/cmp_yanky',
+      enabled = false,
+    },
 
-    { 'kbwo/cmp-yank', enabled = false },
+    {
+      'kbwo/cmp-yank',
+      enabled = false,
+    },
 
     'onsails/lspkind.nvim',
   },

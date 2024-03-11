@@ -13,7 +13,7 @@ return {
     },
   },
 
-  opts = function()
+  opts = function(_, _)
     local pickers = {
       'buffers',
       'colorscheme',
@@ -58,7 +58,7 @@ return {
 
     for _, picker in ipairs(pickers) do
       pickers_configuration[picker] = {
-        -- theme = 'ivy',
+        theme = 'ivy',
       }
     end
 
@@ -87,6 +87,7 @@ return {
     local telescope = require('telescope')
     local builtin = require('telescope.builtin')
     local buffer_dir = require('telescope.utils').buffer_dir
+    local catppuccin = require('catppuccin.palettes').get_palette('mocha')
 
     telescope.setup(opts)
 
@@ -95,6 +96,21 @@ return {
     telescope.load_extension('gh')
     -- telescope.load_extension('yank_history')
     telescope.load_extension('z')
+
+    vim.api.nvim_set_hl(0, 'TelescopePreviewTitle', {
+      bg = catppuccin.green,
+      fg = catppuccin.crust,
+    })
+
+    vim.api.nvim_set_hl(0, 'TelescopePromptTitle', {
+      bg = catppuccin.red,
+      fg = catppuccin.crust,
+    })
+
+    vim.api.nvim_set_hl(0, 'TelescopeResultsTitle', {
+      bg = catppuccin.lavender,
+      fg = catppuccin.crust,
+    })
 
     local file_browser = telescope.extensions.file_browser.file_browser
 

@@ -2,7 +2,7 @@ return {
   'nvim-lualine/lualine.nvim',
   dependencies = 'nvim-tree/nvim-web-devicons',
 
-  opts = function()
+  opts = function(_, _)
     local catppuccin = require('catppuccin.palettes').get_palette('mocha')
 
     local colors = {

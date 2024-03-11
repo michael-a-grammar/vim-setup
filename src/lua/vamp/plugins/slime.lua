@@ -1,7 +1,7 @@
 return {
   'jpalardy/vim-slime',
 
-  init = function()
+  init = function(_)
     vim.g.slime_no_mappings = true
 
     if vim.env.TMUX then
