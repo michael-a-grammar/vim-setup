@@ -11,6 +11,50 @@ return {
   },
 
   opts = {
+    close_if_last_window = true,
+
+    default_component_configs = {
+      diagnostics = {
+        symbols = {
+          error = '',
+          hint = '󰌵',
+          info = '',
+          warn = '',
+        },
+
+        highlights = {
+          error = 'DiagnosticSignError',
+          hint = 'DiagnosticSignHint',
+          info = 'DiagnosticSignInfo',
+          warn = 'DiagnosticSignWarn',
+        },
+      },
+
+      git_status = {
+        symbols = {
+          added = '',
+          conflict = '󰶇',
+          deleted = '󰛌',
+          ignored = '',
+          modified = '',
+          renamed = '',
+          staged = '',
+          unstaged = '󰄱',
+          untracked = '󱜸',
+        },
+      },
+
+      modified = {
+        symbol = '󰝤',
+      },
+    },
+
+    open_files_do_not_replace_types = {
+      'terminal',
+      'trouble',
+      'qf',
+    },
+
     buffers = {
       window = {
         mappings = {
@@ -66,31 +110,6 @@ return {
             nowait = true,
           },
         },
-      },
-    },
-
-    close_if_last_window = true,
-
-    commands = {}, -- TODO: Open with helix
-
-    default_component_configs = {
-      git_status = {
-        symbols = {
-          added = '',
-          deleted = '󰛌',
-          modified = '',
-          renamed = '',
-
-          conflict = '󰶇',
-          ignored = '',
-          staged = '',
-          unstaged = '󰄱',
-          untracked = '󱜸',
-        },
-      },
-
-      modified = {
-        symbol = '󰝤',
       },
     },
 
@@ -232,12 +251,6 @@ return {
       },
     },
 
-    open_files_do_not_replace_types = {
-      'terminal',
-      'trouble',
-      'qf',
-    },
-
     window = {
       position = 'left',
       width = 30,
@@ -304,6 +317,10 @@ return {
     require('neo-tree').setup(opts)
 
     local catppuccin = require('catppuccin.palettes').get_palette('mocha')
+
+    vim.api.nvim_set_hl(0, 'NeoTreeModified', {
+      fg = catppuccin.yellow,
+    })
 
     vim.api.nvim_set_hl(0, 'NeoTreeNormal', {
       bg = catppuccin.base,

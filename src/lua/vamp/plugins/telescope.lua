@@ -88,6 +88,7 @@ return {
     local builtin = require('telescope.builtin')
     local buffer_dir = require('telescope.utils').buffer_dir
     local catppuccin = require('catppuccin.palettes').get_palette('mocha')
+    local noice = require('noice')
 
     telescope.setup(opts)
 
@@ -176,6 +177,10 @@ return {
       get_buffers,
       { desc = 'Buffers', noremap = true }
     )
+
+    vim.keymap.set({ 'n', 'x' }, '<leader>ah', function()
+      noice.cmd('telescope')
+    end, { desc = 'Notifications history', noremap = true })
 
     vim.keymap.set(
       { 'n', 'x' },

@@ -191,6 +191,7 @@ return {
 
       symbols = {
         error = '' .. ' ',
+        hint = '󰌵' .. ' ',
         info = '' .. ' ',
         warn = '' .. ' ',
       },
@@ -198,6 +199,10 @@ return {
       diagnostics_color = {
         color_error = {
           fg = colors.red,
+        },
+
+        color_hint = {
+          fg = colors.cyan,
         },
 
         color_info = {

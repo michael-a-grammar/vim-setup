@@ -23,8 +23,8 @@ return {
           end, {
             desc = 'Code actions',
             buffer = bufnr,
-            noremap = true,
             silent = true,
+            noremap = true,
           })
 
           vim.keymap.set('n', '<leader>mh', function()
@@ -32,8 +32,8 @@ return {
           end, {
             desc = 'Hover actions',
             buffer = bufnr,
-            noremap = true,
             silent = true,
+            noremap = true,
           })
 
           vim.keymap.set('x', '<leader>mh', function()
@@ -41,8 +41,8 @@ return {
           end, {
             desc = 'Hover range',
             buffer = bufnr,
-            noremap = true,
             silent = true,
+            noremap = true,
           })
 
           vim.keymap.set({ 'n', 'x' }, '<leader>mdd', function()
@@ -50,8 +50,8 @@ return {
           end, {
             desc = 'Render diagnostic',
             buffer = bufnr,
-            noremap = true,
             silent = true,
+            noremap = true,
           })
 
           vim.keymap.set({ 'n', 'x' }, '<leader>mde', function()
@@ -59,8 +59,8 @@ return {
           end, {
             desc = 'Explain error',
             buffer = bufnr,
-            noremap = true,
             silent = true,
+            noremap = true,
           })
 
           vim.keymap.set({ 'n', 'x' }, '<leader>mif', function()
@@ -68,8 +68,8 @@ return {
           end, {
             desc = 'Move item up',
             buffer = bufnr,
-            noremap = true,
             silent = true,
+            noremap = true,
           })
 
           vim.keymap.set({ 'n', 'x' }, '<leader>mii', function()
@@ -77,8 +77,8 @@ return {
           end, {
             desc = 'Join lines',
             buffer = bufnr,
-            noremap = true,
             silent = true,
+            noremap = true,
           })
 
           vim.keymap.set({ 'n', 'x' }, '<leader>mip', function()
@@ -86,8 +86,8 @@ return {
           end, {
             desc = 'Move item down',
             buffer = bufnr,
-            noremap = true,
             silent = true,
+            noremap = true,
           })
 
           vim.keymap.set({ 'n', 'x' }, '<leader>mmm', function()
@@ -95,8 +95,8 @@ return {
           end, {
             desc = 'Expand macro',
             buffer = bufnr,
-            noremap = true,
             silent = true,
+            noremap = true,
           })
 
           vim.keymap.set({ 'n', 'x' }, '<leader>mmp', function()
@@ -104,8 +104,8 @@ return {
           end, {
             desc = 'Rebuild pro macros',
             buffer = bufnr,
-            noremap = true,
             silent = true,
+            noremap = true,
           })
 
           vim.keymap.set({ 'n', 'x' }, '<leader>mrp', function()
@@ -113,8 +113,8 @@ return {
           end, {
             desc = 'Rerun previous runnable',
             buffer = bufnr,
-            noremap = true,
             silent = true,
+            noremap = true,
           })
 
           vim.keymap.set({ 'n', 'x' }, '<leader>mrr', function()
@@ -122,8 +122,8 @@ return {
           end, {
             desc = 'Runnables',
             buffer = bufnr,
-            noremap = true,
             silent = true,
+            noremap = true,
           })
 
           vim.keymap.set({ 'n', 'x' }, '<leader>msc', function()
@@ -131,8 +131,8 @@ return {
           end, {
             desc = 'Open cargo',
             buffer = bufnr,
-            noremap = true,
             silent = true,
+            noremap = true,
           })
 
           vim.keymap.set({ 'n', 'x' }, '<leader>msp', function()
@@ -140,8 +140,8 @@ return {
           end, {
             desc = 'Parent module',
             buffer = bufnr,
-            noremap = true,
             silent = true,
+            noremap = true,
           })
 
           vim.keymap.set({ 'n', 'x' }, '<leader>mss', function()
@@ -149,8 +149,8 @@ return {
           end, {
             desc = 'Workspace symbol search',
             buffer = bufnr,
-            noremap = true,
             silent = true,
+            noremap = true,
           })
 
           vim.keymap.set({ 'n', 'x' }, '<leader>mss', function()
@@ -158,8 +158,8 @@ return {
           end, {
             desc = 'Workspace type symbol search',
             buffer = bufnr,
-            noremap = true,
             silent = true,
+            noremap = true,
           })
 
           vim.keymap.set({ 'n', 'x' }, '<leader>mtp', function()
@@ -167,8 +167,8 @@ return {
           end, {
             desc = 'Rerun previous testable',
             buffer = bufnr,
-            noremap = true,
             silent = true,
+            noremap = true,
           })
 
           vim.keymap.set({ 'n', 'x' }, '<leader>mtt', function()
@@ -176,8 +176,8 @@ return {
           end, {
             desc = 'Testables',
             buffer = bufnr,
-            noremap = true,
             silent = true,
+            noremap = true,
           })
 
           local to_register = {
