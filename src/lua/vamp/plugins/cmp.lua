@@ -25,11 +25,6 @@ return {
 
     'chrisgrieser/cmp_yanky',
 
-    {
-      'kbwo/cmp-yank',
-      enabled = false,
-    },
-
     'onsails/lspkind.nvim',
   },
 

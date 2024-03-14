@@ -207,14 +207,14 @@ return {
       { 'n', 'x' },
       '<leader>f/',
       builtin.search_history,
-      { desc = 'Searches', noremap = true }
+      { desc = 'Search history', noremap = true }
     )
 
     vim.keymap.set(
       { 'n', 'x' },
       '<leader>f:',
       builtin.command_history,
-      { desc = 'Commands', noremap = true }
+      { desc = 'Command history', noremap = true }
     )
 
     vim.keymap.set(

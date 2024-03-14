@@ -119,6 +119,10 @@ return {
             },
           },
 
+          d = {
+            name = 'Delete buffer',
+          },
+
           o = {
             name = 'Outline',
           },
@@ -150,10 +154,6 @@ return {
 
         t = {
           name = 'Buffers',
-
-          d = {
-            name = 'Delete buffer',
-          },
 
           x = {
             name = 'Delete other buffers',

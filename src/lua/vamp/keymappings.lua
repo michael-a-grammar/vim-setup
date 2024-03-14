@@ -250,6 +250,20 @@ vim.keymap.set(
 
 vim.keymap.set(
   { 'n', 'x' },
+  '<leader>ndd',
+  '<cmd>bdelete<cr>',
+  { desc = 'Delete buffer', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<leader>ndf',
+  '<cmd>bdelete!<cr>',
+  { desc = '' .. ' Delete buffer', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
   '<leader>p/',
   ':s/',
   { desc = 'Substitute within line', noremap = true }
@@ -337,20 +351,6 @@ vim.keymap.set(
   '<leader>ty',
   '<cmd>tab ball<cr>',
   { desc = 'Open buffers in tabs', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  '<leader>tdd',
-  '<cmd>bdelete<cr>',
-  { desc = 'Delete buffer', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  '<leader>tdf',
-  '<cmd>bdelete!<cr>',
-  { desc = '' .. ' Delete buffer', noremap = true }
 )
 
 vim.keymap.set(

@@ -16,16 +16,20 @@ return {
       cmp = true,
       dashboard = true,
       gitsigns = true,
+      headlines = true,
       hop = true,
       lsp_trouble = true,
+      markdown = true,
       neogit = true,
       neotree = true,
       noice = true,
       notify = true,
       rainbow_delimiters = true,
+      sandwich = true,
       semantic_tokens = true,
       symbols_outline = true,
       treesitter = true,
+      treesitter_context = true,
       which_key = true,
       window_picker = true,
 
@@ -38,7 +42,7 @@ return {
 
       mini = {
         enabled = true,
-        indentscope_color = 'green',
+        indentscope_color = 'lavender',
       },
 
       native_lsp = {
