@@ -1,7 +1,7 @@
 return {
   'danilamihailov/beacon.nvim',
 
-  init = function(_)
+  config = function(_, _)
     vim.keymap.set(
       { 'n', 'x' },
       'n',

@@ -34,9 +34,9 @@ return {
       center = {
         {
           icon = '󰭟',
-          icon_hl = '@error',
+          icon_hl = 'markdownH1',
           desc = ' Find files',
-          desc_hl = '@error',
+          desc_hl = 'markdownH1',
           keymap = '<space>',
           key = '<space>',
           key_hl = '@character',
@@ -46,9 +46,9 @@ return {
 
         {
           icon = '',
-          icon_hl = '@attribute',
+          icon_hl = 'markdownH2',
           desc = ' Neogit',
-          desc_hl = '@attribute',
+          desc_hl = 'markdownH2',
           keymap = '<space> g',
           key = 'g',
           key_hl = '@character',
@@ -58,9 +58,9 @@ return {
 
         {
           icon = '',
-          icon_hl = '@lsp.type.builtinType',
+          icon_hl = 'markdownH3',
           desc = ' Recent files',
-          desc_hl = '@lsp.type.builtinType',
+          desc_hl = 'markdownH3',
           keymap = '<space> f',
           key = 'r',
           key_hl = '@character',
@@ -70,9 +70,9 @@ return {
 
         {
           icon = '',
-          icon_hl = '@lsp.typemod.string.injected',
+          icon_hl = 'markdownH4',
           desc = ' Recent files',
-          desc_hl = '@lsp.typemod.string.injected',
+          desc_hl = 'markdownH4',
           keymap = '<space> f',
           key = 't',
           key_hl = '@character',
@@ -81,22 +81,10 @@ return {
         },
 
         {
-          icon = '',
-          icon_hl = '@constructor',
-          desc = ' Harpoons',
-          desc_hl = '@constructor',
-          keymap = '<space> h',
-          key = 'h',
-          key_hl = '@character',
-          key_format = ' %s',
-          action = "lua vim.api.nvim_input('<space>hh')",
-        },
-
-        {
           icon = '󰒲',
-          icon_hl = '@constructor',
+          icon_hl = 'markdownH5',
           desc = ' Lazy',
-          desc_hl = '@constructor',
+          desc_hl = 'markdownH5',
           keymap = '<space> z',
           key = 'p',
           key_hl = '@character',
@@ -106,9 +94,9 @@ return {
 
         {
           icon = '󱠡',
-          icon_hl = '@exception',
+          icon_hl = 'markdownH6',
           desc = ' Quit',
-          desc_hl = '@exception',
+          desc_hl = 'markdownH6',
           keymap = '<space> q',
           key = 'q',
           key_hl = '@character',

@@ -1,4 +1,12 @@
 return {
   'norcalli/nvim-colorizer.lua',
-  config = true,
+
+  cmd = {
+    'ColorizerAttachToBuffer',
+    'ColorizerDetachFromBuffer',
+    'ColorizerReloadAllBuffers',
+    'ColorizerToggle',
+  },
+
+  opts = {},
 }

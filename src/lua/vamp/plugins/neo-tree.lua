@@ -10,6 +10,22 @@ return {
     's1n7ax/nvim-window-picker',
   },
 
+  keys = {
+    {
+      '<leader>l',
+      '<cmd>Neotree reveal<cr>',
+      desc = 'Neotree',
+      mode = { 'n', 'x' },
+    },
+
+    {
+      '<leader>L',
+      '<cmd>Neotree toggle reveal<cr>',
+      desc = 'Neotree toggle',
+      mode = { 'n', 'x' },
+    },
+  },
+
   opts = {
     close_if_last_window = true,
 
@@ -329,19 +345,5 @@ return {
     vim.api.nvim_set_hl(0, 'NeoTreeNormalNC', {
       bg = catppuccin.base,
     })
-
-    vim.keymap.set(
-      { 'n', 'x' },
-      '<leader>l',
-      '<cmd>Neotree reveal<cr>',
-      { desc = 'Neotree', noremap = true }
-    )
-
-    vim.keymap.set(
-      { 'n', 'x' },
-      '<leader>L',
-      '<cmd>Neotree toggle reveal<cr>',
-      { desc = 'Neotree toggle', noremap = true }
-    )
   end,
 }

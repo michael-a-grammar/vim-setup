@@ -1,30 +1,52 @@
 return {
   'ThePrimeagen/harpoon',
 
-  config = function(_, _)
-    require('telescope').load_extension('harpoon')
-
-    vim.keymap.set(
-      { 'n', 'x' },
+  keys = {
+    {
       '<leader>hh',
       '<cmd>Telescope harpoon marks<cr>',
-      { desc = 'Harpoons', noremap = true }
-    )
+      desc = 'Harpoon',
+      mode = { 'n', 'x' },
+    },
 
-    vim.keymap.set({ 'n', 'x' }, '<leader>hn', function()
-      require('harpoon.ui').nav_next()
-    end, { desc = 'Next harpoon', noremap = true })
+    {
+      '<leader>hn',
+      function()
+        require('harpoon.ui').nav_next()
+      end,
+      desc = 'Next harpoon',
+      mode = { 'n', 'x' },
+    },
 
-    vim.keymap.set({ 'n', 'x' }, '<leader>hp', function()
-      require('harpoon.ui').nav_prev()
-    end, { desc = 'Previous harpoon', noremap = true })
+    {
+      '<leader>hn',
+      function()
+        require('harpoon.ui').nav_prev()
+      end,
+      desc = 'Previous harpoon',
+      mode = { 'n', 'x' },
+    },
 
-    vim.keymap.set({ 'n', 'x' }, '<leader>ht', function()
-      require('harpoon.ui').toggle_quick_menu()
-    end, { desc = 'Harpoon quick menu', noremap = true })
+    {
+      '<leader>ht',
+      function()
+        require('harpoon.ui').toggle_quick_menu()
+      end,
+      desc = 'Harpoon quick menu',
+      mode = { 'n', 'x' },
+    },
 
-    vim.keymap.set({ 'n', 'x' }, '<leader>nh', function()
-      require('harpoon.mark').add_file()
-    end, { desc = 'Harpoon here', noremap = true })
+    {
+      '<leader>nh',
+      function()
+        require('harpoon.mark').add_file()
+      end,
+      desc = 'Harpoon here',
+      mode = { 'n', 'x' },
+    },
+  },
+
+  config = function(_, _)
+    require('telescope').load_extension('harpoon')
   end,
 }
