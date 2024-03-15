@@ -42,7 +42,7 @@ return {
     end, { desc = 'Dimiss notifications', noremap = true })
 
     vim.keymap.set({ 'n', 'x' }, '<leader>ae', function()
-      noice.cmd('dismiss')
+      noice.cmd('errors')
     end, { desc = 'Error notifications', noremap = true })
 
     vim.keymap.set({ 'n', 'x' }, '<leader>al', function()

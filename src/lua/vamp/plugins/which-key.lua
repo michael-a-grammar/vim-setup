@@ -69,19 +69,19 @@ return {
         },
 
         f = {
-          name = 'Search',
+          name = 'History / Navigate',
         },
 
         g = {
           name = 'Git',
 
-          g = {
-            name = 'Browse',
+          s = {
+            name = 'Search',
           },
         },
 
         h = {
-          name = 'Unassigned',
+          name = 'Harpoon',
         },
 
         i = {
@@ -133,7 +133,11 @@ return {
         },
 
         p = {
-          name = 'Editing',
+          name = 'Edit',
+
+          y = {
+            name = 'Yank ring',
+          },
         },
 
         q = {

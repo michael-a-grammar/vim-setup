@@ -47,13 +47,13 @@ return {
         {
           icon = '',
           icon_hl = '@attribute',
-          desc = ' Git status',
+          desc = ' Neogit',
           desc_hl = '@attribute',
-          keymap = '<space> g g',
+          keymap = '<space> g',
           key = 'g',
           key_hl = '@character',
           key_format = ' %s',
-          action = "lua vim.api.nvim_input('<space>ggg')",
+          action = "lua vim.api.nvim_input('<space>gg')",
         },
 
         {
@@ -65,7 +65,7 @@ return {
           key = 'r',
           key_hl = '@character',
           key_format = ' %s',
-          action = "lua vim.api.nvim_input('<space>fr')",
+          action = "lua vim.api.nvim_input('<space>ff')",
         },
 
         {
@@ -78,6 +78,18 @@ return {
           key_hl = '@character',
           key_format = ' %s',
           action = "lua vim.api.nvim_input('<space>fr')",
+        },
+
+        {
+          icon = '',
+          icon_hl = '@constructor',
+          desc = ' Harpoons',
+          desc_hl = '@constructor',
+          keymap = '<space> h',
+          key = 'h',
+          key_hl = '@character',
+          key_format = ' %s',
+          action = "lua vim.api.nvim_input('<space>hh')",
         },
 
         {

@@ -82,7 +82,7 @@ return {
         { desc = 'Toggle terminal horizontal', noremap = true }
       )
 
-      vim.keymap.set('n', '<leader>r' .. keymap_index .. 'i', function()
+      vim.keymap.set('n', '<leader>r' .. keymap_index .. 'l', function()
         toggleterm.send_lines_to_terminal(
           'single_line',
           true,
@@ -90,7 +90,7 @@ return {
         )
       end, { desc = 'Send line to terminal', noremap = true })
 
-      vim.keymap.set('x', '<leader>r' .. keymap_index .. 'i', function()
+      vim.keymap.set('x', '<leader>r' .. keymap_index .. 'l', function()
         toggleterm.send_lines_to_terminal(
           'visual_lines',
           true,
@@ -135,7 +135,7 @@ return {
 
     vim.keymap.set(
       { 'n', 'x' },
-      '<leader>rx',
+      '<leader>rt',
       '<cmd>ToggleTermToggleAll<cr>',
       { desc = 'Toggle all terminals', noremap = true }
     )

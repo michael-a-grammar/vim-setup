@@ -219,17 +219,16 @@ return {
 
     vim.keymap.set(
       { 'n', 'x' },
-      '<leader>fh',
+      '<leader>fc',
       builtin.quickfixhistory,
       { desc = 'Quickfix history', noremap = true }
     )
 
-    vim.keymap.set(
-      { 'n', 'x' },
-      '<leader>ff',
-      builtin.jumplist,
-      { desc = 'Jumps', noremap = true }
-    )
+    vim.keymap.set({ 'n', 'x' }, '<leader>ff', function()
+      builtin.oldfiles({
+        only_cwd = true,
+      })
+    end, { desc = '' .. ' Recent files', noremap = true })
 
     vim.keymap.set(
       { 'n', 'x' },
@@ -238,17 +237,18 @@ return {
       { desc = 'Marks', noremap = true }
     )
 
-    vim.keymap.set({ 'n', 'x' }, '<leader>fr', function()
-      builtin.oldfiles({
-        only_cwd = true,
-      })
-    end, { desc = '' .. ' Recent files', noremap = true })
+    vim.keymap.set(
+      { 'n', 'x' },
+      '<leader>fr',
+      builtin.oldfiles,
+      { desc = '' .. ' Recent files', noremap = true }
+    )
 
     vim.keymap.set(
       { 'n', 'x' },
-      '<leader>ft',
-      builtin.oldfiles,
-      { desc = '' .. ' Recent files', noremap = true }
+      '<leader>fu',
+      builtin.jumplist,
+      { desc = 'Jumps', noremap = true }
     )
 
     vim.keymap.set(
@@ -274,9 +274,9 @@ return {
 
     vim.keymap.set(
       { 'n', 'x' },
-      '<leader>ph',
-      yank_ring_history,
-      { desc = 'Yank ring history', noremap = true }
+      '<leader>pc',
+      builtin.spell_suggest,
+      { desc = 'Spelling suggestions', noremap = true }
     )
 
     vim.keymap.set(
@@ -288,9 +288,9 @@ return {
 
     vim.keymap.set(
       { 'n', 'x' },
-      '<leader>pc',
-      builtin.spell_suggest,
-      { desc = 'Spelling suggestions', noremap = true }
+      '<leader>pyh',
+      yank_ring_history,
+      { desc = 'Yank ring history', noremap = true }
     )
 
     vim.keymap.set(
@@ -375,6 +375,13 @@ return {
 
     vim.keymap.set(
       { 'n', 'x' },
+      '<leader>zi',
+      builtin.highlights,
+      { desc = 'Highlights', noremap = true }
+    )
+
+    vim.keymap.set(
+      { 'n', 'x' },
       '<leader>zk',
       builtin.keymaps,
       { desc = 'Keymaps', noremap = true }
@@ -396,49 +403,42 @@ return {
 
     vim.keymap.set(
       { 'n', 'x' },
-      '<leader>zt',
-      builtin.highlights,
-      { desc = 'Highlights', noremap = true }
-    )
-
-    vim.keymap.set(
-      { 'n', 'x' },
-      '<leader>ggb',
+      '<leader>gsb',
       builtin.git_branches,
       { desc = 'Branches', noremap = true }
     )
 
     vim.keymap.set(
       { 'n', 'x' },
-      '<leader>ggc',
+      '<leader>gsc',
       builtin.git_commits,
       { desc = 'Commits', noremap = true }
     )
 
     vim.keymap.set(
       { 'n', 'x' },
-      '<leader>ggf',
+      '<leader>gsf',
       builtin.git_files,
       { desc = 'Files', noremap = true }
     )
 
     vim.keymap.set(
       { 'n', 'x' },
-      '<leader>ggg',
+      '<leader>gsg',
       builtin.git_status,
       { desc = 'Status', noremap = true }
     )
 
     vim.keymap.set(
       { 'n', 'x' },
-      '<leader>ggr',
+      '<leader>gsr',
       builtin.git_bcommits,
       { desc = 'Branch commits', noremap = true }
     )
 
     vim.keymap.set(
       { 'n', 'x' },
-      '<leader>ggs',
+      '<leader>gss',
       builtin.git_stash,
       { desc = 'Stash', noremap = true }
     )

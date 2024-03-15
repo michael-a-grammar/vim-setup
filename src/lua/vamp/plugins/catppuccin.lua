@@ -15,9 +15,10 @@ return {
       beacon = true,
       cmp = true,
       dashboard = true,
+      flash = true,
       gitsigns = true,
+      harpoon = true,
       headlines = true,
-      hop = true,
       lsp_trouble = true,
       markdown = true,
       neogit = true,
@@ -87,7 +88,7 @@ return {
 
       navic = {
         enabled = true,
-        custom_bg = 'NONE',
+        custom_bg = 'lavender',
       },
 
       telescope = {

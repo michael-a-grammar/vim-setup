@@ -58,16 +58,16 @@ return {
 
       vim.keymap.set(
         { 'n', 'x' },
-        '<leader>ngg',
-        '<cmd>Gitsigns setloclist<cr>',
-        { desc = 'Set loclist', noremap = true }
+        '<leader>ngh',
+        gitsigns.preview_hunk,
+        { desc = 'Preview hunk', noremap = true }
       )
 
       vim.keymap.set(
         { 'n', 'x' },
-        '<leader>ngh',
-        gitsigns.preview_hunk,
-        { desc = 'Preview hunk', noremap = true }
+        '<leader>ngl',
+        '<cmd>Gitsigns setloclist<cr>',
+        { desc = 'Set loclist', noremap = true }
       )
 
       vim.keymap.set('n', '<leader>ngm', function()

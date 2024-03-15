@@ -109,34 +109,6 @@ vim.keymap.set({ 'n', 'x' }, 'U', '<c-r>', { desc = 'Redo', noremap = true })
 
 vim.keymap.set(
   { 'n', 'x' },
-  'gd',
-  vim.lsp.buf.definition,
-  { desc = 'Go to definition', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  'gD',
-  vim.lsp.buf.declaration,
-  { desc = 'Go to declaration', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  'gm',
-  vim.lsp.buf.implementation,
-  { desc = 'Go to implementation', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  'gy',
-  vim.lsp.buf.type_definition,
-  { desc = 'Go to type definition', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
   'h',
   vim.lsp.buf.hover,
   { desc = 'Hover', noremap = true }
