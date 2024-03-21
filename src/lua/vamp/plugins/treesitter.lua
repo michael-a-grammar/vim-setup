@@ -1,5 +1,6 @@
 return {
   'nvim-treesitter/nvim-treesitter',
+  build = ':TSUpdate',
 
   opts = {
     ensure_installed = {
@@ -24,7 +25,7 @@ return {
       additional_vim_regex_highlighting = false,
     },
 
-    ident = {
+    indent = {
       enable = true,
     },
 

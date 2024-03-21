@@ -71,12 +71,13 @@ return {
       },
 
       mapping = cmp.mapping.preset.insert({
+        ['<c-e>'] = cmp.mapping.abort(),
         ['<c-f>'] = cmp.mapping.scroll_docs(-4),
         ['<c-p>'] = cmp.mapping.scroll_docs(4),
 
-        ['<cr>'] = cmp.mapping.confirm({ select = false }),
-
         ['<c-space>'] = cmp.mapping.complete(),
+
+        ['<cr>'] = cmp.mapping.confirm({ select = true }),
 
         ['<tab>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
@@ -100,7 +101,9 @@ return {
       preselect = cmp.PreselectMode.None,
 
       snippet = {
-        expand = function(_) end,
+        expand = function(args)
+          require('luasnip').lsp_expand(args.body)
+        end,
       },
 
       sources = cmp.config.sources({
@@ -119,6 +122,10 @@ return {
 
         {
           name = 'cmp_yanky',
+        },
+
+        {
+          name = 'luasnip',
         },
 
         {

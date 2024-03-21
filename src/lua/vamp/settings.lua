@@ -102,7 +102,6 @@ vim.opt.concealcursor = 'nvic'
 vim.opt.conceallevel = 1
 
 vim.opt.visualbell = true
-vim.api.nvim_set_option('t_vb', '')
 
 vim.api.nvim_exec('runtime macros/matchit.vim', false)
 
