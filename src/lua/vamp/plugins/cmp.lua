@@ -1,6 +1,10 @@
 return {
   'hrsh7th/nvim-cmp',
-  event = 'InsertEnter',
+
+  event = {
+    'InsertEnter',
+    'CmdlineEnter',
+  },
 
   dependencies = {
     {
@@ -20,17 +24,13 @@ return {
     'hrsh7th/cmp-nvim-lsp-signature-help',
     'hrsh7th/cmp-path',
 
-    'dmitmel/cmp-cmdline-history',
-    'amarakon/nvim-cmp-buffer-lines',
-
-    'chrisgrieser/cmp_yanky',
-
     'onsails/lspkind.nvim',
   },
 
   config = function()
     local cmp = require('cmp')
     local lspkind = require('lspkind')
+    local luasnip = require('luasnip')
 
     local has_words_before = function()
       local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -41,6 +41,28 @@ return {
             :sub(col, col)
             :match('%s')
           == nil
+    end
+
+    local cmp_next_selection = function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      elseif has_words_before() then
+        cmp.complete()
+      else
+        fallback()
+      end
+    end
+
+    local cmp_previous_selection = function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
     end
 
     local enable_cmp = function()
@@ -63,71 +85,40 @@ return {
       formatting = {
         format = lspkind.cmp_format({
           ellipsis_char = '...',
-          maxwidth = 50,
+          maxwidth = 80,
           mode = 'symbol',
 
           show_labelDetails = true,
         }),
       },
 
-      mapping = cmp.mapping.preset.insert({
-        ['<c-e>'] = cmp.mapping.abort(),
-        ['<c-f>'] = cmp.mapping.scroll_docs(-4),
-        ['<c-p>'] = cmp.mapping.scroll_docs(4),
-
-        ['<c-space>'] = cmp.mapping.complete(),
-
-        ['<cr>'] = cmp.mapping.confirm({ select = true }),
-
-        ['<tab>'] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_next_item()
-          elseif has_words_before() then
-            cmp.complete()
-          else
-            fallback()
-          end
-        end, { 'i', 's' }),
-
-        ['<s-tab>'] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_prev_item()
-          else
-            fallback()
-          end
-        end, { 'i', 's' }),
-      }),
-
-      preselect = cmp.PreselectMode.None,
-
       snippet = {
         expand = function(args)
-          require('luasnip').lsp_expand(args.body)
+          luasnip.lsp_expand(args.body)
         end,
       },
 
+      window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+      },
+
+      mapping = cmp.mapping.preset.insert({
+        ['<c-bs>'] = cmp.mapping.complete(),
+        ['<c-e>'] = cmp.mapping.abort(),
+        ['<c-f>'] = cmp.mapping.scroll_docs(-4),
+        ['<c-p>'] = cmp.mapping.scroll_docs(4),
+        ['<cr>'] = cmp.mapping.confirm({ select = true }),
+        ['q'] = cmp.mapping.close_docs(),
+
+        ['<tab>'] = cmp.mapping(cmp_next_selection, { 'i', 's' }),
+        ['<s-tab>'] = cmp.mapping(cmp_previous_selection, { 'i', 's' }),
+
+        ['<down>'] = cmp.mapping(cmp_next_selection, { 'i', 's' }),
+        ['<up>'] = cmp.mapping(cmp_previous_selection, { 'i', 's' }),
+      }),
+
       sources = cmp.config.sources({
-        {
-          name = 'buffer',
-        },
-
-        {
-          name = 'buffer-lines',
-
-          option = {
-            leading_whitespace = false,
-            line_numbers = true,
-          },
-        },
-
-        {
-          name = 'cmp_yanky',
-        },
-
-        {
-          name = 'luasnip',
-        },
-
         {
           name = 'nvim_lsp',
         },
@@ -135,12 +126,11 @@ return {
         {
           name = 'nvim_lsp_signature_help',
         },
-      }),
 
-      window = {
-        completion = cmp.config.window.bordered(),
-        documentation = cmp.config.window.bordered(),
-      },
+        {
+          name = 'luasnip',
+        },
+      }),
     })
 
     cmp.setup.cmdline({ '/', '?' }, {
@@ -148,11 +138,11 @@ return {
 
       sources = cmp.config.sources({
         {
-          name = 'nvim_lsp_document_symbol',
+          name = 'buffer',
         },
 
         {
-          name = 'buffer',
+          name = 'nvim_lsp_document_symbol',
         },
       }),
     })
@@ -165,10 +155,6 @@ return {
           option = {
             ignore_cmds = { 'Man', '!' },
           },
-        },
-
-        {
-          name = 'cmdline_history',
         },
 
         {

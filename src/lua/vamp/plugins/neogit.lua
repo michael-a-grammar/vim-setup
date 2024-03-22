@@ -31,7 +31,7 @@ return {
 
     mappings = {
       commit_editor = {
-        ['<c-c><c-d>'] = 'Abort',
+        ['<c-x>'] = 'Abort',
         ['q'] = 'Close',
       },
 
@@ -41,9 +41,9 @@ return {
       },
 
       rebase_editor = {
-        ['<c-c><c-d>'] = 'Abort',
-        ['ge'] = 'MoveDown',
-        ['gi'] = 'MoveUp',
+        ['<c-n>'] = 'MoveUp',
+        ['<c-p>'] = 'MoveDown',
+        ['<c-x>'] = 'Abort',
       },
     },
   },

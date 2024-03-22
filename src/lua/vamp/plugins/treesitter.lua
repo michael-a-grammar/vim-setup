@@ -18,6 +18,7 @@ return {
       'toml',
       'typescript',
       'vim',
+      'vimdoc',
     },
 
     highlight = {

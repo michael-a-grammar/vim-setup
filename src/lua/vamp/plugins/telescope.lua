@@ -137,19 +137,6 @@ return {
       { desc = 'Resume Telescope', noremap = true }
     )
 
-    vim.keymap.set({ 'n', 'x' }, '<leader>.', function()
-      builtin.find_files({
-        cwd = buffer_dir(),
-      })
-    end, { desc = '' .. ' Find files', noremap = true })
-
-    vim.keymap.set(
-      { 'n', 'x' },
-      '<leader><space>',
-      builtin.find_files,
-      { desc = '' .. ' Find files', noremap = true }
-    )
-
     vim.keymap.set(
       { 'n', 'x' },
       '<leader>*',
@@ -164,6 +151,12 @@ return {
       { desc = '' .. ' Buffers', noremap = true }
     )
 
+    vim.keymap.set({ 'n', 'x' }, '<leader>.', function()
+      builtin.find_files({
+        cwd = buffer_dir(),
+      })
+    end, { desc = '' .. ' Find files', noremap = true })
+
     vim.keymap.set(
       { 'n', 'x' },
       '<leader>/',
@@ -176,6 +169,20 @@ return {
       '<leader><',
       get_buffers,
       { desc = 'Buffers', noremap = true }
+    )
+
+    vim.keymap.set(
+      { 'n', 'x' },
+      '<leader>?',
+      builtin.help_tags,
+      { desc = 'Help tags', noremap = true }
+    )
+
+    vim.keymap.set(
+      { 'n', 'x' },
+      '<leader><space>',
+      builtin.find_files,
+      { desc = '' .. ' Find files', noremap = true }
     )
 
     vim.keymap.set({ 'n', 'x' }, '<leader>ah', function()
@@ -364,13 +371,6 @@ return {
       '<leader>zc',
       builtin.colorscheme,
       { desc = 'Colourschemes', noremap = true }
-    )
-
-    vim.keymap.set(
-      { 'n', 'x' },
-      '<leader>zh',
-      builtin.help_tags,
-      { desc = 'Help tags', noremap = true }
     )
 
     vim.keymap.set(

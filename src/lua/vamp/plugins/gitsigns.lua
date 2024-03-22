@@ -45,17 +45,6 @@ return {
         { desc = 'Diff', noremap = true }
       )
 
-      vim.keymap.set({ 'n', 'x' }, '<leader>ngf', function()
-        if vim.wo.diff then
-          return '[c'
-        end
-
-        vim.schedule(function()
-          gitsigns.prev_hunk()
-        end)
-        return '<ignore>'
-      end, { desc = 'Previous hunk', expr = true, noremap = true })
-
       vim.keymap.set(
         { 'n', 'x' },
         '<leader>ngh',
@@ -74,16 +63,29 @@ return {
         gitsigns.blame_line({ full = true })
       end, { desc = 'Blame', noremap = true })
 
+      vim.keymap.set({ 'n', 'x' }, '<leader>ngn', function()
+        if vim.wo.diff then
+          return ']c'
+        end
+
+        vim.schedule(function()
+          gitsigns.next_hunk()
+        end)
+
+        return '<ignore>'
+      end, { desc = 'Next hunk', expr = true, noremap = true })
+
       vim.keymap.set({ 'n', 'x' }, '<leader>ngp', function()
         if vim.wo.diff then
           return '[c'
         end
 
         vim.schedule(function()
-          gitsigns.next_hunk()
+          gitsigns.prev_hunk()
         end)
+
         return '<ignore>'
-      end, { desc = 'Next hunk', expr = true, noremap = true })
+      end, { desc = 'Previous hunk', expr = true, noremap = true })
 
       vim.keymap.set(
         { 'n', 'x' },

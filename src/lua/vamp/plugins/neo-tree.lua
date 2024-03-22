@@ -11,7 +11,7 @@ return {
   },
 
   opts = {
-    close_if_last_window = true,
+    close_if_last_window = false,
 
     default_component_configs = {
       diagnostics = {
@@ -282,7 +282,7 @@ return {
 
         ['c'] = 'close_node',
         ['h'] = 'split_with_window_picker',
-        ['k'] = 'show_file_details',
+        ['1'] = 'show_file_details',
         ['l'] = 'focus_preview',
 
         ['m'] = {

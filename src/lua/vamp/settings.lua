@@ -1,4 +1,4 @@
-vim.api.nvim_exec('packadd cfilter', false)
+vim.api.nvim_exec2('packadd cfilter', {})
 
 vim.opt.background = 'dark'
 
@@ -103,7 +103,7 @@ vim.opt.conceallevel = 1
 
 vim.opt.visualbell = true
 
-vim.api.nvim_exec('runtime macros/matchit.vim', false)
+vim.api.nvim_exec2('runtime macros/matchit.vim', {})
 
 vim.opt.mouse = 'a'
 vim.opt.termguicolors = true
