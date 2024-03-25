@@ -40,6 +40,8 @@ return {
           'qf',
           'undotree',
           'DiffviewFiles',
+          'DiffviewFileHistoryPanel',
+          'NeogitCommandHistory',
           'NeogitCommitView',
           'NeogitPopup',
           'NeogitStatus',

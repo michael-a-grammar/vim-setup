@@ -342,7 +342,7 @@ vim.keymap.set(
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>w=',
-  '<c-w>=',
+  '<c-w><c-=>',
   { desc = 'Equalise window size', noremap = true }
 )
 
@@ -356,7 +356,7 @@ vim.keymap.set(
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>we',
-  '<c-w>x',
+  '<c-w><c-x>',
   { desc = 'Exchange window', noremap = true }
 )
 
@@ -370,7 +370,7 @@ vim.keymap.set(
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>ww',
-  '<c-w>p',
+  '<c-w><c-p>',
   { desc = 'Previous window', noremap = true }
 )
 
@@ -398,21 +398,21 @@ vim.keymap.set(
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>wmn',
-  '<c-w>H',
+  '<c-w><c-H>',
   { desc = 'Move window to left', noremap = true }
 )
 
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>wme',
-  '<c-w>J',
+  '<c-w><c-J>',
   { desc = 'Move window to bottom', noremap = true }
 )
 
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>wmi',
-  '<c-w>w',
+  '<c-w><c-K>',
   { desc = 'Move window to top', noremap = true }
 )
 
@@ -426,84 +426,84 @@ vim.keymap.set(
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>wnn',
-  '<c-w>h',
+  '<c-w><c-h>',
   { desc = 'Navigate to left window', noremap = true }
 )
 
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>wne',
-  '<c-w>j',
+  '<c-w><c-j>',
   { desc = 'Navigate to bottom window', noremap = true }
 )
 
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>wni',
-  '<c-w>w',
+  '<c-w><c-k>',
   { desc = 'Navigate to top window', noremap = true }
 )
 
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>wno',
-  '<c-w>l',
+  '<c-w><c-l>',
   { desc = 'Navigate to right window', noremap = true }
 )
 
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>wof',
-  '<c-w>R',
+  '<c-w><c-R>',
   { desc = 'Rotate window upwards/leftwards', noremap = true }
 )
 
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>wop',
-  '<c-w>r',
+  '<c-w><c-r>',
   { desc = 'Rotate window downwards/rightwards', noremap = true }
 )
 
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>wrn',
-  '<c-w><',
+  '<c-w><c-<>',
   { desc = 'Decrease window width', noremap = true }
 )
 
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>wre',
-  '<c-w>-',
+  '<c-w><c-->',
   { desc = 'Decrease window height', noremap = true }
 )
 
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>wri',
-  '<c-w>+',
+  '<c-w><c-+>',
   { desc = 'Increase window height', noremap = true }
 )
 
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>wro',
-  '<c-w>>',
+  '<c-w><c->>',
   { desc = 'Increase window width', noremap = true }
 )
 
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>wrh',
-  '<c-w>_',
+  '<c-w><c-_>',
   { desc = 'Maximise window height', noremap = true }
 )
 
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>wrw',
-  '<c-w>|',
+  '<c-w><c-|>',
   { desc = 'Maximise window width', noremap = true }
 )
 

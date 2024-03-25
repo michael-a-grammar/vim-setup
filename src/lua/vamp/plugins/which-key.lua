@@ -106,6 +106,38 @@ return {
 
         m = {
           name = 'Unassigned',
+
+          d = {
+            name = 'Unassigned',
+          },
+
+          i = {
+            name = 'Unassigned',
+          },
+
+          m = {
+            name = 'Unassigned',
+          },
+
+          n = {
+            name = 'Unassigned',
+          },
+
+          p = {
+            name = 'Unassigned',
+          },
+
+          r = {
+            name = 'Unassigned',
+          },
+
+          s = {
+            name = 'Unassigned',
+          },
+
+          t = {
+            name = 'Unassigned',
+          },
         },
 
         n = {

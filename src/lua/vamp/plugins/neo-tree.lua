@@ -11,7 +11,7 @@ return {
   },
 
   opts = {
-    close_if_last_window = false,
+    close_if_last_window = true,
 
     default_component_configs = {
       diagnostics = {

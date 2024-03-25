@@ -47,13 +47,6 @@ return {
 
       vim.keymap.set(
         { 'n', 'x' },
-        '<leader>ngh',
-        gitsigns.preview_hunk,
-        { desc = 'Preview hunk', noremap = true }
-      )
-
-      vim.keymap.set(
-        { 'n', 'x' },
         '<leader>ngl',
         '<cmd>Gitsigns setloclist<cr>',
         { desc = 'Set loclist', noremap = true }
@@ -127,6 +120,13 @@ return {
         '<leader>ngu',
         gitsigns.undo_stage_hunk,
         { desc = 'Undo stage hunk', noremap = true }
+      )
+
+      vim.keymap.set(
+        { 'n', 'x' },
+        '<leader>ngv',
+        gitsigns.preview_hunk,
+        { desc = 'Preview hunk', noremap = true }
       )
 
       vim.keymap.set(

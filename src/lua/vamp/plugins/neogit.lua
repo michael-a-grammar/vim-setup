@@ -32,7 +32,6 @@ return {
     mappings = {
       commit_editor = {
         ['<c-x>'] = 'Abort',
-        ['q'] = 'Close',
       },
 
       finder = {
@@ -41,9 +40,15 @@ return {
       },
 
       rebase_editor = {
-        ['<c-n>'] = 'MoveUp',
+        ['<c-f>'] = 'MoveUp',
         ['<c-p>'] = 'MoveDown',
         ['<c-x>'] = 'Abort',
+      },
+
+      status = {
+        ['<c-f>'] = 'GoToPreviousHunkHeader',
+        ['<c-h>'] = 'SplitOpen',
+        ['<c-p>'] = 'GoToNextHunkHeader',
       },
     },
   },
