@@ -40,12 +40,13 @@ return {
           'qf',
           'undotree',
           'DiffviewFiles',
-          'DiffviewFileHistoryPanel',
+          'DiffviewFileHistory',
           'NeogitCommandHistory',
           'NeogitCommitView',
           'NeogitPopup',
           'NeogitStatus',
           'Outline',
+          'TelescopePrompt',
         },
 
         theme = {

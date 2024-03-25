@@ -25,7 +25,7 @@ vim.keymap.set(
   { 'n', 'x' },
   '<leader>mp',
   [[?|.\{-}|<cr>]],
-  { desc = 'Next help tag', noremap = true, buffer = bufnr }
+  { desc = 'Previous help tag', noremap = true, buffer = bufnr }
 )
 
 local to_register = {

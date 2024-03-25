@@ -4,7 +4,18 @@ return {
   opts = {
     disable = {
       filetypes = {
+        'neo-tree',
+        'neo-tree-popup',
+        'notify',
         'qf',
+        'undotree',
+        'DiffviewFiles',
+        'DiffviewFileHistory',
+        'NeogitCommandHistory',
+        'NeogitCommitView',
+        'NeogitPopup',
+        'NeogitStatus',
+        'Outline',
         'TelescopePrompt',
       },
     },
@@ -12,7 +23,7 @@ return {
     hidden = { '<Plug>' },
 
     icons = {
-      breadcrumb = '' .. ' ',
+      breadcrumb = ' ' .. '' .. ' ',
       group = '',
     },
 
@@ -88,7 +99,7 @@ return {
         },
 
         h = {
-          name = 'Harpoon',
+          name = '',
         },
 
         i = {
@@ -112,39 +123,7 @@ return {
         },
 
         m = {
-          name = 'Unassigned',
-
-          d = {
-            name = 'Unassigned',
-          },
-
-          i = {
-            name = 'Unassigned',
-          },
-
-          m = {
-            name = 'Unassigned',
-          },
-
-          n = {
-            name = 'Unassigned',
-          },
-
-          p = {
-            name = 'Unassigned',
-          },
-
-          r = {
-            name = 'Unassigned',
-          },
-
-          s = {
-            name = 'Unassigned',
-          },
-
-          t = {
-            name = 'Unassigned',
-          },
+          name = 'Local',
         },
 
         n = {

@@ -37,11 +37,11 @@ return {
           icon_hl = 'markdownH1',
           desc = ' Find files',
           desc_hl = 'markdownH1',
-          keymap = '󱁐' .. ' ',
-          key = '<space>',
+          keymap = '󱁐' .. ' ' .. 's',
+          key = 'f',
           key_hl = '@character',
-          key_format = ' ' .. '󱁐',
-          action = "lua vim.api.nvim_input('<space><space>')",
+          key_format = ' %s',
+          action = "lua vim.api.nvim_input('<space>sf')",
         },
 
         {
@@ -62,10 +62,10 @@ return {
           desc = ' Harpoon',
           desc_hl = 'markdownH3',
           keymap = '󱁐' .. ' ' .. 'h',
-          key = 't',
+          key = 'h',
           key_hl = '@character',
           key_format = ' %s',
-          action = "lua vim.api.nvim_input('<space>ht')",
+          action = "lua vim.api.nvim_input('<space>hh')",
         },
 
         {

@@ -47,6 +47,11 @@ return {
           text = '󰊕',
           text_align = 'center',
         },
+        {
+          filetype = 'undotree',
+          text = '',
+          text_align = 'center',
+        },
       },
     },
   },

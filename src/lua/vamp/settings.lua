@@ -1,5 +1,3 @@
-vim.api.nvim_exec2('packadd cfilter', {})
-
 vim.opt.background = 'dark'
 
 vim.opt.clipboard:append('unnamed')
