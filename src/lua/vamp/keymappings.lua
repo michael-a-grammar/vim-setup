@@ -109,7 +109,7 @@ vim.keymap.set({ 'n', 'x' }, 'U', '<c-r>', { desc = 'Redo', noremap = true })
 
 vim.keymap.set(
   { 'n', 'x' },
-  'h',
+  '1',
   vim.lsp.buf.hover,
   { desc = 'Hover', noremap = true }
 )

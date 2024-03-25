@@ -183,7 +183,7 @@ return {
           local to_register = {
             ['<leader>'] = {
               m = {
-                name = ' ' .. '',
+                name = '',
 
                 d = {
                   name = 'Diagnostics',

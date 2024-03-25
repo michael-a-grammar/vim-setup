@@ -31,7 +31,7 @@ vim.keymap.set(
 local to_register = {
   ['<leader>'] = {
     m = {
-      name = ' ' .. '󰮥',
+      name = '󰋖',
     },
   },
 }

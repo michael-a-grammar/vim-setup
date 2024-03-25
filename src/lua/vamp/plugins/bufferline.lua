@@ -14,7 +14,7 @@ return {
         end
 
         local icon = level:match('error') and ''
-          or level:match('hint') and '󰌵'
+          or level:match('hint') and '󰮥'
           or level:match('info') and ''
           or level:match('warn') and ''
 

@@ -11,8 +11,13 @@ return {
 
     hidden = { '<Plug>' },
 
+    icons = {
+      breadcrumb = '' .. ' ',
+      group = '',
+    },
+
     key_labels = {
-      ['<space>'] = '󰭟',
+      ['<space>'] = '󱁐',
       ['<bs>'] = '󰁮',
       ['<down>'] = '',
       ['<left>'] = '',
@@ -29,6 +34,8 @@ return {
       scroll_up = '<c-f>',
       scroll_down = '<c-p>',
     },
+
+    show_help = false,
 
     window = {
       border = 'rounded',
@@ -73,7 +80,7 @@ return {
         },
 
         g = {
-          name = 'Git',
+          name = '',
 
           s = {
             name = 'Search',
@@ -173,11 +180,11 @@ return {
         },
 
         q = {
-          name = 'Quit',
+          name = '󱠡',
         },
 
         r = {
-          name = 'Terminal',
+          name = '',
         },
 
         s = {
@@ -241,7 +248,7 @@ return {
         },
 
         z = {
-          name = 'Vim',
+          name = '',
         },
       },
     }

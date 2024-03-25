@@ -193,7 +193,7 @@ return {
 
       symbols = {
         error = '' .. ' ',
-        hint = '󰌵' .. ' ',
+        hint = '󰮥' .. ' ',
         info = '' .. ' ',
         warn = '' .. ' ',
       },

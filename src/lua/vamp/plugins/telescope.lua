@@ -231,11 +231,12 @@ return {
       { desc = 'Quickfix history', noremap = true }
     )
 
-    vim.keymap.set({ 'n', 'x' }, '<leader>ff', function()
-      builtin.oldfiles({
-        only_cwd = true,
-      })
-    end, { desc = '' .. ' Recent files', noremap = true })
+    vim.keymap.set(
+      { 'n', 'x' },
+      '<leader>ff',
+      builtin.oldfiles,
+      { desc = '' .. ' Recent files', noremap = true }
+    )
 
     vim.keymap.set(
       { 'n', 'x' },
@@ -244,12 +245,11 @@ return {
       { desc = 'Marks', noremap = true }
     )
 
-    vim.keymap.set(
-      { 'n', 'x' },
-      '<leader>fr',
-      builtin.oldfiles,
-      { desc = '' .. ' Recent files', noremap = true }
-    )
+    vim.keymap.set({ 'n', 'x' }, '<leader>fr', function()
+      builtin.oldfiles({
+        only_cwd = true,
+      })
+    end, { desc = '' .. ' Recent files', noremap = true })
 
     vim.keymap.set(
       { 'n', 'x' },

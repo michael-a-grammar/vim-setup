@@ -68,90 +68,6 @@ return {
 
             vim.keymap.set(
               { 'n', 'x' },
-              '<leader>mna',
-              ':Etask ',
-              { desc = 'New Task', buffer = bufnr, noremap = true }
-            )
-
-            vim.keymap.set(
-              { 'n', 'x' },
-              '<leader>mnc',
-              ':Econtroller ',
-              { desc = 'New Controller', buffer = bufnr, noremap = true }
-            )
-
-            vim.keymap.set(
-              { 'n', 'x' },
-              '<leader>mne',
-              ':Echannel ',
-              { desc = 'New Channel', buffer = bufnr, noremap = true }
-            )
-
-            vim.keymap.set(
-              { 'n', 'x' },
-              '<leader>mnf',
-              ':Efeature ',
-              { desc = 'New Feature', buffer = bufnr, noremap = true }
-            )
-
-            vim.keymap.set(
-              { 'n', 'x' },
-              '<leader>mnh',
-              ':Ehtml ',
-              { desc = 'New HTML', buffer = bufnr, noremap = true }
-            )
-
-            vim.keymap.set(
-              { 'n', 'x' },
-              '<leader>mnj',
-              ':Ejson ',
-              { desc = 'New JSON', buffer = bufnr, noremap = true }
-            )
-
-            vim.keymap.set(
-              { 'n', 'x' },
-              '<leader>mnl',
-              ':Eliveview ',
-              { desc = 'New LiveView', buffer = bufnr, noremap = true }
-            )
-
-            vim.keymap.set(
-              { 'n', 'x' },
-              '<leader>mnm',
-              ':Ecomponent ',
-              { desc = 'New Component', buffer = bufnr, noremap = true }
-            )
-
-            vim.keymap.set(
-              { 'n', 'x' },
-              '<leader>mnn',
-              ':Esource ',
-              { desc = 'New Module', buffer = bufnr, noremap = true }
-            )
-
-            vim.keymap.set(
-              { 'n', 'x' },
-              '<leader>mno',
-              ':Elivecomponent ',
-              { desc = 'New LiveComponent', buffer = bufnr, noremap = true }
-            )
-
-            vim.keymap.set(
-              { 'n', 'x' },
-              '<leader>mnt',
-              ':Etest ',
-              { desc = 'New Test', buffer = bufnr, noremap = true }
-            )
-
-            vim.keymap.set(
-              { 'n', 'x' },
-              '<leader>mnv',
-              ':Eview ',
-              { desc = 'New View', buffer = bufnr, noremap = true }
-            )
-
-            vim.keymap.set(
-              { 'n', 'x' },
               '<leader>mpf',
               '<cmd>ElixirFromPipe<cr>',
               { desc = 'From pipe', buffer = bufnr, noremap = true }
@@ -195,11 +111,7 @@ return {
 
             local to_register = {
               ['<leader>m'] = {
-                name = 'Elixir',
-
-                n = {
-                  name = 'New file',
-                },
+                name = '',
 
                 p = {
                   name = 'Pipes',

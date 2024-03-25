@@ -17,7 +17,7 @@ return {
       diagnostics = {
         symbols = {
           error = '',
-          hint = '󰌵',
+          hint = '󰮥',
           info = '',
           warn = '',
         },
