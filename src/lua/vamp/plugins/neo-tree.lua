@@ -282,7 +282,7 @@ return {
 
         ['c'] = 'close_node',
         ['h'] = 'split_with_window_picker',
-        ['1'] = 'show_file_details',
+        ['i'] = 'show_file_details',
         ['l'] = 'focus_preview',
 
         ['m'] = {

@@ -100,6 +100,6 @@ return {
   config = function(_, opts)
     require('catppuccin').setup(opts)
 
-    vim.api.nvim_exec('colorscheme catppuccin', false)
+    vim.api.nvim_exec2('colorscheme catppuccin', {})
   end,
 }

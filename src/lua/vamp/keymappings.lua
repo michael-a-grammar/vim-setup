@@ -72,21 +72,7 @@ vim.keymap.set(
 
 vim.keymap.set(
   { 'n', 'x' },
-  'H',
-  'g^',
-  { desc = 'Start of line', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
   '$',
-  'g$',
-  { desc = 'End of line', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  'L',
   'g$',
   { desc = 'End of line', noremap = true }
 )
@@ -109,7 +95,7 @@ vim.keymap.set({ 'n', 'x' }, 'U', '<c-r>', { desc = 'Redo', noremap = true })
 
 vim.keymap.set(
   { 'n', 'x' },
-  '1',
+  '<leader>i',
   vim.lsp.buf.hover,
   { desc = 'Hover', noremap = true }
 )

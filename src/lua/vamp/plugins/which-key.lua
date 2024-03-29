@@ -47,10 +47,6 @@ return {
     },
 
     show_help = false,
-
-    window = {
-      border = 'rounded',
-    },
   },
 
   config = function(_, opts)
