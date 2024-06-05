@@ -58,17 +58,17 @@ return {
 
     for _, picker in ipairs(pickers) do
       pickers_configuration[picker] = {
-        -- theme = 'ivy',
+        theme = 'ivy',
       }
     end
 
-    local trouble = require('trouble.providers.telescope')
+    local trouble = require('trouble.sources.telescope')
 
     return {
       defaults = {
         mappings = {
-          i = { ['<c-r>'] = trouble.open_with_trouble },
-          n = { ['<c-r>'] = trouble.open_with_trouble },
+          i = { ['<c-r>'] = trouble.open },
+          n = { ['<c-r>'] = trouble.open },
         },
         path_display = {
           truncate = 1,
@@ -76,7 +76,7 @@ return {
       },
       extensions = {
         file_browser = {
-          -- theme = 'ivy',
+          theme = 'ivy',
         },
       },
       pickers = pickers_configuration,

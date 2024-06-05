@@ -9,8 +9,6 @@ return {
         'notify',
         'qf',
         'undotree',
-        'DiffviewFiles',
-        'DiffviewFileHistory',
         'NeogitCommandHistory',
         'NeogitCommitView',
         'NeogitPopup',

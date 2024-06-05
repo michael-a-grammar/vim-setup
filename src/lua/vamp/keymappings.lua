@@ -210,14 +210,14 @@ vim.keymap.set(
   { 'n', 'x' },
   '<leader>ndd',
   '<cmd>bdelete<cr>',
-  { desc = 'Delete buffer', noremap = true }
+  { desc = 'Close buffer', noremap = true }
 )
 
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>ndf',
   '<cmd>bdelete!<cr>',
-  { desc = '' .. ' Delete buffer', noremap = true }
+  { desc = '' .. ' Close buffer', noremap = true }
 )
 
 vim.keymap.set(
@@ -315,14 +315,14 @@ vim.keymap.set(
   { 'n', 'x' },
   '<leader>txf',
   '<cmd>%bdelete! | edit#<cr>',
-  { desc = '' .. ' Delete other buffers', noremap = true }
+  { desc = '' .. ' Close other buffers', noremap = true }
 )
 
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>txx',
   '<cmd>%bdelete | edit#<cr>',
-  { desc = 'Delete other buffers', noremap = true }
+  { desc = 'Close other buffers', noremap = true }
 )
 
 vim.keymap.set(

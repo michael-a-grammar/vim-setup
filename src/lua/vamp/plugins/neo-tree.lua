@@ -11,7 +11,7 @@ return {
   },
 
   opts = {
-    close_if_last_window = true,
+    close_if_last_window = false,
 
     default_component_configs = {
       diagnostics = {
@@ -62,53 +62,7 @@ return {
 
           ['.'] = 'set_root',
 
-          ['s'] = {
-            'show_help',
-
-            config = {
-              prefix_key = 'o',
-              title = 'Order by',
-            },
-
-            nowait = true,
-          },
-
-          ['x'] = 'buffer_delete',
-
-          ['sc'] = {
-            'order_by_created',
-            nowait = true,
-          },
-
-          ['sd'] = {
-            'order_by_diagnostics',
-            nowait = true,
-          },
-
-          ['sg'] = {
-            'order_by_git_status',
-            nowait = true,
-          },
-
-          ['sm'] = {
-            'order_by_modified',
-            nowait = true,
-          },
-
-          ['sn'] = {
-            'order_by_name',
-            nowait = true,
-          },
-
-          ['ss'] = {
-            'order_by_size',
-            nowait = true,
-          },
-
-          ['st'] = {
-            'order_by_type',
-            nowait = true,
-          },
+          ['d'] = 'buffer_delete',
         },
       },
     },
@@ -121,66 +75,43 @@ return {
 
       window = {
         mappings = {
-          ['<c-x>'] = 'clear_filter',
-
           ['<bs>'] = 'navigate_up',
 
-          ['#'] = 'fuzzy_sorter',
-          [','] = 'fuzzy_finder_directory',
           ['.'] = 'set_root',
-          ['/'] = 'fuzzy_finder',
+          ['/'] = 'filter_on_submit',
 
-          ['[g'] = 'prev_git_modified',
-          [']g'] = 'next_git_modified',
+          ['g'] = {
+            'show_help',
 
-          ['f'] = 'filter_on_submit',
-          ['u'] = 'toggle_hidden',
+            config = {
+              prefix_key = 'g',
+              title = '',
+            },
+
+            nowait = false,
+          },
+
+          ['gn'] = 'next_git_modified',
+          ['gp'] = 'prev_git_modified',
+
+          ['h'] = 'toggle_hidden',
+          ['f'] = 'fuzzy_finder',
 
           ['s'] = {
             'show_help',
 
             config = {
               prefix_key = 's',
-              title = 'Order by',
+              title = 'Search',
             },
 
             nowait = true,
           },
 
-          ['sc'] = {
-            'order_by_created',
-            nowait = true,
-          },
-
-          ['sd'] = {
-            'order_by_diagnostics',
-            nowait = true,
-          },
-
-          ['sg'] = {
-            'order_by_git_status',
-            nowait = true,
-          },
-
-          ['sm'] = {
-            'order_by_modified',
-            nowait = true,
-          },
-
-          ['sn'] = {
-            'order_by_name',
-            nowait = true,
-          },
-
-          ['ss'] = {
-            'order_by_size',
-            nowait = true,
-          },
-
-          ['st'] = {
-            'order_by_type',
-            nowait = true,
-          },
+          ['sd'] = 'fuzzy_finder_directory',
+          ['sf'] = 'filter_on_submit',
+          ['ss'] = 'fuzzy_sorter',
+          ['sx'] = 'clear_filter',
         },
 
         fuzzy_finder_mappings = {
@@ -194,6 +125,17 @@ return {
       window = {
         position = 'float',
         mappings = {
+          ['g'] = {
+            'show_help',
+
+            config = {
+              prefix_key = 'g',
+              title = '',
+            },
+
+            nowait = false,
+          },
+
           ['ga'] = 'git_add_all',
           ['gc'] = 'git_commit',
           ['gg'] = 'git_commit_and_push',
@@ -201,52 +143,6 @@ return {
           ['gr'] = 'git_revert_file',
           ['gs'] = 'git_add_file',
           ['gu'] = 'git_unstage_file',
-
-          ['s'] = {
-            'show_help',
-
-            config = {
-              prefix_key = 's',
-              title = 'Order by',
-            },
-
-            nowait = true,
-          },
-
-          ['sc'] = {
-            'order_by_created',
-            nowait = true,
-          },
-
-          ['sd'] = {
-            'order_by_diagnostics',
-            nowait = true,
-          },
-
-          ['sg'] = {
-            'order_by_git_status',
-            nowait = true,
-          },
-
-          ['sm'] = {
-            'order_by_modified',
-            nowait = true,
-          },
-
-          ['sn'] = {
-            'order_by_name',
-            nowait = true,
-          },
-
-          ['ss'] = {
-            'order_by_size',
-            nowait = true,
-          },
-
-          ['st'] = {
-            'order_by_type',
-            nowait = true,
-          },
         },
       },
     },
@@ -256,49 +152,51 @@ return {
       width = 30,
 
       mappings = {
-        ['<c-c>'] = {
-          'copy',
+        ['='] = 'toggle_auto_expand_width',
+
+        ['<cr>'] = {
+          'show_help',
+
           config = {
-            show_path = 'relative',
+            prefix_key = '<cr>',
+            title = 'Open',
           },
         },
 
-        ['<c-r>'] = 'refresh',
-        ['<c-v>'] = 'paste_from_clipboard',
-        ['<c-x>'] = 'cut_to_clipboard',
-        ['<c-y>'] = 'copy_to_clipboard',
+        ['<cr><cr>'] = 'open',
+
+        ['<cr>h'] = 'split_with_window_picker',
+        ['<cr>t'] = 'open_tabnew',
+        ['<cr>v'] = 'vsplit_with_window_picker',
+        ['<cr>w'] = 'open_with_window_picker',
 
         ['<space>'] = {
-          'toggle_node',
-          nowait = true,
+          'show_help',
+
+          config = {
+            prefix_key = '<space>',
+            title = 'Actions',
+          },
+
+          nowait = false,
         },
+
+        ['<space><space>'] = 'toggle_node',
+
+        ['<space>c'] = 'close_all_subnodes',
+        ['<space>m'] = 'close_all_nodes',
+        ['<space>r'] = 'expand_all_nodes',
 
         ['a'] = {
-          'add',
+          'show_help',
+
           config = {
-            show_path = 'relative',
+            prefix_key = 'a',
+            title = 'Add',
           },
         },
 
-        ['c'] = 'close_node',
-        ['h'] = 'split_with_window_picker',
-        ['i'] = 'show_file_details',
-        ['l'] = 'focus_preview',
-
-        ['m'] = {
-          'move',
-          config = {
-            show_path = 'relative',
-          },
-        },
-
-        ['p'] = 'toggle_preview',
-        ['r'] = 'rename',
-        ['t'] = 'open_tabnew',
-        ['v'] = 'vsplit_with_window_picker',
-        ['w'] = 'open_with_window_picker',
-
-        ['A'] = {
+        ['ad'] = {
           'add_directory',
 
           config = {
@@ -306,9 +204,60 @@ return {
           },
         },
 
-        ['C'] = 'close_all_subnodes',
-        ['M'] = 'close_all_nodes',
-        ['R'] = 'expand_all_nodes',
+        ['af'] = {
+          'add',
+          config = {
+            show_path = 'relative',
+          },
+        },
+
+        ['c'] = 'toggle_node',
+
+        ['e'] = {
+          'show_help',
+
+          config = {
+            prefix_key = 'e',
+            title = 'Modify',
+          },
+
+          nowait = true,
+        },
+
+        ['ec'] = {
+          'copy',
+          config = {
+            show_path = 'relative',
+          },
+        },
+
+        ['ed'] = 'delete',
+
+        ['ei'] = 'show_file_details',
+
+        ['em'] = {
+          'move',
+          config = {
+            show_path = 'relative',
+          },
+        },
+
+        ['er'] = 'rename',
+        ['ev'] = 'paste_from_clipboard',
+        ['ex'] = 'cut_to_clipboard',
+        ['ey'] = 'copy_to_clipboard',
+
+        ['p'] = {
+          'toggle_preview',
+          config = {
+            use_float = true,
+            use_image_nvim = true,
+          },
+        },
+
+        ['r'] = 'refresh',
+
+        ['P'] = 'focus_preview',
       },
     },
   },
