@@ -4,6 +4,7 @@ return {
   opts = {
     disable = {
       filetypes = {
+        'lazy',
         'neo-tree',
         'neo-tree-popup',
         'notify',

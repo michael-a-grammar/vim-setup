@@ -1,5 +1,6 @@
 return {
   'catppuccin/nvim',
+
   name = 'catppuccin',
   priority = 1000,
 
@@ -9,7 +10,7 @@ return {
       light = 'latte',
     },
 
-    flavour = 'mocha',
+    flavour = _G.catppuccin_theme,
 
     integrations = {
       beacon = true,
@@ -102,8 +103,10 @@ return {
 
     vim.api.nvim_exec2('colorscheme catppuccin', {})
 
-    local catppuccin = require('catppuccin.palettes').get_palette('mocha')
+    local catppuccin =
+      require('catppuccin.palettes').get_palette(_G.catppuccin_theme)
 
+    vim.api.nvim_set_hl(0, 'NormalFloat', { bg = catppuccin.base })
     vim.api.nvim_set_hl(0, 'WinSeparator', { fg = catppuccin.blue })
   end,
 }

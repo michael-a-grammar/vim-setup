@@ -3,7 +3,8 @@ return {
   dependencies = 'nvim-tree/nvim-web-devicons',
 
   opts = function(_, _)
-    local catppuccin = require('catppuccin.palettes').get_palette('mocha')
+    local catppuccin =
+      require('catppuccin.palettes').get_palette(_G.catppuccin_theme)
 
     local colors = {
       bg = catppuccin.crust,
@@ -36,6 +37,7 @@ return {
         section_separators = '',
 
         disabled_filetypes = {
+          'lazy',
           'neo-tree',
           'neo-tree-popup',
           'notify',
@@ -152,34 +154,37 @@ return {
 
     insert_into_left_section({
       'filename',
-      cond = conditions.is_buffer_empty,
 
       color = {
         fg = colors.magenta,
         gui = 'bold',
       },
+
+      cond = conditions.is_buffer_empty,
     })
 
     insert_into_left_section({
       'filetype',
-      cond = conditions.is_buffer_empty,
 
       color = {
         fg = colors.magenta,
         gui = 'bold',
       },
+
+      cond = conditions.is_buffer_empty,
 
       icon_only = true,
     })
 
     insert_into_left_section({
       'filesize',
-      cond = conditions.is_buffer_empty,
 
       color = {
         fg = colors.dark_fg,
         gui = 'bold',
       },
+
+      cond = conditions.is_buffer_empty,
     })
 
     insert_into_left_section({
@@ -263,82 +268,66 @@ return {
     })
 
     insert_into_right_section({
-      require('noice').api.status.message.get,
-      cond = require('noice').api.status.message.has,
-
-      color = {
-        fg = colors.blue,
-      },
-    })
-
-    insert_into_right_section({
       function()
-        local command = require('noice').api.status.command.get()
-
-        if not command ~= nil and command:find('~@k$') then
-          return command:gsub('~@k$', ' ') .. ''
-        end
-
-        return command
+        return require('noice').api.status.mode
+          :get()
+          :gsub('^recording @(.-)$', '󰑋 %1')
       end,
-
-      cond = require('noice').api.status.command.has,
-
-      color = {
-        fg = colors.orange,
-      },
-    })
-
-    insert_into_right_section({
-      function()
-        local status_mode = require('noice').api.status.mode.get()
-
-        if not status_mode ~= nil and status_mode:find('^recording') then
-          return '󰑋' .. status_mode:gsub('^recording', '')
-        end
-
-        return status_mode
-      end,
-
-      cond = require('noice').api.status.mode.has,
 
       color = {
         fg = colors.magenta,
       },
+
+      cond = require('noice').api.status.mode.has,
     })
 
     insert_into_right_section({
-      require('noice').api.status.search.get,
-      cond = require('noice').api.status.search.has,
+      function()
+        return require('noice').api.status.command
+          .get()
+          :gsub('~@k$', ' ')
+          :gsub('<20>', ' 󱁐 ')
+          :gsub('%^%[', ' 󱊷 ')
+          :gsub('%^', ' 󰘴 ')
+          :gsub('^%s*(.-)%s*$', '%1')
+      end,
+
       color = {
         fg = colors.orange,
       },
+
+      cond = require('noice').api.status.command.has,
     })
 
     insert_into_right_section({
       'o:encoding',
-      cond = conditions.hide,
 
       color = {
         fg = colors.green,
         gui = 'bold',
       },
+
+      cond = conditions.hide,
     })
 
     insert_into_right_section({
       'fileformat',
-      icons_enabled = false,
 
       color = {
         fg = colors.green,
         gui = 'bold',
       },
+
+      icons_enabled = false,
     })
 
     insert_into_right_section({
       'branch',
 
-      icon = '',
+      color = {
+        fg = colors.violet,
+        gui = 'bold',
+      },
 
       fmt = function(section)
         if string.len(section) > 1 then
@@ -352,20 +341,13 @@ return {
         return section
       end,
 
-      color = {
-        fg = colors.violet,
-        gui = 'bold',
-      },
+      icon = '',
     })
 
     insert_into_right_section({
       'diff',
 
-      symbols = {
-        added = '' .. ' ',
-        modified = '󰝤' .. ' ',
-        removed = '' .. ' ',
-      },
+      cond = conditions.hide,
 
       diff_color = {
         added = {
@@ -381,7 +363,11 @@ return {
         },
       },
 
-      cond = conditions.hide,
+      symbols = {
+        added = '' .. ' ',
+        modified = '󰝤' .. ' ',
+        removed = '' .. ' ',
+      },
     })
 
     return opts

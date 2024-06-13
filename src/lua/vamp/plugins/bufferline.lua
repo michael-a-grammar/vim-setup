@@ -6,7 +6,8 @@ return {
     options = {
       diagnostics = 'nvim_lsp',
       numbers = 'both',
-      separator_style = 'thin',
+      separator_style = 'slant',
+      show_buffer_close_icons = false,
       show_close_icon = false,
 
       diagnostics_indicator = function(count, level, _, context)

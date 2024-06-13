@@ -87,7 +87,8 @@ return {
     local telescope = require('telescope')
     local builtin = require('telescope.builtin')
     local buffer_dir = require('telescope.utils').buffer_dir
-    local catppuccin = require('catppuccin.palettes').get_palette('mocha')
+    local catppuccin =
+      require('catppuccin.palettes').get_palette(_G.catppuccin_theme)
     local noice = require('noice')
 
     telescope.setup(opts)

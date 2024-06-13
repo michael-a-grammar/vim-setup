@@ -61,5 +61,10 @@ return {
     vim.keymap.set({ 'n', 'x' }, '<leader>kt', function()
       trouble.toggle()
     end, { desc = 'Toggle trouble', noremap = true })
+
+    local catppuccin =
+      require('catppuccin.palettes').get_palette(_G.catppuccin_theme)
+
+    vim.api.nvim_set_hl(0, 'TroubleNormal', { bg = catppuccin.base })
   end,
 }

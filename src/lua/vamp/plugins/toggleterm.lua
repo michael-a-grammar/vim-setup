@@ -2,7 +2,8 @@ return {
   'akinsho/toggleterm.nvim',
 
   opts = function(_, _)
-    local catppuccin = require('catppuccin.palettes').get_palette('mocha')
+    local catppuccin =
+      require('catppuccin.palettes').get_palette(_G.catppuccin_theme)
 
     return {
       direction = 'float',

@@ -267,20 +267,6 @@ return {
   config = function(_, opts)
     require('neo-tree').setup(opts)
 
-    local catppuccin = require('catppuccin.palettes').get_palette('mocha')
-
-    vim.api.nvim_set_hl(0, 'NeoTreeModified', {
-      fg = catppuccin.yellow,
-    })
-
-    vim.api.nvim_set_hl(0, 'NeoTreeNormal', {
-      bg = catppuccin.base,
-    })
-
-    vim.api.nvim_set_hl(0, 'NeoTreeNormalNC', {
-      bg = catppuccin.base,
-    })
-
     vim.keymap.set(
       { 'n', 'x' },
       '<leader>l',
@@ -294,5 +280,24 @@ return {
       '<cmd>Neotree toggle reveal<cr>',
       { desc = 'Neotree toggle', noremap = true }
     )
+
+    local catppuccin =
+      require('catppuccin.palettes').get_palette(_G.catppuccin_theme)
+
+    vim.api.nvim_set_hl(0, 'NeoTreeModified', {
+      fg = catppuccin.yellow,
+    })
+
+    vim.api.nvim_set_hl(0, 'NeoTreeNormal', {
+      bg = catppuccin.base,
+    })
+
+    vim.api.nvim_set_hl(0, 'NeoTreeNormalNC', {
+      bg = catppuccin.base,
+    })
+
+    vim.api.nvim_set_hl(0, 'NeoTreeWinSeparator', {
+      fg = catppuccin.blue,
+    })
   end,
 }

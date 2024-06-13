@@ -42,27 +42,42 @@ return {
           == nil
     end
 
-    local cmp_next_selection = function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-      elseif has_words_before() then
-        cmp.complete()
-      else
-        fallback()
+    local cmp_next_selection_factory = function(count)
+      return function(fallback)
+        if cmp.visible() then
+          cmp.select_next_item({
+            behavior = cmp.SelectBehavior.Select,
+            count = count,
+          })
+        elseif luasnip.expand_or_jumpable() then
+          luasnip.expand_or_jump()
+        elseif has_words_before() then
+          cmp.complete()
+        else
+          fallback()
+        end
       end
     end
 
-    local cmp_previous_selection = function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
+    local cmp_previous_selection_factory = function(count)
+      return function(fallback)
+        if cmp.visible() then
+          cmp.select_prev_item({
+            behavior = cmp.SelectBehavior.Select,
+            count = count,
+          })
+        elseif luasnip.jumpable(-1) then
+          luasnip.jump(-1)
+        else
+          fallback()
+        end
       end
     end
+
+    local cmp_next_selection = cmp_next_selection_factory(1)
+    local cmp_previous_selection = cmp_previous_selection_factory(1)
+    local cmp_page_down_selection = cmp_next_selection_factory(3)
+    local cmp_page_up_selection = cmp_previous_selection_factory(3)
 
     local cmp_config_window_bordered = cmp.config.window.bordered()
 
@@ -140,7 +155,18 @@ return {
         ['q'] = cmp.mapping.close_docs(),
 
         ['<cr>'] = cmp.mapping.confirm({
-          select = true,
+          select = false,
+          behavior = cmp.ConfirmBehavior.Replace,
+        }),
+
+        ['<down>'] = cmp.mapping(cmp_next_selection, {
+          'i',
+          's',
+        }),
+
+        ['<up>'] = cmp.mapping(cmp_previous_selection, {
+          'i',
+          's',
         }),
 
         ['<tab>'] = cmp.mapping(cmp_next_selection, {
@@ -153,12 +179,12 @@ return {
           's',
         }),
 
-        ['<down>'] = cmp.mapping(cmp_next_selection, {
+        ['<pageup>'] = cmp.mapping(cmp_page_up_selection, {
           'i',
           's',
         }),
 
-        ['<up>'] = cmp.mapping(cmp_previous_selection, {
+        ['<pagedown>'] = cmp.mapping(cmp_page_down_selection, {
           'i',
           's',
         }),
@@ -218,7 +244,8 @@ return {
       }),
     })
 
-    local catppuccin = require('catppuccin.palettes').get_palette('mocha')
+    local catppuccin =
+      require('catppuccin.palettes').get_palette(_G.catppuccin_theme)
 
     vim.api.nvim_set_hl(
       0,

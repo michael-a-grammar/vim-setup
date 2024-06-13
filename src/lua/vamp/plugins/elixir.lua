@@ -3,7 +3,6 @@ return {
     'elixir-tools/elixir-tools.nvim',
     dependencies = 'nvim-lua/plenary.nvim',
     ft = 'elixir',
-    enabled = false,
 
     opts = function(_, _)
       local capabilities = require('cmp_nvim_lsp').default_capabilities(
