@@ -37,6 +37,8 @@ return {
 
     noice.setup(opts)
 
+    require('telescope').load_extension('noice')
+
     vim.keymap.set({ 'n', 'x' }, '<leader>aa', function()
       noice.cmd('dismiss')
     end, { desc = 'Dimiss notifications', noremap = true })

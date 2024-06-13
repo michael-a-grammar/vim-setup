@@ -26,7 +26,7 @@ return {
 
     trouble.setup(opts)
 
-    vim.keymap.set({ 'n', 'x' }, '<leader>gd', function()
+    vim.keymap.set({ 'n', 'x' }, 'gd', function()
       trouble.toggle('lsp_definitions')
     end, { desc = 'Definitions', noremap = true })
 
@@ -35,12 +35,8 @@ return {
     end, { desc = 'References', noremap = true })
 
     vim.keymap.set({ 'n', 'x' }, '<leader>dd', function()
-      trouble.toggle('workspace_diagnostics')
-    end, { desc = 'Workspace diagnostics', noremap = true })
-
-    vim.keymap.set({ 'n', 'x' }, '<leader>dt', function()
-      trouble.toggle('document_diagnostics')
-    end, { desc = 'Document diagnostics', noremap = true })
+      trouble.toggle('diagnostics')
+    end, { desc = 'Diagnostics', noremap = true })
 
     vim.keymap.set({ 'n', 'x' }, '<leader>ed', function()
       trouble.toggle('lsp_definitions')

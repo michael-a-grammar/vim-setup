@@ -11,7 +11,7 @@ return {
     show_basename = false,
 
     symbols = {
-      separator = '',
+      separator = ' ',
     },
 
     theme = 'catppuccin',

@@ -327,6 +327,34 @@ vim.keymap.set(
 
 vim.keymap.set(
   { 'n', 'x' },
+  '<leader>w<down>',
+  '<c-w>j',
+  { desc = 'Move to bottom window', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<leader>w<up>',
+  '<c-w>w',
+  { desc = 'Move to top window', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<leader>w<left>',
+  '<c-w>h',
+  { desc = 'Move to left window', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<leader>w<right>',
+  '<c-w>l',
+  { desc = 'Move to right window', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
   '<leader>w=',
   '<c-w><c-=>',
   { desc = 'Equalise window size', noremap = true }

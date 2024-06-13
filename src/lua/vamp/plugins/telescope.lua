@@ -114,7 +114,6 @@ return {
     })
 
     local file_browser = telescope.extensions.file_browser.file_browser
-
     local yank_ring_history = telescope.extensions.yank_history.yank_history
 
     local create_get_buffers = function(only_cwd)
@@ -375,7 +374,7 @@ return {
 
     vim.keymap.set(
       { 'n', 'x' },
-      '<leader>zi',
+      '<leader>zh',
       builtin.highlights,
       { desc = 'Highlights', noremap = true }
     )

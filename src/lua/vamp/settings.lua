@@ -2,10 +2,9 @@ vim.opt.background = 'dark'
 
 vim.opt.clipboard:append('unnamed')
 
-vim.opt.spelllang = { 'en_gb', 'en' }
+vim.opt.spelllang = { 'en_gb', 'en', 'it', 'es' }
 
-vim.opt.fileencoding = 'utf-8'
-vim.opt.bomb = true
+vim.opt.encoding = 'utf-8'
 
 vim.opt.backspace = { 'indent', 'eol', 'start' }
 vim.opt.expandtab = true
@@ -66,8 +65,7 @@ vim.opt.completeopt = {
 vim.opt.history = 1000
 vim.opt.wildmenu = true
 
-vim.opt.cmdheight = 1
-vim.opt.laststatus = 2
+vim.opt.laststatus = 3
 
 vim.opt.shortmess:append('c')
 vim.opt.showcmd = true

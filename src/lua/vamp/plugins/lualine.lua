@@ -37,7 +37,11 @@ return {
 
         disabled_filetypes = {
           'neo-tree',
+          'neo-tree-popup',
+          'notify',
           'qf',
+          'trouble',
+          'toggleterm',
           'undotree',
           'DiffviewFiles',
           'DiffviewFileHistory',
@@ -82,11 +86,6 @@ return {
         lualine_z = {},
         lualine_c = {},
         lualine_x = {},
-      },
-
-      extensions = {
-        'toggleterm',
-        'trouble',
       },
     }
 
@@ -152,21 +151,33 @@ return {
     })
 
     insert_into_left_section({
-      'filesize',
-      cond = conditions.is_buffer_empty,
-
-      color = {
-        fg = colors.dark_fg,
-        gui = 'bold',
-      },
-    })
-
-    insert_into_left_section({
       'filename',
       cond = conditions.is_buffer_empty,
 
       color = {
         fg = colors.magenta,
+        gui = 'bold',
+      },
+    })
+
+    insert_into_left_section({
+      'filetype',
+      cond = conditions.is_buffer_empty,
+
+      color = {
+        fg = colors.magenta,
+        gui = 'bold',
+      },
+
+      icon_only = true,
+    })
+
+    insert_into_left_section({
+      'filesize',
+      cond = conditions.is_buffer_empty,
+
+      color = {
+        fg = colors.dark_fg,
         gui = 'bold',
       },
     })
@@ -248,6 +259,59 @@ return {
       color = {
         fg = colors.dark_fg,
         gui = 'bold',
+      },
+    })
+
+    insert_into_right_section({
+      require('noice').api.status.message.get,
+      cond = require('noice').api.status.message.has,
+
+      color = {
+        fg = colors.blue,
+      },
+    })
+
+    insert_into_right_section({
+      function()
+        local command = require('noice').api.status.command.get()
+
+        if not command ~= nil and command:find('~@k$') then
+          return command:gsub('~@k$', ' ') .. ''
+        end
+
+        return command
+      end,
+
+      cond = require('noice').api.status.command.has,
+
+      color = {
+        fg = colors.orange,
+      },
+    })
+
+    insert_into_right_section({
+      function()
+        local status_mode = require('noice').api.status.mode.get()
+
+        if not status_mode ~= nil and status_mode:find('^recording') then
+          return '󰑋' .. status_mode:gsub('^recording', '')
+        end
+
+        return status_mode
+      end,
+
+      cond = require('noice').api.status.mode.has,
+
+      color = {
+        fg = colors.magenta,
+      },
+    })
+
+    insert_into_right_section({
+      require('noice').api.status.search.get,
+      cond = require('noice').api.status.search.has,
+      color = {
+        fg = colors.orange,
       },
     })
 

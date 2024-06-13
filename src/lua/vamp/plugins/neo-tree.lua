@@ -154,22 +154,6 @@ return {
       mappings = {
         ['='] = 'toggle_auto_expand_width',
 
-        ['<cr>'] = {
-          'show_help',
-
-          config = {
-            prefix_key = '<cr>',
-            title = 'Open',
-          },
-        },
-
-        ['<cr><cr>'] = 'open',
-
-        ['<cr>h'] = 'split_with_window_picker',
-        ['<cr>t'] = 'open_tabnew',
-        ['<cr>v'] = 'vsplit_with_window_picker',
-        ['<cr>w'] = 'open_with_window_picker',
-
         ['<space>'] = {
           'show_help',
 
@@ -180,6 +164,8 @@ return {
 
           nowait = false,
         },
+
+        ['<cr>'] = 'open',
 
         ['<space><space>'] = 'toggle_node',
 
@@ -211,7 +197,7 @@ return {
           },
         },
 
-        ['c'] = 'toggle_node',
+        ['c'] = 'open',
 
         ['e'] = {
           'show_help',
@@ -246,6 +232,22 @@ return {
         ['ev'] = 'paste_from_clipboard',
         ['ex'] = 'cut_to_clipboard',
         ['ey'] = 'copy_to_clipboard',
+
+        ['n'] = {
+          'show_help',
+
+          config = {
+            prefix_key = '<cr>',
+            title = 'Open',
+          },
+        },
+
+        ['nn'] = 'open',
+
+        ['nh'] = 'split_with_window_picker',
+        ['nt'] = 'open_tabnew',
+        ['nv'] = 'vsplit_with_window_picker',
+        ['nw'] = 'open_with_window_picker',
 
         ['p'] = {
           'toggle_preview',
