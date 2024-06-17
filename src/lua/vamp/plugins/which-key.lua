@@ -57,9 +57,7 @@ return {
 
     local to_register = {
       ['<bs>'] = {
-        w = {
-          name = 'Over window',
-        },
+        name = '󱐌',
       },
 
       ['<leader>'] = {
