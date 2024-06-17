@@ -46,10 +46,4 @@ return {
     'elixir-editors/vim-elixir',
     ft = 'elixir',
   },
-
-  {
-    'andyl/vim-textobj-elixir',
-    dependencies = 'kana/vim-textobj-user',
-    ft = 'elixir',
-  },
 }

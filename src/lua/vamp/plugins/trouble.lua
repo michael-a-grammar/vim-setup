@@ -38,7 +38,7 @@ return {
       trouble.toggle('diagnostics')
     end, { desc = 'Diagnostics', noremap = true })
 
-    vim.keymap.set({ 'n', 'x' }, '<leader>ed', function()
+    vim.keymap.set({ 'n', 'x' }, '<leader>ee', function()
       trouble.toggle('lsp_definitions')
     end, { desc = 'Definitions', noremap = true })
 

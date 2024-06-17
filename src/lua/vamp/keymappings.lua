@@ -91,11 +91,25 @@ vim.keymap.set(
   { desc = 'Move line up', noremap = true }
 )
 
+vim.keymap.set(
+  { 'n', 'x' },
+  'H',
+  'g^',
+  { desc = 'Start of line', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  'L',
+  'g$',
+  { desc = 'End of line', noremap = true }
+)
+
 vim.keymap.set({ 'n', 'x' }, 'U', '<c-r>', { desc = 'Redo', noremap = true })
 
 vim.keymap.set(
   { 'n', 'x' },
-  '<leader>i',
+  'k',
   vim.lsp.buf.hover,
   { desc = 'Hover', noremap = true }
 )
@@ -155,7 +169,7 @@ end, { desc = 'Format', noremap = true })
 
 vim.keymap.set(
   { 'n', 'x' },
-  '<leader>eh',
+  '<leader>ek',
   vim.lsp.buf.hover,
   { desc = 'Hover', noremap = true }
 )
@@ -187,9 +201,23 @@ vim.keymap.set(
 
 vim.keymap.set(
   { 'n', 'x' },
+  '<leader>fn',
+  '<cmd>cnext<cr>zz',
+  { desc = 'Quickfix next', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
   '<leader>fo',
   '<c-o>',
   { desc = 'Backwards', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<leader>fp',
+  '<cmd>cprevious<cr>zz',
+  { desc = 'Quickfix previous', noremap = true }
 )
 
 vim.keymap.set(
@@ -209,15 +237,34 @@ vim.keymap.set(
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>ndd',
-  '<cmd>bdelete<cr>',
+  '<cmd>bprevious | bdelete #<cr>',
   { desc = 'Close buffer', noremap = true }
 )
 
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>ndf',
-  '<cmd>bdelete!<cr>',
+  '<cmd>bprevious | bdelete! #<cr>',
   { desc = '' .. ' Close buffer', noremap = true }
+)
+
+vim.keymap.set({ 'n', 'x' }, '<leader>nff', function()
+  vim.fn.setreg('+', vim.fn.expand('%:t'))
+end, { desc = 'Copy filename', noremap = true })
+
+vim.keymap.set({ 'n', 'x' }, '<leader>nfp', function()
+  vim.fn.setreg('+', vim.fn.expand('%:p'))
+end, { desc = 'Copy path', noremap = true })
+
+vim.keymap.set({ 'n', 'x' }, '<leader>nfr', function()
+  vim.fn.setreg('+', vim.fn.expand('%'))
+end, { desc = 'Copy relative path', noremap = true })
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<leader>p%',
+  ':%s/',
+  { desc = 'Substitute within buffer', noremap = true }
 )
 
 vim.keymap.set(
@@ -225,13 +272,6 @@ vim.keymap.set(
   '<leader>p/',
   ':s/',
   { desc = 'Substitute within line', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  '<leader>p?',
-  ':%s/',
-  { desc = 'Substitute within buffer', noremap = true }
 )
 
 vim.keymap.set(
@@ -246,13 +286,6 @@ vim.keymap.set(
   '<leader>pi',
   '<c-a>',
   { desc = 'Increment', noremap = true }
-)
-
-vim.keymap.set(
-  'x',
-  '<leader>ps',
-  "<cmd>'<,'>sort<cr>",
-  { desc = 'Sort', noremap = true }
 )
 
 vim.keymap.set(
@@ -279,8 +312,8 @@ vim.keymap.set(
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>th',
-  '<cmd>vertical ball<cr>',
-  { desc = 'Open buffers in vertical splits', noremap = true }
+  '<cmd>horizontal ball<cr>',
+  { desc = 'Open buffers in horizontal splits', noremap = true }
 )
 
 vim.keymap.set(
@@ -300,8 +333,8 @@ vim.keymap.set(
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>tv',
-  '<cmd>ball<cr>',
-  { desc = 'Open buffers in horizontal splits', noremap = true }
+  '<cmd>vertical ball<cr>',
+  { desc = 'Open buffers in vertical splits', noremap = true }
 )
 
 vim.keymap.set(
@@ -398,14 +431,14 @@ vim.keymap.set(
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>wch',
-  '<cmd>split<cr>',
+  '<cmd>horizontal botright new<cr>',
   { desc = 'Split window horizontally', noremap = true }
 )
 
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>wcv',
-  '<cmd>vsplit<cr>',
+  '<cmd>vertical botright new<cr>',
   { desc = 'Split window vertically', noremap = true }
 )
 
@@ -561,4 +594,32 @@ vim.keymap.set(
   '<leader>yp',
   '<cmd>tabprevious<cr>',
   { desc = 'Previous tab', noremap = true }
+)
+
+vim.keymap.set(
+  't',
+  '<c-g>',
+  '<c-\\><c-n>',
+  { desc = 'Normal mode', noremap = true }
+)
+
+vim.keymap.set(
+  't',
+  '<esc>',
+  '<c-\\><c-n>',
+  { desc = 'Normal mode', noremap = true }
+)
+
+vim.keymap.set(
+  'x',
+  '<leader>ps',
+  "<cmd>'<,'>sort<cr>",
+  { desc = 'Sort', noremap = true }
+)
+
+vim.keymap.set(
+  'x',
+  '<leader>pv',
+  ":'<,'>s/",
+  { desc = 'Substitute within visual selection', noremap = true }
 )

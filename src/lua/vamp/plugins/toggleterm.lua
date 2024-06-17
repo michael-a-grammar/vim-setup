@@ -29,13 +29,6 @@ return {
 
     toggleterm.setup(opts)
 
-    vim.keymap.set(
-      't',
-      '<c-g>',
-      '<c-\\><c-n>',
-      { desc = 'Normal mode', noremap = true }
-    )
-
     local set_op_func = vim.fn[vim.api.nvim_exec(
       [[
         function s:set_op_func(val)

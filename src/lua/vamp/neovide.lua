@@ -13,3 +13,9 @@ vim.g.neovide_position_animation_length = 0.0
 vim.g.neovide_remember_window_size = true
 vim.g.neovide_scroll_animation_far_lines = 9999
 vim.g.neovide_transparency = 1
+
+vim.keymap.set('c', '<c-v>', '<c-r>+')
+vim.keymap.set('i', '<c-v>', '<esc>l"+Pli')
+vim.keymap.set('n', '<c-v>', '"+P')
+vim.keymap.set('v', '<c-c>', '"+y')
+vim.keymap.set('v', '<c-v>', '"+P')

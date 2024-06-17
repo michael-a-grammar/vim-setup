@@ -2,6 +2,8 @@ Standards
 ---------
 Ease of use is more important than mnemonics
 
+Use 'double tap'-style commands
+
 c - create
 d - delete
 n - next
@@ -12,10 +14,9 @@ x - delete
 <c-p> - down
 
 Organise object keys alphabetically
+
+! # $ % & () * , . / : ; < = > ? @ [ \ ] ^ ` { } ~
 a b c d e f g h i j k l m n o p q r s t u v w x y z
 
-- neo-tree: g and z normal mode shortcuts
-- neo-tree: remove exisiting shortcuts
 - neo-tree: preview scroll mappings
-- terminal: better editing
 - Autocommand to strip trailing whitespace (%s/\s\+$//e)

@@ -126,16 +126,24 @@ return {
         n = {
           name = 'Buffer',
 
+          c = {
+            name = 'Treesitter context',
+          },
+
+          d = {
+            name = 'Delete buffer',
+          },
+
+          f = {
+            name = 'File',
+          },
+
           g = {
             name = 'Git',
 
             t = {
               name = 'Toggles',
             },
-          },
-
-          d = {
-            name = 'Delete buffer',
           },
 
           o = {

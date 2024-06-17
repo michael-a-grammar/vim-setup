@@ -30,15 +30,15 @@ return {
     vim.keymap.set(
       { 'n', 'x' },
       '<leader>cc',
-      '<plug>(SlimeConfig)',
-      { desc = 'Configure REPL', noremap = true }
+      '<cmd>SlimeSendCurrentLine<cr>',
+      { desc = 'Send line to REPL', noremap = true }
     )
 
     vim.keymap.set(
       { 'n', 'x' },
-      '<leader>ci',
-      '<cmd>SlimeSendCurrentLine<cr>',
-      { desc = 'Send line to REPL', noremap = true }
+      '<leader>ce',
+      '<plug>(SlimeConfig)',
+      { desc = 'Configure REPL', noremap = true }
     )
 
     vim.keymap.set(

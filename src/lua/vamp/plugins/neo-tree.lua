@@ -13,6 +13,24 @@ return {
   opts = {
     close_if_last_window = false,
 
+    commands = {
+      bottom_this_line = function()
+        vim.cmd('normal! zb')
+      end,
+
+      first_line = function()
+        vim.cmd('normal! gg')
+      end,
+
+      middle_this_line = function()
+        vim.cmd('normal! zz')
+      end,
+
+      top_this_line = function()
+        vim.cmd('normal! zt')
+      end,
+    },
+
     default_component_configs = {
       diagnostics = {
         symbols = {
@@ -80,38 +98,8 @@ return {
           ['.'] = 'set_root',
           ['/'] = 'filter_on_submit',
 
-          ['g'] = {
-            'show_help',
-
-            config = {
-              prefix_key = 'g',
-              title = '',
-            },
-
-            nowait = false,
-          },
-
           ['gn'] = 'next_git_modified',
           ['gp'] = 'prev_git_modified',
-
-          ['h'] = 'toggle_hidden',
-          ['f'] = 'fuzzy_finder',
-
-          ['s'] = {
-            'show_help',
-
-            config = {
-              prefix_key = 's',
-              title = 'Search',
-            },
-
-            nowait = true,
-          },
-
-          ['sd'] = 'fuzzy_finder_directory',
-          ['sf'] = 'filter_on_submit',
-          ['ss'] = 'fuzzy_sorter',
-          ['sx'] = 'clear_filter',
         },
 
         fuzzy_finder_mappings = {
@@ -133,7 +121,7 @@ return {
               title = '',
             },
 
-            nowait = false,
+            nowait = true,
           },
 
           ['ga'] = 'git_add_all',
@@ -154,100 +142,14 @@ return {
       mappings = {
         ['='] = 'toggle_auto_expand_width',
 
-        ['<space>'] = {
-          'show_help',
-
-          config = {
-            prefix_key = '<space>',
-            title = 'Actions',
-          },
-
-          nowait = false,
-        },
+        ['[g'] = 'noop',
+        [']g'] = 'noop',
 
         ['<cr>'] = 'open',
 
-        ['<space><space>'] = 'toggle_node',
-
-        ['<space>c'] = 'close_all_subnodes',
-        ['<space>m'] = 'close_all_nodes',
-        ['<space>r'] = 'expand_all_nodes',
-
-        ['a'] = {
-          'show_help',
-
-          config = {
-            prefix_key = 'a',
-            title = 'Add',
-          },
-        },
-
-        ['ad'] = {
-          'add_directory',
-
-          config = {
-            show_path = 'relative',
-          },
-        },
-
-        ['af'] = {
-          'add',
-          config = {
-            show_path = 'relative',
-          },
-        },
-
-        ['c'] = 'open',
-
-        ['e'] = {
-          'show_help',
-
-          config = {
-            prefix_key = 'e',
-            title = 'Modify',
-          },
-
-          nowait = true,
-        },
-
-        ['ec'] = {
-          'copy',
-          config = {
-            show_path = 'relative',
-          },
-        },
-
-        ['ed'] = 'delete',
-
-        ['ei'] = 'show_file_details',
-
-        ['em'] = {
-          'move',
-          config = {
-            show_path = 'relative',
-          },
-        },
-
-        ['er'] = 'rename',
-        ['ev'] = 'paste_from_clipboard',
-        ['ex'] = 'cut_to_clipboard',
-        ['ey'] = 'copy_to_clipboard',
-
-        ['n'] = {
-          'show_help',
-
-          config = {
-            prefix_key = '<cr>',
-            title = 'Open',
-          },
-        },
-
-        ['nn'] = 'open',
-
-        ['nh'] = 'split_with_window_picker',
-        ['nt'] = 'open_tabnew',
-        ['nv'] = 'vsplit_with_window_picker',
-        ['nw'] = 'open_with_window_picker',
+        ['h'] = 'open_split',
+        ['i'] = 'noop',
+        ['k'] = 'show_file_details',
 
         ['p'] = {
           'toggle_preview',
@@ -257,9 +159,14 @@ return {
           },
         },
 
-        ['r'] = 'refresh',
+        ['s'] = 'noop',
+        ['v'] = 'open_vsplit',
+        ['z'] = 'noop',
 
-        ['P'] = 'focus_preview',
+        ['gg'] = 'first_line',
+
+        ['M'] = 'close_all_nodes',
+        ['S'] = 'noop',
       },
     },
   },

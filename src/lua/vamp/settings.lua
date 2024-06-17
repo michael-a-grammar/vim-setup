@@ -85,10 +85,11 @@ vim.opt.timeoutlen = 800
 vim.opt.ttimeout = true
 vim.opt.ttimeoutlen = 80
 
-vim.opt.backup = false
+vim.opt.backup = true
 vim.opt.backupcopy = 'auto'
+vim.opt.backupdir:remove('.')
 vim.opt.updatetime = 300
-vim.opt.writebackup = false
+vim.opt.writebackup = true
 
 vim.opt.undofile = true
 vim.opt.undolevels = 1000

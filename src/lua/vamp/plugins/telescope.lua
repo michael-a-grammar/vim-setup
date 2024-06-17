@@ -260,7 +260,7 @@ return {
 
     vim.keymap.set(
       { 'n', 'x' },
-      '<leader>nf',
+      '<leader>nn',
       builtin.current_buffer_fuzzy_find,
       { desc = 'Fuzzy find', noremap = true }
     )
@@ -323,7 +323,7 @@ return {
 
     vim.keymap.set(
       { 'n', 'x' },
-      '<leader>sf',
+      '<leader>ss',
       builtin.find_files,
       { desc = 'Find files', noremap = true }
     )
@@ -332,7 +332,7 @@ return {
       { 'n', 'x' },
       '<leader>tt',
       get_buffers_only_cwd,
-      { desc = 'Buffers (cwd)', noremap = true }
+      { desc = '' .. ' Buffers', noremap = true }
     )
 
     vim.keymap.set({ 'n', 'x' }, '<leader>u*', function()
@@ -353,7 +353,7 @@ return {
       })
     end, { desc = 'File browser', noremap = true })
 
-    vim.keymap.set({ 'n', 'x' }, '<leader>uf', function()
+    vim.keymap.set({ 'n', 'x' }, '<leader>uu', function()
       builtin.find_files({
         cwd = buffer_dir(),
       })

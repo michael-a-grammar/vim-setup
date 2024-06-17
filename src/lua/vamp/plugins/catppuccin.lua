@@ -108,5 +108,22 @@ return {
 
     vim.api.nvim_set_hl(0, 'NormalFloat', { bg = catppuccin.base })
     vim.api.nvim_set_hl(0, 'WinSeparator', { fg = catppuccin.blue })
+
+    vim.g.terminal_color_0 = catppuccin.surface1
+    vim.g.terminal_color_1 = catppuccin.red
+    vim.g.terminal_color_2 = catppuccin.green
+    vim.g.terminal_color_3 = catppuccin.yellow
+    vim.g.terminal_color_4 = catppuccin.blue
+    vim.g.terminal_color_5 = catppuccin.pink
+    vim.g.terminal_color_6 = catppuccin.teal
+    vim.g.terminal_color_7 = catppuccin.subtext1
+    vim.g.terminal_color_8 = catppuccin.surface2
+    vim.g.terminal_color_9 = catppuccin.red
+    vim.g.terminal_color_10 = catppuccin.green
+    vim.g.terminal_color_11 = catppuccin.yellow
+    vim.g.terminal_color_12 = catppuccin.blue
+    vim.g.terminal_color_13 = catppuccin.pink
+    vim.g.terminal_color_14 = catppuccin.teal
+    vim.g.terminal_color_15 = catppuccin.subtext0
   end,
 }
