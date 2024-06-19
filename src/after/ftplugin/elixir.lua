@@ -75,5 +75,12 @@ local to_register = {
 
 local which_key = require('which-key')
 
-which_key.register(to_register, { mode = 'n' })
-which_key.register(to_register, { mode = 'x' })
+which_key.register(to_register, {
+  buffer = bufnr,
+  mode = 'n',
+})
+
+which_key.register(to_register, {
+  buffer = bufnr,
+  mode = 'x',
+})

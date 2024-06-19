@@ -113,10 +113,6 @@ return {
           name = 'Unassigned',
         },
 
-        L = {
-          name = 'Unassigned',
-        },
-
         m = {
           name = 'Local',
         },
