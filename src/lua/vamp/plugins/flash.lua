@@ -22,7 +22,7 @@ return {
       function()
         require('flash').remote()
       end,
-      desc = 'Remote flash',
+      desc = 'Flash remote',
     },
 
     {

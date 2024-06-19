@@ -106,8 +106,23 @@ return {
     local catppuccin =
       require('catppuccin.palettes').get_palette(_G.catppuccin_theme)
 
-    vim.api.nvim_set_hl(0, 'NormalFloat', { bg = catppuccin.base })
-    vim.api.nvim_set_hl(0, 'WinSeparator', { fg = catppuccin.blue })
+    vim.api.nvim_set_hl(0, 'NormalFloat', {
+      bg = catppuccin.base,
+    })
+
+    vim.api.nvim_set_hl(0, 'Pmenu', {
+      bg = catppuccin.base,
+      fg = catppuccin.text,
+    })
+
+    vim.api.nvim_set_hl(0, 'PmenuSel', {
+      bg = catppuccin.base,
+      fg = catppuccin.text,
+    })
+
+    vim.api.nvim_set_hl(0, 'WinSeparator', {
+      fg = catppuccin.blue,
+    })
 
     vim.g.terminal_color_0 = catppuccin.surface1
     vim.g.terminal_color_1 = catppuccin.red

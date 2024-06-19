@@ -65,6 +65,8 @@ return {
     local catppuccin =
       require('catppuccin.palettes').get_palette(_G.catppuccin_theme)
 
-    vim.api.nvim_set_hl(0, 'TroubleNormal', { bg = catppuccin.base })
+    vim.api.nvim_set_hl(0, 'TroubleNormal', {
+      bg = catppuccin.base,
+    })
   end,
 }

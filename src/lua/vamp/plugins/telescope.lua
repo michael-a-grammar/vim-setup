@@ -87,9 +87,9 @@ return {
     local telescope = require('telescope')
     local builtin = require('telescope.builtin')
     local buffer_dir = require('telescope.utils').buffer_dir
+
     local catppuccin =
       require('catppuccin.palettes').get_palette(_G.catppuccin_theme)
-    local noice = require('noice')
 
     telescope.setup(opts)
 
@@ -184,10 +184,6 @@ return {
       builtin.find_files,
       { desc = '' .. ' Find files', noremap = true }
     )
-
-    vim.keymap.set({ 'n', 'x' }, '<leader>ah', function()
-      noice.cmd('telescope')
-    end, { desc = 'Notifications history', noremap = true })
 
     vim.keymap.set(
       { 'n', 'x' },

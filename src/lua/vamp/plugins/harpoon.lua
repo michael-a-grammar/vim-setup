@@ -4,7 +4,7 @@ return {
   keys = {
     {
       '<leader>hh',
-      '<cmd>Telescope harpoon marks<cr>',
+      '<cmd>Telescope harpoon marks theme=ivy<cr>',
       desc = 'Harpoon',
       mode = { 'n', 'x' },
     },

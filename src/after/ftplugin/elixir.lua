@@ -60,8 +60,8 @@ vim.keymap.set({ 'n', 'x' }, '<leader>mrf', '<cmd>ElixirRestart | edit!<cr>', {
 local to_register = {
   ['<leader>'] = {
     m = {
-
       name = '',
+
       p = {
         name = 'Pipes',
       },

@@ -35,10 +35,10 @@ return {
           desc = ' Find files',
           desc_hl = 'markdownH1',
           keymap = '󱁐' .. ' ' .. 's',
-          key = 'f',
+          key = 's',
           key_hl = '@character',
           key_format = ' %s',
-          action = "lua vim.api.nvim_input('<space>sf')",
+          action = "lua vim.api.nvim_input('<space>ss')",
         },
 
         {

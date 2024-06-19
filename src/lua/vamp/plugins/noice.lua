@@ -24,11 +24,44 @@ return {
     },
 
     presets = {
-      bottom_search = true,
-      command_palette = true,
-      inc_rename = false,
+      bottom_search = false,
+      command_palette = false,
+      inc_rename = true,
       long_message_to_split = true,
       lsp_doc_border = true,
+    },
+
+    views = {
+      cmdline_popup = {
+        position = {
+          col = '50%',
+          row = 10,
+        },
+
+        size = {
+          height = 'auto',
+          width = 60,
+        },
+      },
+
+      popupmenu = {
+        border = {
+          padding = { 0, 1 },
+          style = 'rounded',
+        },
+
+        position = {
+          col = '50%',
+          row = 13,
+        },
+
+        relative = 'editor',
+
+        size = {
+          height = 10,
+          width = 60,
+        },
+      },
     },
   },
 
@@ -47,6 +80,10 @@ return {
       noice.cmd('errors')
     end, { desc = 'Error notifications', noremap = true })
 
+    vim.keymap.set({ 'n', 'x' }, '<leader>ah', function()
+      vim.cmd('Telescope noice theme=ivy')
+    end, { desc = 'Notifications history', noremap = true })
+
     vim.keymap.set({ 'n', 'x' }, '<leader>al', function()
       noice.cmd('last')
     end, { desc = 'Last notification', noremap = true })
@@ -62,5 +99,25 @@ return {
         return '<c-p>'
       end
     end, { desc = 'LSP hover doc scroll down', expr = true, silent = true })
+
+    local catppuccin =
+      require('catppuccin.palettes').get_palette(_G.catppuccin_theme)
+
+    vim.api.nvim_set_hl(0, 'NoiceCmdlinePopupBorder', {
+      fg = catppuccin.blue,
+    })
+
+    vim.api.nvim_set_hl(0, 'NoicePopupmenu', {
+      fg = catppuccin.overlay0,
+    })
+
+    vim.api.nvim_set_hl(0, 'NoicePopupmenuMatch', {
+      fg = catppuccin.green,
+      bold = true,
+    })
+
+    vim.api.nvim_set_hl(0, 'NoicePopupmenuSelected', {
+      link = 'CursorLine',
+    })
   end,
 }
