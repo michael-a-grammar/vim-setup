@@ -17,7 +17,7 @@ return {
 
   keys = {
     {
-      '<bs>r',
+      'r',
       mode = 'o',
       function()
         require('flash').remote()

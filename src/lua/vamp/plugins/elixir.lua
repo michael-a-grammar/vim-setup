@@ -2,6 +2,7 @@ return {
   {
     'elixir-tools/elixir-tools.nvim',
     dependencies = 'nvim-lua/plenary.nvim',
+    enabled = false,
     ft = 'elixir',
 
     opts = function(_, _)

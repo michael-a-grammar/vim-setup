@@ -3,7 +3,7 @@ return {
 
   opts = {
     disable = {
-      filetypes = {
+      ft = {
         'lazy',
         'neo-tree',
         'neo-tree-popup',
@@ -19,32 +19,86 @@ return {
       },
     },
 
-    hidden = { '<Plug>' },
-
     icons = {
       breadcrumb = ' ' .. '' .. ' ',
-      group = '',
+      colors = false,
+      mappings = false,
+
+      rules = {
+        {
+          pattern = 'shell command',
+          icon = ' ',
+          color = 'red',
+        },
+
+        {
+          pattern = 'grep',
+          icon = ' ',
+          color = 'red',
+        },
+
+        {
+          pattern = 'comment linewise w/operator',
+          icon = '󰦨',
+          color = 'red',
+        },
+
+        {
+          pattern = 'help tags',
+          icon = '󰋖',
+          color = 'red',
+        },
+      },
     },
 
-    key_labels = {
-      ['<space>'] = '󱁐',
-      ['<bs>'] = '󰁮',
-
-      ['<Down>'] = '',
-      ['<Left>'] = '',
-      ['<Up>'] = '',
-      ['<Right>'] = '',
-
-      ['<Tab>'] = '󰌒',
+    keys = {
+      scroll_up = '<c-f>',
+      scroll_down = '<c-p>',
     },
 
     layout = {
-      align = 'left',
+      align = 'center',
     },
 
-    popup_mappings = {
-      scroll_up = '<c-f>',
-      scroll_down = '<c-p>',
+    preset = 'helix',
+
+    replace = {
+      key = {
+        {
+          '<bs>',
+          '󰁮',
+        },
+
+        {
+          '<Down>',
+          '',
+        },
+
+        {
+          '<Left>',
+          '',
+        },
+
+        {
+          '<Right>',
+          '',
+        },
+
+        {
+          '<Space>',
+          '󱁐',
+        },
+
+        {
+          '<Tab>',
+          '󰌒',
+        },
+
+        {
+          '<Up>',
+          '',
+        },
+      },
     },
 
     show_help = false,
@@ -55,178 +109,219 @@ return {
 
     which_key.setup(opts)
 
-    local to_register = {
-      ['<bs>'] = {
-        name = '󱐌',
-      },
-
-      ['<leader>'] = {
-        a = {
-          name = 'Notifications',
+    local to_add = {
+      {
+        mode = {
+          'n',
+          'x',
         },
 
-        b = {
-          name = 'Unassigned',
+        {
+          '<bs>',
+          group = 'Flash',
+          icon = '󱐌 ',
         },
 
-        c = {
-          name = 'Slime',
+        {
+          '<leader>a',
+          group = 'Notifications',
         },
 
-        d = {
-          name = 'Diagnostics',
+        {
+          '<leader>c',
+          group = 'Slime',
+          icon = '󰖌 ',
         },
 
-        e = {
-          name = 'LSP',
+        {
+          '<leader>d',
+          group = 'Diagnostics',
         },
 
-        f = {
-          name = 'History / Navigate',
+        {
+          '<leader>e',
+          group = 'LSP',
+          icon = ' ',
         },
 
-        g = {
-          name = '',
-
-          s = {
-            name = 'Search',
-          },
+        {
+          '<leader>f',
+          group = 'History / Navigate',
+          icon = '',
         },
 
-        h = {
-          name = '',
+        {
+          '<leader>g',
+          group = 'Git',
+          icon = ' ',
         },
 
-        i = {
-          name = 'Unassigned',
+        {
+          '<leader>gs',
+          group = 'Search',
         },
 
-        j = {
-          name = 'Unassigned',
+        {
+          '<leader>h',
+          group = 'Harpoon',
+          icon = ' ',
         },
 
-        k = {
-          name = 'Toggles',
+        {
+          '<leader>k',
+          group = 'Toggles',
         },
 
-        l = {
-          name = 'Unassigned',
+        {
+          '<leader>l',
+          hidden = true,
         },
 
-        m = {
-          name = 'Local',
+        {
+          '<leader>m',
+          group = 'Local',
         },
 
-        n = {
-          name = 'Buffer',
-
-          c = {
-            name = 'Treesitter context',
-          },
-
-          d = {
-            name = 'Delete buffer',
-          },
-
-          f = {
-            name = 'File',
-          },
-
-          g = {
-            name = 'Git',
-
-            t = {
-              name = 'Toggles',
-            },
-          },
-
-          o = {
-            name = 'Outline',
-          },
+        {
+          '<leader>n',
+          group = 'Buffer',
         },
 
-        o = {
-          name = 'Unassigned',
+        {
+          '<leader>nc',
+          group = 'Treesitter context',
         },
 
-        p = {
-          name = 'Edit',
-
-          y = {
-            name = 'Yank ring',
-          },
+        {
+          '<leader>nd',
+          group = 'Delete buffer',
         },
 
-        q = {
-          name = '󱠡',
+        {
+          '<leader>nf',
+          group = 'File',
         },
 
-        r = {
-          name = '',
+        {
+          '<leader>ng',
+          group = 'Git',
         },
 
-        s = {
-          name = '' .. ' Find',
-
-          t = {
-            name = '' .. ' Find',
-          },
+        {
+          '<leader>ngt',
+          group = 'Toggles',
         },
 
-        t = {
-          name = 'Buffers',
-
-          x = {
-            name = 'Delete other buffers',
-          },
+        {
+          '<leader>no',
+          group = 'Outline',
         },
 
-        u = {
-          name = '' .. ' Find',
-
-          t = {
-            name = '' .. ' Find',
-          },
+        {
+          '<leader>o',
+          group = 'Unassigned',
         },
 
-        v = {
-          name = 'Unassigned',
+        {
+          '<leader>p',
+          group = 'Edit',
         },
 
-        w = {
-          name = 'Windows',
-
-          c = {
-            name = 'New window',
-          },
-
-          m = {
-            name = 'Move window',
-          },
-
-          n = {
-            name = 'Navigate windows',
-          },
-
-          o = {
-            name = 'Rotate window',
-          },
-
-          r = {
-            name = 'Resize window',
-          },
+        {
+          '<leader>py',
+          group = 'Yank ring',
         },
 
-        x = {
-          name = 'Text',
+        {
+          '<leader>q',
+          group = 'Quit',
+          icon = '󱠡 ',
         },
 
-        y = {
-          name = 'Tabs',
+        {
+          '<leader>r',
+          group = 'Terminal',
         },
 
-        z = {
-          name = '',
+        {
+          '<leader>s',
+          group = ' Find',
+        },
+
+        {
+          '<leader>st',
+          group = ' Find',
+        },
+
+        {
+          '<leader>t',
+          group = 'Buffers',
+        },
+
+        {
+          '<leader>tx',
+          group = 'Delete other buffers',
+        },
+
+        {
+          '<leader>u',
+          group = ' Find',
+        },
+
+        {
+          '<leader>ut',
+          group = ' Find',
+        },
+
+        {
+          '<leader>w',
+          group = 'Windows',
+        },
+
+        {
+          '<leader>wc',
+          group = 'New window',
+        },
+
+        {
+          '<leader>wm',
+          group = 'Move window',
+        },
+
+        {
+          '<leader>wn',
+          group = 'Navigate windows',
+        },
+
+        {
+          '<leader>wo',
+          group = 'Rotate window',
+        },
+
+        {
+          '<leader>wr',
+          group = 'Resize window',
+        },
+
+        {
+          '<leader>x',
+          group = 'Text',
+        },
+
+        {
+          '<leader>y',
+          group = 'Tabs',
+        },
+
+        {
+          '<leader>z',
+          group = 'Vim',
+          icon = ' ',
+        },
+
+        {
+          '<leader>L',
+          hidden = true,
         },
       },
     }
@@ -234,12 +329,55 @@ return {
     for index = 2, 5, 1 do
       local terminal_index = tostring(index)
 
-      to_register['<leader>'].r[terminal_index] = {
-        name = 'Terminal ' .. terminal_index,
-      }
+      table.insert(to_add[1], {
+        '<leader>r' .. terminal_index,
+
+        group = 'Terminal ' .. terminal_index,
+      })
     end
 
-    which_key.register(to_register, { mode = 'n' })
-    which_key.register(to_register, { mode = 'x' })
+    which_key.add(to_add)
+
+    vim.keymap.set({ 'n', 'x' }, '<leader>wc*', function()
+      which_key.show({
+        keys = '<leader>wc',
+        loop = true,
+      })
+    end, { desc = ' ' .. ' New window', noremap = true })
+
+    vim.keymap.set({ 'n', 'x' }, '<leader>wm*', function()
+      which_key.show({
+        keys = '<leader>wm',
+        loop = true,
+      })
+    end, { desc = ' ' .. ' Move window', noremap = true })
+
+    vim.keymap.set({ 'n', 'x' }, '<leader>wn*', function()
+      which_key.show({
+        keys = '<leader>wn',
+        loop = true,
+      })
+    end, { desc = ' ' .. ' Navigate window', noremap = true })
+
+    vim.keymap.set({ 'n', 'x' }, '<leader>wo*', function()
+      which_key.show({
+        keys = '<leader>wo',
+        loop = true,
+      })
+    end, { desc = ' ' .. ' Rotate window', noremap = true })
+
+    vim.keymap.set({ 'n', 'x' }, '<leader>wr*', function()
+      which_key.show({
+        keys = '<leader>wr',
+        loop = true,
+      })
+    end, { desc = ' ' .. ' Resize window', noremap = true })
+
+    local catppuccin =
+      require('catppuccin.palettes').get_palette(_G.catppuccin_theme)
+
+    vim.api.nvim_set_hl(0, 'WhichKeyIcon', {
+      fg = catppuccin.overlay0,
+    })
   end,
 }

@@ -58,6 +58,13 @@ vim.keymap.set(
 
 vim.keymap.set(
   { 'n', 'x' },
+  '<c-q>',
+  '<cmd>wqall<cr>',
+  { desc = 'Write and quit all', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
   '0',
   'g0',
   { desc = 'Beginning of line', noremap = true }
@@ -304,6 +311,13 @@ vim.keymap.set(
 
 vim.keymap.set(
   { 'n', 'x' },
+  '<leader>qw',
+  '<cmd>wqall<cr>',
+  { desc = 'Write and quit all', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
   '<leader>tc',
   '<cmd>new<cr>',
   { desc = 'New buffer', noremap = true }
@@ -522,15 +536,15 @@ vim.keymap.set(
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>wre',
-  '<c-w><c-->',
-  { desc = 'Decrease window height', noremap = true }
+  '<c-w><c-+>',
+  { desc = 'Increase window height', noremap = true }
 )
 
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>wri',
-  '<c-w><c-+>',
-  { desc = 'Increase window height', noremap = true }
+  '<c-w><c-->',
+  { desc = 'Decrease window height', noremap = true }
 )
 
 vim.keymap.set(
