@@ -162,33 +162,47 @@ end, {
   noremap = true,
 })
 
-local to_register = {
-  ['<leader>'] = {
-    m = {
-      name = '',
-
-      d = {
-        name = 'Diagnostics',
+local to_add = {
+  {
+    ['<leader>'] = {
+      mode = {
+        'n',
+        'x',
       },
 
-      i = {
-        name = 'Move item',
+      {
+        '<leader>m',
+        group = '',
       },
 
-      m = {
-        name = 'Macros',
+      {
+        '<leader>md',
+        group = 'Diagnostics',
       },
 
-      r = {
-        name = 'Runnables',
+      {
+        '<leader>mi',
+        group = 'Move item',
       },
 
-      s = {
-        name = 'Find',
+      {
+        '<leader>mm',
+        group = 'Macros',
       },
 
-      t = {
-        name = 'Testables',
+      {
+        '<leader>mr',
+        group = 'Runnables',
+      },
+
+      {
+        '<leader>ms',
+        group = 'Find',
+      },
+
+      {
+        '<leader>mt',
+        group = 'Testables',
       },
     },
   },
@@ -196,12 +210,4 @@ local to_register = {
 
 local which_key = require('which-key')
 
-which_key.register(to_register, {
-  buffer = bufnr,
-  mode = 'n',
-})
-
-which_key.register(to_register, {
-  buffer = bufnr,
-  mode = 'x',
-})
+which_key.add(to_add)

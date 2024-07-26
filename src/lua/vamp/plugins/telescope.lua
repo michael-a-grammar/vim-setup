@@ -67,8 +67,13 @@ return {
     return {
       defaults = {
         mappings = {
-          i = { ['<c-r>'] = trouble.open },
-          n = { ['<c-r>'] = trouble.open },
+          i = {
+            ['<c-r>'] = trouble.open,
+          },
+
+          n = {
+            ['<c-r>'] = trouble.open,
+          },
         },
         path_display = {
           truncate = 1,

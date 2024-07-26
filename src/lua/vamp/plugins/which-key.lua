@@ -23,32 +23,6 @@ return {
       breadcrumb = ' ' .. '' .. ' ',
       colors = false,
       mappings = false,
-
-      rules = {
-        {
-          pattern = 'shell command',
-          icon = ' ',
-          color = 'red',
-        },
-
-        {
-          pattern = 'grep',
-          icon = ' ',
-          color = 'red',
-        },
-
-        {
-          pattern = 'comment linewise w/operator',
-          icon = '󰦨',
-          color = 'red',
-        },
-
-        {
-          pattern = 'help tags',
-          icon = '󰋖',
-          color = 'red',
-        },
-      },
     },
 
     keys = {
@@ -117,12 +91,6 @@ return {
         },
 
         {
-          '<bs>',
-          group = 'Flash',
-          icon = '󱐌 ',
-        },
-
-        {
           '<leader>a',
           group = 'Notifications',
         },
@@ -130,7 +98,6 @@ return {
         {
           '<leader>c',
           group = 'Slime',
-          icon = '󰖌 ',
         },
 
         {
@@ -141,19 +108,15 @@ return {
         {
           '<leader>e',
           group = 'LSP',
-          icon = ' ',
         },
 
         {
           '<leader>f',
-          group = 'History / Navigate',
-          icon = '',
         },
 
         {
           '<leader>g',
           group = 'Git',
-          icon = ' ',
         },
 
         {
@@ -164,7 +127,6 @@ return {
         {
           '<leader>h',
           group = 'Harpoon',
-          icon = ' ',
         },
 
         {
@@ -235,7 +197,6 @@ return {
         {
           '<leader>q',
           group = 'Quit',
-          icon = '󱠡 ',
         },
 
         {
@@ -316,7 +277,6 @@ return {
         {
           '<leader>z',
           group = 'Vim',
-          icon = ' ',
         },
 
         {

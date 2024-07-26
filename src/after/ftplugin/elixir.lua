@@ -57,30 +57,30 @@ vim.keymap.set({ 'n', 'x' }, '<leader>mrf', '<cmd>ElixirRestart | edit!<cr>', {
   noremap = true,
 })
 
-local to_register = {
-  ['<leader>'] = {
-    m = {
-      name = '',
+local to_add = {
+  {
+    mode = {
+      'n',
+      'x',
+    },
 
-      p = {
-        name = 'Pipes',
-      },
+    {
+      '<leader>m',
+      group = '',
+    },
 
-      r = {
-        name = 'Restart LSP',
-      },
+    {
+      '<leader>mp',
+      name = 'Pipes',
+    },
+
+    {
+      '<leader>mr',
+      name = 'Restart LSP',
     },
   },
 }
 
 local which_key = require('which-key')
 
-which_key.register(to_register, {
-  buffer = bufnr,
-  mode = 'n',
-})
-
-which_key.register(to_register, {
-  buffer = bufnr,
-  mode = 'x',
-})
+which_key.add(to_add)

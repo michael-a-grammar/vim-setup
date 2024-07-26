@@ -28,22 +28,20 @@ vim.keymap.set(
   { desc = 'Previous help tag', noremap = true, buffer = bufnr }
 )
 
-local to_register = {
-  ['<leader>'] = {
-    m = {
-      name = '󰋖',
+local to_add = {
+  {
+    mode = {
+      'n',
+      'x',
+    },
+
+    {
+      '<leader>m',
+      group = '󰋖',
     },
   },
 }
 
 local which_key = require('which-key')
 
-which_key.register(to_register, {
-  buffer = bufnr,
-  mode = 'n',
-})
-
-which_key.register(to_register, {
-  buffer = bufnr,
-  mode = 'x',
-})
+which_key.add(to_add)
