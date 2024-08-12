@@ -91,6 +91,8 @@ vim.keymap.set(
   { desc = 'Move line down', noremap = true }
 )
 
+vim.keymap.set({ 'n', 'x' }, 'n', 'nzzzv', { desc = 'Next match and centre' })
+
 vim.keymap.set(
   { 'n', 'x' },
   '_',
@@ -110,6 +112,13 @@ vim.keymap.set(
   'L',
   'g$',
   { desc = 'End of line', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  'N',
+  'Nzzzv',
+  { desc = 'Previous match and centre' }
 )
 
 vim.keymap.set({ 'n', 'x' }, 'U', '<c-r>', { desc = 'Redo', noremap = true })
