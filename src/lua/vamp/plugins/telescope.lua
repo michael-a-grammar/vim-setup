@@ -62,28 +62,80 @@ return {
       }
     end
 
+    local actions = require('telescope.actions')
     local trouble = require('trouble.sources.telescope')
 
     return {
       defaults = {
         mappings = {
           i = {
-            ['<c-r>'] = trouble.open,
+            ['dd'] = actions.close,
+
+            ['<a-q>'] = actions.send_selected_to_qflist + actions.open_qflist,
+
+            ['<c-a>'] = trouble.open,
+            ['<c-f>'] = actions.preview_scrolling_up,
+            ['<c-h>'] = actions.select_horizontal,
+            ['<c-p>'] = actions.preview_scrolling_down,
+            ['<c-t>'] = actions.select_tab,
+
+            ['<c-r><c-c>'] = actions.insert_original_cline,
+
+            ['<c-left>'] = actions.preview_scrolling_left,
+            ['<c-right>'] = actions.preview_scrolling_right,
+
+            ['<tab>'] = actions.toggle_selection + actions.move_selection_worse,
+            ['<left>'] = actions.results_scrolling_left,
+            ['<right>'] = actions.results_scrolling_right,
           },
 
           n = {
-            ['<c-r>'] = trouble.open,
+            ['<a-q>'] = actions.send_selected_to_qflist + actions.open_qflist,
+
+            ['<c-a>'] = trouble.open,
+            ['<c-f>'] = actions.preview_scrolling_up,
+            ['<c-h>'] = actions.select_horizontal,
+            ['<c-p>'] = actions.preview_scrolling_down,
+            ['<c-t>'] = actions.select_tab,
+
+            ['<c-r><c-c>'] = actions.insert_original_cline,
+
+            ['<c-left>'] = actions.preview_scrolling_left,
+            ['<c-right>'] = actions.preview_scrolling_right,
+
+            ['<tab>'] = actions.toggle_selection + actions.move_selection_worse,
+            ['<left>'] = actions.results_scrolling_left,
+            ['<right>'] = actions.results_scrolling_right,
           },
         },
+
         path_display = {
           truncate = 1,
         },
       },
+
       extensions = {
         file_browser = {
+          mappings = {
+            ['i'] = {
+              ['<tab>'] = function(prompt_bufnr)
+                actions.toggle_selection(prompt_bufnr)
+                actions.move_selection_worse(prompt_bufnr)
+              end,
+            },
+
+            ['n'] = {
+              ['<tab>'] = function(prompt_bufnr)
+                actions.toggle_selection(prompt_bufnr)
+                actions.move_selection_worse(prompt_bufnr)
+              end,
+            },
+          },
+
           theme = 'ivy',
         },
       },
+
       pickers = pickers_configuration,
     }
   end,

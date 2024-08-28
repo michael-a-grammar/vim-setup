@@ -112,6 +112,7 @@ return {
 
         {
           '<leader>f',
+          group = 'Navigation',
         },
 
         {

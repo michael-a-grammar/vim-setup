@@ -58,13 +58,6 @@ vim.keymap.set(
 
 vim.keymap.set(
   { 'n', 'x' },
-  '<c-q>',
-  '<cmd>wqall<cr>',
-  { desc = 'Write and quit all', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
   '0',
   'g0',
   { desc = 'Beginning of line', noremap = true }

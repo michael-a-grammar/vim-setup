@@ -6,6 +6,7 @@ return {
     ensure_installed = {
       'bash',
       'elixir',
+      'elm',
       'eex',
       'fish',
       'lua',
@@ -19,6 +20,7 @@ return {
       'typescript',
       'vim',
       'vimdoc',
+      'yaml',
     },
 
     highlight = {
