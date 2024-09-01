@@ -34,7 +34,7 @@ return {
       align = 'center',
     },
 
-    preset = 'helix',
+    preset = 'modern',
 
     replace = {
       key = {

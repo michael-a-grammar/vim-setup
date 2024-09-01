@@ -71,6 +71,8 @@ return {
           i = {
             ['dd'] = actions.close,
 
+            ['<a-f>'] = actions.preview_scrolling_left,
+            ['<a-p>'] = actions.preview_scrolling_right,
             ['<a-q>'] = actions.send_selected_to_qflist + actions.open_qflist,
 
             ['<c-a>'] = trouble.open,
@@ -81,15 +83,12 @@ return {
 
             ['<c-r><c-c>'] = actions.insert_original_cline,
 
-            ['<c-left>'] = actions.preview_scrolling_left,
-            ['<c-right>'] = actions.preview_scrolling_right,
-
             ['<tab>'] = actions.toggle_selection + actions.move_selection_worse,
-            ['<left>'] = actions.results_scrolling_left,
-            ['<right>'] = actions.results_scrolling_right,
           },
 
           n = {
+            ['<a-f>'] = actions.preview_scrolling_left,
+            ['<a-p>'] = actions.preview_scrolling_right,
             ['<a-q>'] = actions.send_selected_to_qflist + actions.open_qflist,
 
             ['<c-a>'] = trouble.open,
@@ -100,12 +99,7 @@ return {
 
             ['<c-r><c-c>'] = actions.insert_original_cline,
 
-            ['<c-left>'] = actions.preview_scrolling_left,
-            ['<c-right>'] = actions.preview_scrolling_right,
-
             ['<tab>'] = actions.toggle_selection + actions.move_selection_worse,
-            ['<left>'] = actions.results_scrolling_left,
-            ['<right>'] = actions.results_scrolling_right,
           },
         },
 
