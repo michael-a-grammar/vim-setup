@@ -128,6 +128,10 @@ return {
 
           theme = 'ivy',
         },
+
+        mona = {
+          theme = 'ivy',
+        },
       },
 
       pickers = pickers_configuration,
@@ -147,6 +151,7 @@ return {
     telescope.load_extension('file_browser')
     telescope.load_extension('fzf')
     telescope.load_extension('gh')
+    telescope.load_extension('mona')
     telescope.load_extension('yank_history')
     telescope.load_extension('z')
 

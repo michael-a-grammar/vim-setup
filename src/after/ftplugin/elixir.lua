@@ -1,3 +1,5 @@
+local mona = require('telescope').extensions.mona
+
 local bufnr = vim.api.nvim_get_current_buf()
 
 vim.keymap.set(
@@ -9,7 +11,7 @@ vim.keymap.set(
 
 vim.keymap.set(
   { 'n', 'x' },
-  '<leader>mm',
+  '<leader>mi',
   ':Mix ',
   { desc = 'Mix', buffer = bufnr, noremap = true }
 )
@@ -20,6 +22,12 @@ vim.keymap.set({ 'n', 'x' }, '<leader>mo', function()
   })
 end, {
   desc = 'ElixirLS logs',
+  buffer = bufnr,
+  noremap = true,
+})
+
+vim.keymap.set({ 'n', 'x' }, '<leader>mmm', mona.elixir_project_modules, {
+  desc = 'Project Modules',
   buffer = bufnr,
   noremap = true,
 })
@@ -67,6 +75,11 @@ local to_add = {
     {
       '<leader>m',
       group = '',
+    },
+
+    {
+      '<leader>mm',
+      group = 'Mona',
     },
 
     {
