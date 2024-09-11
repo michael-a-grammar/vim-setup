@@ -10,6 +10,7 @@ return {
         require('undotree').toggle()
       end,
       desc = 'Undo tree',
+      mode = { 'n', 'x' },
     },
   },
 }

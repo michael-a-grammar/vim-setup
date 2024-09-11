@@ -6,5 +6,5 @@ return {
     'nvim-telescope/telescope.nvim',
   },
 
-  dev = false,
+  dev = true,
 }

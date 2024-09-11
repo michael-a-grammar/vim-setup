@@ -2,7 +2,7 @@ return {
   {
     'elixir-tools/elixir-tools.nvim',
     dependencies = 'nvim-lua/plenary.nvim',
-    enabled = false,
+    enabled = true,
     ft = 'elixir',
 
     opts = function(_, _)
@@ -24,11 +24,9 @@ return {
       }
 
       return {
-        credo = {
-          handlers = handlers,
-        },
-
         elixirls = {
+          enable = true,
+
           handlers = handlers,
           capabilities = capabilities,
 
@@ -38,6 +36,25 @@ return {
             fetchDeps = true,
             suggestSpecs = true,
           }),
+        },
+
+        nextls = {
+          enable = false,
+
+          handlers = handlers,
+          capabilities = capabilities,
+
+          init_options = {
+            experimental = {
+              completions = {
+                enable = true,
+              },
+            },
+          },
+        },
+
+        projectionist = {
+          enable = false,
         },
       }
     end,

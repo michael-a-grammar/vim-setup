@@ -82,6 +82,7 @@ return {
             ['<c-t>'] = actions.select_tab,
 
             ['<c-r><c-c>'] = actions.insert_original_cline,
+            ['<c-r><c-r>'] = actions.insert_original_cword,
 
             ['<tab>'] = actions.toggle_selection + actions.move_selection_worse,
           },
@@ -98,6 +99,7 @@ return {
             ['<c-t>'] = actions.select_tab,
 
             ['<c-r><c-c>'] = actions.insert_original_cline,
+            ['<c-r><c-r>'] = actions.insert_original_cword,
 
             ['<tab>'] = actions.toggle_selection + actions.move_selection_worse,
           },

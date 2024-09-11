@@ -7,6 +7,7 @@ return {
 
     {
       'rcarriga/nvim-notify',
+
       opts = {
         render = 'default',
         stages = 'fade',
@@ -81,7 +82,7 @@ return {
     end, { desc = 'Error notifications', noremap = true })
 
     vim.keymap.set({ 'n', 'x' }, '<leader>ah', function()
-      vim.cmd('Telescope noice theme=ivy')
+      vim.cmd('Telescope noice')
     end, { desc = 'Notifications history', noremap = true })
 
     vim.keymap.set({ 'n', 'x' }, '<leader>al', function()
