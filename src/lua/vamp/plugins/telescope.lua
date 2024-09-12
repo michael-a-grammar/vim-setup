@@ -132,6 +132,12 @@ return {
         },
 
         mona = {
+          pickers = {
+            pickers = {
+              theme = 'dropdown',
+            },
+          },
+
           theme = 'ivy',
         },
       },
