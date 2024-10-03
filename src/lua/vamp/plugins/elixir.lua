@@ -25,10 +25,11 @@ return {
 
       return {
         elixirls = {
+          cmd = 'elixir-ls',
           enable = true,
 
-          handlers = handlers,
           capabilities = capabilities,
+          handlers = handlers,
 
           settings = require('elixir.elixirls').settings({
             dialyzerEnabled = true,

@@ -45,14 +45,14 @@ vim.keymap.set(
 vim.keymap.set(
   { 'n', 'x' },
   '<c-f>',
-  '<c-u>',
+  '<c-u>zz',
   { desc = 'Scroll up', noremap = true }
 )
 
 vim.keymap.set(
   { 'n', 'x' },
   '<c-p>',
-  '<c-d>',
+  '<c-d>zz',
   { desc = 'Scroll down', noremap = true }
 )
 
@@ -116,12 +116,12 @@ vim.keymap.set(
 
 vim.keymap.set({ 'n', 'x' }, 'U', '<c-r>', { desc = 'Redo', noremap = true })
 
--- vim.keymap.set(
---   { 'n', 'x' },
---   'k',
---   vim.lsp.buf.hover,
---   { desc = 'Hover', noremap = true }
--- )
+vim.keymap.set(
+  { 'n', 'x' },
+  'k',
+  vim.lsp.buf.hover,
+  { desc = 'Hover', noremap = true }
+)
 
 vim.keymap.set(
   { 'n', 'x' },

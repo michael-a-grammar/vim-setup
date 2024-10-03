@@ -1,10 +1,8 @@
-local ok, telescope = pcall(require, 'telescope')
-
-if not ok then
+if _G.TEST then
   return
 end
 
-local mona = telescope.extensions.mona
+local mona = require('telescope').extensions.mona
 
 local bufnr = vim.api.nvim_get_current_buf()
 

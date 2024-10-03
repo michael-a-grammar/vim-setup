@@ -29,15 +29,17 @@ return {
 
     toggleterm.setup(opts)
 
-    local set_op_func = vim.fn[vim.api.nvim_exec(
+    local set_op_func = vim.fn[vim.api.nvim_exec2(
       [[
         function s:set_op_func(val)
-          let &op_func = a:val
+          let &opfunc = a:val
         endfunction
         echon get(function('s:set_op_func'), 'name')
       ]],
-      true
-    )]
+      {
+        output = true,
+      }
+    ).output]
 
     for index = 1, 5, 1 do
       local terminal_index = tostring(index)
