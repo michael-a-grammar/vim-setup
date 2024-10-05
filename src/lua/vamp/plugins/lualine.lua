@@ -1,5 +1,6 @@
 return {
   'nvim-lualine/lualine.nvim',
+
   dependencies = 'nvim-tree/nvim-web-devicons',
 
   opts = function(_, _)
@@ -244,7 +245,7 @@ return {
       function()
         local no_lsp_message = '󰝾'
         local lsp_message = '' .. '  '
-        local clients = vim.lsp.get_active_clients()
+        local clients = vim.lsp.get_clients()
 
         if next(clients) == nil then
           return no_lsp_message
@@ -289,6 +290,8 @@ return {
           :gsub('<20>', ' 󱁐 ')
           :gsub('%^%[', ' 󱊷 ')
           :gsub('%^', ' 󰘴 ')
+          :gsub('"(.)p', '   󰳴 %1')
+          :gsub('"(.)', ' 󰳴 %1')
           :gsub('^%s*(.-)%s*$', '%1')
       end,
 

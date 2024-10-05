@@ -11,7 +11,7 @@ return {
       { desc = 'Toggle treesitter context', noremap = true }
     )
 
-    for index = 1, 5, 1 do
+    for index = 1, 9, 1 do
       local treesitter_context_index = tostring(index)
       local keymap_index = index == 1 and 'c' or treesitter_context_index
 

@@ -16,9 +16,16 @@ vim.keymap.set('i', 'jj', '<esc>', { desc = 'Normal mode', noremap = false })
 
 vim.keymap.set(
   { 'n', 'x' },
-  '<c-down>',
-  '<c-w>j',
-  { desc = 'Move to bottom window', noremap = true }
+  '<pagedown>',
+  '<pagedown>zzzv',
+  { desc = 'Scroll down and centre', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<pageup>',
+  '<pageup>zzzv',
+  { desc = 'Scroll up and centre', noremap = true }
 )
 
 vim.keymap.set(
@@ -26,6 +33,13 @@ vim.keymap.set(
   '<c-up>',
   '<c-w>w',
   { desc = 'Move to top window', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<c-down>',
+  '<c-w>j',
+  { desc = 'Move to bottom window', noremap = true }
 )
 
 vim.keymap.set(
@@ -44,16 +58,30 @@ vim.keymap.set(
 
 vim.keymap.set(
   { 'n', 'x' },
+  '<c-u>',
+  '<c-u>zzzv',
+  { desc = 'Scroll up and centre', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<c-d>',
+  '<c-d>zzzv',
+  { desc = 'Scroll down and centre', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
   '<c-f>',
-  '<c-u>zz',
-  { desc = 'Scroll up', noremap = true }
+  '<c-u>zzzv',
+  { desc = 'Scroll up and centre', noremap = true }
 )
 
 vim.keymap.set(
   { 'n', 'x' },
   '<c-p>',
-  '<c-d>zz',
-  { desc = 'Scroll down', noremap = true }
+  '<c-d>zzzv',
+  { desc = 'Scroll down and centre', noremap = true }
 )
 
 vim.keymap.set(
@@ -79,18 +107,25 @@ vim.keymap.set(
 
 vim.keymap.set(
   { 'n', 'x' },
-  '-',
-  'ddp',
-  { desc = 'Move line down', noremap = true }
+  'j',
+  'jzzzv',
+  { desc = 'Down and centre', noremap = true }
 )
+
+-- vim.keymap.set(
+--   { 'n', 'x' },
+--   'k',
+--   'kzzzv',
+--   { desc = 'Up and centre', noremap = true }
+-- )
 
 vim.keymap.set({ 'n', 'x' }, 'n', 'nzzzv', { desc = 'Next match and centre' })
 
 vim.keymap.set(
   { 'n', 'x' },
-  '_',
-  'dd<up>P',
-  { desc = 'Move line up', noremap = true }
+  'N',
+  'Nzzzv',
+  { desc = 'Previous match and centre' }
 )
 
 vim.keymap.set(
@@ -105,13 +140,6 @@ vim.keymap.set(
   'L',
   'g$',
   { desc = 'End of line', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  'N',
-  'Nzzzv',
-  { desc = 'Previous match and centre' }
 )
 
 vim.keymap.set({ 'n', 'x' }, 'U', '<c-r>', { desc = 'Redo', noremap = true })

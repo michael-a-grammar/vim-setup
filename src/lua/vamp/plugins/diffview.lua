@@ -1,17 +1,18 @@
 return {
   'sindrets/diffview.nvim',
-  dependencies = 'nvim-tree/nvim-web-devicons',
 
-  opts = {},
+  config = true,
 
-  config = function(opts, _)
-    require('diffview').setup(opts)
+  dependencies = {
+    'nvim-tree/nvim-web-devicons',
+  },
 
-    vim.keymap.set(
-      { 'n', 'x' },
+  keys = {
+    {
       '<leader>ngh',
       '<cmd>DiffviewFileHistory %<cr>',
-      { desc = 'File history', noremap = true }
-    )
-  end,
+      desc = 'File history',
+      mode = { 'n', 'x' },
+    },
+  },
 }

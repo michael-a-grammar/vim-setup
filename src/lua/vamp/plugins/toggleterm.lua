@@ -41,7 +41,7 @@ return {
       }
     ).output]
 
-    for index = 1, 5, 1 do
+    for index = 1, 9, 1 do
       local terminal_index = tostring(index)
       local keymap_index = index == 1 and '' or terminal_index
 

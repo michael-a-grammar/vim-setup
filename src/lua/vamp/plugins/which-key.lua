@@ -181,6 +181,11 @@ return {
         },
 
         {
+          '<leader>nr',
+          group = 'Breadcrumbs',
+        },
+
+        {
           '<leader>o',
           group = 'Unassigned',
         },
@@ -188,6 +193,11 @@ return {
         {
           '<leader>p',
           group = 'Edit',
+        },
+
+        {
+          '<leader>pe',
+          group = 'Expand / shrink region',
         },
 
         {
@@ -298,6 +308,13 @@ return {
     end
 
     which_key.add(to_add)
+
+    vim.keymap.set({ 'n', 'x' }, '<leader>pe*', function()
+      which_key.show({
+        keys = '<leader>pe',
+        loop = true,
+      })
+    end, { desc = ' ' .. ' Expand / shrink region', noremap = true })
 
     vim.keymap.set({ 'n', 'x' }, '<leader>wc*', function()
       which_key.show({
