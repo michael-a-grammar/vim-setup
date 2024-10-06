@@ -1,7 +1,11 @@
 return {
   'folke/neodev.nvim',
-  dependencies = 'neovim/nvim-lspconfig',
+
   ft = 'lua',
+
+  dependencies = {
+    'neovim/nvim-lspconfig',
+  },
 
   config = function(_, _)
     require('neodev').setup({})

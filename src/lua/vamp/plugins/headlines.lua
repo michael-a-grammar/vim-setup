@@ -1,13 +1,15 @@
 return {
   'lukas-reineke/headlines.nvim',
-  dependencies = 'nvim-treesitter/nvim-treesitter',
-  enabled = false,
+
+  config = true,
+
+  dependencies = {
+    'nvim-treesitter/nvim-treesitter',
+  },
 
   ft = {
     'markdown',
     'neorg',
     'orgmode',
   },
-
-  config = true,
 }

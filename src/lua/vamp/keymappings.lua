@@ -17,14 +17,14 @@ vim.keymap.set('i', 'jj', '<esc>', { desc = 'Normal mode', noremap = false })
 vim.keymap.set(
   { 'n', 'x' },
   '<pagedown>',
-  '<pagedown>zzzv',
+  '<c-d>zzzv',
   { desc = 'Scroll down and centre', noremap = true }
 )
 
 vim.keymap.set(
   { 'n', 'x' },
   '<pageup>',
-  '<pageup>zzzv',
+  '<c-u>zzzv',
   { desc = 'Scroll up and centre', noremap = true }
 )
 
@@ -162,7 +162,7 @@ vim.keymap.set(
   { 'n', 'x' },
   '<leader><tab>',
   '<c-^>',
-  { desc = 'Last buffer', noremap = true }
+  { desc = 'Previous buffer', noremap = true }
 )
 
 vim.keymap.set(
@@ -315,14 +315,14 @@ vim.keymap.set(
   { 'n', 'x' },
   '<leader>pd',
   '<c-x>',
-  { desc = 'Decrement', noremap = true }
+  { desc = 'Decrement number', noremap = true }
 )
 
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>pi',
   '<c-a>',
-  { desc = 'Increment', noremap = true }
+  { desc = 'Increment number', noremap = true }
 )
 
 vim.keymap.set(
@@ -362,20 +362,6 @@ vim.keymap.set(
 
 vim.keymap.set(
   { 'n', 'x' },
-  '<leader>tn',
-  '<cmd>bnext<cr>',
-  { desc = 'Next buffer', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  '<leader>tp',
-  '<cmd>bprevious<cr>',
-  { desc = 'Previous buffer', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
   '<leader>tv',
   '<cmd>vertical ball<cr>',
   { desc = 'Open buffers in vertical splits', noremap = true }
@@ -386,20 +372,6 @@ vim.keymap.set(
   '<leader>ty',
   '<cmd>tab ball<cr>',
   { desc = 'Open buffers in tabs', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  '<leader>txf',
-  '<cmd>%bdelete! | edit#<cr>',
-  { desc = '' .. ' Close other buffers', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  '<leader>txx',
-  '<cmd>%bdelete | edit#<cr>',
-  { desc = 'Close other buffers', noremap = true }
 )
 
 vim.keymap.set(

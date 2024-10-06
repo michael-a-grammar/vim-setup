@@ -157,7 +157,7 @@ return {
 
         {
           '<leader>nd',
-          group = 'Delete buffer',
+          group = 'Close buffer',
         },
 
         {
@@ -197,7 +197,7 @@ return {
 
         {
           '<leader>pe',
-          group = 'Expand / shrink region',
+          group = 'Expand or shrink region',
         },
 
         {
@@ -231,8 +231,18 @@ return {
         },
 
         {
-          '<leader>tx',
-          group = 'Delete other buffers',
+          '<leader>td',
+          group = 'Close other buffers',
+        },
+
+        {
+          '<leader>tg',
+          group = 'Buffer groups',
+        },
+
+        {
+          '<leader>ts',
+          group = 'Sort buffers',
         },
 
         {

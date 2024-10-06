@@ -9,6 +9,7 @@ return {
 
     {
       'nvim-telescope/telescope-fzf-native.nvim',
+
       build = 'make',
     },
   },
@@ -386,13 +387,6 @@ return {
       '<leader>ss',
       builtin.find_files,
       { desc = 'Find files', noremap = true }
-    )
-
-    vim.keymap.set(
-      { 'n', 'x' },
-      '<leader>tt',
-      get_buffers_only_cwd,
-      { desc = '' .. ' Buffers', noremap = true }
     )
 
     vim.keymap.set({ 'n', 'x' }, '<leader>u*', function()

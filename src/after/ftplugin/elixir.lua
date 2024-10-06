@@ -1,9 +1,3 @@
-if _G.TEST then
-  return
-end
-
-local mona = require('telescope').extensions.mona
-
 local bufnr = vim.api.nvim_get_current_buf()
 
 vim.keymap.set(
@@ -29,52 +23,6 @@ end, {
   buffer = bufnr,
   noremap = true,
 })
-
-vim.keymap.set({ 'n', 'x' }, '<leader>mma', mona.elixir_application_modules, {
-  desc = 'Application Modules',
-  buffer = bufnr,
-  noremap = true,
-})
-
-vim.keymap.set({ 'n', 'x' }, '<leader>mmm', mona.elixir_project_modules, {
-  desc = 'Project Modules',
-  buffer = bufnr,
-  noremap = true,
-})
-
-vim.keymap.set(
-  { 'n', 'x' },
-  '<leader>mmn',
-  mona.elixir_buffer_directory_modules,
-  {
-    desc = 'Buffer Directory Modules',
-    buffer = bufnr,
-    noremap = true,
-  }
-)
-
-vim.keymap.set({ 'n', 'x' }, '<leader>mmta', mona.elixir_application_tests, {
-  desc = 'Application Tests',
-  buffer = bufnr,
-  noremap = true,
-})
-
-vim.keymap.set({ 'n', 'x' }, '<leader>mmtm', mona.elixir_project_tests, {
-  desc = 'Project Tests',
-  buffer = bufnr,
-  noremap = true,
-})
-
-vim.keymap.set(
-  { 'n', 'x' },
-  '<leader>mmtn',
-  mona.elixir_buffer_directory_tests,
-  {
-    desc = 'Buffer Directory Tests',
-    buffer = bufnr,
-    noremap = true,
-  }
-)
 
 vim.keymap.set(
   { 'n', 'x' },
@@ -119,16 +67,6 @@ local to_add = {
     {
       '<leader>m',
       group = '',
-    },
-
-    {
-      '<leader>mm',
-      group = 'Mona',
-    },
-
-    {
-      '<leader>mmt',
-      group = 'Tests',
     },
 
     {

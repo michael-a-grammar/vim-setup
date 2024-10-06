@@ -1,5 +1,6 @@
 return {
   'amitds1997/remote-nvim.nvim',
+
   version = '0.3.9',
 
   dependencies = {

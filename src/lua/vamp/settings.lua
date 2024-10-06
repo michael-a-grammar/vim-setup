@@ -85,6 +85,8 @@ vim.opt.timeoutlen = 800
 vim.opt.ttimeout = true
 vim.opt.ttimeoutlen = 80
 
+vim.opt.sessionoptions:append('globals')
+
 vim.opt.backup = true
 vim.opt.backupcopy = 'auto'
 vim.opt.backupdir:remove('.')
