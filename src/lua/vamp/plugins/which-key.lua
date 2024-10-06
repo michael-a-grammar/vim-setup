@@ -151,6 +151,11 @@ return {
         },
 
         {
+          '<leader>na',
+          group = 'Barbecue',
+        },
+
+        {
           '<leader>nc',
           group = 'Treesitter context',
         },
@@ -178,11 +183,6 @@ return {
         {
           '<leader>no',
           group = 'Outline',
-        },
-
-        {
-          '<leader>nr',
-          group = 'Breadcrumbs',
         },
 
         {
@@ -307,7 +307,7 @@ return {
       },
     }
 
-    for index = 2, 5, 1 do
+    for index = 2, 9, 1 do
       local terminal_index = tostring(index)
 
       table.insert(to_add[1], {

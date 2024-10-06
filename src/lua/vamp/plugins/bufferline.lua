@@ -36,6 +36,13 @@ return {
         },
 
         {
+          filetype = 'grug-far',
+          separator = true,
+          text = '󰣎',
+          text_align = 'center',
+        },
+
+        {
           filetype = 'toggleterm',
           separator = true,
           text = '',
