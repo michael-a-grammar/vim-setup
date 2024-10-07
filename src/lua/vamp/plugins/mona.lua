@@ -4,6 +4,7 @@ return {
   dev = true,
 
   dependencies = {
+    'folke/which-key.nvim',
     'nvim-lua/plenary.nvim',
     'nvim-telescope/telescope.nvim',
   },

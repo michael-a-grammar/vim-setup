@@ -16,8 +16,10 @@ return {
       beacon = true,
       cmp = true,
       dashboard = true,
+      diffview = true,
       flash = true,
       gitsigns = true,
+      grug_far = true,
       harpoon = true,
       headlines = true,
       lsp_trouble = true,
@@ -40,6 +42,11 @@ return {
         dim_dirname = true,
         bold_basename = true,
         dim_context = true,
+      },
+
+      illuminate = {
+        enabled = true,
+        lsp = false,
       },
 
       mini = {
@@ -89,7 +96,7 @@ return {
 
       navic = {
         enabled = true,
-        custom_bg = 'lavender',
+        custom_bg = 'NONE',
       },
 
       telescope = {

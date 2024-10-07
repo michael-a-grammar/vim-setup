@@ -1,11 +1,11 @@
 return {
   'jiaoshijie/undotree',
 
+  config = true,
+
   dependencies = {
     'nvim-lua/plenary.nvim',
   },
-
-  config = true,
 
   keys = {
     {

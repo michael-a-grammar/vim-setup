@@ -5,6 +5,7 @@ return {
 
   config = function(_, opts)
     local web_devicons = require('nvim-web-devicons')
+
     local catppuccin =
       require('catppuccin.palettes').get_palette(_G.catppuccin_theme)
 

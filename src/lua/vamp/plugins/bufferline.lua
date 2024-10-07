@@ -1,6 +1,8 @@
 return {
   'akinsho/bufferline.nvim',
 
+  after = 'catppuccin',
+
   opts = {
     options = {
       diagnostics = 'nvim_lsp',
@@ -29,16 +31,16 @@ return {
 
       offsets = {
         {
-          filetype = 'neo-tree',
+          filetype = 'grug-far',
           separator = true,
-          text = '󰌪',
+          text = '󰣎',
           text_align = 'center',
         },
 
         {
-          filetype = 'grug-far',
+          filetype = 'neo-tree',
           separator = true,
-          text = '󰣎',
+          text = '󰌪',
           text_align = 'center',
         },
 
@@ -194,7 +196,6 @@ return {
 
     require('bufferline').setup(opts)
 
-    -- Sorting, picking, cycling, pinning, tab rename
     vim.keymap.set(
       { 'n', 'x' },
       '<leader>ti',
@@ -219,8 +220,8 @@ return {
     vim.keymap.set(
       { 'n', 'x' },
       '<leader>tdd',
-      '<cmd>BufferLineCloseOthers<cr>',
-      { desc = 'Close other buffers', noremap = true }
+      '<cmd>BufferLinePickClose<cr>',
+      { desc = 'Choose buffer to close', noremap = true }
     )
 
     vim.keymap.set(
@@ -239,9 +240,9 @@ return {
 
     vim.keymap.set(
       { 'n', 'x' },
-      '<leader>tdp',
-      '<cmd>BufferLinePickClose<cr>',
-      { desc = 'Choose buffer to close', noremap = true }
+      '<leader>tdt',
+      '<cmd>BufferLineCloseOthers<cr>',
+      { desc = 'Close other buffers', noremap = true }
     )
 
     vim.keymap.set(
@@ -253,7 +254,7 @@ return {
 
     vim.keymap.set(
       { 'n', 'x' },
-      '<leader>tgt',
+      '<leader>tgg',
       ':BufferLineGroupToggle ',
       { desc = 'Toggle buffer group', noremap = true }
     )
@@ -263,13 +264,6 @@ return {
       '<leader>tt',
       '<cmd>BufferLinePick<cr>',
       { desc = 'Buffers', noremap = true }
-    )
-
-    vim.keymap.set(
-      { 'n', 'x' },
-      '<leader>tsd',
-      '<cmd>BufferLineSortByDirectory<cr>',
-      { desc = 'Sort buffers by directory', noremap = true }
     )
 
     vim.keymap.set(
@@ -284,6 +278,13 @@ return {
       '<leader>tsr',
       '<cmd>BufferLineSortByRelativeDirectory<cr>',
       { desc = 'Sort buffers by relative directory', noremap = true }
+    )
+
+    vim.keymap.set(
+      { 'n', 'x' },
+      '<leader>tss',
+      '<cmd>BufferLineSortByDirectory<cr>',
+      { desc = 'Sort buffers by directory', noremap = true }
     )
 
     vim.keymap.set(

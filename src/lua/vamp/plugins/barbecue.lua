@@ -26,14 +26,14 @@ return {
 
     for index = 1, 9, 1 do
       local barbecue_index = index
-      local keymap_index = index == 1 and 'r' or tostring(barbecue_index)
+      local keymap_index = index == 1 and 'a' or tostring(barbecue_index)
 
-      vim.keymap.set({ 'n', 'x' }, '<leader>nr' .. keymap_index, function()
+      vim.keymap.set({ 'n', 'x' }, '<leader>na' .. keymap_index, function()
         require('barbecue.ui').navigate(barbecue_index)
       end, { desc = 'Go to breadcrumb ' .. barbecue_index, noremap = true })
     end
 
-    vim.keymap.set({ 'n', 'x' }, '<leader>nrl', function()
+    vim.keymap.set({ 'n', 'x' }, '<leader>nal', function()
       require('barbecue.ui').navigate(-1)
     end, { desc = 'Go to the last breadcrumb', noremap = true })
   end,

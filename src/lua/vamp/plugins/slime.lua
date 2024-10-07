@@ -36,7 +36,7 @@ return {
 
     vim.keymap.set(
       { 'n', 'x' },
-      '<leader>ce',
+      '<leader>co',
       '<plug>(SlimeConfig)',
       { desc = 'Configure REPL', noremap = true }
     )

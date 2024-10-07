@@ -2,11 +2,19 @@ return {
   'hrsh7th/nvim-cmp',
 
   event = {
-    'InsertEnter',
     'CmdlineEnter',
+    'InsertEnter',
   },
 
   dependencies = {
+    'hrsh7th/cmp-buffer',
+    'hrsh7th/cmp-cmdline',
+    'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/cmp-nvim-lsp-document-symbol',
+    'hrsh7th/cmp-path',
+
+    'onsails/lspkind.nvim',
+
     {
       'neovim/nvim-lspconfig',
 
@@ -16,14 +24,6 @@ return {
         }
       end,
     },
-
-    'hrsh7th/cmp-buffer',
-    'hrsh7th/cmp-cmdline',
-    'hrsh7th/cmp-nvim-lsp',
-    'hrsh7th/cmp-nvim-lsp-document-symbol',
-    'hrsh7th/cmp-path',
-
-    'onsails/lspkind.nvim',
   },
 
   config = function()

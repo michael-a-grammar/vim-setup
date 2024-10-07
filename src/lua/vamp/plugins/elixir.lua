@@ -6,6 +6,7 @@ return {
     ft = 'elixir',
 
     dependencies = {
+      'folke/which-key.nvim',
       'nvim-lua/plenary.nvim',
     },
 

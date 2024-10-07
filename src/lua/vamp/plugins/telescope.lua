@@ -2,6 +2,7 @@ return {
   'nvim-telescope/telescope.nvim',
 
   dependencies = {
+    'folke/trouble.nvim',
     'nvim-lua/plenary.nvim',
     'nvim-telescope/telescope-file-browser.nvim',
     'nvim-telescope/telescope-github.nvim',
@@ -252,16 +253,16 @@ return {
 
     vim.keymap.set(
       { 'n', 'x' },
-      '<leader>ei',
-      builtin.lsp_implementations,
-      { desc = 'Implementations', noremap = true }
+      '<leader>ed',
+      builtin.lsp_dynamic_workspace_symbols,
+      { desc = 'Dynamic workspace symbols', noremap = true }
     )
 
     vim.keymap.set(
       { 'n', 'x' },
-      '<leader>en',
-      builtin.lsp_dynamic_workspace_symbols,
-      { desc = 'Dynamic workspace symbols', noremap = true }
+      '<leader>ei',
+      builtin.lsp_implementations,
+      { desc = 'Implementations', noremap = true }
     )
 
     vim.keymap.set(

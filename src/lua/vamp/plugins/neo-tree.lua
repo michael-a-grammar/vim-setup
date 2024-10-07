@@ -4,15 +4,15 @@ return {
   branch = 'v3.x',
 
   dependencies = {
+    '3rd/image.nvim',
+    'MunifTanjim/nui.nvim',
     'nvim-lua/plenary.nvim',
     'nvim-tree/nvim-web-devicons',
-    'MunifTanjim/nui.nvim',
-    '3rd/image.nvim',
     's1n7ax/nvim-window-picker',
   },
 
   opts = {
-    close_if_last_window = false,
+    close_if_last_window = true,
 
     commands = {
       bottom_this_line = function()

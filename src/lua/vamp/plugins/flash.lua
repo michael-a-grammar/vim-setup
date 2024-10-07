@@ -19,29 +19,24 @@ return {
   keys = {
     {
       'r',
-      mode = 'o',
-
       function()
         require('flash').remote()
       end,
-
       desc = 'Flash remote',
+      mode = 'o',
     },
 
     {
       '<bs>',
-
+      function()
+        require('flash').jump()
+      end,
+      desc = 'Flash',
       mode = {
         'n',
         'x',
         'o',
       },
-
-      function()
-        require('flash').jump()
-      end,
-
-      desc = 'Flash',
     },
   },
 }

@@ -1,11 +1,12 @@
 return {
   'amitds1997/remote-nvim.nvim',
 
+  config = true,
   version = '0.3.9',
 
   dependencies = {
-    'nvim-lua/plenary.nvim',
     'MunifTanjim/nui.nvim',
+    'nvim-lua/plenary.nvim',
     'nvim-telescope/telescope.nvim',
   },
 
@@ -30,6 +31,4 @@ return {
       })
     end,
   },
-
-  config = true,
 }

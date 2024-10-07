@@ -1,7 +1,7 @@
 return {
   'nvim-treesitter/nvim-treesitter-context',
 
-  config = function()
+  config = function(_, _)
     require('treesitter-context').setup()
 
     vim.keymap.set(
