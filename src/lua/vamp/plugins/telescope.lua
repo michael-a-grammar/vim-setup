@@ -288,13 +288,6 @@ return {
 
     vim.keymap.set(
       { 'n', 'x' },
-      '<leader>fc',
-      builtin.quickfixhistory,
-      { desc = 'Quickfix history', noremap = true }
-    )
-
-    vim.keymap.set(
-      { 'n', 'x' },
       '<leader>ff',
       builtin.oldfiles,
       { desc = '' .. ' Recent files', noremap = true }
@@ -305,6 +298,13 @@ return {
       '<leader>fm',
       builtin.marks,
       { desc = 'Marks', noremap = true }
+    )
+
+    vim.keymap.set(
+      { 'n', 'x' },
+      '<leader>fqh',
+      builtin.quickfixhistory,
+      { desc = 'Quickfix history', noremap = true }
     )
 
     vim.keymap.set({ 'n', 'x' }, '<leader>fr', function()
@@ -319,6 +319,49 @@ return {
       builtin.jumplist,
       { desc = 'Jumps', noremap = true }
     )
+
+    vim.keymap.set(
+      { 'n', 'x' },
+      '<leader>gsb',
+      builtin.git_branches,
+      { desc = 'Branches', noremap = true }
+    )
+
+    vim.keymap.set(
+      { 'n', 'x' },
+      '<leader>gsc',
+      builtin.git_commits,
+      { desc = 'Commits', noremap = true }
+    )
+
+    vim.keymap.set(
+      { 'n', 'x' },
+      '<leader>gsf',
+      builtin.git_files,
+      { desc = 'Files', noremap = true }
+    )
+
+    vim.keymap.set(
+      { 'n', 'x' },
+      '<leader>gsg',
+      builtin.git_status,
+      { desc = 'Status', noremap = true }
+    )
+
+    vim.keymap.set(
+      { 'n', 'x' },
+      '<leader>gsr',
+      builtin.git_bcommits,
+      { desc = 'Branch commits', noremap = true }
+    )
+
+    vim.keymap.set(
+      { 'n', 'x' },
+      '<leader>gss',
+      builtin.git_stash,
+      { desc = 'Stash', noremap = true }
+    )
+
 
     vim.keymap.set(
       { 'n', 'x' },
@@ -454,48 +497,6 @@ return {
       '<leader>zo',
       builtin.vim_options,
       { desc = 'Options', noremap = true }
-    )
-
-    vim.keymap.set(
-      { 'n', 'x' },
-      '<leader>gsb',
-      builtin.git_branches,
-      { desc = 'Branches', noremap = true }
-    )
-
-    vim.keymap.set(
-      { 'n', 'x' },
-      '<leader>gsc',
-      builtin.git_commits,
-      { desc = 'Commits', noremap = true }
-    )
-
-    vim.keymap.set(
-      { 'n', 'x' },
-      '<leader>gsf',
-      builtin.git_files,
-      { desc = 'Files', noremap = true }
-    )
-
-    vim.keymap.set(
-      { 'n', 'x' },
-      '<leader>gsg',
-      builtin.git_status,
-      { desc = 'Status', noremap = true }
-    )
-
-    vim.keymap.set(
-      { 'n', 'x' },
-      '<leader>gsr',
-      builtin.git_bcommits,
-      { desc = 'Branch commits', noremap = true }
-    )
-
-    vim.keymap.set(
-      { 'n', 'x' },
-      '<leader>gss',
-      builtin.git_stash,
-      { desc = 'Stash', noremap = true }
     )
 
     local get_file_info = function()

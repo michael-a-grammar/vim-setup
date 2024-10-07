@@ -219,6 +219,20 @@ return {
 
     vim.keymap.set(
       { 'n', 'x' },
+      '<leader>tt',
+      '<cmd>BufferLinePick<cr>',
+      { desc = 'Buffers', noremap = true }
+    )
+
+    vim.keymap.set(
+      { 'n', 'x' },
+      '<leader>yr',
+      ':BufferLineTabRename ',
+      { desc = 'Rename tab', noremap = true }
+    )
+
+    vim.keymap.set(
+      { 'n', 'x' },
       '<leader>tdd',
       '<cmd>BufferLinePickClose<cr>',
       { desc = 'Choose buffer to close', noremap = true }
@@ -261,13 +275,6 @@ return {
 
     vim.keymap.set(
       { 'n', 'x' },
-      '<leader>tt',
-      '<cmd>BufferLinePick<cr>',
-      { desc = 'Buffers', noremap = true }
-    )
-
-    vim.keymap.set(
-      { 'n', 'x' },
       '<leader>tse',
       '<cmd>BufferLineSortByExtension<cr>',
       { desc = 'Sort buffers by extension', noremap = true }
@@ -292,13 +299,6 @@ return {
       '<leader>tst',
       '<cmd>BufferLineSortByTabs<cr>',
       { desc = 'Sort buffers by tabs', noremap = true }
-    )
-
-    vim.keymap.set(
-      { 'n', 'x' },
-      '<leader>yr',
-      ':BufferLineTabRename ',
-      { desc = 'Rename tab', noremap = true }
     )
 
     vim.api.nvim_set_hl(0, 'BufferLineOffsetSeparator', {

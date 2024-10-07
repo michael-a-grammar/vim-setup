@@ -1,3 +1,5 @@
+vim.keymap.set('i', 'jj', '<esc>', { desc = 'Normal mode', noremap = false })
+
 vim.keymap.set(
   'c',
   '<a-left>',
@@ -12,20 +14,11 @@ vim.keymap.set(
   { desc = 'Word forwards', noremap = true }
 )
 
-vim.keymap.set('i', 'jj', '<esc>', { desc = 'Normal mode', noremap = false })
-
 vim.keymap.set(
   { 'n', 'x' },
-  '<pagedown>',
-  '<c-d>zzzv',
-  { desc = 'Scroll down and centre', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  '<pageup>',
-  '<c-u>zzzv',
-  { desc = 'Scroll up and centre', noremap = true }
+  '<c-down>',
+  '<c-w>j',
+  { desc = 'Move to bottom window', noremap = true }
 )
 
 vim.keymap.set(
@@ -33,13 +26,6 @@ vim.keymap.set(
   '<c-up>',
   '<c-w>w',
   { desc = 'Move to top window', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
-  '<c-down>',
-  '<c-w>j',
-  { desc = 'Move to bottom window', noremap = true }
 )
 
 vim.keymap.set(
@@ -58,9 +44,30 @@ vim.keymap.set(
 
 vim.keymap.set(
   { 'n', 'x' },
-  '<c-u>',
+  '<pagedown>',
+  '<c-d>zzzv',
+  { desc = 'Scroll down and centre', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<pageup>',
   '<c-u>zzzv',
   { desc = 'Scroll up and centre', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<down>',
+  '<down>zzzv',
+  { desc = 'Down and centre', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<up>',
+  '<up>zzzv',
+  { desc = 'Up and centre', noremap = true }
 )
 
 vim.keymap.set(
@@ -72,7 +79,7 @@ vim.keymap.set(
 
 vim.keymap.set(
   { 'n', 'x' },
-  '<c-f>',
+  '<c-u>',
   '<c-u>zzzv',
   { desc = 'Scroll up and centre', noremap = true }
 )
@@ -82,6 +89,13 @@ vim.keymap.set(
   '<c-p>',
   '<c-d>zzzv',
   { desc = 'Scroll down and centre', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<c-f>',
+  '<c-u>zzzv',
+  { desc = 'Scroll up and centre', noremap = true }
 )
 
 vim.keymap.set(
@@ -105,19 +119,19 @@ vim.keymap.set(
   { desc = 'End of line', noremap = true }
 )
 
-vim.keymap.set(
-  { 'n', 'x' },
-  'j',
-  'jzzzv',
-  { desc = 'Down and centre', noremap = true }
-)
-
 -- vim.keymap.set(
 --   { 'n', 'x' },
 --   'k',
 --   'kzzzv',
 --   { desc = 'Up and centre', noremap = true }
 -- )
+
+vim.keymap.set(
+  { 'n', 'x' },
+  'j',
+  'jzzzv',
+  { desc = 'Down and centre', noremap = true }
+)
 
 vim.keymap.set({ 'n', 'x' }, 'n', 'nzzzv', { desc = 'Next match and centre' })
 
@@ -232,27 +246,27 @@ end, { desc = 'Run test', noremap = true })
 vim.keymap.set(
   { 'n', 'x' },
   '<leader>fi',
-  '<c-i>',
+  '<c-i>zzzv',
   { desc = 'Forwards', noremap = true }
 )
 
 vim.keymap.set(
   { 'n', 'x' },
-  '<leader>fn',
-  '<cmd>cnext<cr>zz',
-  { desc = 'Quickfix next', noremap = true }
-)
-
-vim.keymap.set(
-  { 'n', 'x' },
   '<leader>fo',
-  '<c-o>',
+  '<c-o>zzzv',
   { desc = 'Backwards', noremap = true }
 )
 
 vim.keymap.set(
   { 'n', 'x' },
-  '<leader>fp',
+  '<leader>fqn',
+  '<cmd>cnext<cr>zzzv',
+  { desc = 'Quickfix next', noremap = true }
+)
+
+vim.keymap.set(
+  { 'n', 'x' },
+  '<leader>fqp',
   '<cmd>cprevious<cr>zz',
   { desc = 'Quickfix previous', noremap = true }
 )

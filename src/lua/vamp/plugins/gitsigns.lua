@@ -31,6 +31,8 @@ return {
     on_attach = function(_)
       local gitsigns = require('gitsigns')
 
+      vim.keymap.set({ 'o', 'x' }, 'ih', ':<c-u>Gitsigns select_hunk<cr>')
+
       vim.keymap.set(
         { 'n', 'x' },
         '<leader>nga',
@@ -170,8 +172,6 @@ return {
         '<cmd>Gitsigns toggle_word_diff<cr>',
         { desc = 'Toggle word diff', noremap = true }
       )
-
-      vim.keymap.set({ 'o', 'x' }, 'ih', ':<c-u>Gitsigns select_hunk<cr>')
     end,
   },
 }

@@ -9,24 +9,6 @@ end, {
   noremap = true,
 })
 
-vim.keymap.set('n', '<leader>mh', function()
-  vim.cmd.RustLsp({ 'hover', 'actions' })
-end, {
-  desc = 'Hover actions',
-  buffer = bufnr,
-  silent = true,
-  noremap = true,
-})
-
-vim.keymap.set('x', '<leader>mh', function()
-  vim.cmd.RustLsp({ 'hover', 'range' })
-end, {
-  desc = 'Hover range',
-  buffer = bufnr,
-  silent = true,
-  noremap = true,
-})
-
 vim.keymap.set({ 'n', 'x' }, '<leader>mdd', function()
   vim.cmd.RustLsp('renderDiagnostic')
 end, {
@@ -40,6 +22,25 @@ vim.keymap.set({ 'n', 'x' }, '<leader>mde', function()
   vim.cmd.RustLsp('explainError')
 end, {
   desc = 'Explain error',
+  buffer = bufnr,
+  silent = true,
+  noremap = true,
+})
+
+
+vim.keymap.set('n', '<leader>mh', function()
+  vim.cmd.RustLsp({ 'hover', 'actions' })
+end, {
+  desc = 'Hover actions',
+  buffer = bufnr,
+  silent = true,
+  noremap = true,
+})
+
+vim.keymap.set('x', '<leader>mh', function()
+  vim.cmd.RustLsp({ 'hover', 'range' })
+end, {
+  desc = 'Hover range',
   buffer = bufnr,
   silent = true,
   noremap = true,

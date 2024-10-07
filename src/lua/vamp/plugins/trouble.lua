@@ -29,14 +29,6 @@ return {
 
     trouble.setup(opts)
 
-    vim.keymap.set({ 'n', 'x' }, 'gd', function()
-      trouble.toggle('lsp_definitions')
-    end, { desc = 'Definitions', noremap = true })
-
-    vim.keymap.set({ 'n', 'x' }, 'gr', function()
-      trouble.toggle('lsp_references')
-    end, { desc = 'References', noremap = true })
-
     vim.keymap.set({ 'n', 'x' }, '<leader>dd', function()
       trouble.toggle('diagnostics')
     end, { desc = 'Diagnostics', noremap = true })
@@ -60,6 +52,14 @@ return {
     vim.keymap.set({ 'n', 'x' }, '<leader>fq', function()
       trouble.toggle('quickfix')
     end, { desc = 'Quickfix', noremap = true })
+
+    vim.keymap.set({ 'n', 'x' }, 'gd', function()
+      trouble.toggle('lsp_definitions')
+    end, { desc = 'Definitions', noremap = true })
+
+    vim.keymap.set({ 'n', 'x' }, 'gr', function()
+      trouble.toggle('lsp_references')
+    end, { desc = 'References', noremap = true })
 
     vim.keymap.set({ 'n', 'x' }, '<leader>kt', function()
       trouble.toggle()

@@ -33,7 +33,7 @@ return {
       end, { desc = 'Go to breadcrumb ' .. barbecue_index, noremap = true })
     end
 
-    vim.keymap.set({ 'n', 'x' }, '<leader>nal', function()
+    vim.keymap.set({ 'n', 'x' }, '<leader>na$', function()
       require('barbecue.ui').navigate(-1)
     end, { desc = 'Go to the last breadcrumb', noremap = true })
   end,
