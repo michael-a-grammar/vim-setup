@@ -49,7 +49,7 @@ return {
       trouble.toggle('loclist')
     end, { desc = 'Loclist', noremap = true })
 
-    vim.keymap.set({ 'n', 'x' }, '<leader>fq', function()
+    vim.keymap.set({ 'n', 'x' }, '<leader>fqq', function()
       trouble.toggle('quickfix')
     end, { desc = 'Quickfix', noremap = true })
 

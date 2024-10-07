@@ -27,7 +27,6 @@ end, {
   noremap = true,
 })
 
-
 vim.keymap.set('n', '<leader>mh', function()
   vim.cmd.RustLsp({ 'hover', 'actions' })
 end, {

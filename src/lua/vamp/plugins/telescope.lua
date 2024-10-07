@@ -362,7 +362,6 @@ return {
       { desc = 'Stash', noremap = true }
     )
 
-
     vim.keymap.set(
       { 'n', 'x' },
       '<leader>nn',

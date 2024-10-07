@@ -116,6 +116,11 @@ return {
         },
 
         {
+          '<leader>fq',
+          group = 'Quickfix',
+        },
+
+        {
           '<leader>g',
           group = 'Git',
         },
