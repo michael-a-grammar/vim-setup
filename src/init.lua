@@ -1,3 +1,3 @@
-_G.catppuccin_theme = 'mocha'
+_G.catppuccin_theme = "mocha"
 
-require('vamp')
+require("vamp")
