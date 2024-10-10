@@ -16,18 +16,18 @@ vim.opt.fixendofline = true
 vim.opt.list = false
 
 vim.opt.listchars = {
-   eol = "¬",
-   extends = ">",
-   precedes = "<",
-   space = "␣",
-   tab = ">·",
-   trail = "~",
+  eol = "¬",
+  extends = ">",
+  precedes = "<",
+  space = "␣",
+  tab = ">·",
+  trail = "~",
 }
 
 vim.opt.hidden = true
 
 vim.opt.switchbuf = {
-   "uselast",
+  "uselast",
 }
 
 vim.opt.hlsearch = true
@@ -42,10 +42,10 @@ vim.opt.autochdir = false
 vim.opt.path:append("**")
 
 vim.opt.wildignore = {
-   "*/.git/*",
-   "*/.idea/*",
-   "*/.meteor/*",
-   "*/node_modules/*",
+  "*/.git/*",
+  "*/.idea/*",
+  "*/.meteor/*",
+  "*/node_modules/*",
 }
 
 vim.opt.autoindent = true
@@ -55,11 +55,11 @@ vim.opt.startofline = false
 vim.opt.wrap = true
 
 vim.opt.completeopt = {
-   "menu",
-   "menuone",
-   "noinsert",
-   "noselect",
-   "preview",
+  "menu",
+  "menuone",
+  "noinsert",
+  "noselect",
+  "preview",
 }
 
 vim.opt.history = 1000
@@ -108,13 +108,13 @@ vim.opt.mouse = "a"
 vim.opt.termguicolors = true
 
 local function define_sign(name, icon)
-   name = "DiagnosticSign" .. name
+  name = "DiagnosticSign" .. name
 
-   vim.fn.sign_define(name, {
-      texthl = name,
-      text = icon,
-      numhl = "",
-   })
+  vim.fn.sign_define(name, {
+    texthl = name,
+    text = icon,
+    numhl = "",
+  })
 end
 
 define_sign("Error", "")
@@ -123,19 +123,19 @@ define_sign("Info", "")
 define_sign("Warn", "")
 
 vim.diagnostic.config({
-   float = {
-      border = "rounded",
-   },
+  float = {
+    border = "rounded",
+  },
 })
 
 local events_augroup = vim.api.nvim_create_augroup("events", {})
 
 vim.api.nvim_create_autocmd("TextYankPost", {
-   group = events_augroup,
-   pattern = "*",
-   callback = function()
-      vim.highlight.on_yank()
-   end,
+  group = events_augroup,
+  pattern = "*",
+  callback = function()
+    vim.highlight.on_yank()
+  end,
 })
 
 vim.g["mapleader"] = vim.api.nvim_replace_termcodes("<space>", true, true, true)
