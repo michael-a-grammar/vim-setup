@@ -606,13 +606,6 @@ vim.keymap.set(
 )
 
 vim.keymap.set(
-  "t",
-  "<esc>",
-  "<c-\\><c-n>",
-  { desc = "Normal mode", noremap = true }
-)
-
-vim.keymap.set(
   "x",
   "<leader>ps",
   "<cmd>'<,'>sort<cr>",

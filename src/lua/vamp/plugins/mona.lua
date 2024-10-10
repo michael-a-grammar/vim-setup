@@ -11,11 +11,21 @@ return {
 
   keys = {
     {
+      "<localleader><localleader>",
+      function()
+        require("telescope").extensions.mona.pickers()
+      end,
+      desc = "Pickers",
+      ft = "elixir",
+      mode = { "n", "x" },
+    },
+
+    {
       "<localleader>a",
       function()
         require("telescope").extensions.mona.elixir_application_modules()
       end,
-      desc = "Browse Application Modules",
+      desc = "Application Modules",
       ft = "elixir",
       mode = { "n", "x" },
     },
@@ -25,7 +35,7 @@ return {
       function()
         require("telescope").extensions.mona.elixir_buffer_directory_modules()
       end,
-      desc = "Browse Buffer Directory Modules",
+      desc = "Buffer Directory Modules",
       ft = "elixir",
       mode = { "n", "x" },
     },
@@ -35,7 +45,7 @@ return {
       function()
         require("telescope").extensions.mona.elixir_project_modules()
       end,
-      desc = "Browse Project Modules",
+      desc = "Project Modules",
       ft = "elixir",
       mode = { "n", "x" },
     },
@@ -45,7 +55,7 @@ return {
       function()
         require("telescope").extensions.mona.elixir_application_tests()
       end,
-      desc = "Browse Application Tests",
+      desc = "Application Tests",
       ft = "elixir",
       mode = { "n", "x" },
     },
@@ -55,7 +65,7 @@ return {
       function()
         require("telescope").extensions.mona.elixir_buffer_directory_tests()
       end,
-      desc = "Browse Buffer Directory Tests",
+      desc = "Buffer Directory Tests",
       ft = "elixir",
       mode = { "n", "x" },
     },
@@ -65,7 +75,7 @@ return {
       function()
         require("telescope").extensions.mona.elixir_project_tests()
       end,
-      desc = "Browse Project Tests",
+      desc = "Project Tests",
       ft = "elixir",
       mode = { "n", "x" },
     },
