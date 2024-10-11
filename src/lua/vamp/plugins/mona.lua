@@ -1,7 +1,7 @@
 return {
   "michael-a-grammar/mona.nvim",
 
-  dev = true,
+  dev = false,
 
   dependencies = {
     "folke/which-key.nvim",
