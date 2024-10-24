@@ -8,6 +8,11 @@ return {
     "nvim-telescope/telescope-github.nvim",
     "nvim-telescope/telescope-z.nvim",
 
+    "catppuccin/nvim",
+    "folke/trouble.nvim",
+    "gbprod/yanky.nvim",
+    "michael-a-grammar/mona.nvim",
+
     {
       "nvim-telescope/telescope-fzf-native.nvim",
 

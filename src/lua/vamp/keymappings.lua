@@ -130,12 +130,12 @@ vim.keymap.set(
 
 vim.keymap.set({ "n", "x" }, "U", "<c-r>", { desc = "Redo", noremap = true })
 
-vim.keymap.set(
-  { "n", "x" },
-  "k",
-  vim.lsp.buf.hover,
-  { desc = "Hover", noremap = true }
-)
+-- vim.keymap.set(
+--   { "n", "x" },
+--   "k",
+--   vim.lsp.buf.hover,
+--   { desc = "Hover", noremap = true }
+-- )
 
 vim.keymap.set(
   { "n", "x" },
@@ -597,6 +597,17 @@ vim.keymap.set(
   "<cmd>tabprevious<cr>",
   { desc = "Previous tab", noremap = true }
 )
+
+vim.keymap.set({ "n", "x" }, "<leader>zv", function()
+  local is_vamp = string.find(vim.loop.cwd() or "", ".+/vamp.-")
+
+  if is_vamp then
+    vim.cmd("wa")
+  end
+
+  vim.cmd("!vamp")
+  vim.cmd("qa")
+end, { desc = "󰭟", noremap = true })
 
 vim.keymap.set(
   "t",

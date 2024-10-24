@@ -3,6 +3,11 @@ return {
 
   after = "catppuccin",
 
+  dependencies = {
+    "catppuccin/nvim",
+    "michael-a-grammar/mona.nvim",
+  },
+
   opts = {
     options = {
       diagnostics = "nvim_lsp",
@@ -81,6 +86,8 @@ return {
 
     opts.highlights = require("catppuccin.groups.integrations.bufferline").get()
 
+    local bufferline_groups = require("mona.extensions.bufferline").groups()
+
     opts.options.groups = {
       items = {
         require("bufferline.groups").builtin.pinned:with({
@@ -91,14 +98,14 @@ return {
           auto_close = true,
           icon = "  ",
           name = " Tests",
-          priority = 1,
+          priority = bufferline_groups.increment_priority(),
 
           highlight = {
             sp = catppuccin.mauve,
           },
 
           matcher = function(buf)
-            return buf.name:match("_test") or buf.name:match("_spec")
+            return buf.name:match("%_test%.") or buf.name:match("%_spec%.")
           end,
         },
 
@@ -106,7 +113,7 @@ return {
           auto_close = true,
           icon = " 󰪰 ",
           name = "󰪰 Aggregates",
-          priority = 2,
+          priority = bufferline_groups.increment_priority(),
 
           highlight = {
             sp = catppuccin.red,
@@ -121,7 +128,7 @@ return {
           auto_close = true,
           icon = "  ",
           name = " Commands",
-          priority = 3,
+          priority = bufferline_groups.increment_priority(),
 
           highlight = {
             sp = catppuccin.peach,
@@ -136,7 +143,7 @@ return {
           auto_close = true,
           name = "󰨦 Events",
           icon = " 󰨦 ",
-          priority = 4,
+          priority = bufferline_groups.increment_priority(),
 
           highlight = {
             sp = catppuccin.yellow,
@@ -151,7 +158,7 @@ return {
           auto_close = true,
           icon = " 󰐮 ",
           name = "󰐮 Projectors",
-          priority = 5,
+          priority = bufferline_groups.increment_priority(),
 
           highlight = {
             sp = catppuccin.green,
@@ -166,7 +173,7 @@ return {
           auto_close = true,
           icon = "   ",
           name = "  Read models",
-          priority = 6,
+          priority = bufferline_groups.increment_priority(),
 
           highlight = {
             sp = catppuccin.blue,
@@ -181,7 +188,7 @@ return {
           auto_close = true,
           icon = " 󰪭  ",
           name = "󰪭  Services",
-          priority = 7,
+          priority = bufferline_groups.increment_priority(),
 
           highlight = {
             sp = catppuccin.lavender,
@@ -193,6 +200,10 @@ return {
         },
       },
     }
+
+    for _, group in pairs(bufferline_groups.values) do
+      table.insert(opts.options.groups.items, group)
+    end
 
     require("bufferline").setup(opts)
 

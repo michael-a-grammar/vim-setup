@@ -1,7 +1,7 @@
 return {
   "michael-a-grammar/mona.nvim",
 
-  dev = false,
+  dev = true,
 
   dependencies = {
     "folke/which-key.nvim",
@@ -79,9 +79,27 @@ return {
       ft = "elixir",
       mode = { "n", "x" },
     },
+
+    {
+      "<leader>zm",
+      function()
+        vim.print(vim.inspect(require("mona.__debug")()))
+      end,
+      desc = " ",
+      mode = { "n", "x" },
+    },
   },
 
-  config = function(_, _)
+  opts = {
+    extensions = {
+      bufferline = true,
+      grug_far = true,
+    },
+  },
+
+  config = function(_, opts)
+    require("mona").setup(opts)
+
     local to_add = {
       {
         mode = {
