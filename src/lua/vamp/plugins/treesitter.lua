@@ -10,6 +10,7 @@ return {
       "elixir",
       "elm",
       "eex",
+      "fennel",
       "fish",
       "lua",
       "javascript",
@@ -27,7 +28,6 @@ return {
 
     highlight = {
       additional_vim_regex_highlighting = false,
-
       enable = true,
     },
 

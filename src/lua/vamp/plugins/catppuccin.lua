@@ -6,7 +6,7 @@ return {
 
   opts = {
     background = {
-      dark = "mocha",
+      dark = _G.catppuccin_theme,
       light = "latte",
     },
 

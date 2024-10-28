@@ -98,7 +98,7 @@ vim.opt.undolevels = 1000
 vim.opt.undoreload = 1000
 
 vim.opt.concealcursor = "nvic"
-vim.opt.conceallevel = 1
+vim.opt.conceallevel = 0
 
 vim.opt.visualbell = true
 

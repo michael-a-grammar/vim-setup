@@ -94,6 +94,7 @@ return {
     extensions = {
       bufferline = true,
       grug_far = true,
+      toggleterm = true,
     },
   },
 
@@ -114,6 +115,11 @@ return {
 
         {
           "<localleader>t",
+          "Modules"
+        },
+
+        {
+          "<localleader>mt",
           group = "Tests",
         },
       },

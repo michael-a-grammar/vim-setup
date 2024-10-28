@@ -86,7 +86,13 @@ return {
 
     opts.highlights = require("catppuccin.groups.integrations.bufferline").get()
 
-    local bufferline_groups = require("mona.extensions.bufferline").groups()
+    local bufferline_groups = require("mona.extensions.bufferline").groups({
+      defaults = {
+        highlight = {
+          sp = catppuccin.mauve,
+        },
+      },
+    })
 
     opts.options.groups = {
       items = {
