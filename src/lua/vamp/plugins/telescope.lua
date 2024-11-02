@@ -160,8 +160,8 @@ return {
     local catppuccin =
       require("catppuccin.palettes").get_palette(_G.catppuccin_theme)
 
-    local file_paths = require("vamp.current_buffer.file_paths")
-    local file_type_info = require("vamp.current_buffer.file_type_info")
+    local file_paths = require("vamp.buffer.file_paths")
+    local file_type_info = require("vamp.buffer.file_type_info")
 
     telescope.setup(opts)
 

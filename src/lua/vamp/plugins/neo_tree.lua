@@ -150,7 +150,7 @@ return {
 
         ["h"] = "open_split",
         ["i"] = "noop",
-        ["k"] = "show_file_details",
+        -- ["k"] = "show_file_details",
 
         ["p"] = {
           "toggle_preview",

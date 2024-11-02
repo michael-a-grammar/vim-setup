@@ -21,7 +21,43 @@ return {
     },
 
     {
-      "<localleader>a",
+      "<localleader>''",
+      function()
+        require("mona.integrations.toggleterm").iex({}, function(iex)
+          return iex
+        end)
+      end,
+      desc = "iex",
+      ft = "elixir",
+      mode = { "n", "x" },
+    },
+
+    {
+      "<localleader>'r",
+      function()
+        require("mona.integrations.toggleterm").iex({}, function(iex)
+          return iex.S("mix")
+        end)
+      end,
+      desc = "iex -S mix",
+      ft = "elixir",
+      mode = { "n", "x" },
+    },
+
+    {
+      "<localleader>n/",
+      function()
+        require("mona.integrations.grug_far").module({
+          transient = true,
+        })
+      end,
+      desc = "Find and replace",
+      ft = "elixir",
+      mode = { "n", "x" },
+    },
+
+    {
+      "<localleader>ta",
       function()
         require("telescope").extensions.mona.elixir_application_modules()
       end,
@@ -31,7 +67,7 @@ return {
     },
 
     {
-      "<localleader>n",
+      "<localleader>tn",
       function()
         require("telescope").extensions.mona.elixir_buffer_directory_modules()
       end,
@@ -41,7 +77,7 @@ return {
     },
 
     {
-      "<localleader>p",
+      "<localleader>tp",
       function()
         require("telescope").extensions.mona.elixir_project_modules()
       end,
@@ -51,7 +87,7 @@ return {
     },
 
     {
-      "<localleader>ta",
+      "<localleader>tta",
       function()
         require("telescope").extensions.mona.elixir_application_tests()
       end,
@@ -61,7 +97,7 @@ return {
     },
 
     {
-      "<localleader>tn",
+      "<localleader>ttn",
       function()
         require("telescope").extensions.mona.elixir_buffer_directory_tests()
       end,
@@ -71,7 +107,7 @@ return {
     },
 
     {
-      "<localleader>tp",
+      "<localleader>ttp",
       function()
         require("telescope").extensions.mona.elixir_project_tests()
       end,
@@ -91,7 +127,7 @@ return {
   },
 
   opts = {
-    extensions = {
+    integrations = {
       bufferline = true,
       grug_far = true,
       toggleterm = true,
@@ -100,6 +136,8 @@ return {
 
   config = function(_, opts)
     require("mona").setup(opts)
+
+    local icon = require("mona.config").icon("mona")
 
     local to_add = {
       {
@@ -110,16 +148,26 @@ return {
 
         {
           "<localleader>",
-          group = " mona",
+          group = icon .. " mona",
+        },
+
+        {
+          "<localleader>'",
+          group = "",
+        },
+
+        {
+          "<localleader>n",
+          "Module",
         },
 
         {
           "<localleader>t",
-          "Modules"
+          "Modules",
         },
 
         {
-          "<localleader>mt",
+          "<localleader>tt",
           group = "Tests",
         },
       },

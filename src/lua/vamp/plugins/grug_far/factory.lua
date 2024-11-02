@@ -3,9 +3,8 @@ local M = {}
 function M.open(opts)
   opts = opts or {}
 
-  local file_paths = require("vamp.current_buffer.file_paths")
-
-  local file_type_info = require("vamp.current_buffer.file_type_info")
+  local file_paths = require("vamp.buffer.file_paths")
+  local file_type_info = require("vamp.buffer.file_type_info")
 
   local prefills = {}
 
