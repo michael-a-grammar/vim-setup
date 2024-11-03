@@ -243,19 +243,21 @@ vim.keymap.set(
   { desc = "Quickfix previous", noremap = true }
 )
 
-vim.keymap.set(
-  { "n", "x" },
-  "<leader>kh",
-  "<cmd>set nohlsearch<cr>",
-  { desc = "Toggle highlighted search results", noremap = true }
-)
+local function toggle(opt_name)
+  vim.opt[opt_name] = not vim.opt[opt_name]:get()
+end
 
-vim.keymap.set(
-  { "n", "x" },
-  "<leader>ki",
-  "<cmd>set noincsearch<cr>",
-  { desc = "Toggle incremental search", noremap = true }
-)
+vim.keymap.set({ "n", "x" }, "<leader>kh", function()
+  toggle("hlsearch")
+end, { desc = "Toggle highlighted search results", noremap = true })
+
+vim.keymap.set({ "n", "x" }, "<leader>ki", function()
+  toggle("incsearch")
+end, { desc = "Toggle incremental search", noremap = true })
+
+vim.keymap.set({ "n", "x" }, "<leader>ks", function()
+  toggle("spell")
+end, { desc = "Toggle spelling", noremap = true })
 
 vim.keymap.set(
   { "n", "x" },
