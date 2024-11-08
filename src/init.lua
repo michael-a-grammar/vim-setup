@@ -1,3 +1,3 @@
-_G.catppuccin_theme = "latte"
+_G.catppuccin_theme = "mocha"
 
 require("vamp")
